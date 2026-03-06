@@ -37,21 +37,22 @@ export function ContentTypePicker() {
                 </Button>
                 <p className="text-text-secondary">
                     Select a content type for{" "}
-                    <span className="font-semibold text-deep-green">
+                    <span className="font-semibold wire-gradient-text">
                         {instanceData.name}
                     </span>
                 </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 stagger-children">
                 {contentTypes.map((ct) => (
                     <Card
                         key={ct.id}
                         selected={contentType === ct.id}
                         onClick={() => selectContentType(ct.id)}
+                        className="group"
                     >
                         <CardBody>
-                            <h3 className="font-semibold text-text-primary mb-1">
+                            <h3 className="font-semibold text-text-primary mb-1 group-hover:text-deep-green transition-colors">
                                 {ct.label}
                             </h3>
                             {ct.beschreibung && (

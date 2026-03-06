@@ -3,6 +3,7 @@ import { type HTMLAttributes, forwardRef } from "react";
 interface CardProps extends HTMLAttributes<HTMLDivElement> {
     selected?: boolean;
     hoverable?: boolean;
+    glass?: boolean;
 }
 
 export const Card = forwardRef<HTMLDivElement, CardProps>(
@@ -10,6 +11,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
         {
             selected = false,
             hoverable = true,
+            glass = true,
             className = "",
             children,
             ...props
@@ -20,18 +22,18 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
             <div
                 ref={ref}
                 className={`
-          bg-bg-card rounded-xl
-          border transition-all duration-[var(--vdna-transition-base)]
-          ${selected
+                    rounded-xl transition-all duration-[var(--vdna-transition-base)]
+                    ${glass ? "glass-card" : "bg-bg-card border border-border-default"}
+                    ${selected
                         ? "wire-gradient-border shadow-md ring-1 ring-bright-green/20"
-                        : "border-border-default"
-                    }
-          ${hoverable && !selected
-                        ? "hover:shadow-md hover:border-crisp-cyan/40 hover:scale-[1.01] cursor-pointer"
                         : ""
                     }
-          ${className}
-        `}
+                    ${hoverable && !selected
+                        ? "hover-lift cursor-pointer"
+                        : ""
+                    }
+                    ${className}
+                `}
                 {...props}
             >
                 {children}
@@ -74,7 +76,7 @@ export function CardFooter({
 }: HTMLAttributes<HTMLDivElement>) {
     return (
         <div
-            className={`px-5 pb-5 pt-2 border-t border-border-default ${className}`}
+            className={`px-5 pb-5 pt-2 border-t border-border-default/50 ${className}`}
             {...props}
         >
             {children}

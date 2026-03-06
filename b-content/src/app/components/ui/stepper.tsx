@@ -17,15 +17,17 @@ export function Stepper({ steps, currentStep }: StepperProps) {
                         <div className="flex flex-col items-center gap-1.5">
                             <div
                                 className={`
-                  w-9 h-9 rounded-full flex items-center justify-center
-                  text-sm font-semibold transition-all duration-[var(--vdna-transition-base)]
-                  ${isCompleted
+                                    w-9 h-9 rounded-full flex items-center justify-center
+                                    text-sm font-semibold transition-all duration-[var(--vdna-transition-base)]
+                                    ${isCompleted
                                         ? "wire-gradient text-white shadow-sm"
                                         : isActive
                                             ? "bg-deep-green text-white shadow-md ring-4 ring-deep-green/15"
                                             : "bg-border-default text-text-muted"
                                     }
-                `}
+                                    ${isActive ? "animate-scale-in" : ""}
+                                `}
+                                style={isActive ? { animation: "pulseGlow 2.5s ease-in-out infinite, scaleIn 0.3s ease-out" } : undefined}
                             >
                                 {isCompleted ? (
                                     <svg
@@ -47,14 +49,15 @@ export function Stepper({ steps, currentStep }: StepperProps) {
                             </div>
                             <span
                                 className={`
-                  text-xs font-medium whitespace-nowrap
-                  ${isActive
+                                    text-xs font-medium whitespace-nowrap
+                                    transition-colors duration-[var(--vdna-transition-base)]
+                                    ${isActive
                                         ? "text-deep-green"
                                         : isCompleted
                                             ? "text-bright-green"
                                             : "text-text-muted"
                                     }
-                `}
+                                `}
                             >
                                 {label}
                             </span>
@@ -62,13 +65,26 @@ export function Stepper({ steps, currentStep }: StepperProps) {
 
                         {/* Connector line (not after last step) */}
                         {index < steps.length - 1 && (
-                            <div
-                                className={`
-                  flex-1 h-0.5 mx-2 mt-[-18px] rounded-full
-                  transition-all duration-[var(--vdna-transition-slow)]
-                  ${isCompleted ? "wire-gradient" : "bg-border-default"}
-                `}
-                            />
+                            <div className="flex-1 mx-2 mt-[-18px] relative">
+                                {/* Background track */}
+                                <div className="h-0.5 rounded-full bg-border-default" />
+                                {/* Animated gradient fill */}
+                                <div
+                                    className={`
+                                        absolute inset-0 h-0.5 rounded-full
+                                        transition-all duration-700 ease-out
+                                        ${isCompleted
+                                            ? "wire-gradient opacity-100"
+                                            : "opacity-0"
+                                        }
+                                    `}
+                                    style={isCompleted ? {
+                                        background: "linear-gradient(90deg, #32B7BE, #46B384)",
+                                        backgroundSize: "200% 100%",
+                                        animation: "gradientFlow 3s ease-in-out infinite",
+                                    } : undefined}
+                                />
+                            </div>
                         )}
                     </div>
                 );

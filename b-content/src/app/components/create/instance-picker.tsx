@@ -37,16 +37,18 @@ export function InstancePicker() {
                 themes, and style.
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 stagger-children">
                 {INSTANCE_CARDS.map((inst) => (
                     <Card
                         key={inst.id}
                         selected={instance === inst.id}
                         onClick={() => selectInstance(inst.id)}
-                        className="text-center"
+                        className="text-center group"
                     >
                         <CardBody className="py-8">
-                            <span className="text-4xl block mb-3">{inst.icon}</span>
+                            <span className="text-4xl block mb-3 transition-transform duration-300 group-hover:scale-110">
+                                {inst.icon}
+                            </span>
                             <h3 className="text-lg font-semibold text-text-primary mb-1">
                                 {inst.name}
                             </h3>

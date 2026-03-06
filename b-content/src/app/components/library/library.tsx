@@ -129,25 +129,29 @@ export function Library() {
 
     if (loading) {
         return (
-            <div className="flex items-center justify-center h-64">
-                <div className="text-text-muted animate-pulse">Loading Library...</div>
+            <div className="flex flex-col items-center justify-center h-64 gap-3">
+                <div className="w-8 h-8 border-2 border-crisp-cyan/30 border-t-crisp-cyan rounded-full" style={{ animation: "gentleSpin 0.8s linear infinite" }} />
+                <span className="text-text-muted text-sm">Loading Library...</span>
             </div>
         );
     }
 
     return (
         <div>
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center justify-between mb-2">
                 <div>
-                    <h2 className="text-xl font-semibold text-text-primary">📚 Content Library</h2>
-                    <p className="text-sm text-text-muted mt-1">
-                        {posts.length} post{posts.length !== 1 ? "s" : ""} generated
-                    </p>
+                    <h2 className="text-xl font-semibold text-text-primary section-header">
+                        📚 Content Library
+                    </h2>
                 </div>
                 <Button variant="ghost" size="sm" onClick={fetchPosts}>
                     🔄 Refresh
                 </Button>
             </div>
+            <hr className="gradient-line mb-3" />
+            <p className="text-sm text-text-muted mb-6">
+                {posts.length} post{posts.length !== 1 ? "s" : ""} generated
+            </p>
 
             {/* Filters */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
@@ -166,14 +170,14 @@ export function Library() {
             </div>
 
             {error && (
-                <div className="rounded-lg bg-red-500/10 border border-red-500/30 p-4 mb-6 text-sm text-red-400">
+                <div className="rounded-lg bg-red-500/10 border border-red-500/30 p-4 mb-6 text-sm text-red-400 animate-fade-in-up">
                     {error}
                 </div>
             )}
 
             {/* Post List */}
             {posts.length === 0 ? (
-                <div className="text-center py-16">
+                <div className="text-center py-16 animate-fade-in-up">
                     <span className="text-5xl block mb-4">📭</span>
                     <p className="text-text-muted text-lg">No posts yet</p>
                     <p className="text-text-muted text-sm mt-2">
@@ -181,7 +185,7 @@ export function Library() {
                     </p>
                 </div>
             ) : (
-                <div className="space-y-4">
+                <div className="space-y-4 stagger-children">
                     {posts.map((post) => {
                         const isExpanded = expandedPost === post.id;
                         const dateStr = new Date(post.created_at + "Z").toLocaleDateString("de-DE", {
@@ -195,7 +199,7 @@ export function Library() {
                         return (
                             <div
                                 key={post.id}
-                                className="rounded-xl border border-border-default bg-bg-card hover:border-border-active transition-colors overflow-hidden"
+                                className="glass-card rounded-xl overflow-hidden hover-lift"
                             >
                                 {/* Post Header — always visible */}
                                 <button
@@ -208,7 +212,7 @@ export function Library() {
                                             <img
                                                 src={post.image.url}
                                                 alt=""
-                                                className="w-full h-full object-cover"
+                                                className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                                             />
                                         ) : (
                                             <div className="w-full h-full flex items-center justify-center text-2xl text-text-muted">
@@ -238,19 +242,19 @@ export function Library() {
                                     </div>
 
                                     {/* Expand arrow */}
-                                    <span className="text-text-muted text-lg flex-shrink-0">
-                                        {isExpanded ? "▲" : "▼"}
+                                    <span className={`text-text-muted text-lg flex-shrink-0 transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`}>
+                                        ▼
                                     </span>
                                 </button>
 
                                 {/* Expanded detail */}
                                 {isExpanded && (
-                                    <div className="border-t border-border-default p-4">
+                                    <div className="border-t border-border-default/50 p-4 expand-enter">
                                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                                             {/* Full text */}
                                             <div>
                                                 <h4 className="text-sm font-semibold text-text-primary mb-2">Full Text</h4>
-                                                <div className="bg-bg-primary rounded-lg p-3 text-sm text-text-secondary whitespace-pre-wrap max-h-64 overflow-y-auto">
+                                                <div className="bg-bg-primary/80 rounded-lg p-3 text-sm text-text-secondary whitespace-pre-wrap max-h-64 overflow-y-auto backdrop-blur-sm">
                                                     {post.text}
                                                 </div>
                                                 {post.hashtags.length > 0 && (
@@ -272,7 +276,7 @@ export function Library() {
                                                         <img
                                                             src={post.image.url}
                                                             alt="Generated post image"
-                                                            className="w-full rounded-lg border border-border-default"
+                                                            className="w-full rounded-lg border border-border-default/50 transition-transform duration-300 hover:scale-[1.02]"
                                                         />
                                                         <p className="text-xs text-text-muted mt-1">
                                                             {post.image.width}×{post.image.height} · {post.image.format}
@@ -283,7 +287,7 @@ export function Library() {
                                         </div>
 
                                         {/* Actions */}
-                                        <div className="flex items-center gap-2 mt-4 pt-4 border-t border-border-default">
+                                        <div className="flex items-center gap-2 mt-4 pt-4 border-t border-border-default/50">
                                             <Button
                                                 variant="secondary"
                                                 size="sm"

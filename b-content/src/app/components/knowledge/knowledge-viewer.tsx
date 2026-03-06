@@ -40,16 +40,19 @@ export function KnowledgeViewer() {
 
     return (
         <div>
-            <h1 className="text-2xl font-semibold text-text-primary mb-2">
-                Knowledge Base
-            </h1>
-            <p className="text-text-secondary mb-6">
-                The foundation for AI-powered content generation — {topics.length} topic fields,
-                {" "}{totalQuotes} quotes, and posting rules.
-            </p>
+            <div className="mb-6">
+                <h1 className="text-2xl font-semibold text-text-primary section-header">
+                    Knowledge Base
+                </h1>
+                <hr className="gradient-line mt-4 mb-3" />
+                <p className="text-text-secondary">
+                    The foundation for AI-powered content generation — {topics.length} topic fields,
+                    {" "}{totalQuotes} quotes, and posting rules.
+                </p>
+            </div>
 
-            {/* Tab Selector */}
-            <div className="flex gap-1 p-1 bg-bg-card rounded-xl border border-border-default mb-6 w-fit">
+            {/* Tab Selector — glassmorphism pill */}
+            <div className="flex gap-1 p-1 rounded-xl mb-6 w-fit tab-pill-container">
                 {(
                     [
                         { id: "topics", label: "🏷️ Topics", count: topics.length },
@@ -61,14 +64,14 @@ export function KnowledgeViewer() {
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id)}
                         className={`
-              px-4 py-2 rounded-lg text-sm font-medium
-              transition-all duration-[var(--vdna-transition-fast)]
-              cursor-pointer
-              ${activeTab === tab.id
+                            px-4 py-2 rounded-lg text-sm font-medium
+                            transition-all duration-[var(--vdna-transition-base)]
+                            cursor-pointer
+                            ${activeTab === tab.id
                                 ? "wire-gradient text-white shadow-sm"
                                 : "text-text-secondary hover:text-text-primary hover:bg-bg-card-hover"
                             }
-            `}
+                        `}
                     >
                         {tab.label}
                         {"count" in tab && tab.count !== undefined && (
@@ -78,23 +81,25 @@ export function KnowledgeViewer() {
                 ))}
             </div>
 
-            {/* Content */}
-            {activeTab === "topics" && <TopicsView />}
-            {activeTab === "quotes" && <QuotesView />}
-            {activeTab === "rules" && <RulesView />}
+            {/* Content with fade-in */}
+            <div className="animate-fade-in-up" key={activeTab}>
+                {activeTab === "topics" && <TopicsView />}
+                {activeTab === "quotes" && <QuotesView />}
+                {activeTab === "rules" && <RulesView />}
+            </div>
         </div>
     );
 }
 
 function TopicsView() {
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 stagger-children">
             {topics.map((topic) => (
                 <div
                     key={topic.id}
-                    className="bg-bg-card rounded-xl border border-border-default p-5 hover:shadow-md transition-shadow"
+                    className="glass-card rounded-xl p-5 hover-lift group"
                 >
-                    <h3 className="font-semibold text-text-primary mb-1">
+                    <h3 className="font-semibold text-text-primary mb-1 group-hover:text-deep-green transition-colors">
                         {topic.label}
                     </h3>
                     <p className="text-sm text-crisp-cyan italic mb-3">
@@ -123,18 +128,18 @@ function QuotesView() {
     return (
         <div className="space-y-6">
             {quoteGroups.map((group) => (
-                <div key={group.author}>
+                <div key={group.author} className="animate-fade-in-up">
                     <h3 className="font-semibold text-text-primary mb-3 flex items-center gap-2">
                         <Badge variant="accent">{group.name}</Badge>
                         <span className="text-sm text-text-muted">
                             ({group.quotes.length} quotes)
                         </span>
                     </h3>
-                    <div className="space-y-2">
+                    <div className="space-y-2 stagger-children">
                         {group.quotes.map((q) => (
                             <div
                                 key={q.id}
-                                className="bg-bg-card rounded-lg border border-border-default p-4"
+                                className="glass-card rounded-lg p-4 hover-lift"
                             >
                                 <p className="text-sm text-text-primary italic">
                                     &ldquo;{q.content}&rdquo;
@@ -176,15 +181,15 @@ function RulesView() {
     return (
         <div className="space-y-6">
             {allRuleSections.map((section) => (
-                <div key={section.title}>
+                <div key={section.title} className="animate-fade-in-up">
                     <h3 className="font-semibold text-text-primary mb-3">
                         {section.title}
                     </h3>
-                    <div className="space-y-2">
+                    <div className="space-y-2 stagger-children">
                         {section.items.map((rule) => (
                             <div
                                 key={rule.name}
-                                className="bg-bg-card rounded-lg border border-border-default p-4"
+                                className="glass-card rounded-lg p-4 hover-lift"
                             >
                                 <h4 className="text-sm font-medium text-deep-green mb-1">
                                     {rule.name}

@@ -28,15 +28,16 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                     ref={ref}
                     id={inputId}
                     className={`
-            w-full px-4 py-2.5 rounded-lg
-            bg-bg-card border border-border-default
-            text-text-primary placeholder:text-text-muted
-            font-[var(--vdna-font-primary)]
-            transition-all duration-[var(--vdna-transition-fast)]
-            focus:outline-none focus:border-border-focus focus:ring-2 focus:ring-deep-green/15
-            ${error ? "border-error focus:ring-error/15" : ""}
-            ${className}
-          `}
+                        w-full px-4 py-2.5 rounded-lg
+                        bg-white/90 backdrop-blur-sm border border-border-default
+                        text-text-primary placeholder:text-text-muted
+                        font-[var(--vdna-font-primary)]
+                        transition-all duration-[var(--vdna-transition-fast)]
+                        hover:border-crisp-cyan/30 hover:shadow-sm
+                        focus:outline-none focus:border-border-focus focus:ring-2 focus:ring-deep-green/15
+                        ${error ? "border-error focus:ring-error/15" : ""}
+                        ${className}
+                    `}
                     {...props}
                 />
                 {error && <p className="text-sm text-error">{error}</p>}
@@ -78,15 +79,16 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
                     ref={ref}
                     id={textareaId}
                     className={`
-            w-full px-4 py-3 rounded-lg min-h-[120px] resize-y
-            bg-bg-card border border-border-default
-            text-text-primary placeholder:text-text-muted
-            font-[var(--vdna-font-primary)]
-            transition-all duration-[var(--vdna-transition-fast)]
-            focus:outline-none focus:border-border-focus focus:ring-2 focus:ring-deep-green/15
-            ${error || isOverLimit ? "border-error focus:ring-error/15" : ""}
-            ${className}
-          `}
+                        w-full px-4 py-3 rounded-lg min-h-[120px] resize-y
+                        bg-white/90 backdrop-blur-sm border border-border-default
+                        text-text-primary placeholder:text-text-muted
+                        font-[var(--vdna-font-primary)]
+                        transition-all duration-[var(--vdna-transition-fast)]
+                        hover:border-crisp-cyan/30 hover:shadow-sm
+                        focus:outline-none focus:border-border-focus focus:ring-2 focus:ring-deep-green/15
+                        ${error || isOverLimit ? "border-error focus:ring-error/15" : ""}
+                        ${className}
+                    `}
                     {...props}
                 />
                 <div className="flex justify-between items-center">

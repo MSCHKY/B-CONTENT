@@ -15,9 +15,11 @@ export function CreateFlow() {
         <div>
             {/* Header */}
             <div className="flex items-center justify-between mb-2">
-                <h1 className="text-2xl font-semibold text-text-primary">
-                    Create Content
-                </h1>
+                <div>
+                    <h1 className="text-2xl font-semibold text-text-primary section-header">
+                        Create Content
+                    </h1>
+                </div>
                 {step > 1 && (
                     <Button variant="ghost" size="sm" onClick={reset}>
                         ↺ Start Over
@@ -25,11 +27,14 @@ export function CreateFlow() {
                 )}
             </div>
 
+            {/* Gradient Divider */}
+            <hr className="gradient-line mb-4" />
+
             {/* Stepper */}
             <Stepper steps={STEPS} currentStep={step} />
 
-            {/* Step Content */}
-            <div className="mt-6">
+            {/* Step Content with animation */}
+            <div className="mt-6 animate-fade-in-up" key={step}>
                 {step === 1 && <InstancePicker />}
                 {step === 2 && <ContentTypePicker />}
                 {step === 3 && <TopicInput />}

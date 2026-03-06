@@ -32,18 +32,19 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
                     ref={ref}
                     id={selectId}
                     className={`
-            w-full px-4 py-2.5 rounded-lg appearance-none
-            bg-bg-card border border-border-default
-            text-text-primary
-            font-[var(--vdna-font-primary)]
-            transition-all duration-[var(--vdna-transition-fast)]
-            focus:outline-none focus:border-border-focus focus:ring-2 focus:ring-deep-green/15
-            bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23787878%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M4.646%206.646a.5.5%200%200%201%20.708%200L8%209.293l2.646-2.647a.5.5%200%200%201%20.708.708l-3%203a.5.5%200%200%201-.708%200l-3-3a.5.5%200%200%201%200-.708z%22%2F%3E%3C%2Fsvg%3E')]
-            bg-no-repeat bg-[right_12px_center]
-            pr-10
-            ${error ? "border-error" : ""}
-            ${className}
-          `}
+                        w-full px-4 py-2.5 rounded-lg appearance-none
+                        bg-white/90 backdrop-blur-sm border border-border-default
+                        text-text-primary
+                        font-[var(--vdna-font-primary)]
+                        transition-all duration-[var(--vdna-transition-fast)]
+                        hover:border-crisp-cyan/30 hover:shadow-sm
+                        focus:outline-none focus:border-border-focus focus:ring-2 focus:ring-deep-green/15
+                        bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23787878%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M4.646%206.646a.5.5%200%200%201%20.708%200L8%209.293l2.646-2.647a.5.5%200%200%201%20.708.708l-3%203a.5.5%200%200%201-.708%200l-3-3a.5.5%200%200%201%200-.708z%22%2F%3E%3C%2Fsvg%3E')]
+                        bg-no-repeat bg-[right_12px_center]
+                        pr-10
+                        ${error ? "border-error" : ""}
+                        ${className}
+                    `}
                     {...props}
                 >
                     {placeholder && (
