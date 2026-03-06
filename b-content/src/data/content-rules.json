@@ -1,0 +1,77 @@
+{
+    "posting_rules": {
+        "ratio": {
+            "fach_zu_persoenlich": "4:1",
+            "beschreibung": "4 Fachbeiträge, dann 1 persönlicher Post. Persönliches schafft Vertrauen und Relateability."
+        },
+        "max_oberthemen": {
+            "value": 3,
+            "beschreibung": "Menschen können sich nur drei Sachen merken. Ab der vierten sind sie überfordert."
+        },
+        "posting_abstand": {
+            "min_tage": 2,
+            "beschreibung": "Nie zwei Posts am selben Tag. Mindestens 2 Tage Abstand. Jede Story verdient ihren eigenen Moment."
+        },
+        "sprache": "en",
+        "sprache_beschreibung": "Posts werden auf Englisch verfasst (basierend auf der strategischen Ausrichtung und allen Beispiel-Posts)"
+    },
+    "content_principles": {
+        "emotion_schlaegt_abstraktion": {
+            "formel": "Abstraktes Produkt (Draht) + echte Welt = Emotion = Brandbuilding",
+            "beispiel": "Unser Endprodukt ist der Draht. Das sagt dir nichts. Aber wir sind in dem Katheter, der das Leben von deinem Papa gerettet hat."
+        },
+        "authentizitaet": {
+            "beschreibung": "Content muss sich 'leicht anfühlen' und authentisch sein.",
+            "pruefstein": "Jo, das ist was, was ich ohnehin sagen würde"
+        },
+        "polarisieren_ohne_polemik": {
+            "beschreibung": "Position beziehen, die überrascht. Nicht einfach behaupten, sondern belegen.",
+            "beispiel": "Schwerindustrie = nachhaltigste Industrie"
+        },
+        "faktor_7": {
+            "beschreibung": "Ein persönlicher Post ist Faktor 7 wirkungsvoller als ein Unternehmenspost.",
+            "konsequenz": "Alex und Ablas sind die Hauptkanäle — die BWG-Seite schafft das Fundament."
+        }
+    },
+    "leitplanken": {
+        "erlaubt": [
+            "Aus allen Themenfeldern schöpfen",
+            "Eigene Erlebnisse, Messebesuche, Kundengespräche",
+            "Polarisieren mit Beleg",
+            "Fragen stellen, Dialog anregen"
+        ],
+        "verboten": [
+            "Direkte Werbung ('Kauft unseren Draht!')",
+            "Leere Versprechen ohne Beleg",
+            "Konkurrenz schlecht machen (nur implizit differenzieren)",
+            "Corporate-Floskeln ('Wir freuen uns, bekannt geben zu dürfen...')"
+        ]
+    },
+    "orchestrierung": {
+        "dreier_regel": {
+            "beschreibung": "Jedes wichtige Thema wird über alle drei Instanzen gespielt — mit unterschiedlichem Timing und Twist.",
+            "wirkung": "Dieselbe Botschaft aus drei Perspektiven. Keiner merkt's — aber die Penetration verdreifacht sich."
+        },
+        "beispiel_katheter": {
+            "mo": {
+                "instanz": "ablas",
+                "twist": "Proof Point — Letztes Jahr Nein, dieses Jahr Ja"
+            },
+            "mi": {
+                "instanz": "bwg",
+                "twist": "Fakt — Was drinsteckt, sieht niemand"
+            },
+            "fr": {
+                "instanz": "alex",
+                "twist": "Nachhaltigkeit — Stahldraht unendlich recycelbar vs. Polymer Einweg"
+            }
+        }
+    },
+    "freigabe": {
+        "prinzip": "Klingelt oder klingelt nicht?",
+        "beschreibung": "Wenn ein Post beim Lesen nicht das Gefühl erzeugt 'Ja, das hätte ich genauso gesagt', geht er zurück.",
+        "alex_prueft": "Alex-Posts",
+        "ablas_prueft": "Ablas-Posts",
+        "kein_cringe": "Kein Cringe-Content. Niemals."
+    }
+}

@@ -1,0 +1,352 @@
+[
+    {
+        "id": "energie",
+        "label": "Energie & Energiewende",
+        "kernbotschaft": "Ohne Draht keine Energiewende. Punkt.",
+        "instances": {
+            "alex": 3,
+            "ablas": 1,
+            "bwg": 2
+        },
+        "facts": [
+            "Windkraft: Befestigung der Anlagen (Schrauben, Seile), Energieübertragung, Abschirmung von Leitungen, Überwachungssysteme für Offshore-Parks",
+            "Solar: Kein Solarpanel ohne Draht — der Draht im Panel ist die Voraussetzung",
+            "Wasserstoff: Elektrolytische Erzeugung braucht Kathoden aus Drahtgewebe (höhere Oberfläche = höhere Effizienz), Brennstoffzellen ebenso",
+            "Atomkraft/Castoren: Sonderstähle und Drähte für radioaktive Belastbarkeit",
+            "Standort Deutschland: Energiekosten als fundamentales Thema — Lösen wir das Thema Energie nicht, haben wir ein gesamtwirtschaftliches Thema",
+            "Drahtproduktion ist energieintensiv — geopolitisch relevant"
+        ],
+        "keywords": [
+            "Windkraft",
+            "Solar",
+            "Wasserstoff",
+            "Brennstoffzelle",
+            "Atomkraft",
+            "Energiewende",
+            "Green Energy",
+            "Offshore",
+            "Cathode"
+        ]
+    },
+    {
+        "id": "circular",
+        "label": "Circular Economy / Nachhaltigkeit",
+        "kernbotschaft": "Stahl ist das zirkulärste Material der Welt — unendlich oft recycelbar, ohne Qualitätsverlust.",
+        "instances": {
+            "alex": 3,
+            "ablas": 1,
+            "bwg": 2
+        },
+        "facts": [
+            "Nach dem Flüssigmachen kann jeder Legierungsstoff so beeinflusst werden, dass aus Schrott wieder Hochleistungsstahl wird",
+            "Das Einzige, was man braucht, ist Energie — dann kann man es unendlich oft machen",
+            "Alle BenderWire-Edelstähle sind ausschließlich elektrisch erzeugt",
+            "Je grüner der Strom, desto grüner der Stahl",
+            "Vergleich Kunststoff: max. Parkbank, 2 Zyklen. Aluminium: eingeschränkt. Titan: sündhaft teures Sortiersystem",
+            "BenderWire glüht bereits in Wasserstoff — das System ist schon da",
+            "Stahl ist das nachhaltigste Material der Welt — und kaum jemand weiß es"
+        ],
+        "keywords": [
+            "Recycling",
+            "Circular",
+            "Green Steel",
+            "Schrott",
+            "Nachhaltigkeit",
+            "Edelstahl",
+            "elektrisch erzeugt",
+            "Wasserstoff"
+        ]
+    },
+    {
+        "id": "medtech",
+        "label": "Medizintechnik",
+        "kernbotschaft": "Draht rettet Leben. Jeden Tag. Unsichtbar.",
+        "instances": {
+            "alex": 1,
+            "ablas": 3,
+            "bwg": 2
+        },
+        "facts": [
+            "Katheter: Runddraht (11µm) und Flachdraht (11×33µm) bereits gebraidet",
+            "Torsionale Festigkeit und Pushability — nicht das Polymer, der Draht macht den Unterschied",
+            "Dental: Brackets/Kieferorthopädie (hohe Festigkeit, darf nicht reißen), Wurzelbehandlung (Schabewerkzeug aus Draht)",
+            "Spirale zur Verhütung",
+            "Implantate: Implantatstähle aus recyceltem Material möglich",
+            "Medikamentenherstellung: Separation über Drahtgewebe",
+            "BenderWire-Draht sitzt in Kathetern, die in die kleinsten Arterien im menschlichen Gehirn navigiert werden",
+            "Material: 304NX high-strength stainless steel",
+            "Braid Patterns: Herringbone, Diamond, Half-Load, Triaxial, Chase Wires, Hercules"
+        ],
+        "keywords": [
+            "Katheter",
+            "Catheter",
+            "MedTech",
+            "Dental",
+            "Implantat",
+            "11µm",
+            "Flachdraht",
+            "Braided",
+            "304NX",
+            "Fine Wire"
+        ]
+    },
+    {
+        "id": "bau",
+        "label": "Bau & Infrastruktur",
+        "kernbotschaft": "Ohne Draht kein Gebäude, keine Brücke, kein Tunnel, der sicher hält.",
+        "instances": {
+            "alex": 3,
+            "ablas": 1,
+            "bwg": 2
+        },
+        "facts": [
+            "Betonrippenstahl (rostfrei): Kältebrücke bei Balkonen trennen, hat Einzug ins deutsche Baurecht gehalten",
+            "Brücken: Schweizer Modell — 10× teurere Werkstoffe, halten quasi ewig. Alex: '150 Jahre Garantie'",
+            "Tunnel: Alle Tunnelstähle sind rostfreie Stähle (Abgaskonzentration), exakt ein Stahl der das kann",
+            "Schrauben: Jede Schraube kommt aus Draht — von Spax bis Würth, alle Gewindearten",
+            "In Deutschland bauen wir Brücken für eine Legislatur. Die Schweizer bauen für die Ewigkeit."
+        ],
+        "keywords": [
+            "Brücke",
+            "Tunnel",
+            "Beton",
+            "Schraube",
+            "Infrastruktur",
+            "Baurecht",
+            "Edelstahl",
+            "rostfrei"
+        ]
+    },
+    {
+        "id": "alltag",
+        "label": "Alltagsprodukte & Technologie",
+        "kernbotschaft": "Draht ist überall — du siehst ihn nur nie.",
+        "instances": {
+            "alex": 1,
+            "ablas": 3,
+            "bwg": 3
+        },
+        "facts": [
+            "Smartphones: Metallgewebe gegen Verunreinigungen, Elektronikdruck mit Drahtgewebe",
+            "Clips: Verbindungstechnik der Elektronik (Stecker + Buchse mit Edelstahlclip)",
+            "Geldscheine: Wasserzeichen nur durch Bronzedraht-Gewebe möglich — alle Ersatzversuche gescheitert",
+            "Haushalt: Nudelsieb, Waschmaschine/Trockner Schmutzfang, Rasierer-Gitter",
+            "Sound: Spezielle Drahtgewebe in Kopfhörern und Boxen",
+            "Fahrrad: Speichen aus Hochfestigkeits-Stahldraht (90° geknickt, darf nicht brechen)",
+            "Kein technisches Gerät, wo Draht nicht verarbeitet ist"
+        ],
+        "keywords": [
+            "Smartphone",
+            "Geldschein",
+            "Wasserzeichen",
+            "Kopfhörer",
+            "Fahrrad",
+            "Speichen",
+            "Alltag",
+            "Elektronik"
+        ]
+    },
+    {
+        "id": "luxus",
+        "label": "Luxus & Kultur",
+        "kernbotschaft": "Vom Billigsten bis zum Teuersten — Draht ist immer dabei.",
+        "instances": {
+            "alex": 1,
+            "ablas": 2,
+            "bwg": 2
+        },
+        "facts": [
+            "Luxusuhren: Achsenwellen, Unruhfedern, Gehäuse, Armbänder, Verschlüsse",
+            "Stradivari-Geigen: BenderWire-Draht verbaut",
+            "Gitarren: Ohne Draht keine Gitarre — das weltweit beliebteste Instrument",
+            "Brillen: Bewegliche Teile mit Stahlschrauben",
+            "Zahnbürsten: Borsten in Flachdraht-Clips gehalten",
+            "Schmuck aus Edelstahl"
+        ],
+        "keywords": [
+            "Uhr",
+            "Stradivari",
+            "Gitarre",
+            "Brille",
+            "Luxus",
+            "Schmuck",
+            "Kultur"
+        ]
+    },
+    {
+        "id": "sicherheit",
+        "label": "Sicherheit & Defence",
+        "kernbotschaft": "Draht schützt — im Alltag und im Ernstfall.",
+        "instances": {
+            "alex": 2,
+            "ablas": 1,
+            "bwg": 1
+        },
+        "facts": [
+            "Stichschutzwesten: Spezialgewebe aus Draht",
+            "Pilotenkleidung: Draht als Blitzableiter (antistatisch)",
+            "Flugzeuge: Aluminiumgewebe für EMV-Schutz (elektromagnetische Verträglichkeit bei Blitz)",
+            "Defence: Differenzierte Haltung — 'Der, der die Waffe benutzt, entscheidet, ob sie gut oder schlecht ist.'"
+        ],
+        "keywords": [
+            "Stichschutz",
+            "Pilot",
+            "Flugzeug",
+            "EMV",
+            "Defence",
+            "Sicherheit"
+        ]
+    },
+    {
+        "id": "wasser",
+        "label": "Wasser & Filtration",
+        "kernbotschaft": "Sauberes Wasser für die Welt — immer durch Draht.",
+        "instances": {
+            "alex": 3,
+            "ablas": 1,
+            "bwg": 2
+        },
+        "facts": [
+            "Gesamte Filtrationstechnik basiert auf Drahtgewebe",
+            "Von der Kläranlage bis zur Trinkwasserversorgung in wasserarmen Regionen",
+            "Chemie: Chemikalien trennen, Abfüllung",
+            "Brauereien: Filtration durch Gewebe"
+        ],
+        "keywords": [
+            "Filtration",
+            "Wasser",
+            "Kläranlage",
+            "Trinkwasser",
+            "Gewebe",
+            "Brauerei"
+        ]
+    },
+    {
+        "id": "vertikale-integration",
+        "label": "Vertikale Integration",
+        "kernbotschaft": "Von der Schmelze bis zum Feindraht — das kann sonst keiner.",
+        "instances": {
+            "alex": 3,
+            "ablas": 3,
+            "bwg": 3
+        },
+        "facts": [
+            "BenderWire kontrolliert die gesamte Kette: Schmelze → Walzen → Ziehen",
+            "Schmelze: BenderWire sagt dem Schmelzer, welchen Block er machen soll — wohl wissend, was der Walzer braucht",
+            "Walzen: Aus dem Block entsteht Walzdraht (Vormaterial)",
+            "Ziehen: Vom Walzdraht bis zum Feindraht — dünner als dein Haar",
+            "Wettbewerber können nur verarbeiten, was an Vormaterialien auf dem Markt verfügbar ist",
+            "Vom Block Schrott bis dünner als dein Haar kontrollieren wir die gesamte Kette",
+            "Stärkstes technisches Differenzierungsmerkmal — USP"
+        ],
+        "keywords": [
+            "Schmelze",
+            "Walzen",
+            "Ziehen",
+            "Feindraht",
+            "USP",
+            "Wertschöpfungskette",
+            "Vormaterial"
+        ]
+    },
+    {
+        "id": "geopolitik",
+        "label": "Geopolitische Resilienz",
+        "kernbotschaft": "Zwei Kontinente, zwei Wirtschaftsräume — wir sind dort, wo unsere Kunden uns brauchen.",
+        "instances": {
+            "alex": 2,
+            "ablas": 1,
+            "bwg": 2
+        },
+        "facts": [
+            "5 Produktionsstandorte auf 2 Kontinenten (Europa + USA)",
+            "Zwei energiepolitische Räume — entscheidend, weil Drahtproduktion energieintensiv ist",
+            "Qualitätsvorsprung Europa/Japan gegenüber China bei Spezialqualitäten",
+            "Standortnachteile Deutschland: Energiekosten und Bürokratie (nicht Löhne)",
+            "Stakeholder-Thema für Banken, Versicherer und strategische Partner"
+        ],
+        "keywords": [
+            "Geopolitik",
+            "USA",
+            "Europa",
+            "Resilienz",
+            "Standort",
+            "Energiekosten",
+            "China"
+        ]
+    },
+    {
+        "id": "image-reframe",
+        "label": "Image-Reframe",
+        "kernbotschaft": "Von außen grau, innen Hightech.",
+        "instances": {
+            "alex": 2,
+            "ablas": 2,
+            "bwg": 2
+        },
+        "facts": [
+            "Stärkster emotionaler Hebel: Kontrast zwischen unscheinbarer Drahtindustrie im Sauerland und Hochtechnologie",
+            "Visuell umsetzbar als Split-Screen: Werk von außen vs. Mikroskopaufnahme",
+            "Hochwasser-Anekdote 2021: VW, BMW, Ford — Bänder stehen still ohne Draht",
+            "Es sieht ganz schmuddelig aus, uralt. Es gibt keinen modernen Gedanken. Und niemanden, der das erklärt."
+        ],
+        "keywords": [
+            "Sauerland",
+            "Hightech",
+            "Kontrast",
+            "Image",
+            "Reframe",
+            "Hochwasser",
+            "VW",
+            "BMW"
+        ]
+    },
+    {
+        "id": "ingredient-branding",
+        "label": "Ingredient Branding",
+        "kernbotschaft": "Eigene Drahtmarke in Endprodukten etablieren — Intel Inside für Draht.",
+        "instances": {
+            "alex": 1,
+            "ablas": 2,
+            "bwg": 2
+        },
+        "facts": [
+            "Vision: Eigene Drahtmarke (z.B. 'BenderWire XX') in Endprodukten etablieren",
+            "Wenn der BenderWire-Stahl in der Packungsbeilage steht, entsteht ein Lock-in-Effekt",
+            "Analogie: Intel Inside, Gore-Tex, NSF-Zertifizierung",
+            "Langfristiges strategisches Ziel — nicht kurzfristig umsetzbar"
+        ],
+        "keywords": [
+            "Ingredient",
+            "Branding",
+            "Intel Inside",
+            "Gore-Tex",
+            "Lock-in",
+            "Marke"
+        ]
+    },
+    {
+        "id": "qualitaet",
+        "label": "Qualität als Lebensversicherung",
+        "kernbotschaft": "Wir versprechen nur, was wir halten können.",
+        "instances": {
+            "alex": 2,
+            "ablas": 1,
+            "bwg": 2
+        },
+        "facts": [
+            "Qualität ist unsere Lebensversicherung (Timo Fichtel)",
+            "Europa/Japan können noch Qualitäten erzeugen, die China nicht kann",
+            "Wir sind kein Unternehmen, das versucht, irgendetwas zu verkaufen, was wir nicht halten können",
+            "211 Jahre Drahtherstellungs-Expertise, 5 Produktionsstandorte"
+        ],
+        "keywords": [
+            "Qualität",
+            "Lebensversicherung",
+            "211 Jahre",
+            "Expertise",
+            "Japan",
+            "Europa"
+        ]
+    }
+]

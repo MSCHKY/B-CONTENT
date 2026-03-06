@@ -1,0 +1,274 @@
+[
+    {
+        "author": "alex",
+        "name": "Jürgen Alex",
+        "quotes": [
+            {
+                "id": "alex-01",
+                "content": "Je grüner der Strom, desto grüner der Stahl.",
+                "topics": [
+                    "circular",
+                    "energie"
+                ],
+                "emotion": "überzeugend"
+            },
+            {
+                "id": "alex-02",
+                "content": "Es sieht ganz schmuddelig aus, es sieht uralt aus. Es gibt keinen modernen Gedanken. Und es gibt niemanden, der das erklärt.",
+                "topics": [
+                    "image-reframe"
+                ],
+                "emotion": "frustriert-motiviert"
+            },
+            {
+                "id": "alex-03",
+                "content": "Du sagst, du produzierst Erdöl – du lügst. Du entnimmst Erdöl. Das ist endlich. Und hier ist unendlich.",
+                "topics": [
+                    "circular"
+                ],
+                "emotion": "konfrontativ"
+            },
+            {
+                "id": "alex-04",
+                "content": "Unsere Welt würde überhaupt nicht funktionieren ohne Draht. Komplett nicht. Gar nicht.",
+                "topics": [
+                    "alltag",
+                    "image-reframe"
+                ],
+                "emotion": "nachdrücklich"
+            },
+            {
+                "id": "alex-05",
+                "content": "Unsere Systematik ist eigentlich ein exzellentes, nachhaltiges Geschäftsmodell. Weiß das einer? Ne.",
+                "topics": [
+                    "circular",
+                    "image-reframe"
+                ],
+                "emotion": "rhetorisch"
+            },
+            {
+                "id": "alex-06",
+                "content": "Keine Brücke gäbe es. Wir könnten kein Wasser überqueren ohne Draht.",
+                "topics": [
+                    "bau"
+                ],
+                "emotion": "grundsätzlich"
+            },
+            {
+                "id": "alex-07",
+                "content": "Ich habe eigentlich einen Begriff, der steht tatsächlich über allen anderen.",
+                "topics": [
+                    "circular"
+                ],
+                "emotion": "reflektiert",
+                "context": "Über Nachhaltigkeit als sein zentrales Thema"
+            },
+            {
+                "id": "alex-08",
+                "content": "Ich bin ganz bestimmt kein Grüner.",
+                "topics": [
+                    "circular"
+                ],
+                "emotion": "geradlinig",
+                "context": "Authentizitätsmarker — Nachhaltigkeit aus Überzeugung, nicht Ideologie"
+            }
+        ]
+    },
+    {
+        "author": "ablas",
+        "name": "Sebastian Ablas",
+        "quotes": [
+            {
+                "id": "ablas-01",
+                "content": "Boah, das war smart. Aber keiner ist drauf gekommen.",
+                "topics": [
+                    "alltag"
+                ],
+                "emotion": "begeistert"
+            },
+            {
+                "id": "ablas-02",
+                "content": "Ich muss immer wieder neue Herausforderungen haben. Ich muss immer wieder neu gefordert werden.",
+                "topics": [],
+                "emotion": "persönlich",
+                "context": "Über seinen Antrieb — warum er kein Lehrer werden konnte"
+            },
+            {
+                "id": "ablas-03",
+                "content": "Wenn wir das können, ist das andere Standard, Pillepalle für uns.",
+                "topics": [
+                    "vertikale-integration",
+                    "medtech"
+                ],
+                "emotion": "selbstbewusst"
+            },
+            {
+                "id": "ablas-04",
+                "content": "Mein Draht ist in den Kathetern, mit dem taube Kinder wieder hören können.",
+                "topics": [
+                    "medtech"
+                ],
+                "emotion": "stolz-emotional"
+            },
+            {
+                "id": "ablas-05",
+                "content": "Kein Schmu, was wir machen.",
+                "topics": [
+                    "qualitaet"
+                ],
+                "emotion": "direkt"
+            },
+            {
+                "id": "ablas-06",
+                "content": "Wir haben drei Tonnen verschwendet und fünftausend Euro. Tat halt weh. Ende.",
+                "topics": [
+                    "vertikale-integration",
+                    "medtech"
+                ],
+                "emotion": "pragmatisch"
+            },
+            {
+                "id": "ablas-07",
+                "content": "Wenn es dreckig wird, gehen wir auch durch den Dreck.",
+                "topics": [
+                    "qualitaet"
+                ],
+                "emotion": "kampfgeist"
+            },
+            {
+                "id": "ablas-08",
+                "content": "Beweis erbracht – du glaubst mir nicht, komm mit zum Mikroskop, kannst du selber vermessen.",
+                "topics": [
+                    "medtech",
+                    "vertikale-integration"
+                ],
+                "emotion": "herausfordernd"
+            },
+            {
+                "id": "ablas-09",
+                "content": "Ein Mann, ein Wort.",
+                "topics": [
+                    "qualitaet"
+                ],
+                "emotion": "grundsatz"
+            },
+            {
+                "id": "ablas-10",
+                "content": "Wenn ich es nicht gemacht habe, dann habe ich es auch nicht gemacht.",
+                "topics": [
+                    "qualitaet"
+                ],
+                "emotion": "ehrlich"
+            }
+        ]
+    },
+    {
+        "author": "fichtel",
+        "name": "Timo Fichtel",
+        "quotes": [
+            {
+                "id": "fichtel-01",
+                "content": "Wir sind Mittelständler, wir geben nicht auf.",
+                "topics": [
+                    "qualitaet"
+                ],
+                "emotion": "beharrlich"
+            },
+            {
+                "id": "fichtel-02",
+                "content": "Qualität ist unsere Lebensversicherung.",
+                "topics": [
+                    "qualitaet"
+                ],
+                "emotion": "grundsätzlich"
+            },
+            {
+                "id": "fichtel-03",
+                "content": "Wir sind kein Unternehmen, das versucht, irgendetwas zu verkaufen, was wir nicht halten können.",
+                "topics": [
+                    "qualitaet"
+                ],
+                "emotion": "klar"
+            },
+            {
+                "id": "fichtel-04",
+                "content": "Es gibt kein technisches Gerät, wo Draht nicht verarbeitet ist. All das ist dann weg.",
+                "topics": [
+                    "alltag",
+                    "image-reframe"
+                ],
+                "emotion": "warnend"
+            },
+            {
+                "id": "fichtel-05",
+                "content": "Über 200 Jahre – unsere DNA kommt aus der Drahtsparte.",
+                "topics": [
+                    "vertikale-integration"
+                ],
+                "emotion": "stolz"
+            },
+            {
+                "id": "fichtel-06",
+                "content": "Wenn wir es schaffen, diese eigene Marke in Produkte reinzubauen, kommen wir nie wieder raus.",
+                "topics": [
+                    "ingredient-branding"
+                ],
+                "emotion": "visionär"
+            }
+        ]
+    },
+    {
+        "author": "pasini",
+        "name": "Marco Pasini",
+        "quotes": [
+            {
+                "id": "pasini-01",
+                "content": "Die hocheffiziente Produktentwicklungsabteilung von zwei Nerds, die spielen wollen.",
+                "topics": [
+                    "vertikale-integration"
+                ],
+                "emotion": "anerkennend",
+                "context": "Über die Zusammenarbeit Alex & Ablas"
+            },
+            {
+                "id": "pasini-02",
+                "content": "Draht ist sexy – keiner weiß das.",
+                "topics": [
+                    "image-reframe"
+                ],
+                "emotion": "provokant"
+            }
+        ]
+    },
+    {
+        "author": "general",
+        "name": "Allgemein / Content-Strategie",
+        "quotes": [
+            {
+                "id": "general-01",
+                "content": "Ohne Draht keine Gitarre. Das weltweit das Instrument Nummer eins funktioniert nur mit Draht.",
+                "topics": [
+                    "luxus",
+                    "alltag"
+                ],
+                "emotion": "staunend"
+            },
+            {
+                "id": "general-02",
+                "content": "Wir könnten heute kein Handy haben mit den Funktionen, wenn die Technologie der Drahtherstellung nicht so wäre.",
+                "topics": [
+                    "alltag"
+                ],
+                "emotion": "faktenbasiert"
+            },
+            {
+                "id": "general-03",
+                "content": "Kein Geldschein mit Wasserzeichen ohne unseren Draht.",
+                "topics": [
+                    "alltag"
+                ],
+                "emotion": "überraschend"
+            }
+        ]
+    }
+]

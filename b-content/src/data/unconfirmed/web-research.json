@@ -1,0 +1,162 @@
+{
+    "source": "web_research",
+    "date": "2026-03-06",
+    "note": "Zusätzliche Fakten aus Web-Recherche, die nicht im Strategy Doc standen",
+    "company": {
+        "founded": "1932 (Bender Group) / 1815 (Drahtherstellungs-Expertise)",
+        "years_of_expertise": "211+",
+        "headquarters": "Herdecker Str. 4-10, 58089 Hagen, Germany",
+        "revenue": "ca. 280 Mio. EUR",
+        "employees": "ca. 600",
+        "subsidiaries": 20,
+        "business_areas": 3,
+        "production_sites": "5 (Deutschland + USA)",
+        "continents": 2,
+        "website": "https://benderwire.group",
+        "family_owned": "Inhabergeführt in dritter Generation seit 1932"
+    },
+    "products": {
+        "wire_types": [
+            "Cold heading wire (1mm - 12mm)",
+            "Architectural wire (0.2mm - 10mm)",
+            "Spoke wire",
+            "Bending wire",
+            "Weaving wire",
+            "Knitting wire",
+            "Stranded wire",
+            "Reinforcing steel",
+            "Medical wire",
+            "Spring wire"
+        ],
+        "materials": [
+            "Stainless steel (Edelstahl)",
+            "Acid-resistant steel (säurebeständig)",
+            "Heat-resistant steel (hitzebeständig)",
+            "304V stainless steel",
+            "304NX high-strength stainless steel"
+        ],
+        "diameter_range": "0.020mm (20µm) bis 15.00mm",
+        "delivery_forms": "Kleine Spulen, Ringe, Kronenstöcke bis 1,5 Tonnen",
+        "flagship_product": {
+            "name": "BenderWire 304 NX Braid Wire",
+            "description": "High-performance stainless steel braid wire for critical medical applications",
+            "applications": [
+                "Catheter reinforcement",
+                "Neurovascular stents",
+                "Clot retriever braiding",
+                "Steerable catheter components"
+            ],
+            "properties": [
+                "High torque transmission",
+                "Kink resistance",
+                "Exceptional fatigue performance",
+                "1/6 of a human hair in finest dimension"
+            ],
+            "producer": "Heinrich Stamm GmbH (Stamm Feindrahtwerk)"
+        }
+    },
+    "subsidiaries": {
+        "hagener_feinstahl": {
+            "name": "Hagener Feinstahl GmbH",
+            "role": "Stammhaus",
+            "employees": "ca. 95",
+            "location": "Hagen, Germany",
+            "speciality": "Stainless, acid-resistant, heat-resistant wires"
+        },
+        "stamm": {
+            "name": "Heinrich Stamm GmbH",
+            "brand": "Stamm Feindrahtwerk",
+            "claim": "feindrahtwerk.",
+            "role": "Feindrahtproduktion, Medical Wire Spezialist"
+        },
+        "sassenscheidt": {
+            "name": "Sassenscheidt & Co. GmbH",
+            "claim": "feindrahtwerk."
+        },
+        "tri_star": {
+            "name": "Tri Star Metals, LLC",
+            "claim": "metals.",
+            "location": "USA"
+        },
+        "siri_wire": {
+            "name": "Siri Wire Co.",
+            "claim": "stainless steel experts.",
+            "location": "USA"
+        }
+    },
+    "industries_served": [
+        "Medical technology",
+        "Automotive",
+        "Aerospace",
+        "Energy",
+        "Electronics",
+        "Food industry",
+        "Pharmaceuticals",
+        "Construction",
+        "Filtration"
+    ],
+    "trade_shows": {
+        "mdm_west_2026": {
+            "name": "MD&M West 2026",
+            "date": "February 3-5, 2026",
+            "location": "Anaheim, California",
+            "status": "Attended",
+            "highlights": "Sebastian Ablas MedTech Unboxed Interview mit Steve Maxson (Chamfr)"
+        },
+        "wire_2026": {
+            "name": "WIRE 2026",
+            "date": "April 13-17, 2026",
+            "location": "Düsseldorf, Germany",
+            "status": "Planned",
+            "description": "World's leading trade fair for wire and cable industry, 1000+ exhibitors from 60 countries"
+        }
+    },
+    "partnerships": {
+        "chamfr": {
+            "name": "Chamfr",
+            "role": "Online marketplace for medical device components",
+            "relevance": "BenderWire 304 NX listed on Chamfr for R&D sample orders"
+        },
+        "metrocut": {
+            "name": "MetroCut / Metro CAD (Scott Metcalf)",
+            "role": "Braiding partner",
+            "relevance": "Joint medical wire braiding capability"
+        },
+        "ingpuls": {
+            "name": "Ingpuls",
+            "role": "NiTi (Nickel-Titan) partner",
+            "relevance": "BWG deckt NiTi über Partner ab, Kern-Expertise ist Edelstahl"
+        }
+    },
+    "employer_branding": {
+        "values_public": [
+            "Präzision",
+            "Verantwortung",
+            "Fortschritt"
+        ],
+        "benefits": [
+            "Fair and performance-related remuneration",
+            "30 days vacation",
+            "Flexible working hours",
+            "Job bike leasing",
+            "Above-average company pension scheme"
+        ],
+        "culture": "Short decision-making processes, ideas valued, versatile tasks"
+    },
+    "management": {
+        "timo_fichtel": {
+            "role": "GF Bender GmbH + GF Hagener Feinstahl Bender GmbH",
+            "focus": "Strategic diversification, group management"
+        },
+        "juergen_alex": {
+            "role": "GF BenderWire Group",
+            "previous": "GF Deutsche Edelstahlwerke GmbH",
+            "focus": "Sustainability, metallurgy, operations",
+            "note": "Previously associated with Böllinghaus Steel GmbH (now Bender GmbH)"
+        },
+        "sebastian_ablas": {
+            "role": "GF BenderWire Group",
+            "focus": "Innovation, sales, medical technology, product development"
+        }
+    }
+}

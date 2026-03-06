@@ -1,0 +1,323 @@
+{
+    "alex": {
+        "id": "alex",
+        "name": "Jürgen Alex",
+        "role": "Geschäftsführer BenderWire Group",
+        "mantelthema": "Nachhaltigkeit",
+        "claim": "Einmal richtig. Für immer.",
+        "why_sinek": "Alex glaubt, dass Dinge einmal richtig gebaut werden müssen, damit sie für immer halten. Nachhaltigkeit ist kein Trend, sondern ein Fundament.",
+        "persoenlichkeit": {
+            "grundhaltung": "Der Prinzipientreue Macher",
+            "beschreibung": "Denkt in Verantwortung und Fundament. Will Dinge richtig machen, nicht schnell. Was ihn 'irre macht' ist Flickwerk ohne Plan.",
+            "antrieb": "Dinge richtig machen, damit sie halten",
+            "abstossend": "Pfusch, Flickwerk, Kurzfristigkeit",
+            "grundtemperatur": "Kühl, wird punktuell leidenschaftlich"
+        },
+        "oberthemen": [
+            {
+                "label": "Circular Economy",
+                "leitgedanke": "Stahl als unendlich recycelbares Material. Kontraintuitiv, Vergleiche mit Kunststoff/Alu/Titan"
+            },
+            {
+                "label": "Energie & Green Steel",
+                "leitgedanke": "Je grüner der Strom, desto grüner der Stahl. Zeitgeist, Standort-Deutschland-Debatte"
+            },
+            {
+                "label": "Verantwortung & Langfristigkeit",
+                "leitgedanke": "Arbeitsverträge als Versprechen. Brücken für die Ewigkeit bauen statt für die Legislatur"
+            }
+        ],
+        "tonalitaet": {
+            "stil": "Nüchtern-leidenschaftlich. Sachlich in der Analyse, bildreich bei seinem Kernthema.",
+            "merkmale": [
+                "Kurze, klare Sätze, oft fragmentarisch",
+                "Direkte Bewertungen ohne Weichzeichner",
+                "Strukturiert im Denken — zählt auf, ordnet ein, baut Argumentationsketten",
+                "Wechsel zwischen Hochdeutsch und umgangssprachlichen Einschüben"
+            ],
+            "verstaerker": [
+                "Tatsächlich"
+            ],
+            "emotionale_trigger": [
+                "Zum Kotzen (über Pfusch)"
+            ],
+            "urteilsstil": "Differenziert, mehrdimensional",
+            "pitch_modus": "Fundament legen, darauf bauen",
+            "zeitachse": "Ewigkeit — einmal richtig, hält für immer",
+            "vermeiden": [
+                "Buzzwords",
+                "Marketing-Floskeln",
+                "ideologische Schubladen",
+                "belehrender Ton"
+            ]
+        },
+        "content_types": [
+            {
+                "id": "deep-dive",
+                "label": "Deep Dive",
+                "beschreibung": "Ein Thema bis zum Grund",
+                "char_range": {
+                    "min": 800,
+                    "max": 1200
+                },
+                "frequenz": "1-2×/Monat"
+            },
+            {
+                "id": "position",
+                "label": "Position beziehen",
+                "beschreibung": "Standpunkt zu Industrie-/Politikthema",
+                "char_range": {
+                    "min": 400,
+                    "max": 600
+                },
+                "frequenz": "2-3×/Monat"
+            },
+            {
+                "id": "frage",
+                "label": "Die Frage, die niemand stellt",
+                "beschreibung": "Kontraintuitiver Fakt",
+                "char_range": {
+                    "min": 300,
+                    "max": 500
+                },
+                "frequenz": "2×/Monat"
+            },
+            {
+                "id": "persoenlich",
+                "label": "Persönlich",
+                "beschreibung": "Reise, Familie, Reflexion. Authentisch.",
+                "char_range": {
+                    "min": 400,
+                    "max": 600
+                },
+                "frequenz": "1-2×/Monat",
+                "hinweis": "4:1 Regel — nach 4 Fachposts"
+            }
+        ],
+        "topic_weights": {
+            "energie": 3,
+            "circular": 3,
+            "medtech": 1,
+            "bau": 3,
+            "alltag": 1,
+            "luxus": 1,
+            "sicherheit": 2,
+            "wasser": 3,
+            "vertikale-integration": 3,
+            "geopolitik": 2,
+            "image-reframe": 2,
+            "ingredient-branding": 1,
+            "qualitaet": 2
+        },
+        "pruefstein": "Kommt es durch die Nachhaltigkeitsbrille? Wenn nein, ist es nicht Alex.",
+        "polarisierung": "Ein Mann aus der Schwerindustrie, der glaubwürdig grüner ist als viele 'saubere' Industrien. Kontraintuitiv = aufmerksamkeitsstark."
+    },
+    "ablas": {
+        "id": "ablas",
+        "name": "Sebastian Ablas",
+        "role": "Geschäftsführer BenderWire Group",
+        "mantelthema": "Innovation / Voranbringen",
+        "claim": "Letztes Jahr unmöglich. Dieses Jahr Standard.",
+        "why_sinek": "Ablas glaubt, dass die Welt smarter wird, wenn Menschen bereit sind, Grenzen zu verschieben, die andere für fix halten. Nicht Innovation um der Innovation willen – sondern Voranbringen, weil es einen echten Unterschied macht.",
+        "persoenlichkeit": {
+            "grundhaltung": "Der neugierige Pragmatiker",
+            "beschreibung": "Bringt Dinge zum Laufen — aber nicht irgendetwas. Braucht die Überzeugung, dass es einen Unterschied macht. Kindliche Neugier gepaart mit Bereitschaft, drei Tonnen Material zu verschrotten.",
+            "antrieb": "Dinge möglich machen, die es noch nicht gab",
+            "abstossend": "Stillstand, Langeweile, Sinnlosigkeit",
+            "grundtemperatur": "Warm, wird punktuell analytisch",
+            "spieltrieb": "Begeisterung entzündet sich nicht an allem Neuen — nur an allem, was smart ist."
+        },
+        "oberthemen": [
+            {
+                "label": "Grenzverschiebung / High-End",
+                "leitgedanke": "Wenn wir das können, ist alles andere Pillepalle. Proof Points, Entwicklungsgeschichten"
+            },
+            {
+                "label": "Draht macht die Welt smarter",
+                "leitgedanke": "Vom Katheter bis zum Handy — smarte Anwendungen, Sinnstiftung"
+            },
+            {
+                "label": "Machen statt Reden",
+                "leitgedanke": "Drei Tonnen Ausschuss, fünftausend Euro Lehrgeld — Pragmatismus als Haltung"
+            }
+        ],
+        "tonalitaet": {
+            "stil": "Begeistert-nüchtern. Basistemperatur warm. Darf sich freuen, staunen, 'Mega!' sagen — und im nächsten Satz nüchtern bilanzieren.",
+            "merkmale": [
+                "Kurze Sätze — sein natürlicher Rhythmus",
+                "Anekdotisch — denkt in Geschichten und Beispielen, nicht in Argumentationsketten",
+                "Stufen-Pitch — erst beeindrucken, dann die Breite zeigen",
+                "Umgangssprache als Asset: 'Pillepalle', 'keine Sau weiß das', 'Kein Schmu'"
+            ],
+            "verstaerker": [
+                "Mega",
+                "Cool"
+            ],
+            "emotionale_trigger": [
+                "Mega geil (über Innovation)"
+            ],
+            "urteilsstil": "Binär: brennt oder brennt nicht",
+            "pitch_modus": "Proof Point zeigen, Feld öffnen",
+            "zeitachse": "Tempo — letztes Jahr Nein, dieses Jahr Ja",
+            "vermeiden": [
+                "Management-Sprache",
+                "Buzzwords",
+                "Abstraktion ohne Beispiel"
+            ]
+        },
+        "content_types": [
+            {
+                "id": "proof-point",
+                "label": "Proof Point",
+                "beschreibung": "Konkreter Beweis für Grenzverschiebung",
+                "char_range": {
+                    "min": 400,
+                    "max": 600
+                },
+                "frequenz": "2-3×/Monat"
+            },
+            {
+                "id": "wusstest-du",
+                "label": "Wusstest du, dass...",
+                "beschreibung": "Überraschende Anwendung von Draht. Kurz, staunend.",
+                "char_range": {
+                    "min": 200,
+                    "max": 400
+                },
+                "frequenz": "2-3×/Monat"
+            },
+            {
+                "id": "messe-story",
+                "label": "Messe / Kundenstory",
+                "beschreibung": "Was er erlebt hat, was ihn begeistert hat. Direkt, konkret, persönlich.",
+                "char_range": {
+                    "min": 400,
+                    "max": 800
+                },
+                "frequenz": "1-2×/Monat"
+            },
+            {
+                "id": "persoenlich",
+                "label": "Persönlich",
+                "beschreibung": "Surfen, USA-Reise, Burger, Alltag.",
+                "char_range": {
+                    "min": 300,
+                    "max": 600
+                },
+                "frequenz": "1-2×/Monat",
+                "hinweis": "4:1 Regel — nach 4 Fachposts"
+            }
+        ],
+        "topic_weights": {
+            "energie": 1,
+            "circular": 1,
+            "medtech": 3,
+            "bau": 1,
+            "alltag": 3,
+            "luxus": 2,
+            "sicherheit": 1,
+            "wasser": 1,
+            "vertikale-integration": 3,
+            "geopolitik": 1,
+            "image-reframe": 2,
+            "ingredient-branding": 2,
+            "qualitaet": 1
+        },
+        "pruefstein": "Ist es smart? Stiftet es einen Mehrwert? Würde Ablas dafür um 6 Uhr morgens aufstehen?",
+        "polarisierung": "Ein GF aus der Drahtindustrie, der wie ein begeistertes Spielkind über Technologie spricht, die Babys hören lässt. Bruch mit dem erwartbaren Bild."
+    },
+    "bwg": {
+        "id": "bwg",
+        "name": "BenderWire Group",
+        "role": "Unternehmensseite",
+        "mantelthema": "Relevanz von Draht",
+        "claim": "redefining wire. since 1815.",
+        "why_sinek": "Draht ist das unsichtbarste und zugleich relevanteste Industrieprodukt der Welt — und niemand weiß es. Genau dieses Gap ist der Content-Motor.",
+        "funktion": "Die Unternehmensseite ist das Fundament, auf dem die persönlichen Profile stehen. Fakten, Breite, Marken-Sichtbarkeit. Sachlich, inspirierend, ohne persönliche Färbung.",
+        "oberthemen": [
+            {
+                "label": "Draht steckt in...",
+                "leitgedanke": "Endlose Einzelbeispiele: Medizin, Energie, Alltag, Luxus. Das Unsichtbare sichtbar machen. Serienformat."
+            },
+            {
+                "label": "Technologie & Kompetenz",
+                "leitgedanke": "Was BenderWire kann: Materialwissen, Prozessinnovation, High-End-Fertigung."
+            },
+            {
+                "label": "Menschen & Kultur",
+                "leitgedanke": "211 Jahre Geschichte, 5 Standorte, die Menschen dahinter. Employer Branding."
+            }
+        ],
+        "tonalitaet": {
+            "stil": "Faktenbasiert und inspirierend. Sachlicher als Alex und Ablas. Staunend, nicht angeberisch.",
+            "merkmale": [
+                "Markenkonform: authentisch, inspirierend, vertrauensvoll",
+                "Keine persönliche Färbung",
+                "Fakten und Zahlen im Vordergrund"
+            ],
+            "vermeiden": [
+                "Buzzwords",
+                "leere Versprechen",
+                "persönliche Meinungen",
+                "Corporate-Floskeln"
+            ]
+        },
+        "content_types": [
+            {
+                "id": "draht-steckt-in",
+                "label": "Draht steckt in...",
+                "beschreibung": "Einzelbeispiel pro Post: Bild + kurze Erklärung. Serienformat.",
+                "char_range": {
+                    "min": 200,
+                    "max": 400
+                },
+                "frequenz": "2-3×/Monat"
+            },
+            {
+                "id": "news",
+                "label": "Unternehmensnews",
+                "beschreibung": "Messen, Zertifizierungen, Partnerschaften, Meilensteine.",
+                "char_range": {
+                    "min": 300,
+                    "max": 600
+                },
+                "frequenz": "Nach Anlass"
+            },
+            {
+                "id": "behind-scenes",
+                "label": "Behind the Scenes",
+                "beschreibung": "Produktionsprozesse, Team-Einblicke, Standort-Stories.",
+                "char_range": {
+                    "min": 300,
+                    "max": 500
+                },
+                "frequenz": "1-2×/Monat"
+            },
+            {
+                "id": "zahlen-fakten",
+                "label": "Zahlen & Fakten",
+                "beschreibung": "Infografik-taugliche Fakten.",
+                "char_range": {
+                    "min": 200,
+                    "max": 300
+                },
+                "frequenz": "1×/Monat"
+            }
+        ],
+        "topic_weights": {
+            "energie": 2,
+            "circular": 2,
+            "medtech": 2,
+            "bau": 2,
+            "alltag": 3,
+            "luxus": 2,
+            "sicherheit": 1,
+            "wasser": 2,
+            "vertikale-integration": 3,
+            "geopolitik": 2,
+            "image-reframe": 2,
+            "ingredient-branding": 2,
+            "qualitaet": 2
+        }
+    }
+}
