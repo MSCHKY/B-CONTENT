@@ -1,10 +1,11 @@
 # 🏗️ B/CONTENT — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-06 21:30
+> **Zuletzt aktualisiert:** 2026-03-06 23:08
 > **Modul:** B/CONTENT (Content-Gehirn)
-> **Status:** Phase 1 NEAR COMPLETE — Text + Bild-Generierung live, Library implementiert
-> **Branch:** `feature/b-content-foundation`
+> **Status:** Phase 1 NEAR COMPLETE — Text + Bild-Generierung live, Visual Polish deployed
+> **Branch:** `main` (Workers Builds Git-Integration aktiv)
 > **Live URL:** https://b-content.maschkeai.workers.dev
+> **Deploy:** Push auf `main` = automatisch live (Cloudflare Workers Builds)
 
 ---
 
@@ -118,6 +119,7 @@
 6. **Export-First:** Generierte Inhalte sofort downloadbar
 7. **Anti-Patchwork:** Kein Feature ohne Eintrag im Product Spec
 8. **Instanzen als JSON-Config:** Neue Stimmen/Typen/Themen sind Config-Änderung, kein Code-Umbau
+9. **Deployment-Standard:** Push auf `main` = Live — Cloudflare Workers Builds, KEIN manuelles Deploy, KEIN CI/CD-Workaround
 
 ---
 
@@ -147,3 +149,5 @@
 | 2026-03-06 | Execution   | AI-Pipeline: System-Prompts + Prompt-Builder + Gemini Client + Smoke Test | ✅ Done |
 | 2026-03-06 | Ops         | GitHub Push + D1/R2 (EU) + Gemini Key + First Deploy + E2E Test | ✅ Live |
 | 2026-03-06 | Execution   | Bild-Pipeline (Gemini Image + R2 + vDNA Prompts) + Content Library (D1 + UI) | ✅ Live |
+| 2026-03-06 | Polish      | Visual Premium Upgrade: Glassmorphism, Micro-Animations, Logo, Gradient Accents (14 Dateien) | ✅ Deployed |
+| 2026-03-06 | Ops         | Deployment-Standard verankert: Workers Builds + Git-Integration, kein Sonderweg | ✅ Dokumentiert |

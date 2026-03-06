@@ -1,7 +1,7 @@
 # 🏗️ BENDERWIRE GROUP — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-06
-> **Aktiver Fokus:** B/CONTENT (Content-Gehirn) — Phase 1 fast komplett, Text + Bild live
+> **Zuletzt aktualisiert:** 2026-03-06 23:08
+> **Aktiver Fokus:** B/CONTENT (Content-Gehirn) — Phase 1 fast komplett, Text + Bild live, Visual Polish deployed
 > **Phase:** Pitch / MVP
 
 ---
@@ -71,6 +71,22 @@ Vollständige Spezifikation → `B-CONTENT/PRODUCT_SPEC.md`
 5. **Deutsche Kommunikation:** Chat/Reasoning auf Deutsch, Code/Commits auf Englisch
 6. **Anti-Patchwork:** Kein Feature ohne Eintrag im Product Spec
 7. **Anti-Kabelsalat:** Product Spec ist der Vertrag. Kein Feature wird drangeflickt.
+8. **Deployment-Standard:** Push auf `main` = Live. Immer. Punkt. (→ siehe §3a)
+
+### 3a. Deployment-Standard (VERBINDLICH)
+
+> **Wir arbeiten für einen Großkonzern. Profis arbeiten sauber. Keine Workarounds, keine Sonderwege.**
+
+| Regel | Detail |
+|-------|--------|
+| **Plattform** | Cloudflare Workers Builds mit nativer Git-Integration |
+| **Trigger** | Push auf `main` = automatisches Build + Deploy |
+| **Repo-Anbindung** | GitHub Repo ist im Cloudflare Dashboard direkt verbunden |
+| **KEIN GitHub Actions CI/CD** | Cloudflare hat eigene Build-Pipeline — die nutzen wir |
+| **KEIN manuelles `wrangler deploy`** | Nur im absoluten Notfall (Debugging) |
+| **Konsistenz** | Exakt gleiches Pattern wie alle anderen Robert-Projekte |
+
+**Warum:** Robert nutzt bei allen ~30 Projekten dasselbe Pattern: Git-Push triggert Cloudflare Build. Kein Projekt bekommt einen Sonderweg. Punkt.
 
 ---
 
@@ -118,3 +134,5 @@ BENDERGROUP/
 | 2026-03-06 | Execution   | AI-Pipeline: Prompts + Builder + Gemini + Smoke Test | ✅ Done |
 | 2026-03-06 | Ops         | GitHub + D1/R2 (EU) + API Key + Deploy + E2E Verify | ✅ Live |
 | 2026-03-06 | Execution   | Bild-Pipeline (Gemini Image + R2 + vDNA) + Content Library (D1 + UI) | ✅ Live |
+| 2026-03-06 | Polish      | Visual Premium Upgrade: Glassmorphism, Animations, Logo, Gradient Accents | ✅ Deployed |
+| 2026-03-06 | Ops         | Deployment-Standard dokumentiert: Workers Builds + Git-Integration | ✅ Verankert |
