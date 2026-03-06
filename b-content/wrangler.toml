@@ -1,0 +1,20 @@
+name = "b-content"
+compatibility_date = "2026-03-01"
+compatibility_flags = ["nodejs_compat"]
+main = "worker/index.ts"
+
+# --- D1 Database ---
+[[d1_databases]]
+binding = "DB"
+database_name = "b-content-db"
+database_id = "TODO_AFTER_D1_CREATE"  # Robert: wrangler d1 create b-content-db
+migrations_dir = "db"
+
+# --- R2 Storage (Images) ---
+[[r2_buckets]]
+binding = "IMAGES"
+bucket_name = "b-content-images"  # Robert: wrangler r2 create b-content-images
+
+# --- Environment Variables ---
+[vars]
+ENVIRONMENT = "development"
