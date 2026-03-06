@@ -1,0 +1,757 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - region "Toast Message":
+      - heading "Insgesamt 0 Mitteilungen" [level=2] [ref=e3]
+      - alert
+  - generic [ref=e4]:
+    - generic [ref=e6]:
+      - button "Weiter zur Suche" [ref=e7] [cursor=pointer]:
+        - generic [ref=e8]: Weiter zur Suche
+      - button "Weiter zum Hauptinhalt" [ref=e9] [cursor=pointer]:
+        - generic [ref=e10]: Weiter zum Hauptinhalt
+      - button "Tastaturkurzbefehle" [ref=e11] [cursor=pointer]:
+        - generic [ref=e12]: Tastaturkurzbefehle
+      - button "Wechselmenü schließen" [ref=e13] [cursor=pointer]:
+        - img [ref=e14]
+        - generic [ref=e16]: Wechselmenü schließen
+    - banner "Globale Navigation" [ref=e17]:
+      - generic [ref=e18]:
+        - link "LinkedIn" [ref=e19] [cursor=pointer]:
+          - /url: https://www.linkedin.com/feed/?nis=true
+          - img "LinkedIn" [ref=e22]:
+            - img [ref=e23]
+        - generic [ref=e27]:
+          - combobox "Suche" [ref=e28]
+          - generic:
+            - img
+        - navigation "Primäre Navigation" [ref=e29]:
+          - list [ref=e30]:
+            - listitem [ref=e31]:
+              - link "neue Feed-Updates Mitteilungen Start" [ref=e32] [cursor=pointer]:
+                - /url: https://www.linkedin.com/feed/?nis=true&
+                - generic [ref=e33]:
+                  - generic [ref=e36]: neue Feed-Updates Mitteilungen
+                  - img [ref=e40]
+                - generic "Start" [ref=e42]
+            - listitem [ref=e43]:
+              - link "Ihr Netzwerk" [ref=e44] [cursor=pointer]:
+                - /url: https://www.linkedin.com/mynetwork/?
+                - img [ref=e48]
+                - generic "Ihr Netzwerk" [ref=e50]
+            - listitem [ref=e51]:
+              - link "Jobs" [ref=e52] [cursor=pointer]:
+                - /url: https://www.linkedin.com/jobs/?
+                - img [ref=e56]
+                - generic "Jobs" [ref=e58]
+            - listitem [ref=e59]:
+              - link "Nachrichten" [ref=e60] [cursor=pointer]:
+                - /url: https://www.linkedin.com/messaging/?
+                - img [ref=e64]
+                - generic "Nachrichten" [ref=e66]
+            - listitem [ref=e67]:
+              - link "Mitteilungen" [ref=e68] [cursor=pointer]:
+                - /url: https://www.linkedin.com/notifications/?
+                - img [ref=e72]
+                - generic "Mitteilungen" [ref=e74]
+            - listitem [ref=e75]:
+              - button "Robert Maschke Sie" [ref=e77] [cursor=pointer]:
+                - img "Robert Maschke" [ref=e78]
+                - generic [ref=e79]:
+                  - text: Sie
+                  - img [ref=e80]
+            - listitem [ref=e82]:
+              - button "Produkte" [ref=e84] [cursor=pointer]:
+                - img [ref=e88]
+                - generic "Produkte" [ref=e90]:
+                  - text: Produkte
+                  - img [ref=e91]
+            - listitem [ref=e93]:
+              - link "Premium erneut ausprobieren" [ref=e95] [cursor=pointer]:
+                - /url: javascript:void(0)
+                - generic [ref=e96]:
+                  - img [ref=e97]
+                  - generic [ref=e99]: Premium erneut ausprobieren
+    - generic [ref=e104]:
+      - main "Unternehmensseite von BenderWire Group" [ref=e105]:
+        - generic [ref=e108]:
+          - button [ref=e111]
+          - generic [ref=e114]:
+            - button "Mitteilungen von Personen, die Sie vielleicht kennen, sind abonniert. Klicken Sie, um diese zu verwalten." [ref=e116] [cursor=pointer]:
+              - img [ref=e117]
+              - generic [ref=e119]: Mitteilungen von Personen, die Sie vielleicht kennen, sind abonniert. Klicken Sie, um diese zu verwalten.
+            - generic [ref=e121]:
+              - generic [ref=e122]:
+                - img "Logo für BenderWire Group" [ref=e123]
+                - generic [ref=e125]:
+                  - heading "BenderWire Group" [level=1] [ref=e126]
+                  - paragraph [ref=e127]: redefining wire. since 1815.
+                  - generic [ref=e128]:
+                    - generic [ref=e129]: · Herstellung von Feder- und Drahtprodukten
+                    - generic [ref=e130]:
+                      - generic [ref=e131]: · Hagen, North Rhine-Westphalia
+                      - generic [ref=e132]: · 174 Follower:innen
+                      - link "· 501-1 Tsd. Beschäftigte" [ref=e133] [cursor=pointer]:
+                        - /url: /search/results/people/?currentCompany=%5B%22106557243%22%5D&origin=COMPANY_PAGE_CANNED_SEARCH
+                        - text: ·
+                        - generic [ref=e134]: 501-1 Tsd. Beschäftigte
+              - link "Marco Pasini Marco ist hier beschäftigt" [ref=e138] [cursor=pointer]:
+                - /url: http://www.linkedin.com/in/marco-pasini-82a40891
+                - img "Marco Pasini" [ref=e141]
+                - heading "Marco ist hier beschäftigt" [level=2] [ref=e142]
+              - generic [ref=e144]:
+                - region [ref=e146]:
+                  - button "Nachricht an BenderWire Group" [ref=e147] [cursor=pointer]:
+                    - img [ref=e148]
+                    - generic [ref=e150]: Nachricht
+                  - button "Follower:in" [pressed] [ref=e151] [cursor=pointer]:
+                    - img [ref=e152]
+                    - generic [ref=e154]: Follower:in
+                - button "Überlauf-Aktionen" [ref=e158] [cursor=pointer]:
+                  - img "Überlauf-Aktionen" [ref=e159]
+            - navigation "Seitennavigation" [ref=e162]:
+              - list [ref=e163]:
+                - listitem [ref=e164]:
+                  - link "Start" [ref=e165] [cursor=pointer]:
+                    - /url: /company/benderwire-group/
+                - listitem [ref=e166]:
+                  - link "Info" [ref=e167] [cursor=pointer]:
+                    - /url: /company/benderwire-group/about/
+                - listitem [ref=e168]:
+                  - link "Beiträge" [ref=e169] [cursor=pointer]:
+                    - /url: /company/benderwire-group/posts/?feedView=all
+                - listitem [ref=e170]:
+                  - link "Jobs" [ref=e171] [cursor=pointer]:
+                    - /url: /company/benderwire-group/jobs/
+                - listitem [ref=e172]:
+                  - link "Personen" [ref=e173] [cursor=pointer]:
+                    - /url: /company/benderwire-group/people/
+        - generic [ref=e176]:
+          - generic [ref=e177]:
+            - generic [ref=e178]:
+              - img "Logo von BenderWire Group" [ref=e179]
+              - heading "BenderWire Group" [level=2] [ref=e180]
+              - paragraph [ref=e181]: 174 Follower:innen
+            - generic [ref=e182]:
+              - paragraph [ref=e183]: Sehen Sie sich eine Sammlung aktiver oder früherer Anzeigen nach BenderWire Group an.
+              - link "Anzeigenbibliothek anzeigen" [ref=e184] [cursor=pointer]:
+                - /url: /ad-library/search?companyIds=106557243
+          - generic [ref=e185]:
+            - tablist [ref=e187]:
+              - tab "Alle" [selected] [ref=e188] [cursor=pointer]:
+                - generic [ref=e189]: Alle
+              - tab "Bilder" [ref=e190] [cursor=pointer]:
+                - generic [ref=e191]: Bilder
+              - tab "Videos" [ref=e192] [cursor=pointer]:
+                - generic [ref=e193]: Videos
+              - tab "Artikel" [ref=e194] [cursor=pointer]:
+                - generic [ref=e195]: Artikel
+              - tab "Dokumente" [ref=e196] [cursor=pointer]:
+                - generic [ref=e197]: Dokumente
+            - 'button "Sortieren nach: Relevanteste Sort relevance dropdown" [ref=e200] [cursor=pointer]':
+              - text: "Sortieren nach:"
+              - strong [ref=e201]: Relevanteste
+              - img "Sort relevance dropdown" [ref=e202]
+            - generic [ref=e205]:
+              - generic [ref=e206]:
+                - article [ref=e211]:
+                  - generic [ref=e213]:
+                    - heading "Nummer des Feedbeitrags 1" [level=2] [ref=e214]
+                    - generic [ref=e215]:
+                      - generic [ref=e216]:
+                        - generic [ref=e218]:
+                          - link "BenderWire Group, Grafik." [ref=e219] [cursor=pointer]:
+                            - /url: https://www.linkedin.com/company/benderwire-group/posts
+                          - generic [ref=e223]:
+                            - 'link "Ansehen: BenderWire Group 174 Follower:innen" [ref=e224] [cursor=pointer]':
+                              - /url: https://www.linkedin.com/company/benderwire-group/posts
+                              - generic [ref=e227]:
+                                - generic [ref=e229]: BenderWire Group
+                                - generic [ref=e231]: BenderWire Group
+                              - generic [ref=e232]:
+                                - generic [ref=e233]: 174 Follower:innen
+                                - generic [ref=e234]: 174 Follower:innen
+                            - generic [ref=e235]:
+                              - generic [ref=e236]:
+                                - text: 1 Tag •
+                                - img [ref=e239]
+                              - generic [ref=e241]: vor 1 Tag • Alle Mitglieder und Nicht-Mitglieder von LinkedIn
+                        - button "Kontrollmenü für den Beitrag von BenderWire Group öffnen" [ref=e244] [cursor=pointer]:
+                          - img [ref=e245]
+                      - generic [ref=e247]:
+                        - generic [ref=e248]:
+                          - generic [ref=e251]:
+                            - text: MD&M West 2026.
+                            - text: "This is our takeaway:"
+                            - text: As a relatively new player in the medical device space, we traveled to Anaheim with curiosity and an open mind.
+                            - text: "What we're bringing back:"
+                            - text: → Strengthened partnerships with existing customers
+                            - text: → New collaborations in catheter and implant wire
+                            - text: → Confirmation that our expertise in wire manufacturing can make a real contribution to improving the quality of people's lives
+                            - text: The energy at this show was remarkable – and so was the openness of the people we met.
+                            - text: "Engineers, developers, and medical professionals who all share one goal: making lives better."
+                            - text: We're excited about what's ahead.
+                            - link "Hashtag MDMWest2026" [ref=e252] [cursor=pointer]:
+                              - /url: https://www.linkedin.com/search/results/all/?keywords=%23mdmwest2026&origin=HASH_TAG_FROM_FEED
+                              - generic [ref=e253]: Hashtag
+                              - generic [ref=e254]: "#MDMWest2026"
+                            - link "Hashtag MedicalDevices" [ref=e255] [cursor=pointer]:
+                              - /url: https://www.linkedin.com/search/results/all/?keywords=%23medicaldevices&origin=HASH_TAG_FROM_FEED
+                              - generic [ref=e256]: Hashtag
+                              - generic [ref=e257]: "#MedicalDevices"
+                            - link "Hashtag BenderWireGroup" [ref=e258] [cursor=pointer]:
+                              - /url: https://www.linkedin.com/search/results/all/?keywords=%23benderwiregroup&origin=HASH_TAG_FROM_FEED
+                              - generic [ref=e259]: Hashtag
+                              - generic [ref=e260]: "#BenderWireGroup"
+                            - link "Hashtag MedTech" [ref=e261] [cursor=pointer]:
+                              - /url: https://www.linkedin.com/search/results/all/?keywords=%23medtech&origin=HASH_TAG_FROM_FEED
+                              - generic [ref=e262]: Hashtag
+                              - generic [ref=e263]: "#MedTech"
+                            - link "Hashtag WireManufacturing" [ref=e264] [cursor=pointer]:
+                              - /url: https://www.linkedin.com/search/results/all/?keywords=%23wiremanufacturing&origin=HASH_TAG_FROM_FEED
+                              - generic [ref=e265]: Hashtag
+                              - generic [ref=e266]: "#WireManufacturing"
+                          - button "„mehr anzeigen“ präsentiert Inhalte, die bereits von Bildschirmlesefunktionen erkannt wurden." [ref=e267] [cursor=pointer]:
+                            - generic [ref=e268]: … mehr
+                        - button "Übersetzung anzeigen" [ref=e271] [cursor=pointer]:
+                          - generic [ref=e272]: Übersetzung anzeigen
+                      - generic [ref=e274]:
+                        - button "Größere Bilddarstellung aktivieren, Keine alternative Textbeschreibung für dieses Bild vorhanden" [ref=e276] [cursor=pointer]:
+                          - generic [ref=e277]: Größere Bilddarstellung aktivieren,
+                          - img "Keine alternative Textbeschreibung für dieses Bild vorhanden" [ref=e280]
+                        - generic [ref=e281]: Größere Bilddarstellung aktivieren,
+                      - generic [ref=e282]:
+                        - list [ref=e286]:
+                          - listitem [ref=e287]:
+                            - button "11 Reaktionen" [ref=e288] [cursor=pointer]:
+                              - img "like" [ref=e289]
+                              - generic [ref=e290]: "11"
+                          - listitem [ref=e291]:
+                            - list [ref=e292]:
+                              - listitem [ref=e293]:
+                                - button "4 Reposts des Beitrags von BenderWire Group" [ref=e294] [cursor=pointer]:
+                                  - generic [ref=e295]: 4 Reposts
+                        - generic [ref=e296]:
+                          - generic [ref=e297]:
+                            - button "Mit „Gefällt mir“ reagieren" [ref=e298] [cursor=pointer]:
+                              - generic [ref=e300]:
+                                - img [ref=e301]
+                                - generic [ref=e303]: Gefällt mir
+                            - button "Menü mit Reaktionen öffnen":
+                              - img [ref=e305] [cursor=pointer]
+                          - button "Kommentieren" [ref=e309] [cursor=pointer]:
+                            - img [ref=e310]
+                            - generic [ref=e312]: Kommentieren
+                          - button "Reposten" [ref=e315] [cursor=pointer]:
+                            - img [ref=e316]
+                            - generic [ref=e318]: Reposten
+                          - button "Als Privatnachricht senden" [ref=e321] [cursor=pointer]:
+                            - img [ref=e322]
+                            - generic [ref=e325]: Senden
+                - article [ref=e330]:
+                  - generic [ref=e332]:
+                    - heading "Nummer des Feedbeitrags 2" [level=2] [ref=e333]
+                    - generic [ref=e334]:
+                      - generic [ref=e335]:
+                        - generic [ref=e337]:
+                          - link "BenderWire Group, Grafik." [ref=e338] [cursor=pointer]:
+                            - /url: https://www.linkedin.com/company/benderwire-group/posts
+                          - generic [ref=e342]:
+                            - 'link "Ansehen: BenderWire Group 174 Follower:innen" [ref=e343] [cursor=pointer]':
+                              - /url: https://www.linkedin.com/company/benderwire-group/posts
+                              - generic [ref=e346]:
+                                - generic [ref=e348]: BenderWire Group
+                                - generic [ref=e350]: BenderWire Group
+                              - generic [ref=e351]:
+                                - generic [ref=e352]: 174 Follower:innen
+                                - generic [ref=e353]: 174 Follower:innen
+                            - generic [ref=e354]:
+                              - generic [ref=e355]:
+                                - text: 3 Wochen •
+                                - img [ref=e358]
+                              - generic [ref=e360]: vor 3 Wochen • Alle Mitglieder und Nicht-Mitglieder von LinkedIn
+                        - button "Kontrollmenü für den Beitrag von BenderWire Group öffnen" [ref=e363] [cursor=pointer]:
+                          - img [ref=e364]
+                      - generic [ref=e366]:
+                        - generic [ref=e367]:
+                          - generic [ref=e370]:
+                            - text: Final day at MD&M Anaheim
+                            - text: On our third and final day at MD&M, we spent time visiting several end users to better understand how different processes could look in practice and where real needs and opportunities lie. These conversations provided valuable insights and reinforced the importance of close collaboration.
+                            - text: With many new impressions, ideas and connections, we now wrap up MD&M and say “Auf Wiedersehen” and goodbye to Anaheim.
+                            - text: Thank you to everyone who took the time to exchange thoughts with us, we’re already looking forward to continuing the conversations beyond the show.
+                            - link "Hashtag MDMWest" [ref=e371] [cursor=pointer]:
+                              - /url: https://www.linkedin.com/search/results/all/?keywords=%23mdmwest&origin=HASH_TAG_FROM_FEED
+                              - generic [ref=e372]: Hashtag
+                              - generic [ref=e373]: "#MDMWest"
+                            - link "Hashtag Anaheim" [ref=e374] [cursor=pointer]:
+                              - /url: https://www.linkedin.com/search/results/all/?keywords=%23anaheim&origin=HASH_TAG_FROM_FEED
+                              - generic [ref=e375]: Hashtag
+                              - generic [ref=e376]: "#Anaheim"
+                            - link "Hashtag MedTech" [ref=e377] [cursor=pointer]:
+                              - /url: https://www.linkedin.com/search/results/all/?keywords=%23medtech&origin=HASH_TAG_FROM_FEED
+                              - generic [ref=e378]: Hashtag
+                              - generic [ref=e379]: "#MedTech"
+                            - link "Hashtag EndUsers" [ref=e380] [cursor=pointer]:
+                              - /url: https://www.linkedin.com/search/results/all/?keywords=%23endusers&origin=HASH_TAG_FROM_FEED
+                              - generic [ref=e381]: Hashtag
+                              - generic [ref=e382]: "#EndUsers"
+                            - link "Hashtag ProcessInsights" [ref=e383] [cursor=pointer]:
+                              - /url: https://www.linkedin.com/search/results/all/?keywords=%23processinsights&origin=HASH_TAG_FROM_FEED
+                              - generic [ref=e384]: Hashtag
+                              - generic [ref=e385]: "#ProcessInsights"
+                            - link "Hashtag Networking" [ref=e386] [cursor=pointer]:
+                              - /url: https://www.linkedin.com/search/results/all/?keywords=%23networking&origin=HASH_TAG_FROM_FEED
+                              - generic [ref=e387]: Hashtag
+                              - generic [ref=e388]: "#Networking"
+                            - link "Hashtag Innovation" [ref=e389] [cursor=pointer]:
+                              - /url: https://www.linkedin.com/search/results/all/?keywords=%23innovation&origin=HASH_TAG_FROM_FEED
+                              - generic [ref=e390]: Hashtag
+                              - generic [ref=e391]: "#Innovation"
+                            - link "Hashtag Goodbye" [ref=e392] [cursor=pointer]:
+                              - /url: https://www.linkedin.com/search/results/all/?keywords=%23goodbye&origin=HASH_TAG_FROM_FEED
+                              - generic [ref=e393]: Hashtag
+                              - generic [ref=e394]: "#Goodbye"
+                          - button "„mehr anzeigen“ präsentiert Inhalte, die bereits von Bildschirmlesefunktionen erkannt wurden." [ref=e395] [cursor=pointer]:
+                            - generic [ref=e396]: … mehr
+                        - button "Übersetzung anzeigen" [ref=e399] [cursor=pointer]:
+                          - generic [ref=e400]: Übersetzung anzeigen
+                      - generic [ref=e402]:
+                        - generic [ref=e403]:
+                          - button "Aktivieren, um größeres Bild anzuzeigen, Keine alternative Textbeschreibung für dieses Bild vorhanden + 2 Bilder" [ref=e404] [cursor=pointer]:
+                            - img [ref=e407]
+                          - button "Aktivieren, um größeres Bild anzuzeigen, Keine alternative Textbeschreibung für dieses Bild vorhanden + 2 Bilder" [ref=e408] [cursor=pointer]:
+                            - img [ref=e411]
+                          - button "Aktivieren, um größeres Bild anzuzeigen, Keine alternative Textbeschreibung für dieses Bild vorhanden + 2 Bilder" [ref=e412] [cursor=pointer]:
+                            - img [ref=e415]
+                          - button "Aktivieren, um größeres Bild anzuzeigen, Keine alternative Textbeschreibung für dieses Bild vorhanden + 2 Bilder" [ref=e416] [cursor=pointer]:
+                            - img [ref=e419]
+                            - generic [ref=e421]: "+2"
+                        - generic [ref=e422]: Größere Bilddarstellung aktivieren,
+                      - generic [ref=e423]:
+                        - list [ref=e427]:
+                          - listitem [ref=e428]:
+                            - button "35 Reaktionen" [ref=e429] [cursor=pointer]:
+                              - img "like" [ref=e430]
+                              - generic [ref=e431]: "35"
+                          - listitem [ref=e432]:
+                            - list [ref=e433]:
+                              - listitem [ref=e434]:
+                                - button "10 Reposts des Beitrags von BenderWire Group" [ref=e435] [cursor=pointer]:
+                                  - generic [ref=e436]: 10 Reposts
+                        - generic [ref=e437]:
+                          - generic [ref=e438]:
+                            - button "Mit „Gefällt mir“ reagieren" [ref=e439] [cursor=pointer]:
+                              - generic [ref=e441]:
+                                - img [ref=e442]
+                                - generic [ref=e444]: Gefällt mir
+                            - button "Menü mit Reaktionen öffnen":
+                              - img [ref=e446] [cursor=pointer]
+                          - button "Kommentieren" [ref=e450] [cursor=pointer]:
+                            - img [ref=e451]
+                            - generic [ref=e453]: Kommentieren
+                          - button "Reposten" [ref=e456] [cursor=pointer]:
+                            - img [ref=e457]
+                            - generic [ref=e459]: Reposten
+                          - button "Als Privatnachricht senden" [ref=e462] [cursor=pointer]:
+                            - img [ref=e463]
+                            - generic [ref=e466]: Senden
+                - article [ref=e471]:
+                  - generic [ref=e473]:
+                    - heading "Nummer des Feedbeitrags 3" [level=2] [ref=e474]
+                    - generic [ref=e475]:
+                      - generic [ref=e476]:
+                        - generic [ref=e478]:
+                          - link "BenderWire Group, Grafik." [ref=e479] [cursor=pointer]:
+                            - /url: https://www.linkedin.com/company/benderwire-group/posts
+                          - generic [ref=e483]:
+                            - 'link "Ansehen: BenderWire Group 174 Follower:innen" [ref=e484] [cursor=pointer]':
+                              - /url: https://www.linkedin.com/company/benderwire-group/posts
+                              - generic [ref=e487]:
+                                - generic [ref=e489]: BenderWire Group
+                                - generic [ref=e491]: BenderWire Group
+                              - generic [ref=e492]:
+                                - generic [ref=e493]: 174 Follower:innen
+                                - generic [ref=e494]: 174 Follower:innen
+                            - generic [ref=e495]:
+                              - generic [ref=e496]:
+                                - text: 1 Monat •
+                                - img [ref=e499]
+                              - generic [ref=e501]: vor 1 Monat • Alle Mitglieder und Nicht-Mitglieder von LinkedIn
+                        - button "Kontrollmenü für den Beitrag von BenderWire Group öffnen" [ref=e504] [cursor=pointer]:
+                          - img [ref=e505]
+                      - generic [ref=e507]:
+                        - generic [ref=e508]:
+                          - generic [ref=e511]:
+                            - text: "Day 2: Impressions from MD&M Anaheim"
+                            - text: Another exciting day at MD&M, full of technical insights, strong partnerships and inspiring conversations across the show floor.
+                            - text: "Highlights from today’s images:"
+                            - text: 🔹
+                            - link "Sebastian Ablas" [ref=e513] [cursor=pointer]:
+                              - /url: /in/sebastian-ablas-727291261/
+                            - text: ","
+                            - link "Jürgen Alex" [ref=e515] [cursor=pointer]:
+                              - /url: /in/j%C3%BCrgen-alex-176341107/
+                            - text: on site, exchanging ideas and connecting with partners
+                            - text: 🔹 an acupuncture needle part – tip and end in hand – showcasing extreme precision
+                            - text: 🔹 the
+                            - link "Angle Systems LLC" [ref=e516] [cursor=pointer]:
+                              - /url: https://www.linkedin.com/company/angle-systems-llc/
+                              - generic [ref=e518]: Angle Systems LLC
+                            - text: measuring our wire (11 microns on
+                            - link "Steeger USA" [ref=e519] [cursor=pointer]:
+                              - /url: https://www.linkedin.com/company/steeger-usa/
+                              - generic [ref=e521]: Steeger USA
+                            - text: bobbin)
+                            - text: 🔹 our strong cooperation with
+                            - link "United Wire Company" [ref=e522] [cursor=pointer]:
+                              - /url: https://www.linkedin.com/company/united-wire-company/
+                              - generic [ref=e524]: United Wire Company
+                            - text: for flat wire solutions
+                            - text: 🔹
+                            - link "FENN" [ref=e525] [cursor=pointer]:
+                              - /url: https://www.linkedin.com/company/fenn-llc/
+                              - generic [ref=e527]: FENN
+                            - text: showcasing wire drawing equipment
+                            - text: 🔹 an evening dinner with
+                            - link "Braiders MMBT by Metro CAD" [ref=e528] [cursor=pointer]:
+                              - /url: https://www.linkedin.com/company/mmbt-by-metro-cad-fine-wire-catheter-medical-braiders/
+                              - generic [ref=e530]: Braiders MMBT by Metro CAD
+                            - text: "'s"
+                            - link "Scott Metcalf" [ref=e532] [cursor=pointer]:
+                              - /url: /in/scott-metcalf-964906315/
+                            - text: and Paul Sullivan, creating new ideas and discussions around future braiding opportunities
+                            - text: Day two once again underlined how innovation thrives through collaboration, shared expertise and open dialogue.
+                            - text: 👉 Let’s continue the conversation – we’re looking forward to exchanging ideas and exploring new opportunities together.
+                            - link "Hashtag MDMWest" [ref=e533] [cursor=pointer]:
+                              - /url: https://www.linkedin.com/search/results/all/?keywords=%23mdmwest&origin=HASH_TAG_FROM_FEED
+                              - generic [ref=e534]: Hashtag
+                              - generic [ref=e535]: "#MDMWest"
+                            - link "Hashtag Anaheim" [ref=e536] [cursor=pointer]:
+                              - /url: https://www.linkedin.com/search/results/all/?keywords=%23anaheim&origin=HASH_TAG_FROM_FEED
+                              - generic [ref=e537]: Hashtag
+                              - generic [ref=e538]: "#Anaheim"
+                            - link "Hashtag MedTech" [ref=e539] [cursor=pointer]:
+                              - /url: https://www.linkedin.com/search/results/all/?keywords=%23medtech&origin=HASH_TAG_FROM_FEED
+                              - generic [ref=e540]: Hashtag
+                              - generic [ref=e541]: "#MedTech"
+                            - link "Hashtag Precision" [ref=e542] [cursor=pointer]:
+                              - /url: https://www.linkedin.com/search/results/all/?keywords=%23precision&origin=HASH_TAG_FROM_FEED
+                              - generic [ref=e543]: Hashtag
+                              - generic [ref=e544]: "#Precision"
+                            - link "Hashtag WireTechnology" [ref=e545] [cursor=pointer]:
+                              - /url: https://www.linkedin.com/search/results/all/?keywords=%23wiretechnology&origin=HASH_TAG_FROM_FEED
+                              - generic [ref=e546]: Hashtag
+                              - generic [ref=e547]: "#WireTechnology"
+                            - link "Hashtag Innovation" [ref=e548] [cursor=pointer]:
+                              - /url: https://www.linkedin.com/search/results/all/?keywords=%23innovation&origin=HASH_TAG_FROM_FEED
+                              - generic [ref=e549]: Hashtag
+                              - generic [ref=e550]: "#Innovation"
+                            - link "Hashtag Partnership" [ref=e551] [cursor=pointer]:
+                              - /url: https://www.linkedin.com/search/results/all/?keywords=%23partnership&origin=HASH_TAG_FROM_FEED
+                              - generic [ref=e552]: Hashtag
+                              - generic [ref=e553]: "#Partnership"
+                            - link "Hashtag Braiding" [ref=e554] [cursor=pointer]:
+                              - /url: https://www.linkedin.com/search/results/all/?keywords=%23braiding&origin=HASH_TAG_FROM_FEED
+                              - generic [ref=e555]: Hashtag
+                              - generic [ref=e556]: "#Braiding"
+                            - link "Hashtag LetsConnect" [ref=e557] [cursor=pointer]:
+                              - /url: https://www.linkedin.com/search/results/all/?keywords=%23letsconnect&origin=HASH_TAG_FROM_FEED
+                              - generic [ref=e558]: Hashtag
+                              - generic [ref=e559]: "#LetsConnect"
+                          - button "„mehr anzeigen“ präsentiert Inhalte, die bereits von Bildschirmlesefunktionen erkannt wurden." [ref=e560] [cursor=pointer]:
+                            - generic [ref=e561]: … mehr
+                        - button "Übersetzung anzeigen" [ref=e564] [cursor=pointer]:
+                          - generic [ref=e565]: Übersetzung anzeigen
+                      - generic [ref=e567]:
+                        - generic [ref=e568]:
+                          - button "Aktivieren, um größeres Bild anzuzeigen, Keine alternative Textbeschreibung für dieses Bild vorhanden + 3 Bilder" [ref=e569] [cursor=pointer]:
+                            - img [ref=e572]
+                          - button "Aktivieren, um größeres Bild anzuzeigen, Keine alternative Textbeschreibung für dieses Bild vorhanden + 3 Bilder" [ref=e573] [cursor=pointer]:
+                            - img [ref=e576]
+                          - button "Aktivieren, um größeres Bild anzuzeigen, Keine alternative Textbeschreibung für dieses Bild vorhanden + 3 Bilder" [ref=e577] [cursor=pointer]:
+                            - img [ref=e580]
+                          - button "Aktivieren, um größeres Bild anzuzeigen, Keine alternative Textbeschreibung für dieses Bild vorhanden + 3 Bilder" [ref=e581] [cursor=pointer]:
+                            - img [ref=e584]
+                            - generic [ref=e586]: "+3"
+                        - generic [ref=e587]: Größere Bilddarstellung aktivieren,
+                      - generic [ref=e588]:
+                        - list [ref=e592]:
+                          - listitem [ref=e593]:
+                            - button "38 Reaktionen" [ref=e594] [cursor=pointer]:
+                              - img "like" [ref=e595]
+                              - generic [ref=e596]: "38"
+                          - listitem [ref=e597]:
+                            - list [ref=e598]:
+                              - listitem [ref=e599]:
+                                - button "1 Kommentar zum Beitrag von BenderWire Group" [ref=e600] [cursor=pointer]:
+                                  - generic [ref=e601]: 1 Kommentar
+                                - text: ·
+                              - listitem [ref=e602]:
+                                - button "13 Reposts des Beitrags von BenderWire Group" [ref=e603] [cursor=pointer]:
+                                  - generic [ref=e604]: 13 Reposts
+                        - generic [ref=e605]:
+                          - generic [ref=e606]:
+                            - button "Mit „Gefällt mir“ reagieren" [ref=e607] [cursor=pointer]:
+                              - generic [ref=e609]:
+                                - img [ref=e610]
+                                - generic [ref=e612]: Gefällt mir
+                            - button "Menü mit Reaktionen öffnen":
+                              - img [ref=e614] [cursor=pointer]
+                          - button "Kommentieren" [ref=e618] [cursor=pointer]:
+                            - img [ref=e619]
+                            - generic [ref=e621]: Kommentieren
+                          - button "Reposten" [ref=e624] [cursor=pointer]:
+                            - img [ref=e625]
+                            - generic [ref=e627]: Reposten
+                          - button "Als Privatnachricht senden" [ref=e630] [cursor=pointer]:
+                            - img [ref=e631]
+                            - generic [ref=e634]: Senden
+              - button "Weitere Ergebnisse anzeigen" [ref=e990] [cursor=pointer]:
+                - generic [ref=e991]: Weitere Ergebnisse anzeigen
+      - complementary "Werbung" [ref=e651]:
+        - iframe [ref=e653]:
+          - generic [ref=f43e2]:
+            - generic [ref=f43e3]: Anzeige
+            - img "overflow-web-small" [ref=f43e6] [cursor=pointer]
+            - link "LinkedIn Premium" [ref=f43e10] [cursor=pointer]:
+              - /url: https://www.linkedin.com/li/tscp/sct?destinationUrl=https%3A%2F%2Fwww.linkedin.com%2Fpremium%2Fproducts%3Futype%3Dnetwork%26intentType%3DGROW_NETWORK%26type%3Dpremium%26src%3Dli-in%26trk%3Ddynamic_ad_mktg_gsub_ha_c_PREMIUM_GS_CONV_DA_EMEA_EN_202510_FT_Reactivate_1074_WV_Oct25_V6%26upsellOrderOrigin%3DTracking%3Av1%3Adynamic_ad_mktg_gsub_ha_c_PREMIUM_GS_CONV_DA_EMEA_EN_202510_FT_Reactivate_1074_WV_Oct25_V6%3AHouse%2520Ads%3AMarketing%26mcid%3D7386829257932697603&trackingEvent=%5B%7B%22eventInfo%22%3A%7B%22appId%22%3A%22com.linkedin.ads.rendering.d_web%22%2C%22eventName%22%3A%22SponsoredRightRailContentActionEvent%22%2C%22topicName%22%3A%22SponsoredRightRailContentActionEvent%22%7D%2C%22eventBody%22%3A%7B%22sponsoredEventHeader%22%3A%7B%22encryptedTrackingData%22%3A%22CwEAAAGcw6ceM5ZrWYVtgTODxmnSCmXepBzuoeymeM1cuia0Cn0ApZXCjBJC2mcymDIzgM8d9fFYxJDYlSaBa1roWtuY83Wpr1nAWx-fZY3A7LtRaspCmfPzAgLmFRI12Optdh-jbeGSEvJfz3maUM-Dv5b3Gr3H09Wa-QpJ-0fHlKACeztm3trkQalafcjc94pCShFS2L7WCqrsQS7MjbmMeEKO9StL8re0xHd3AbsA4s-CfRcH-QbaPXnetdmUZDnv72UHF-txAbzIsIsuk4GVZNWbiETbhytYXVoqB_ovnp3pVATUhMiToyKaWIjCIu7h3BrU_NV5ZuoGAZcbv56g7BwEbub1J6vLlkA4qcVdmgvFMBfUYr0Y3i3QqBx_KH4CjRChiCihYNkI1M6VpUjaaEMp4hAGkZVAFvnqq-xUAd87r8hG5wq3i6W6YxP4RRnNPi3mjTVLTyBv_wGc3Nzef14lA1TlouSrnxf14kYagE0Tc_eLaOK0Q6sq6UknAJuxqqLjV4FG0N0nrAwUhEte9XSAiULrcEnusrIHqHvPKG0s5ZNpZsHSLcC2e5qdXRJkMKnnisEHQSq_NgHAUrvaTyCh4bzEpTA5iLFYWcfj3dGbGJx1OgqrVr7oPVBRmxByPjk6HtaypJuqgOlD0s44nocFTAAbUg6H4GuUanO8u8AxzADE0W09WHUs6pl7LBowMDFA5_5KMtUbB2Hs22G6rtqoQ1KsPIxpBzrxunM4UgfIW7o9mFcFcAYtUUjqCZvPpo1rwEy0uDvh4oWd08dAN9djwjl3KTCIkbSCrAv6PX3ifHb0ouyuPaEX78Hg1hjf9Fh_J7t_WSwxJGEssLZ1R7kmblTvYQOli9oLJInxNAIcUWm62gI3zAhn-2ussQr8agnTBHYbvolojyZ5oCtIz2U0-vloLdO5g7zven9pmOaH4u3rfC4ul_Dgi8VU0eCh0NUW9NuFBxv6qhZnpkmL-Q4SLC3gBvotH-ZZZkcSHA5t6Q1d_J-qSqho04gBQJoapmLfmb9VjE0lf3t17qqaDdq7-0ZPpmik5mBi3LZ0-bG5XCkgMWHrVcYNN4P5N2NmhYw4GmvgTiYFA3RuX5PlCheuCXlYCUySFI0AVh93gBtsCrZrodRIWzeOcp_i4VzkrZnsZSdL-iVfhUnxIuudjA%22%7D%2C%22header%22%3A%7B%22pageInstance%22%3A%7B%22pageUrn%22%3A%22urn%3Ali%3Apage%3Ad_flagship3_company_posts%22%2C%22trackingId%22%3A%2280e45ab3-fe62-4517-a796-b54240009b79%22%7D%2C%22time%22%3A1772809035266%2C%22version%22%3A%220.0.0%22%7D%2C%22requestHeader%22%3A%7B%22pageKey%22%3A%22d_flagship3_company_posts%22%2C%22interfaceLocale%22%3A%22de-DE%22%7D%7D%7D%5D&csrfToken=ajax%3A5007078648642971567
+            - generic [ref=f43e11]:
+              - heading "Robert, reactivate your Premium free trial today!" [level=2] [ref=f43e14]
+              - generic [ref=f43e16]:
+                - img "Robert" [ref=f43e17]
+                - generic [ref=f43e18]:
+                  - link "LinkedIn Premium" [ref=f43e19] [cursor=pointer]:
+                    - /url: https://www.linkedin.com/li/tscp/sct?destinationUrl=https%3A%2F%2Fwww.linkedin.com%2Fpremium%2Fproducts%3Futype%3Dnetwork%26intentType%3DGROW_NETWORK%26type%3Dpremium%26src%3Dli-in%26trk%3Ddynamic_ad_mktg_gsub_ha_c_PREMIUM_GS_CONV_DA_EMEA_EN_202510_FT_Reactivate_1074_WV_Oct25_V6%26upsellOrderOrigin%3DTracking%3Av1%3Adynamic_ad_mktg_gsub_ha_c_PREMIUM_GS_CONV_DA_EMEA_EN_202510_FT_Reactivate_1074_WV_Oct25_V6%3AHouse%2520Ads%3AMarketing%26mcid%3D7386829257932697603&trackingEvent=%5B%7B%22eventInfo%22%3A%7B%22appId%22%3A%22com.linkedin.ads.rendering.d_web%22%2C%22eventName%22%3A%22SponsoredRightRailContentActionEvent%22%2C%22topicName%22%3A%22SponsoredRightRailContentActionEvent%22%7D%2C%22eventBody%22%3A%7B%22sponsoredEventHeader%22%3A%7B%22encryptedTrackingData%22%3A%22CwEAAAGcw6ceM5ZrWYVtgTODxmnSCmXepBzuoeymeM1cuia0Cn0ApZXCjBJC2mcymDIzgM8d9fFYxJDYlSaBa1roWtuY83Wpr1nAWx-fZY3A7LtRaspCmfPzAgLmFRI12Optdh-jbeGSEvJfz3maUM-Dv5b3Gr3H09Wa-QpJ-0fHlKACeztm3trkQalafcjc94pCShFS2L7WCqrsQS7MjbmMeEKO9StL8re0xHd3AbsA4s-CfRcH-QbaPXnetdmUZDnv72UHF-txAbzIsIsuk4GVZNWbiETbhytYXVoqB_ovnp3pVATUhMiToyKaWIjCIu7h3BrU_NV5ZuoGAZcbv56g7BwEbub1J6vLlkA4qcVdmgvFMBfUYr0Y3i3QqBx_KH4CjRChiCihYNkI1M6VpUjaaEMp4hAGkZVAFvnqq-xUAd87r8hG5wq3i6W6YxP4RRnNPi3mjTVLTyBv_wGc3Nzef14lA1TlouSrnxf14kYagE0Tc_eLaOK0Q6sq6UknAJuxqqLjV4FG0N0nrAwUhEte9XSAiULrcEnusrIHqHvPKG0s5ZNpZsHSLcC2e5qdXRJkMKnnisEHQSq_NgHAUrvaTyCh4bzEpTA5iLFYWcfj3dGbGJx1OgqrVr7oPVBRmxByPjk6HtaypJuqgOlD0s44nocFTAAbUg6H4GuUanO8u8AxzADE0W09WHUs6pl7LBowMDFA5_5KMtUbB2Hs22G6rtqoQ1KsPIxpBzrxunM4UgfIW7o9mFcFcAYtUUjqCZvPpo1rwEy0uDvh4oWd08dAN9djwjl3KTCIkbSCrAv6PX3ifHb0ouyuPaEX78Hg1hjf9Fh_J7t_WSwxJGEssLZ1R7kmblTvYQOli9oLJInxNAIcUWm62gI3zAhn-2ussQr8agnTBHYbvolojyZ5oCtIz2U0-vloLdO5g7zven9pmOaH4u3rfC4ul_Dgi8VU0eCh0NUW9NuFBxv6qhZnpkmL-Q4SLC3gBvotH-ZZZkcSHA5t6Q1d_J-qSqho04gBQJoapmLfmb9VjE0lf3t17qqaDdq7-0ZPpmik5mBi3LZ0-bG5XCkgMWHrVcYNN4P5N2NmhYw4GmvgTiYFA3RuX5PlCheuCXlYCUySFI0AVh93gBtsCrZrodRIWzeOcp_i4VzkrZnsZSdL-iVfhUnxIuudjA%22%7D%2C%22header%22%3A%7B%22pageInstance%22%3A%7B%22pageUrn%22%3A%22urn%3Ali%3Apage%3Ad_flagship3_company_posts%22%2C%22trackingId%22%3A%2280e45ab3-fe62-4517-a796-b54240009b79%22%7D%2C%22time%22%3A1772809035266%2C%22version%22%3A%220.0.0%22%7D%2C%22requestHeader%22%3A%7B%22pageKey%22%3A%22d_flagship3_company_posts%22%2C%22interfaceLocale%22%3A%22de-DE%22%7D%7D%7D%5D&csrfToken=ajax%3A5007078648642971567
+                    - img "LinkedIn Premium" [ref=f43e20]
+                  - tooltip "LinkedIn Premium" [ref=f43e21]
+              - generic [ref=f43e22]:
+                - heading "See who's viewed your profile in the last 365 days" [level=2] [ref=f43e25]
+                - link "Reactivate Trial" [ref=f43e27] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/li/tscp/sct?destinationUrl=https%3A%2F%2Fwww.linkedin.com%2Fpremium%2Fproducts%3Futype%3Dnetwork%26intentType%3DGROW_NETWORK%26type%3Dpremium%26src%3Dli-in%26trk%3Ddynamic_ad_mktg_gsub_ha_c_PREMIUM_GS_CONV_DA_EMEA_EN_202510_FT_Reactivate_1074_WV_Oct25_V6%26upsellOrderOrigin%3DTracking%3Av1%3Adynamic_ad_mktg_gsub_ha_c_PREMIUM_GS_CONV_DA_EMEA_EN_202510_FT_Reactivate_1074_WV_Oct25_V6%3AHouse%2520Ads%3AMarketing%26mcid%3D7386829257932697603&trackingEvent=%5B%7B%22eventInfo%22%3A%7B%22appId%22%3A%22com.linkedin.ads.rendering.d_web%22%2C%22eventName%22%3A%22SponsoredRightRailContentActionEvent%22%2C%22topicName%22%3A%22SponsoredRightRailContentActionEvent%22%7D%2C%22eventBody%22%3A%7B%22sponsoredEventHeader%22%3A%7B%22encryptedTrackingData%22%3A%22CwEAAAGcw6ceM5ZrWYVtgTODxmnSCmXepBzuoeymeM1cuia0Cn0ApZXCjBJC2mcymDIzgM8d9fFYxJDYlSaBa1roWtuY83Wpr1nAWx-fZY3A7LtRaspCmfPzAgLmFRI12Optdh-jbeGSEvJfz3maUM-Dv5b3Gr3H09Wa-QpJ-0fHlKACeztm3trkQalafcjc94pCShFS2L7WCqrsQS7MjbmMeEKO9StL8re0xHd3AbsA4s-CfRcH-QbaPXnetdmUZDnv72UHF-txAbzIsIsuk4GVZNWbiETbhytYXVoqB_ovnp3pVATUhMiToyKaWIjCIu7h3BrU_NV5ZuoGAZcbv56g7BwEbub1J6vLlkA4qcVdmgvFMBfUYr0Y3i3QqBx_KH4CjRChiCihYNkI1M6VpUjaaEMp4hAGkZVAFvnqq-xUAd87r8hG5wq3i6W6YxP4RRnNPi3mjTVLTyBv_wGc3Nzef14lA1TlouSrnxf14kYagE0Tc_eLaOK0Q6sq6UknAJuxqqLjV4FG0N0nrAwUhEte9XSAiULrcEnusrIHqHvPKG0s5ZNpZsHSLcC2e5qdXRJkMKnnisEHQSq_NgHAUrvaTyCh4bzEpTA5iLFYWcfj3dGbGJx1OgqrVr7oPVBRmxByPjk6HtaypJuqgOlD0s44nocFTAAbUg6H4GuUanO8u8AxzADE0W09WHUs6pl7LBowMDFA5_5KMtUbB2Hs22G6rtqoQ1KsPIxpBzrxunM4UgfIW7o9mFcFcAYtUUjqCZvPpo1rwEy0uDvh4oWd08dAN9djwjl3KTCIkbSCrAv6PX3ifHb0ouyuPaEX78Hg1hjf9Fh_J7t_WSwxJGEssLZ1R7kmblTvYQOli9oLJInxNAIcUWm62gI3zAhn-2ussQr8agnTBHYbvolojyZ5oCtIz2U0-vloLdO5g7zven9pmOaH4u3rfC4ul_Dgi8VU0eCh0NUW9NuFBxv6qhZnpkmL-Q4SLC3gBvotH-ZZZkcSHA5t6Q1d_J-qSqho04gBQJoapmLfmb9VjE0lf3t17qqaDdq7-0ZPpmik5mBi3LZ0-bG5XCkgMWHrVcYNN4P5N2NmhYw4GmvgTiYFA3RuX5PlCheuCXlYCUySFI0AVh93gBtsCrZrodRIWzeOcp_i4VzkrZnsZSdL-iVfhUnxIuudjA%22%7D%2C%22header%22%3A%7B%22pageInstance%22%3A%7B%22pageUrn%22%3A%22urn%3Ali%3Apage%3Ad_flagship3_company_posts%22%2C%22trackingId%22%3A%2280e45ab3-fe62-4517-a796-b54240009b79%22%7D%2C%22time%22%3A1772809035266%2C%22version%22%3A%220.0.0%22%7D%2C%22requestHeader%22%3A%7B%22pageKey%22%3A%22d_flagship3_company_posts%22%2C%22interfaceLocale%22%3A%22de-DE%22%7D%7D%7D%5D&csrfToken=ajax%3A5007078648642971567
+        - generic [ref=e656]:
+          - generic [ref=e660]:
+            - generic [ref=e661]:
+              - heading "Ebenfalls angesehen" [level=3] [ref=e663]
+              - list [ref=e665]:
+                - listitem [ref=e666]:
+                  - generic [ref=e667]:
+                    - generic [ref=e668]:
+                      - link "Logo der Seite „Stamm Feindrahtwerk“" [ref=e670] [cursor=pointer]:
+                        - /url: https://www.linkedin.com/company/heinrich-stamm-gmbh/
+                        - generic "Logo der Seite „Stamm Feindrahtwerk“" [ref=e672]:
+                          - img "Logo der Seite „Stamm Feindrahtwerk“" [ref=e674]
+                      - generic [ref=e675]:
+                        - link "Stamm Feindrahtwerk Herstellung von Feder- und Drahtprodukten 383 Follower:innen" [ref=e677] [cursor=pointer]:
+                          - /url: https://www.linkedin.com/company/heinrich-stamm-gmbh/
+                          - generic [ref=e678]:
+                            - generic [ref=e680]: Stamm Feindrahtwerk
+                            - generic [ref=e682]: Herstellung von Feder- und Drahtprodukten
+                            - generic [ref=e684]: 383 Follower:innen
+                        - link "Marco Pasini Marco & 1 weiterer Kontakt folgen dieser Seite" [ref=e686] [cursor=pointer]:
+                          - /url: http://www.linkedin.com/company/heinrich-stamm-gmbh/?showInNetworkFollowers=true
+                          - img "Marco Pasini" [ref=e689]
+                          - generic [ref=e690]: Marco & 1 weiterer Kontakt folgen dieser Seite
+                    - button "Stamm Feindrahtwerk folgen" [ref=e692] [cursor=pointer]:
+                      - img [ref=e693]
+                      - generic [ref=e695]: Folgen
+                - listitem [ref=e696]:
+                  - generic [ref=e697]:
+                    - generic [ref=e698]:
+                      - link "Logo der Seite „Hagener Feinstahl“" [ref=e700] [cursor=pointer]:
+                        - /url: https://www.linkedin.com/company/hagener-feinstahl/
+                        - generic "Logo der Seite „Hagener Feinstahl“" [ref=e702]:
+                          - img "Logo der Seite „Hagener Feinstahl“" [ref=e704]
+                      - generic [ref=e705]:
+                        - link "Hagener Feinstahl Herstellung von Feder- und Drahtprodukten 434 Follower:innen" [ref=e707] [cursor=pointer]:
+                          - /url: https://www.linkedin.com/company/hagener-feinstahl/
+                          - generic [ref=e708]:
+                            - generic [ref=e710]: Hagener Feinstahl
+                            - generic [ref=e712]: Herstellung von Feder- und Drahtprodukten
+                            - generic [ref=e714]: 434 Follower:innen
+                        - link "Marco Pasini Marco & 1 weiterer Kontakt folgen dieser Seite" [ref=e716] [cursor=pointer]:
+                          - /url: http://www.linkedin.com/company/hagener-feinstahl/?showInNetworkFollowers=true
+                          - img "Marco Pasini" [ref=e719]
+                          - generic [ref=e720]: Marco & 1 weiterer Kontakt folgen dieser Seite
+                    - button "Hagener Feinstahl folgen" [ref=e722] [cursor=pointer]:
+                      - img [ref=e723]
+                      - generic [ref=e725]: Folgen
+                - listitem [ref=e726]:
+                  - generic [ref=e727]:
+                    - generic [ref=e728]:
+                      - link "Logo der Seite „Tri Star Metals“" [ref=e730] [cursor=pointer]:
+                        - /url: https://www.linkedin.com/company/tri-star-metals/
+                        - generic "Logo der Seite „Tri Star Metals“" [ref=e732]:
+                          - img "Logo der Seite „Tri Star Metals“" [ref=e734]
+                      - link "Tri Star Metals Bergbau 1.578 Follower:innen" [ref=e737] [cursor=pointer]:
+                        - /url: https://www.linkedin.com/company/tri-star-metals/
+                        - generic [ref=e738]:
+                          - generic [ref=e740]: Tri Star Metals
+                          - generic [ref=e742]: Bergbau
+                          - generic [ref=e744]: 1.578 Follower:innen
+                    - button "Tri Star Metals folgen" [ref=e746] [cursor=pointer]:
+                      - img [ref=e747]
+                      - generic [ref=e749]: Folgen
+            - button "Alle ähnliche Seiten anzeigen" [ref=e751] [cursor=pointer]:
+              - img [ref=e752]
+              - generic [ref=e754]: Alle anzeigen
+          - generic [ref=e758]:
+            - generic [ref=e759]:
+              - heading "Mitglieder folgen auch" [level=3] [ref=e761]
+              - list [ref=e763]:
+                - listitem [ref=e764]:
+                  - generic [ref=e765]:
+                    - generic [ref=e766]:
+                      - link "Logo der Seite „L&#39;Oréal“" [ref=e768] [cursor=pointer]:
+                        - /url: https://www.linkedin.com/company/lor%C3%A9al/
+                        - generic "Logo der Seite „L&#39;Oréal“" [ref=e770]:
+                          - img "Logo der Seite „L&#39;Oréal“" [ref=e772]
+                      - generic [ref=e773]:
+                        - link "L'Oréal Herstellung von Körperpflegeprodukten 6.516.609 Follower:innen" [ref=e775] [cursor=pointer]:
+                          - /url: https://www.linkedin.com/company/lor%C3%A9al/
+                          - generic [ref=e776]:
+                            - generic [ref=e778]: L'Oréal
+                            - generic [ref=e780]: Herstellung von Körperpflegeprodukten
+                            - generic [ref=e782]: 6.516.609 Follower:innen
+                        - link "Patrice Bouedibela Patrice & 18 weitere Kontakte folgen dieser Seite" [ref=e784] [cursor=pointer]:
+                          - /url: http://www.linkedin.com/company/lor%C3%A9al/?showInNetworkFollowers=true
+                          - img "Patrice Bouedibela" [ref=e787]
+                          - generic [ref=e788]: Patrice & 18 weitere Kontakte folgen dieser Seite
+                    - button "L&#39;Oréal folgen" [ref=e790] [cursor=pointer]:
+                      - img [ref=e791]
+                      - generic [ref=e793]: Folgen
+                - listitem [ref=e794]:
+                  - generic [ref=e795]:
+                    - generic [ref=e796]:
+                      - link "Logo der Seite „Bundesministerium für Digitales und Staatsmodernisierung“" [ref=e798] [cursor=pointer]:
+                        - /url: https://www.linkedin.com/company/bmds-bund/
+                        - generic "Logo der Seite „Bundesministerium für Digitales und Staatsmodernisierung“" [ref=e800]:
+                          - img "Logo der Seite „Bundesministerium für Digitales und Staatsmodernisierung“" [ref=e802]
+                      - generic [ref=e803]:
+                        - link "Bundesministerium für Digitales und Staatsmodernisierung Regierungsverwaltung 133.618 Follower:innen" [ref=e805] [cursor=pointer]:
+                          - /url: https://www.linkedin.com/company/bmds-bund/
+                          - generic [ref=e806]:
+                            - generic [ref=e808]: Bundesministerium für Digitales und Staatsmodernisierung
+                            - generic [ref=e810]: Regierungsverwaltung
+                            - generic [ref=e812]: 133.618 Follower:innen
+                        - link ". Jürgen Labus . Jürgen & 7 weitere Kontakte folgen dieser Seite" [ref=e814] [cursor=pointer]:
+                          - /url: http://www.linkedin.com/company/bmds-bund/?showInNetworkFollowers=true
+                          - img ". Jürgen Labus" [ref=e817]
+                          - generic [ref=e818]: . Jürgen & 7 weitere Kontakte folgen dieser Seite
+                    - button "Bundesministerium für Digitales und Staatsmodernisierung folgen" [ref=e820] [cursor=pointer]:
+                      - img [ref=e821]
+                      - generic [ref=e823]: Folgen
+                - listitem [ref=e824]:
+                  - generic [ref=e825]:
+                    - generic [ref=e826]:
+                      - link "Logo der Seite „DIE ZEIT“" [ref=e828] [cursor=pointer]:
+                        - /url: https://www.linkedin.com/company/die-zeit/
+                        - generic "Logo der Seite „DIE ZEIT“" [ref=e830]:
+                          - img "Logo der Seite „DIE ZEIT“" [ref=e832]
+                      - generic [ref=e833]:
+                        - link "DIE ZEIT Medien und Telekommunikation 423.652 Follower:innen" [ref=e835] [cursor=pointer]:
+                          - /url: https://www.linkedin.com/company/die-zeit/
+                          - generic [ref=e836]:
+                            - generic [ref=e838]: DIE ZEIT
+                            - generic [ref=e840]: Medien und Telekommunikation
+                            - generic [ref=e842]: 423.652 Follower:innen
+                        - link "Gerrit Gericke Gerrit & 30 weitere Kontakte folgen dieser Seite" [ref=e844] [cursor=pointer]:
+                          - /url: http://www.linkedin.com/company/die-zeit/?showInNetworkFollowers=true
+                          - img "Gerrit Gericke" [ref=e847]
+                          - generic [ref=e848]: Gerrit & 30 weitere Kontakte folgen dieser Seite
+                    - button "DIE ZEIT folgen" [ref=e850] [cursor=pointer]:
+                      - img [ref=e851]
+                      - generic [ref=e853]: Folgen
+            - button "Alle empfohlenen Seiten anzeigen" [ref=e855] [cursor=pointer]:
+              - img [ref=e856]
+              - generic [ref=e858]: Alle anzeigen
+          - generic [ref=e865]:
+            - heading "Kontakte, die hier arbeiten" [level=3] [ref=e867]
+            - list [ref=e869]:
+              - listitem [ref=e870]:
+                - generic [ref=e871]:
+                  - generic [ref=e872]:
+                    - link "Profilbild von Marco Pasini" [ref=e874] [cursor=pointer]:
+                      - /url: https://www.linkedin.com/in/marco-pasini-82a40891
+                      - generic "Profilbild von Marco Pasini" [ref=e876]:
+                        - img "Marco Pasini" [ref=e878]
+                    - link "Marco Pasini 1. Optimist | Helping overwhelmed Founders & Teams unlock Healthy Peak Performance & Change Resilience with ease&flow. | mpathy-consulting.de" [ref=e881] [cursor=pointer]:
+                      - /url: https://www.linkedin.com/in/marco-pasini-82a40891
+                      - generic [ref=e882]:
+                        - generic [ref=e883]:
+                          - generic [ref=e884]: Marco Pasini
+                          - generic [ref=e885]:
+                            - generic [ref=e886]: "1."
+                            - generic [ref=e887]: · 1.
+                        - generic [ref=e889]: Optimist | Helping overwhelmed Founders & Teams unlock Healthy Peak Performance & Change Resilience with ease&flow. | mpathy-consulting.de
+                  - button "Marco Pasini Nachricht" [ref=e892] [cursor=pointer]:
+                    - generic [ref=e893]: Nachricht
+        - generic [ref=e895]:
+          - iframe [ref=e897]:
+            
+          - generic "LinkedIn Fußzeile – Inhalt" [ref=e898]:
+            - generic [ref=e899]:
+              - list [ref=e900]:
+                - listitem [ref=e901]:
+                  - link "Info" [ref=e902] [cursor=pointer]:
+                    - /url: https://about.linkedin.com/de-de
+                    - generic [ref=e903]: Info
+                - listitem [ref=e904]:
+                  - link "Barrierefreiheit" [ref=e905] [cursor=pointer]:
+                    - /url: https://www.linkedin.com/accessibility
+                    - generic [ref=e906]: Barrierefreiheit
+                - listitem [ref=e907]:
+                  - link "Hilfebereich" [ref=e908] [cursor=pointer]:
+                    - /url: https://www.linkedin.com/help/linkedin?trk=footer_d_flagship3_company_posts
+                    - generic [ref=e909]: Hilfebereich
+                - listitem [ref=e910]:
+                  - link "Impressum" [ref=e911] [cursor=pointer]:
+                    - /url: https://www.linkedin.com/legal/impressum
+                    - generic [ref=e912]: Impressum
+                - listitem [ref=e913]:
+                  - button "Datenschutz & AGB" [ref=e915] [cursor=pointer]:
+                    - generic [ref=e917]:
+                      - text: Datenschutz & AGB
+                      - img [ref=e918]
+                - listitem [ref=e920]:
+                  - link "Anzeigenauswahl" [ref=e921] [cursor=pointer]:
+                    - /url: https://www.linkedin.com/help/linkedin/answer/62931?lang=de
+                    - generic [ref=e922]: Anzeigenauswahl
+                - listitem [ref=e923]:
+                  - link "Marketing" [ref=e924] [cursor=pointer]:
+                    - /url: https://www.linkedin.com/ad/start?trk=n_nav_ads_rr
+                    - generic [ref=e925]: Marketing
+                - listitem [ref=e926]:
+                  - button "Business-Services" [ref=e928] [cursor=pointer]:
+                    - generic [ref=e930]:
+                      - text: Business-Services
+                      - img [ref=e931]
+                - listitem [ref=e933]:
+                  - button "LinkedIn App herunterladen" [ref=e936] [cursor=pointer]
+                - listitem [ref=e937]:
+                  - button "Weitere Optionen" [ref=e938] [cursor=pointer]: Mehr
+              - generic [ref=e939]:
+                - img "LinkedIn" [ref=e940]:
+                  - img [ref=e941]
+                - text: LinkedIn Corporation © 2026
+    - generic:
+      - generic:
+        - complementary:
+          - generic [ref=e944]:
+            - generic [ref=e946] [cursor=pointer]:
+              - generic [ref=e947]:
+                - img "Robert Maschke" [ref=e948]
+                - generic [ref=e993]: "Status: online"
+              - button "Sie befinden sich in der Nachrichtenüberlagerung. Drücken Sie die Eingabetaste, um die Liste der Unterhaltungen zu öffnen." [ref=e949]:
+                - generic [ref=e950]:
+                  - generic [ref=e951]: Nachrichten
+                  - generic [ref=e952]: Sie befinden sich in der Nachrichtenüberlagerung. Drücken Sie die Eingabetaste, um die Liste der Unterhaltungen zu öffnen.
+            - generic [ref=e953]:
+              - button "Messenger-Dropdown-Menü öffnen" [ref=e955] [cursor=pointer]:
+                - img "Messenger-Dropdown-Menü öffnen" [ref=e956]
+              - button "Nachricht verfassen" [ref=e959] [cursor=pointer]:
+                - img [ref=e960]
+                - generic [ref=e962]: Nachricht verfassen
+              - button "Sie befinden sich in der Nachrichtenüberlagerung. Drücken Sie die Eingabetaste, um die Liste der Unterhaltungen zu öffnen." [ref=e963] [cursor=pointer]:
+                - img [ref=e964]
+                - generic [ref=e966]: Sie befinden sich in der Nachrichtenüberlagerung. Drücken Sie die Eingabetaste, um die Liste der Unterhaltungen zu öffnen.
+        - complementary "KI-basierter Assistent, der Sie bei Ihrer Karriere, Ihren Jobangeboten usw. unterstützen kann"
+  - region [ref=e967]

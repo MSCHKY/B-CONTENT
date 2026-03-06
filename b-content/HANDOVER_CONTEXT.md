@@ -1,8 +1,8 @@
 # 🏗️ B/CONTENT — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-06
+> **Zuletzt aktualisiert:** 2026-03-06 16:18
 > **Modul:** B/CONTENT (Content-Gehirn)
-> **Status:** Phase 0 — Foundation / Warten auf Kunden-Feedback
+> **Status:** Phase 0 DONE — Bereit für Phase 1 (Implementierung)
 
 ---
 
@@ -29,10 +29,15 @@
   - `content-rules.json` — 4:1 Ratio, Posting-Regeln, Orchestrierung, Leitplanken
 - [x] Web-Recherche durchgeführt → `src/data/unconfirmed/web-research.json` (TBD: Kunden-Bestätigung)
 - [x] Fragebogen an Kunden (Marco Pasini) gesendet (10 Fragen)
-- [ ] ⏳ Offene Fragen vom Kunden beantwortet
-- [ ] Product Spec finale Bestätigung ("Was es NICHT ist" — blockiert alles Weitere)
+- [x] Kunden-Feedback erhalten und eingearbeitet
+- [x] Product Spec bestätigt ("Was es ist und was es nicht ist, ist alles korrekt.")
+- [x] LinkedIn-Seite gecrawlt und analysiert (`assets/info/linkedin-analyse.md`)
+- [x] BWG News-Seite analysiert + Beispiel-Artikel gespeichert
+- [x] Brand-Assets sortiert (`assets/brand/`): Logos, Fonts, Icons, CD Manual
+- [x] Sprachstrategie geklärt: EN default, DE für ausgewählte Kategorien, Tool bilingual
+- [x] Neuer Content-Typ identifiziert: Website-Artikel (bilingual DE+EN)
 - [ ] Unconfirmed Web-Recherche-Daten bestätigen oder entfernen
-- [ ] Projekt initialisieren (Vite/React)
+- [ ] Projekt initialisieren (Vite/React) ← **NÄCHSTER SCHRITT**
 
 ---
 
@@ -67,11 +72,12 @@
 
 ## 5. Blocker
 
-| Blocker | Wartet auf | Impact |
-|---------|-----------|--------|
-| Product Spec finale Bestätigung | Marcos Antwort | Blockiert Projektinitialisierung |
-| Brand-Assets (Logos, Gilroy Font, Fotos) | Marcos Antwort | Blockiert Template-Design |
-| Bild-Strategie (AI vs. Template vs. Mix) | Marcos Antwort | Beeinflusst Architektur |
+**Keine Blocker.** Alle Kunden-Fragen beantwortet, Assets vorhanden, Product Spec bestätigt.
+
+| Risiko | Status | Impact |
+|--------|--------|--------|
+| Gilroy Web-Lizenz | 🟡 Unklar | Nur rechtlich, kein technischer Blocker. Klären vor Public Deploy. |
+| Kein Fotomaterial | ✅ Akzeptiert | AI-Generierung + Template-Grafiken als Bildsprache |
 
 ---
 
@@ -80,4 +86,5 @@
 | Datum      | Session-Typ | Thema                           | Ergebnis |
 |------------|-------------|---------------------------------|----------|
 | 2026-03-06 | Planning    | Modul-Infrastruktur aufgesetzt  | ✅ Done  |
-| 2026-03-06 | Planning    | Strategy Doc analysiert, Product Spec, vDNA, Wissensbasis, Web-Recherche | ✅ Done |
+| 2026-03-06 | Planning    | Strategy Doc → Product Spec, vDNA, Wissensbasis | ✅ Done |
+| 2026-03-06 | Planning    | Kunden-Feedback, Assets sortiert, LinkedIn-Analyse | ✅ Done |

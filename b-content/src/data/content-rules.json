@@ -12,8 +12,16 @@
             "min_tage": 2,
             "beschreibung": "Nie zwei Posts am selben Tag. Mindestens 2 Tage Abstand. Jede Story verdient ihren eigenen Moment."
         },
-        "sprache": "en",
-        "sprache_beschreibung": "Posts werden auf Englisch verfasst (basierend auf der strategischen Ausrichtung und allen Beispiel-Posts)"
+        "sprache_default": "en",
+        "sprache_unterstuetzt": [
+            "en",
+            "de"
+        ],
+        "sprache_regeln": {
+            "englisch": "Standard für GF-Posts, Messe- und Produktkommunikation, internationale Kundenansprache",
+            "deutsch": "Ausgewählte Kategorien wie Ehrung Jubilare, interne Kultur-Posts, Website-Artikel (werden gespiegelt)"
+        },
+        "website_artikel": "Immer bilingual — DE + EN gespiegelt"
     },
     "content_principles": {
         "emotion_schlaegt_abstraktion": {

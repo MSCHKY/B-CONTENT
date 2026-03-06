@@ -1,0 +1,116 @@
+%!Adobe-FontList 1.24
+%Locale:0x409
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Invalid
+OutlineFileName:/Users/lisago/Library/CloudStorage/OneDrive-HagenerFeinstahlBenderGmbH/Bender Group Marketing/BenderWire Group/Styleguide/Document fonts/AdobeFnt24.lst
+FileLength:2716
+FileModTime:766591443
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:Arial-BoldMT
+FamilyName:Arial
+StyleName:Bold
+MenuName:Arial
+StyleBits:2
+WeightClass:700
+WidthClass:5
+AngleClass:0
+FullName:Arial Bold
+WritingScript:Roman
+OutlineFileName:/Users/lisago/Library/CloudStorage/OneDrive-HagenerFeinstahlBenderGmbH/Bender Group Marketing/BenderWire Group/Styleguide/Document fonts/Arial Bold.ttf
+DataFormat:sfntData
+hasSVG:no
+hasSBIX:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:750984
+FileModTime:744460301
+NameArray:0,Mac,4,Arial Bold
+NameArray:0,Win,1,Arial
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:ArialMT
+FamilyName:Arial
+StyleName:Regular
+MenuName:Arial
+StyleBits:0
+WeightClass:400
+WidthClass:5
+AngleClass:0
+FullName:Arial
+WritingScript:Roman
+OutlineFileName:/Users/lisago/Library/CloudStorage/OneDrive-HagenerFeinstahlBenderGmbH/Bender Group Marketing/BenderWire Group/Styleguide/Document fonts/Arial.ttf
+DataFormat:sfntData
+hasSVG:no
+hasSBIX:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:773236
+FileModTime:744460301
+NameArray:0,Mac,4,Arial
+NameArray:0,Win,1,Arial
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:Gilroy-Regular
+FamilyName:Gilroy
+StyleName:Regular
+MenuName:Gilroy
+StyleBits:0
+WeightClass:400
+WidthClass:5
+AngleClass:0
+FullName:Gilroy
+WritingScript:Roman
+OutlineFileName:/Users/lisago/Library/CloudStorage/OneDrive-HagenerFeinstahlBenderGmbH/Bender Group Marketing/BenderWire Group/Styleguide/Document fonts/Gilroy-Regular.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+hasSBIX:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:53840
+FileModTime:759245240
+NameArray:0,Mac,4,Gilroy
+NameArray:0,Win,1,Gilroy
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:Gilroy-SemiBold
+FamilyName:Gilroy
+StyleName:SemiBold
+MenuName:Gilroy SemiBold
+StyleBits:0
+WeightClass:600
+WidthClass:5
+AngleClass:0
+FullName:Gilroy SemiBold
+WritingScript:Roman
+OutlineFileName:/Users/lisago/Library/CloudStorage/OneDrive-HagenerFeinstahlBenderGmbH/Bender Group Marketing/BenderWire Group/Styleguide/Document fonts/Gilroy-SemiBold.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+hasSBIX:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:55212
+FileModTime:759245240
+NameArray:0,Mac,4,Gilroy SemiBold
+NameArray:0,Win,1,Gilroy SemiBold
+NameArray:0,Win,16,Gilroy
+%EndFont
+

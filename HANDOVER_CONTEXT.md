@@ -1,7 +1,7 @@
 # 🏗️ BENDERWIRE GROUP — Handover Context
 
 > **Zuletzt aktualisiert:** 2026-03-06
-> **Aktiver Fokus:** B/CONTENT (Content-Gehirn) — Warten auf Kunden-Feedback
+> **Aktiver Fokus:** B/CONTENT (Content-Gehirn) — Bereit für Implementierung
 > **Phase:** Pitch / MVP
 
 ---
@@ -45,10 +45,12 @@ Vollständige Spezifikation → `B-CONTENT/PRODUCT_SPEC.md`
 - [x] vDNA mit echten Brand-Werten befüllt
 - [x] Wissensbasis extrahiert (13 Themenfelder, 29 Zitate, 3 Profile, Regeln)
 - [x] Web-Recherche durchgeführt (unconfirmed, TBD Kunden-Bestätigung)
-- [x] Fragebogen an Kunden gesendet (10 Fragen)
-- [ ] ⏳ Kunden-Feedback abwarten
-- [ ] Product Spec finale Bestätigung ("Was es NICHT ist")
-- [ ] Projekt initialisieren (Vite/React)
+- [x] Fragebogen an Kunden gesendet + Feedback erhalten
+- [x] Product Spec bestätigt
+- [x] Brand-Assets sortiert (Logos, Fonts, Icons, CD Manual)
+- [x] LinkedIn gecrawlt und analysiert
+- [x] Sprachstrategie geklärt (EN default, DE für ausgewählte Kategorien)
+- [ ] Projekt initialisieren (Vite/React) ← **NÄCHSTER SCHRITT**
 
 ---
 
@@ -101,4 +103,5 @@ BENDERGROUP/
 | Datum      | Session-Typ | Thema                          | Ergebnis |
 |------------|-------------|--------------------------------|----------|
 | 2026-03-06 | Planning    | Projekt-Setup & Infrastruktur  | ✅ Infrastruktur angelegt |
-| 2026-03-06 | Planning    | Strategy Doc, Product Spec, vDNA, Wissensbasis, Web-Recherche | ✅ Alles vorbereitet, warten auf Kunden |
+| 2026-03-06 | Planning    | Strategy Doc → Product Spec, vDNA, Wissensbasis | ✅ Done |
+| 2026-03-06 | Planning    | Kunden-Feedback, Assets, LinkedIn-Analyse | ✅ Alle Blocker gelöst |
