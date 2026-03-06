@@ -1,6 +1,6 @@
 # 🏗️ B/CONTENT — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-06 17:00
+> **Zuletzt aktualisiert:** 2026-03-06 17:07
 > **Modul:** B/CONTENT (Content-Gehirn)
 > **Status:** Phase 1 IN PROGRESS — Foundation + Design System gebaut
 > **Branch:** `feature/b-content-foundation`
@@ -43,6 +43,8 @@
 - [x] **Build verifiziert** — 0 TS Errors, Vite Build ok, visuell getestet
 - [ ] AI System-Prompts pro Instanz/Typ ← **NÄCHSTE SESSION**
 - [ ] Prompt-Builder Service
+- [ ] **Website-Beitrag Format** — Neues Format aus Marco-Feedback (Product Spec aktualisiert)
+- [ ] Transkript-Import (V2 Feature)
 - [ ] Playwright Smoke Test
 - [ ] GitHub Repo + CI/CD ← **ROBERT ERFORDERLICH**
 - [ ] Cloudflare D1/R2 anlegen ← **ROBERT ERFORDERLICH**
@@ -75,13 +77,32 @@
 | State Management | **Zustand** — typed, skaliert, minimal |
 | Font-Einbindung | Gilroy via @font-face OTF — Web-Lizenz unklar, für internen Gebrauch ok |
 | Wissensbasis-API | Statische JSON-Imports, kein D1 für KB in V1 |
+| AI API Budget | **Kein Limit** — „was es braucht" (Marco) |
+| Nutzerkreis V1 | **Nur Marco + Lisa** (Grafikerin), NICHT Alex/Ablas direkt |
+| GF-Freigabe | Nicht im MVP, Marco sendet per Teams |
 
 ---
 
-## 5. Invarianten
+## 5. Neues Feedback Marco (2026-03-06 17:07)
 
-1. **Content-Gehirn:** Drei Kommunikationsinstanzen (Alex, Ablas, BWG) mit eigenen Tonalitäts-Profilen
-2. **Wissensbasis-gespeist:** AI generiert mit Kontext aus der Knowledge Engine, nicht aus allgemeinem Training
+> ⚠️ Muss in nächster Session verarbeitet werden
+
+| Punkt | Detail | Impact |
+|-------|--------|--------|
+| **Website-Beitrag** | Neues Format: kurze Pressemitteilung für Website, periodisch aus Themen generiert | Product Spec §3.4 aktualisiert ✅ |
+| **Bild-Gap** | Keine professionellen Fotos vorhanden. Nur Selfies/Schnappschüsse oder AI-generiert | Bildsprache entwickeln, AI-Bildgenerierung priorisieren |
+| **Bildformat** | Hochformat (Regelfall), aber flexibel | Bereits unterstützt (LINKEDIN_FORMATS) |
+| **Transkript-Import** | Monatliche Interviews als Transkript, sollen ins Tool geladen werden können | V2 Feature, Backlog-Item |
+| **Canva Templates** | Keine vorhanden, entstehen gerade | Kein Blocker |
+| **CD Manual** | Existiert als PDF, wird hochgeladen | Assets abwarten |
+| **API Budget** | „Kein Limit, was es braucht" | Kein Blocker, großzügig dimensionieren |
+
+---
+
+## 6. Invarianten
+
+1. **Content-Gehirn:** Drei Kommunikationsinstanzen (Alex, Ablas, BWG) + Website-Beitrag
+2. **Wissensbasis-gespeist:** AI generiert mit Kontext aus der Knowledge Engine
 3. **DSGVO-konform:** Cloudflare EU-Region, Gemini EU-Endpoint (Vertex AI)
 4. **Core-Ready:** Auth, API, DB so abstrahiert, dass B/WIRE-Integration möglich ist
 5. **Brand-konform:** Alle generierten Assets nutzen vDNA-Tokens
@@ -91,7 +112,7 @@
 
 ---
 
-## 6. Blocker
+## 7. Blocker
 
 | Blocker | Status | Impact |
 |---------|--------|--------|
@@ -99,14 +120,17 @@
 | D1 + R2 nicht erstellt | ⏳ Wartet auf Robert | Kein Backend-Storage |
 | Gemini API Key fehlt | ⏳ Wartet auf Robert | AI-Generierung nur Mock |
 | Gilroy Web-Lizenz | 🟡 Unklar | Nur für Public Deploy relevant |
+| Bildmaterial | 🟡 Kein professionelles Material | AI-Generierung oder eigene Fotos |
+| CD Manual PDF | ⏳ Marco lädt hoch | Design-Abgleich |
 
 ---
 
-## 7. Session-Log
+## 8. Session-Log
 
 | Datum      | Session-Typ | Thema                           | Ergebnis |
 |------------|-------------|---------------------------------|----------|
 | 2026-03-06 | Planning    | Modul-Infrastruktur aufgesetzt  | ✅ Done  |
 | 2026-03-06 | Planning    | Strategy Doc → Product Spec, vDNA, Wissensbasis | ✅ Done |
 | 2026-03-06 | Planning    | Kunden-Feedback, Assets sortiert, LinkedIn-Analyse | ✅ Done |
-| 2026-03-06 | Execution   | **Phase A+B: Projekt-Setup + Design System + Layout + Create-Flow + Knowledge Viewer** | ✅ Done |
+| 2026-03-06 | Execution   | Phase A+B: Projekt-Setup + Design System + Create-Flow + Knowledge | ✅ Done |
+| 2026-03-06 | Follow-up   | Marco-Feedback: Website-Beitrag, Bild-Gap, User-Scope, Budget | ✅ Dokumentiert |

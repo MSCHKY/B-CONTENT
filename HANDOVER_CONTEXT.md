@@ -50,7 +50,13 @@ Vollständige Spezifikation → `B-CONTENT/PRODUCT_SPEC.md`
 - [x] Brand-Assets sortiert (Logos, Fonts, Icons, CD Manual)
 - [x] LinkedIn gecrawlt und analysiert
 - [x] Sprachstrategie geklärt (EN default, DE für ausgewählte Kategorien)
-- [ ] Projekt initialisieren (Vite/React) ← **NÄCHSTER SCHRITT**
+- [x] Projekt initialisiert (Vite/React + Tailwind v4 + Zustand + Hono)
+- [x] Design System + Layout Shell gebaut (6 UI-Primitives, Sidebar, AppShell)
+- [x] Create-Flow UI (4-Step Wizard) + Knowledge Viewer
+- [x] Worker API Skeleton (Generate + Knowledge Routes, Mock-Mode)
+- [x] Build verifiziert (0 TS Errors, Vite Build ok)
+- [ ] AI System-Prompts + Prompt-Builder ← **NÄCHSTER SCHRITT**
+- [ ] GitHub Repo + Deploy ← **ROBERT ERFORDERLICH**
 
 ---
 
@@ -105,3 +111,5 @@ BENDERGROUP/
 | 2026-03-06 | Planning    | Projekt-Setup & Infrastruktur  | ✅ Infrastruktur angelegt |
 | 2026-03-06 | Planning    | Strategy Doc → Product Spec, vDNA, Wissensbasis | ✅ Done |
 | 2026-03-06 | Planning    | Kunden-Feedback, Assets, LinkedIn-Analyse | ✅ Alle Blocker gelöst |
+| 2026-03-06 | Execution   | Phase A+B: Foundation + Design System + Create-Flow + Knowledge | ✅ 31 Dateien, 6k Zeilen |
+| 2026-03-06 | Follow-up   | Marco-Feedback: Website-Beitrag, Bild-Gap, User-Scope, Budget | ✅ Dokumentiert |
