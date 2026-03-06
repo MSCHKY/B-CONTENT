@@ -1,8 +1,8 @@
 # 🏗️ B/CONTENT — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-06 17:07
+> **Zuletzt aktualisiert:** 2026-03-06 17:14
 > **Modul:** B/CONTENT (Content-Gehirn)
-> **Status:** Phase 1 IN PROGRESS — Foundation + Design System gebaut
+> **Status:** Phase 1 IN PROGRESS — AI-Pipeline implementiert
 > **Branch:** `feature/b-content-foundation`
 
 ---
@@ -41,11 +41,13 @@
 - [x] **Knowledge Base Viewer** — Topics/Quotes/Rules Tabs
 - [x] **Hono Worker API** — Generate + Knowledge Routes (Mock-Mode ohne API Key)
 - [x] **Build verifiziert** — 0 TS Errors, Vite Build ok, visuell getestet
-- [ ] AI System-Prompts pro Instanz/Typ ← **NÄCHSTE SESSION**
-- [ ] Prompt-Builder Service
-- [ ] **Website-Beitrag Format** — Neues Format aus Marco-Feedback (Product Spec aktualisiert)
+- [x] **AI System-Prompts** — Base + 3 Instanzen + 11 Content-Typen + Website-Beitrag
+- [x] **Prompt-Builder Service** — Runtime-Assembly aus Instanz + Typ + KB-Kontext
+- [x] **Gemini Client** — Text-Generierung (gemini-2.0-flash, Retry, EU-Endpoint vorbereitet)
+- [x] **Generate-Route verdrahtet** — Mock-Fallback + echte Pipeline + Website-Artikel-Endpoint
+- [x] **Playwright Smoke Test** — 6 Tests (App-Load, Navigation, Create-Flow, Knowledge, API)
+- [x] **Website-Beitrag Format** — Cross-Instance Prompt + API-Endpoint
 - [ ] Transkript-Import (V2 Feature)
-- [ ] Playwright Smoke Test
 - [ ] GitHub Repo + CI/CD ← **ROBERT ERFORDERLICH**
 - [ ] Cloudflare D1/R2 anlegen ← **ROBERT ERFORDERLICH**
 - [ ] Gemini API Key konfigurieren ← **ROBERT ERFORDERLICH**
@@ -85,7 +87,7 @@
 
 ## 5. Neues Feedback Marco (2026-03-06 17:07)
 
-> ⚠️ Muss in nächster Session verarbeitet werden
+> ✅ In AI-Pipeline eingearbeitet (Website-Beitrag Prompt + Endpoint)
 
 | Punkt | Detail | Impact |
 |-------|--------|--------|
@@ -134,3 +136,4 @@
 | 2026-03-06 | Planning    | Kunden-Feedback, Assets sortiert, LinkedIn-Analyse | ✅ Done |
 | 2026-03-06 | Execution   | Phase A+B: Projekt-Setup + Design System + Create-Flow + Knowledge | ✅ Done |
 | 2026-03-06 | Follow-up   | Marco-Feedback: Website-Beitrag, Bild-Gap, User-Scope, Budget | ✅ Dokumentiert |
+| 2026-03-06 | Execution   | AI-Pipeline: System-Prompts + Prompt-Builder + Gemini Client + Smoke Test | ✅ Done |

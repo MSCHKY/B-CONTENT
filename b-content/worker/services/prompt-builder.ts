@@ -1,0 +1,273 @@
+// ============================================================
+// B/CONTENT — Prompt Builder Service
+// Assembles AI prompts from Instance + ContentType + KB Context
+// ============================================================
+
+import systemPrompts from "../../src/data/prompts/system-prompts.json";
+import topicFields from "../../src/data/topics/topic-fields.json";
+import quotesData from "../../src/data/quotes/quotes.json";
+import instancesData from "../../src/data/instances/instances.json";
+
+// --- Types ---
+
+type InstanceId = "alex" | "ablas" | "bwg";
+type TopicFieldId = string;
+
+interface TopicFieldData {
+    id: string;
+    label: string;
+    kernbotschaft: string;
+    facts: string[];
+    keywords: string[];
+    instances: Record<string, number>;
+}
+
+interface QuoteData {
+    id: string;
+    content: string;
+    topics: string[];
+    emotion: string;
+    context?: string;
+}
+
+interface QuoteGroup {
+    author: string;
+    name: string;
+    quotes: QuoteData[];
+}
+
+interface InstanceData {
+    id: string;
+    name: string;
+    role: string;
+    mantelthema: string;
+    claim: string;
+    oberthemen: { label: string; leitgedanke: string }[];
+    content_types: {
+        id: string;
+        label: string;
+        beschreibung: string;
+        char_range: { min: number; max: number };
+        frequenz: string;
+        hinweis?: string;
+    }[];
+}
+
+interface BuildPromptParams {
+    instance: InstanceId;
+    contentType: string;
+    topicField: TopicFieldId;
+    userInput: string;
+    language: "en" | "de";
+}
+
+interface BuiltPrompt {
+    system: string;
+    user: string;
+}
+
+// --- Knowledge Base Helpers ---
+
+function getTopicContext(topicFieldId: string): string {
+    const topics = topicFields as TopicFieldData[];
+    const topic = topics.find((t) => t.id === topicFieldId);
+    if (!topic) return "";
+
+    const lines: string[] = [
+        `TOPIC: ${topic.label}`,
+        `Core message: ${topic.kernbotschaft}`,
+        "",
+        "KEY FACTS:",
+        ...topic.facts.map((f) => `• ${f}`),
+    ];
+
+    if (topic.keywords.length > 0) {
+        lines.push("", `KEYWORDS: ${topic.keywords.join(", ")}`);
+    }
+
+    return lines.join("\n");
+}
+
+function getRelevantQuotes(
+    instanceId: InstanceId,
+    topicFieldId: string,
+): string {
+    const groups = quotesData as QuoteGroup[];
+    const relevantQuotes: QuoteData[] = [];
+
+    // Get quotes from the instance author
+    const instanceGroup = groups.find((g) => g.author === instanceId);
+    if (instanceGroup) {
+        const topicQuotes = instanceGroup.quotes.filter(
+            (q) =>
+                q.topics.length === 0 || q.topics.includes(topicFieldId),
+        );
+        relevantQuotes.push(...topicQuotes.slice(0, 3)); // max 3
+    }
+
+    // Also get general/company quotes for the topic
+    const generalGroup = groups.find((g) => g.author === "general");
+    if (generalGroup) {
+        const generalTopicQuotes = generalGroup.quotes.filter((q) =>
+            q.topics.includes(topicFieldId),
+        );
+        relevantQuotes.push(...generalTopicQuotes.slice(0, 2)); // max 2
+    }
+
+    if (relevantQuotes.length === 0) return "";
+
+    const lines = [
+        "RELEVANT ORIGINAL QUOTES (use for inspiration, tone calibration, or direct embedding):",
+        ...relevantQuotes.map(
+            (q) =>
+                `• "${q.content}"${q.context ? ` (Context: ${q.context})` : ""}`,
+        ),
+    ];
+
+    return lines.join("\n");
+}
+
+function getContentTypeInfo(
+    instanceId: InstanceId,
+    contentTypeId: string,
+): string {
+    const instances = instancesData as Record<string, InstanceData>;
+    const instance = instances[instanceId];
+    if (!instance) return "";
+
+    const ct = instance.content_types.find((t) => t.id === contentTypeId);
+    if (!ct) return "";
+
+    const lines = [
+        `CONTENT FORMAT: ${ct.label}`,
+        `Description: ${ct.beschreibung}`,
+        `Character range: ${ct.char_range.min}–${ct.char_range.max}`,
+        `Frequency: ${ct.frequenz}`,
+    ];
+
+    if (ct.hinweis) {
+        lines.push(`Note: ${ct.hinweis}`);
+    }
+
+    return lines.join("\n");
+}
+
+// --- Main Builder ---
+
+export function buildTextPrompt(params: BuildPromptParams): BuiltPrompt {
+    const { instance, contentType, topicField, userInput, language } = params;
+
+    // 1. Assemble system prompt
+    const systemParts: string[] = [];
+
+    // Base rules
+    systemParts.push(systemPrompts.base);
+
+    // Instance persona
+    const instancePrompt =
+        systemPrompts.instances[
+        instance as keyof typeof systemPrompts.instances
+        ];
+    if (instancePrompt) {
+        systemParts.push("\n---\n");
+        systemParts.push(instancePrompt);
+    }
+
+    // Content type format
+    const ctPrompt =
+        systemPrompts.contentTypes[
+        contentType as keyof typeof systemPrompts.contentTypes
+        ];
+    if (ctPrompt) {
+        systemParts.push("\n---\n");
+        systemParts.push(ctPrompt);
+    }
+
+    // Instance-specific content type details (char range, etc.)
+    const ctInfo = getContentTypeInfo(instance, contentType);
+    if (ctInfo) {
+        systemParts.push("\n");
+        systemParts.push(ctInfo);
+    }
+
+    // Language instruction
+    const langInstruction =
+        language === "de"
+            ? "\nLANGUAGE: Write the post in GERMAN (Deutsch)."
+            : "\nLANGUAGE: Write the post in ENGLISH.";
+    systemParts.push(langInstruction);
+
+    const system = systemParts.join("\n");
+
+    // 2. Assemble user prompt with KB context
+    const userParts: string[] = [];
+
+    // Topic context from knowledge base
+    const topicContext = getTopicContext(topicField);
+    if (topicContext) {
+        userParts.push(topicContext);
+    }
+
+    // Relevant quotes
+    const quotes = getRelevantQuotes(instance, topicField);
+    if (quotes) {
+        userParts.push("\n");
+        userParts.push(quotes);
+    }
+
+    // User input
+    userParts.push("\n---\n");
+    userParts.push(`USER INPUT / CONTEXT:\n${userInput}`);
+    userParts.push(
+        "\n\nGenerate the post now. Follow all format and tonality rules above.",
+    );
+
+    const user = userParts.join("\n");
+
+    return { system, user };
+}
+
+export function buildWebsiteArticlePrompt(params: {
+    topicField: TopicFieldId;
+    userInput: string;
+}): BuiltPrompt {
+    const { topicField, userInput } = params;
+
+    // System: base + website article format
+    const system = [
+        systemPrompts.base,
+        "\n---\n",
+        systemPrompts.websiteArticle,
+    ].join("\n");
+
+    // User: topic context + input
+    const userParts: string[] = [];
+
+    const topicContext = getTopicContext(topicField);
+    if (topicContext) {
+        userParts.push(topicContext);
+    }
+
+    // Get quotes from all authors for this topic
+    const allGroups = quotesData as QuoteGroup[];
+    const allRelevantQuotes: string[] = [];
+    for (const group of allGroups) {
+        for (const q of group.quotes) {
+            if (q.topics.includes(topicField)) {
+                allRelevantQuotes.push(`• "${q.content}" — ${group.name}`);
+            }
+        }
+    }
+    if (allRelevantQuotes.length > 0) {
+        userParts.push("\nRELEVANT QUOTES FROM THE COMPANY:");
+        userParts.push(...allRelevantQuotes.slice(0, 5));
+    }
+
+    userParts.push("\n---\n");
+    userParts.push(`USER INPUT / CONTEXT:\n${userInput}`);
+    userParts.push(
+        "\n\nGenerate the website article now. Provide BOTH German and English versions, clearly separated.",
+    );
+
+    return { system, user: userParts.join("\n") };
+}

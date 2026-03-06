@@ -55,7 +55,7 @@ Vollständige Spezifikation → `B-CONTENT/PRODUCT_SPEC.md`
 - [x] Create-Flow UI (4-Step Wizard) + Knowledge Viewer
 - [x] Worker API Skeleton (Generate + Knowledge Routes, Mock-Mode)
 - [x] Build verifiziert (0 TS Errors, Vite Build ok)
-- [ ] AI System-Prompts + Prompt-Builder ← **NÄCHSTER SCHRITT**
+- [x] AI System-Prompts + Prompt-Builder + Gemini Client ✅
 - [ ] GitHub Repo + Deploy ← **ROBERT ERFORDERLICH**
 
 ---
@@ -113,3 +113,4 @@ BENDERGROUP/
 | 2026-03-06 | Planning    | Kunden-Feedback, Assets, LinkedIn-Analyse | ✅ Alle Blocker gelöst |
 | 2026-03-06 | Execution   | Phase A+B: Foundation + Design System + Create-Flow + Knowledge | ✅ 31 Dateien, 6k Zeilen |
 | 2026-03-06 | Follow-up   | Marco-Feedback: Website-Beitrag, Bild-Gap, User-Scope, Budget | ✅ Dokumentiert |
+| 2026-03-06 | Execution   | AI-Pipeline: Prompts + Builder + Gemini + Smoke Test | ✅ Done |

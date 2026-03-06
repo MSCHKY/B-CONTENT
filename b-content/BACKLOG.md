@@ -78,3 +78,7 @@ Entspricht Features F12-F17 aus PRODUCT_SPEC.md:
 | —     | Wissensbasis extrahiert (Themenfelder, Zitate, Profile, Regeln) | 2026-03-06 |
 | —     | Web-Recherche (unconfirmed) durchgeführt         | 2026-03-06 |
 | —     | Fragebogen an Kunden gesendet                    | 2026-03-06 |
+| —     | Vite-Projekt initialisiert + Design System + Create-Flow + Knowledge | 2026-03-06 |
+| —     | AI System-Prompts (3 Instanzen × 11 Content-Typen + Website-Beitrag) | 2026-03-06 |
+| —     | Prompt-Builder Service + Gemini Client + Generate-Route | 2026-03-06 |
+| —     | Playwright Smoke Test (6 Tests)                  | 2026-03-06 |
