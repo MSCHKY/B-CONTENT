@@ -1,9 +1,10 @@
 # 🏗️ B/CONTENT — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-06 17:14
+> **Zuletzt aktualisiert:** 2026-03-06 20:56
 > **Modul:** B/CONTENT (Content-Gehirn)
-> **Status:** Phase 1 IN PROGRESS — AI-Pipeline implementiert
+> **Status:** Phase 1 IN PROGRESS — Text-Generierung live, Bild-Generierung offen
 > **Branch:** `feature/b-content-foundation`
+> **Live URL:** https://b-content.maschkeai.workers.dev
 
 ---
 
@@ -118,9 +119,10 @@
 
 | Blocker | Status | Impact |
 |---------|--------|--------|
-| GitHub Repo fehlt | ⏳ Wartet auf Robert | Kein Push, kein CI/CD |
-| D1 + R2 nicht erstellt | ⏳ Wartet auf Robert | Kein Backend-Storage |
-| Gemini API Key fehlt | ⏳ Wartet auf Robert | AI-Generierung nur Mock |
+| ~~GitHub Repo fehlt~~ | ✅ Gelöst | github.com/MSCHKY/B-CONTENT |
+| ~~D1 + R2 nicht erstellt~~ | ✅ Gelöst (EU Jurisdiction) | D1 Schema deployed, R2 ready |
+| ~~Gemini API Key fehlt~~ | ✅ Gelöst | Text-Generierung live |
+| Bild-Generierung | 🔲 Offen | Imagen 3 / Nano Banana 2 API noch nicht implementiert |
 | Gilroy Web-Lizenz | 🟡 Unklar | Nur für Public Deploy relevant |
 | Bildmaterial | 🟡 Kein professionelles Material | AI-Generierung oder eigene Fotos |
 | CD Manual PDF | ⏳ Marco lädt hoch | Design-Abgleich |
@@ -137,3 +139,4 @@
 | 2026-03-06 | Execution   | Phase A+B: Projekt-Setup + Design System + Create-Flow + Knowledge | ✅ Done |
 | 2026-03-06 | Follow-up   | Marco-Feedback: Website-Beitrag, Bild-Gap, User-Scope, Budget | ✅ Dokumentiert |
 | 2026-03-06 | Execution   | AI-Pipeline: System-Prompts + Prompt-Builder + Gemini Client + Smoke Test | ✅ Done |
+| 2026-03-06 | Ops         | GitHub Push + D1/R2 (EU) + Gemini Key + First Deploy + E2E Test | ✅ Live |

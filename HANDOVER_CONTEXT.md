@@ -114,3 +114,4 @@ BENDERGROUP/
 | 2026-03-06 | Execution   | Phase A+B: Foundation + Design System + Create-Flow + Knowledge | ✅ 31 Dateien, 6k Zeilen |
 | 2026-03-06 | Follow-up   | Marco-Feedback: Website-Beitrag, Bild-Gap, User-Scope, Budget | ✅ Dokumentiert |
 | 2026-03-06 | Execution   | AI-Pipeline: Prompts + Builder + Gemini + Smoke Test | ✅ Done |
+| 2026-03-06 | Ops         | GitHub + D1/R2 (EU) + API Key + Deploy + E2E Verify | ✅ Live |
