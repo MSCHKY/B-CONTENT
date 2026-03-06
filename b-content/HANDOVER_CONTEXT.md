@@ -1,11 +1,11 @@
 # 🏗️ B/CONTENT — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-06 23:08
+> **Zuletzt aktualisiert:** 2026-03-06 23:45
 > **Modul:** B/CONTENT (Content-Gehirn)
 > **Status:** Phase 1 NEAR COMPLETE — Text + Bild-Generierung live, Visual Polish deployed
 > **Branch:** `main` (Workers Builds Git-Integration aktiv)
 > **Live URL:** https://b-content.maschkeai.workers.dev
-> **Deploy:** Push auf `main` = automatisch live (Cloudflare Workers Builds)
+> **Deploy:** Push auf `main` = automatisch live (Workers Builds, Root Dir: `b-content`)
 
 ---
 

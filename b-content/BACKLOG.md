@@ -1,39 +1,40 @@
 # 📋 B/CONTENT — Backlog
 
-> **Zuletzt aktualisiert:** 2026-03-06
+> **Zuletzt aktualisiert:** 2026-03-06 23:45
 > **Referenz:** `PRODUCT_SPEC.md` für vollständige Feature-Beschreibungen
 
 ---
 
-## 🔴 Phase 0: Foundation (AKTIV — Warten auf Kunden-Feedback)
+## ✅ Phase 0: Foundation — DONE
 
 | ID    | Prio | Aufgabe                                          | Status      |
 |-------|------|--------------------------------------------------|-------------|
-| F-001 | P0   | Kunden-Feedback einholen (10 Fragen gesendet)    | ⏳ Wartend  |
-| F-002 | P0   | Product Spec bestätigen ("Was es NICHT ist")      | ⏳ Wartend  |
-| F-003 | P0   | Brand-Assets einsammeln (Logos, Gilroy, Fotos)    | ⏳ Wartend  |
-| F-004 | P0   | Web-Recherche vom Kunden bestätigen lassen        | 🔲 Offen   |
-| F-005 | P1   | Vite-Projekt initialisieren (React+Hono+CF)      | 🔲 Offen   |
-| F-006 | P1   | D1 Datenbank-Schema erstellen                    | 🔲 Offen   |
-| F-007 | P1   | AI System-Prompts schreiben (pro Instanz × Typ)  | 🔲 Offen   |
-| F-008 | P2   | CI/CD Pipeline (GitHub → CF Pages) einrichten    | 🔲 Offen   |
+| F-001 | P0   | Kunden-Feedback einholen (10 Fragen gesendet)    | ✅ Done     |
+| F-002 | P0   | Product Spec bestätigen ("Was es NICHT ist")      | ✅ Done     |
+| F-003 | P0   | Brand-Assets einsammeln (Logos, Gilroy, Fotos)    | ✅ Done     |
+| F-004 | P0   | Web-Recherche vom Kunden bestätigen lassen        | 🟡 Teilweise |
+| F-005 | P1   | Vite-Projekt initialisieren (React+Hono+CF)      | ✅ Done     |
+| F-006 | P1   | D1 Datenbank-Schema erstellen                    | ✅ Done     |
+| F-007 | P1   | AI System-Prompts schreiben (pro Instanz × Typ)  | ✅ Done     |
+| F-008 | P2   | CI/CD (GitHub → CF Workers Builds)               | ✅ Done     |
 
 ---
 
-## 🟡 Phase 1: MVP — Content-Gehirn (WARTEND auf Phase 0)
+## 🟡 Phase 1: MVP — Content-Gehirn (NEAR COMPLETE)
 
 Entspricht Features F1-F6 aus PRODUCT_SPEC.md:
 
 | ID    | Prio | Aufgabe                                          | Feature | Status    |
 |-------|------|--------------------------------------------------|---------|-----------|
-| M-001 | P0   | Instanz-Auswahl (Alex/Ablas/BWG)                 | F1      | 🔲 Offen  |
-| M-002 | P0   | Content-Type-Auswahl (dynamisch pro Instanz)     | F2      | 🔲 Offen  |
-| M-003 | P0   | Text-Generator mit Tonalitäts-Profilen           | F3      | 🔲 Offen  |
+| M-001 | P0   | Instanz-Auswahl (Alex/Ablas/BWG)                 | F1      | ✅ Done   |
+| M-002 | P0   | Content-Type-Auswahl (dynamisch pro Instanz)     | F2      | ✅ Done   |
+| M-003 | P0   | Text-Generator mit Tonalitäts-Profilen           | F3      | ✅ Done   |
 | M-004 | P0   | Bild-Generator (Gemini 2.5 Flash Image)          | F4      | ✅ Done   |
 | M-005 | P1   | Export (PNG/JPG + Klartext)                       | F5      | ✅ Done   |
 | M-006 | P1   | Wissensbasis-Viewer (read-only)                  | F6      | ✅ Done   |
 | M-007 | P1   | Create-Flow UI (4-Step Wizard)                   | —       | ✅ Done   |
 | M-008 | P2   | Smoke Test (Playwright)                          | —       | ✅ Done   |
+| M-009 | P2   | Visual Premium Polish (Glassmorphism, Animations) | —       | ✅ Done   |
 
 ---
 
@@ -86,3 +87,5 @@ Entspricht Features F12-F17 aus PRODUCT_SPEC.md:
 | —     | R2 Upload-Pipeline (EU Jurisdiction)             | 2026-03-06 |
 | —     | Content Library (D1 + Archive-UI + Save-to-Library) | 2026-03-06 |
 | —     | Deploy + E2E verifiziert (b-content.maschkeai.workers.dev) | 2026-03-06 |
+| —     | Visual Premium Polish (Glassmorphism, Micro-Animations, Logo, Gradients) | 2026-03-06 |
+| —     | CI/CD: Workers Builds + Git-Integration (push=live) | 2026-03-06 |
