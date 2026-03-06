@@ -1,6 +1,6 @@
 # 📋 B/CONTENT — Backlog
 
-> **Zuletzt aktualisiert:** 2026-03-06 23:45
+> **Zuletzt aktualisiert:** 2026-03-07 00:40
 > **Referenz:** `PRODUCT_SPEC.md` für vollständige Feature-Beschreibungen
 
 ---
@@ -49,6 +49,7 @@ Entspricht Features F7-F11 aus PRODUCT_SPEC.md:
 | E-003 | P2   | Wissensbasis-Editor (CRUD)                       | F9      | 🔲 Offen  |
 | E-004 | P2   | Post-History / Archiv                            | F10     | ✅ Done (MVP) |
 | E-005 | P3   | Template-Builder (visuell)                       | F11     | 🔲 Offen  |
+| E-006 | P1   | Jules AI Agent Integration (AGENTS.md + API + Ultra) | —       | 🔲 Offen  |
 
 ---
 
@@ -89,3 +90,6 @@ Entspricht Features F12-F17 aus PRODUCT_SPEC.md:
 | —     | Deploy + E2E verifiziert (b-content.maschkeai.workers.dev) | 2026-03-06 |
 | —     | Visual Premium Polish (Glassmorphism, Micro-Animations, Logo, Gradients) | 2026-03-06 |
 | —     | CI/CD: Workers Builds + Git-Integration (push=live) | 2026-03-06 |
+| —     | Brand-Assets in public/ (Fonts + Logo 404 gefixt) | 2026-03-07 |
+| —     | Lucide React Icons (Emojis → SVG)                | 2026-03-07 |
+| —     | vDNA–Styleguide Compliance Report dokumentiert   | 2026-03-07 |

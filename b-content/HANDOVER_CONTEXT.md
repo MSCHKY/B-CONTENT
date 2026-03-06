@@ -1,6 +1,6 @@
 # 🏗️ B/CONTENT — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-07 00:08
+> **Zuletzt aktualisiert:** 2026-03-07 00:54
 > **Modul:** B/CONTENT (Content-Gehirn)
 > **Status:** Phase 1 NEAR COMPLETE — Text + Bild-Generierung live, Visual Polish deployed
 > **Branch:** `main` (Workers Builds Git-Integration aktiv)
@@ -131,9 +131,11 @@
 | ~~D1 + R2 nicht erstellt~~ | ✅ Gelöst (EU Jurisdiction) | D1 Schema deployed, R2 live |
 | ~~Gemini API Key fehlt~~ | ✅ Gelöst | Text + Bild-Generierung live |
 | ~~Bild-Generierung~~ | ✅ Gelöst | Gemini 2.5 Flash Image + vDNA-Prompts + R2 Upload |
-| Gilroy Web-Lizenz | 🟡 Unklar | Nur für Public Deploy relevant |
+| Gilroy Web-Lizenz | ✅ Intern gelöst | CF Access schützt App — nur für Public Deploy relevant |
 | ~~Bildmaterial~~ | ✅ Gelöst (AI) | AI-Generierung mit vDNA-Brand-Fragmenten live |
 | ~~CD Manual PDF~~ | ✅ Gelöst | `assets/brand/BenderWireGroup_Styleguide_2025.pdf` — vDNA-Abgleich: 100% Match |
+| ~~Cloudflare Access~~ | ✅ Gelöst | Zero Trust Self-Hosted App, Team-Policy (Robert + Lisa) |
+| ~~Assets 404~~ | ✅ Gelöst | Fonts + Logo in `public/assets/brand/`, Lucide Icons |
 
 ---
 
