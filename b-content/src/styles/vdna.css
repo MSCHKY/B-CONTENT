@@ -1,0 +1,145 @@
+/* ============================================================
+ * vDNA — Virtual DNA Design Tokens
+ * Auto-generated from /assets/vdna/tokens.json
+ * DO NOT EDIT MANUALLY — regenerate from tokens.json
+ * ============================================================ */
+
+/* --- Font Face: Gilroy --- */
+@font-face {
+  font-family: "Gilroy";
+  src: url("/assets/brand/fonts/gilroy/Gilroy-Thin.otf") format("opentype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("/assets/brand/fonts/gilroy/Gilroy-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("/assets/brand/fonts/gilroy/Gilroy-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("/assets/brand/fonts/gilroy/Gilroy-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("/assets/brand/fonts/gilroy/Gilroy-SemiBold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("/assets/brand/fonts/gilroy/Gilroy-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("/assets/brand/fonts/gilroy/Gilroy-ExtraBold.otf") format("opentype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --- Design Tokens as CSS Custom Properties --- */
+:root {
+  /* Brand Colors */
+  --vdna-deep-green: #24616B;
+  --vdna-bright-green: #46B384;
+  --vdna-crisp-cyan: #32B7BE;
+  --vdna-graphite-dust: #787878;
+  --vdna-wire-gradient: linear-gradient(56deg, #32B7BE, #46B384);
+
+  /* Neutrals */
+  --vdna-white: #FFFFFF;
+  --vdna-black: #000000;
+
+  /* Semantic */
+  --vdna-success: #46B384;
+  --vdna-warning: #F59E0B;
+  --vdna-error: #EF4444;
+  --vdna-info: #32B7BE;
+
+  /* Surface Colors (derived) */
+  --vdna-bg-primary: #FAFBFC;
+  --vdna-bg-sidebar: #1A4A52;
+  --vdna-bg-card: #FFFFFF;
+  --vdna-bg-card-hover: #F0F7F8;
+  --vdna-bg-selected: #E8F5F0;
+  --vdna-border-default: #E2E8F0;
+  --vdna-border-focus: #24616B;
+  --vdna-text-primary: #1A202C;
+  --vdna-text-secondary: #4A5568;
+  --vdna-text-muted: #A0AEC0;
+  --vdna-text-on-dark: #F7FAFC;
+
+  /* Typography */
+  --vdna-font-primary: "Gilroy", Arial, system-ui, sans-serif;
+  --vdna-font-fallback: Arial, system-ui, sans-serif;
+
+  /* Font Weights */
+  --vdna-fw-display: 100;
+  --vdna-fw-light: 300;
+  --vdna-fw-body: 400;
+  --vdna-fw-medium: 500;
+  --vdna-fw-headline: 600;
+  --vdna-fw-bold: 700;
+
+  /* Font Sizes */
+  --vdna-fs-xs: 0.75rem;
+  --vdna-fs-sm: 0.875rem;
+  --vdna-fs-base: 1rem;
+  --vdna-fs-lg: 1.125rem;
+  --vdna-fs-xl: 1.25rem;
+  --vdna-fs-2xl: 1.5rem;
+  --vdna-fs-3xl: 1.875rem;
+  --vdna-fs-4xl: 2.25rem;
+  --vdna-fs-5xl: 3rem;
+
+  /* Spacing */
+  --vdna-space-xs: 0.25rem;
+  --vdna-space-sm: 0.5rem;
+  --vdna-space-md: 1rem;
+  --vdna-space-lg: 1.5rem;
+  --vdna-space-xl: 2rem;
+  --vdna-space-2xl: 3rem;
+  --vdna-space-3xl: 4rem;
+
+  /* Border Radius */
+  --vdna-radius-sm: 4px;
+  --vdna-radius-md: 8px;
+  --vdna-radius-lg: 16px;
+  --vdna-radius-xl: 24px;
+  --vdna-radius-full: 9999px;
+
+  /* Shadows */
+  --vdna-shadow-sm: 0 1px 2px rgba(36, 97, 107, 0.06);
+  --vdna-shadow-md: 0 4px 12px rgba(36, 97, 107, 0.08);
+  --vdna-shadow-lg: 0 8px 24px rgba(36, 97, 107, 0.12);
+  --vdna-shadow-glow: 0 0 20px rgba(70, 179, 132, 0.15);
+
+  /* Transitions */
+  --vdna-transition-fast: 150ms ease;
+  --vdna-transition-base: 250ms ease;
+  --vdna-transition-slow: 400ms ease;
+}

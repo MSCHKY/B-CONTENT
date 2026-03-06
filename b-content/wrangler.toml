@@ -1,0 +1,21 @@
+name = "b-content"
+compatibility_date = "2026-03-01"
+compatibility_flags = ["nodejs_compat"]
+main = "worker/index.ts"
+
+# --- D1 Database (EU Jurisdiction — DSGVO) ---
+[[d1_databases]]
+binding = "DB"
+database_name = "b-content-db"
+database_id = "d9782257-0d1c-4b6c-a910-f2c8e4e64420"
+migrations_dir = "db"
+
+# --- R2 Storage (EU Jurisdiction — DSGVO) ---
+[[r2_buckets]]
+binding = "IMAGES"
+bucket_name = "b-content-images"
+jurisdiction = "eu"
+
+# --- Environment Variables ---
+[vars]
+ENVIRONMENT = "development"

@@ -116,6 +116,22 @@ Alltag ●●●, Energie ●●, Circular Economy ●●, MedTech ●●, Bau �
 
 ---
 
+### 3.4 Cross-Instance: Website-Beitrag (NEU)
+
+> ⚠️ **Hinzugefügt aus Marco-Feedback 2026-03-06**
+
+Zusätzlich zu LinkedIn-Posts muss periodisch ein **Website-Beitrag** generiert werden können — eine Art kleine Pressemitteilung / Neuigkeits-Artikel für die Firmenwebsite. Dieses Format ist instanzübergreifend und wird aus den gleichen Themenfeldern gespeist.
+
+| Eigenschaft | Wert |
+|-------------|------|
+| **Format** | Website-Artikel (kurze Pressemitteilung) |
+| **Zeichenlänge** | 500–1500 |
+| **Frequenz** | Periodisch, nach Themenlage |
+| **Tonalität** | Sachlich-inspirierend, Corporate (näher an BWG als an Alex/Ablas) |
+| **Instanz** | Keine — instanzübergreifend |
+
+---
+
 ## 4. Wissensbasis (Knowledge Engine)
 
 Die Wissensbasis ist das Fundament für qualitativ hochwertige Content-Generierung. Die AI bekommt Kontext aus dieser Basis, nicht aus dem allgemeinen Training.

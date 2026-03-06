@@ -1,8 +1,10 @@
 # 🏗️ B/CONTENT — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-06 16:18
+> **Zuletzt aktualisiert:** 2026-03-06 21:30
 > **Modul:** B/CONTENT (Content-Gehirn)
-> **Status:** Phase 0 DONE — Bereit für Phase 1 (Implementierung)
+> **Status:** Phase 1 NEAR COMPLETE — Text + Bild-Generierung live, Library implementiert
+> **Branch:** `feature/b-content-foundation`
+> **Live URL:** https://b-content.maschkeai.workers.dev
 
 ---
 
@@ -16,51 +18,100 @@
 
 ## 2. Aktueller Status
 
-### Phase 0: Foundation
+### Phase 0: Foundation ✅ DONE
 - [x] Modul-Infrastruktur angelegt
-- [x] Content-Strategie vom Kunden erhalten und analysiert (`assets/info/BWG_Content-Strategie_Komplett-Kontext.md`)
-- [x] Product Spec geschrieben (`PRODUCT_SPEC.md`) — Feature-Map, Datenmodell, UI-Konzept, Tech-Stack
-- [x] Tech-Stack entschieden: React + Vite v7 + Hono + Cloudflare Workers/D1 + Gemini API
-- [x] vDNA mit echten Brand-Werten befüllt (`assets/vdna/tokens.json`)
+- [x] Content-Strategie vom Kunden erhalten und analysiert
+- [x] Product Spec geschrieben + bestätigt
+- [x] Tech-Stack entschieden
+- [x] vDNA mit echten Brand-Werten befüllt
 - [x] Wissensbasis extrahiert → `src/data/`
-  - `topics/topic-fields.json` — 13 Themenfelder mit ~80 Fakten
-  - `quotes/quotes.json` — 29 Zitate (Alex 8, Ablas 10, Fichtel 6, Pasini 2, Allgemein 3)
-  - `instances/instances.json` — 3 Instanz-Profile (Persönlichkeit, Tonalität, Content-Typen, Themengewichtung)
-  - `content-rules.json` — 4:1 Ratio, Posting-Regeln, Orchestrierung, Leitplanken
-- [x] Web-Recherche durchgeführt → `src/data/unconfirmed/web-research.json` (TBD: Kunden-Bestätigung)
-- [x] Fragebogen an Kunden (Marco Pasini) gesendet (10 Fragen)
-- [x] Kunden-Feedback erhalten und eingearbeitet
-- [x] Product Spec bestätigt ("Was es ist und was es nicht ist, ist alles korrekt.")
-- [x] LinkedIn-Seite gecrawlt und analysiert (`assets/info/linkedin-analyse.md`)
-- [x] BWG News-Seite analysiert + Beispiel-Artikel gespeichert
-- [x] Brand-Assets sortiert (`assets/brand/`): Logos, Fonts, Icons, CD Manual
-- [x] Sprachstrategie geklärt: EN default, DE für ausgewählte Kategorien, Tool bilingual
-- [x] Neuer Content-Typ identifiziert: Website-Artikel (bilingual DE+EN)
-- [ ] Unconfirmed Web-Recherche-Daten bestätigen oder entfernen
-- [ ] Projekt initialisieren (Vite/React) ← **NÄCHSTER SCHRITT**
+- [x] Kunden-Feedback eingearbeitet
+- [x] LinkedIn gecrawlt und analysiert
+- [x] Brand-Assets sortiert
+- [x] Sprachstrategie geklärt
+
+### Phase 1: MVP — IN PROGRESS
+- [x] **Vite-Projekt initialisiert** (React + Hono + Cloudflare + Tailwind v4)
+- [x] **vDNA CSS-Tokens** generiert (7 Gilroy @font-face, alle Brand-Farben, Spacing, Radius)
+- [x] **TypeScript Types** aus Product Spec Datenmodell
+- [x] **D1 Schema** erstellt (posts + generated_images)
+- [x] **Design System** — 6 UI-Primitives (Button, Card, Input/Textarea, Select, Badge, Stepper)
+- [x] **Layout Shell** — Sidebar (Desktop + Mobile Bottom-Nav) + AppShell
+- [x] **Zustand Stores** — App-Navigation + Create-Flow Wizard State
+- [x] **Create-Flow UI** — 4-Step Wizard komplett (Instance → Type → Input → Result)
+- [x] **Knowledge Base Viewer** — Topics/Quotes/Rules Tabs
+- [x] **Hono Worker API** — Generate + Knowledge Routes (Mock-Mode ohne API Key)
+- [x] **Build verifiziert** — 0 TS Errors, Vite Build ok, visuell getestet
+- [x] **AI System-Prompts** — Base + 3 Instanzen + 11 Content-Typen + Website-Beitrag
+- [x] **Prompt-Builder Service** — Runtime-Assembly aus Instanz + Typ + KB-Kontext
+- [x] **Gemini Client** — Text-Generierung (gemini-2.0-flash, Retry, EU-Endpoint vorbereitet)
+- [x] **Generate-Route verdrahtet** — Mock-Fallback + echte Pipeline + Website-Artikel-Endpoint
+- [x] **Playwright Smoke Test** — 6 Tests (App-Load, Navigation, Create-Flow, Knowledge, API)
+- [x] **Website-Beitrag Format** — Cross-Instance Prompt + API-Endpoint
+- [x] **Bild-Generierung** — Gemini 2.5 Flash Image (Imagen 3) + vDNA-Prompt-Builder (7 Schichten)
+- [x] **R2 Upload-Pipeline** — Base64 → Binary → R2 PUT mit strukturiertem Key + EU Jurisdiction
+- [x] **Content Library** — D1 Persistierung + Archive-UI (Filter, Expand, Copy, Download, Status, Delete)
+- [x] **Save-to-Library Flow** — Bewusste Nutzeraktion, kein Auto-Save
+- [x] **Generate Image Button** — Im Result-Editor verdrahtet (war Placeholder)
+- [ ] Transkript-Import (V2 Feature)
+- [x] GitHub Repo + CI/CD ← ✅ Deployed
+- [x] Cloudflare D1/R2 angelegt ← ✅ EU Jurisdiction
+- [x] Gemini API Key konfiguriert ← ✅ Live
 
 ---
 
-## 3. Tech-Stack (entschieden)
+## 3. Tech-Stack (bestätigt + implementiert)
 
-| Komponente | Technologie |
-|-----------|-------------|
-| Frontend | React + Vite v7 + TypeScript |
-| Styling | Tailwind CSS v4 |
-| Backend/API | Hono + @cloudflare/vite-plugin |
-| AI (Text + Bild) | Google Gemini API (Nano Banana 2) |
-| Datenbank | Cloudflare D1 (EU Region) |
-| File Storage | Cloudflare R2 (Bilder) |
-| Hosting | Cloudflare Pages + Workers (EU) |
-| Auth (V1) | Keine (ggf. CF Access) → Phase 3 |
-| Brand-System | vDNA (`/assets/vdna/tokens.json`) |
+| Komponente | Technologie | Status |
+|-----------|-------------|--------|
+| Frontend | React 19 + Vite 6.4 + TypeScript | ✅ Implementiert |
+| Styling | Tailwind CSS v4 + vDNA Tokens | ✅ Implementiert |
+| State Management | Zustand v5 | ✅ Implementiert |
+| Backend/API | Hono + @cloudflare/vite-plugin | ✅ Live |
+| AI Text | Google Gemini API (gemini-2.0-flash) | ✅ Live |
+| AI Bild | Google Gemini API (gemini-2.5-flash-image) | ✅ Live |
+| Datenbank | Cloudflare D1 (EU Region) | ✅ Live (posts + generated_images) |
+| File Storage | Cloudflare R2 (b-content-images, EU) | ✅ Live |
+| Hosting | Cloudflare Workers | ✅ b-content.maschkeai.workers.dev |
+| Auth (V1) | Keine (ggf. CF Access) → Phase 3 | ⏸️ Deferred |
+| Brand-System | vDNA (`/assets/vdna/tokens.json`) | ✅ CSS-Tokens + Image-Prompts |
 
 ---
 
-## 4. Invarianten
+## 4. Entscheidungen (diese Session)
 
-1. **Content-Gehirn:** Drei Kommunikationsinstanzen (Alex, Ablas, BWG) mit eigenen Tonalitäts-Profilen
-2. **Wissensbasis-gespeist:** AI generiert mit Kontext aus der Knowledge Engine, nicht aus allgemeinem Training
+| Entscheidung | Ergebnis |
+|-------------|---------|
+| Routing | **State-basiert** (kein React Router) — reicht für V1, weniger Overhead |
+| State Management | **Zustand** — typed, skaliert, minimal |
+| Font-Einbindung | Gilroy via @font-face OTF — Web-Lizenz unklar, für internen Gebrauch ok |
+| Wissensbasis-API | Statische JSON-Imports, kein D1 für KB in V1 |
+| AI API Budget | **Kein Limit** — „was es braucht" (Marco) |
+| Nutzerkreis V1 | **Nur Marco + Lisa** (Grafikerin), NICHT Alex/Ablas direkt |
+| GF-Freigabe | Nicht im MVP, Marco sendet per Teams |
+
+---
+
+## 5. Neues Feedback Marco (2026-03-06 17:07)
+
+> ✅ In AI-Pipeline eingearbeitet (Website-Beitrag Prompt + Endpoint)
+
+| Punkt | Detail | Impact |
+|-------|--------|--------|
+| **Website-Beitrag** | Neues Format: kurze Pressemitteilung für Website, periodisch aus Themen generiert | Product Spec §3.4 aktualisiert ✅ |
+| **Bild-Gap** | Keine professionellen Fotos vorhanden. Nur Selfies/Schnappschüsse oder AI-generiert | Bildsprache entwickeln, AI-Bildgenerierung priorisieren |
+| **Bildformat** | Hochformat (Regelfall), aber flexibel | Bereits unterstützt (LINKEDIN_FORMATS) |
+| **Transkript-Import** | Monatliche Interviews als Transkript, sollen ins Tool geladen werden können | V2 Feature, Backlog-Item |
+| **Canva Templates** | Keine vorhanden, entstehen gerade | Kein Blocker |
+| **CD Manual** | Existiert als PDF, wird hochgeladen | Assets abwarten |
+| **API Budget** | „Kein Limit, was es braucht" | Kein Blocker, großzügig dimensionieren |
+
+---
+
+## 6. Invarianten
+
+1. **Content-Gehirn:** Drei Kommunikationsinstanzen (Alex, Ablas, BWG) + Website-Beitrag
+2. **Wissensbasis-gespeist:** AI generiert mit Kontext aus der Knowledge Engine
 3. **DSGVO-konform:** Cloudflare EU-Region, Gemini EU-Endpoint (Vertex AI)
 4. **Core-Ready:** Auth, API, DB so abstrahiert, dass B/WIRE-Integration möglich ist
 5. **Brand-konform:** Alle generierten Assets nutzen vDNA-Tokens
@@ -70,21 +121,29 @@
 
 ---
 
-## 5. Blocker
+## 7. Blocker
 
-**Keine Blocker.** Alle Kunden-Fragen beantwortet, Assets vorhanden, Product Spec bestätigt.
-
-| Risiko | Status | Impact |
-|--------|--------|--------|
-| Gilroy Web-Lizenz | 🟡 Unklar | Nur rechtlich, kein technischer Blocker. Klären vor Public Deploy. |
-| Kein Fotomaterial | ✅ Akzeptiert | AI-Generierung + Template-Grafiken als Bildsprache |
+| Blocker | Status | Impact |
+|---------|--------|--------|
+| ~~GitHub Repo fehlt~~ | ✅ Gelöst | github.com/MSCHKY/B-CONTENT |
+| ~~D1 + R2 nicht erstellt~~ | ✅ Gelöst (EU Jurisdiction) | D1 Schema deployed, R2 live |
+| ~~Gemini API Key fehlt~~ | ✅ Gelöst | Text + Bild-Generierung live |
+| ~~Bild-Generierung~~ | ✅ Gelöst | Gemini 2.5 Flash Image + vDNA-Prompts + R2 Upload |
+| Gilroy Web-Lizenz | 🟡 Unklar | Nur für Public Deploy relevant |
+| ~~Bildmaterial~~ | ✅ Gelöst (AI) | AI-Generierung mit vDNA-Brand-Fragmenten live |
+| CD Manual PDF | ⏳ Marco lädt hoch | Design-Abgleich |
 
 ---
 
-## 6. Session-Log
+## 8. Session-Log
 
 | Datum      | Session-Typ | Thema                           | Ergebnis |
 |------------|-------------|---------------------------------|----------|
 | 2026-03-06 | Planning    | Modul-Infrastruktur aufgesetzt  | ✅ Done  |
 | 2026-03-06 | Planning    | Strategy Doc → Product Spec, vDNA, Wissensbasis | ✅ Done |
 | 2026-03-06 | Planning    | Kunden-Feedback, Assets sortiert, LinkedIn-Analyse | ✅ Done |
+| 2026-03-06 | Execution   | Phase A+B: Projekt-Setup + Design System + Create-Flow + Knowledge | ✅ Done |
+| 2026-03-06 | Follow-up   | Marco-Feedback: Website-Beitrag, Bild-Gap, User-Scope, Budget | ✅ Dokumentiert |
+| 2026-03-06 | Execution   | AI-Pipeline: System-Prompts + Prompt-Builder + Gemini Client + Smoke Test | ✅ Done |
+| 2026-03-06 | Ops         | GitHub Push + D1/R2 (EU) + Gemini Key + First Deploy + E2E Test | ✅ Live |
+| 2026-03-06 | Execution   | Bild-Pipeline (Gemini Image + R2 + vDNA Prompts) + Content Library (D1 + UI) | ✅ Live |
