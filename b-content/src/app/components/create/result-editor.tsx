@@ -1,4 +1,5 @@
-import { useCreateStore } from "@/stores";
+import { useState } from "react";
+import { useAppStore, useCreateStore } from "@/stores";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
@@ -17,15 +18,26 @@ export function ResultEditor() {
     const {
         instance,
         contentType,
+        topicField,
+        userInput,
+        language,
         generatedText,
         imageFormat,
         generatedImageUrl,
         isGenerating,
         setGeneratedText,
         setImageFormat,
+        setGeneratedImageUrl,
         prevStep,
         reset,
     } = useCreateStore();
+
+    const setView = useAppStore((s) => s.setView);
+
+    const [savedPostId, setSavedPostId] = useState<string | null>(null);
+    const [savedImageId, setSavedImageId] = useState<string | null>(null);
+    const [isSaving, setIsSaving] = useState(false);
+    const [isGeneratingImage, setIsGeneratingImage] = useState(false);
 
     const charCount = generatedText?.length ?? 0;
     const format = LINKEDIN_FORMATS[imageFormat];
@@ -45,6 +57,77 @@ export function ResultEditor() {
         a.download = `${instance}-${contentType}-post.txt`;
         a.click();
         URL.revokeObjectURL(url);
+    };
+
+    // Generate image via API
+    const handleGenerateImage = async () => {
+        setIsGeneratingImage(true);
+        try {
+            const response = await fetch("/api/generate/image", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    instance,
+                    format: imageFormat,
+                    topicField,
+                    userInput,
+                    style: "photo",
+                }),
+            });
+
+            const data = (await response.json()) as {
+                imageUrl?: string;
+                imageId?: string;
+                error?: string;
+            };
+
+            if (data.imageUrl) {
+                setGeneratedImageUrl(data.imageUrl);
+                if (data.imageId) {
+                    setSavedImageId(data.imageId);
+                }
+            } else if (data.error) {
+                console.error("[Image Generation]", data.error);
+            }
+        } catch (err) {
+            console.error("[Image Generation] Failed:", err);
+        } finally {
+            setIsGeneratingImage(false);
+        }
+    };
+
+    // Save to Library (D1)
+    const handleSaveToLibrary = async () => {
+        if (!generatedText || !instance || !contentType) return;
+        setIsSaving(true);
+
+        try {
+            const hashtags = generatedText.match(/#\w+/g) ?? [];
+            const response = await fetch("/api/posts", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    instance,
+                    contentType,
+                    topicFields: topicField ? [topicField] : [],
+                    text: generatedText,
+                    language,
+                    hashtags,
+                    charCount: generatedText.length,
+                    isPersonal: false,
+                    imageId: savedImageId,
+                }),
+            });
+
+            const data = (await response.json()) as { id?: string; error?: string };
+            if (data.id) {
+                setSavedPostId(data.id);
+            }
+        } catch {
+            // Silent fail
+        } finally {
+            setIsSaving(false);
+        }
     };
 
     return (
@@ -128,13 +211,22 @@ export function ResultEditor() {
                                 alt="Generated post image"
                                 className="w-full h-full object-cover"
                             />
+                        ) : isGeneratingImage ? (
+                            <div className="text-center p-8">
+                                <span className="text-4xl block mb-3 animate-pulse">🎨</span>
+                                <p className="text-sm text-text-muted">
+                                    Generating image...
+                                    <br />
+                                    This may take 10-20 seconds
+                                </p>
+                            </div>
                         ) : (
                             <div className="text-center p-8">
                                 <span className="text-4xl block mb-3">🎨</span>
                                 <p className="text-sm text-text-muted">
-                                    Image generation available when
+                                    Click "Generate Image" to create
                                     <br />
-                                    Gemini API key is configured
+                                    a brand-conformant visual
                                 </p>
                             </div>
                         )}
@@ -144,7 +236,9 @@ export function ResultEditor() {
                         variant="secondary"
                         size="sm"
                         className="w-full"
-                        disabled={isGenerating}
+                        disabled={isGenerating || isGeneratingImage}
+                        loading={isGeneratingImage}
+                        onClick={handleGenerateImage}
                     >
                         🎨 Generate Image
                     </Button>
@@ -161,11 +255,27 @@ export function ResultEditor() {
                     <Button variant="ghost" onClick={reset}>
                         New Post
                     </Button>
-                    <Button onClick={handleExportText}>
+                    <Button variant="secondary" onClick={handleExportText}>
                         ⬇️ Export All
                     </Button>
+                    {savedPostId ? (
+                        <Button
+                            onClick={() => setView("library")}
+                        >
+                            ✅ Saved — View Library
+                        </Button>
+                    ) : (
+                        <Button
+                            onClick={handleSaveToLibrary}
+                            loading={isSaving}
+                            disabled={!generatedText}
+                        >
+                            💾 Save to Library
+                        </Button>
+                    )}
                 </div>
             </div>
         </div>
     );
 }
+

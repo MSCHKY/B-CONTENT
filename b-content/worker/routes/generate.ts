@@ -162,12 +162,40 @@ generateRoutes.post("/image", async (c) => {
             },
         });
 
-        // 7. Build the public URL for serving the image
-        // Served via our own /api/images/:key route
+        // 7. Store image metadata in D1 for Library
+        const imageId = uuid; // reuse the same UUID
+        const formatSpec = {
+            "single-square": { width: 1200, height: 1200 },
+            "single-landscape": { width: 1200, height: 627 },
+            "single-portrait": { width: 1080, height: 1350 },
+            "carousel-slide": { width: 1080, height: 1080 },
+            "company-banner": { width: 1584, height: 396 },
+        }[body.format || "single-square"] ?? { width: 1200, height: 1200 };
+
         const imageUrl = `/api/images/${r2Key}`;
+
+        try {
+            await c.env.DB.prepare(
+                `INSERT INTO generated_images (id, format, width, height, prompt, url)
+                 VALUES (?, ?, ?, ?, ?, ?)`
+            )
+                .bind(
+                    imageId,
+                    body.format || "single-square",
+                    formatSpec.width,
+                    formatSpec.height,
+                    prompt,
+                    imageUrl,
+                )
+                .run();
+        } catch {
+            // D1 insert failure is non-fatal — image is still in R2
+            console.error("[D1 Image Insert] Failed to store image metadata, image is still in R2");
+        }
 
         return c.json({
             imageUrl,
+            imageId,
             r2Key,
             mimeType: imageResult.mimeType,
             prompt, // Include prompt for transparency/debugging

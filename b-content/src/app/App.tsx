@@ -2,6 +2,7 @@ import { useAppStore } from "@/stores";
 import { AppShell } from "@/components/layout/app-shell";
 import { CreateFlow } from "@/components/create/create-flow";
 import { KnowledgeViewer } from "@/components/knowledge/knowledge-viewer";
+import { Library } from "@/components/library/library";
 
 export function App() {
     const view = useAppStore((s) => s.view);
@@ -10,7 +11,7 @@ export function App() {
         <AppShell>
             {view === "create" && <CreateFlow />}
             {view === "knowledge" && <KnowledgeViewer />}
-            {view === "library" && <PlaceholderView title="Library" emoji="📚" description="Post-History & Archiv — coming in Phase 2" />}
+            {view === "library" && <Library />}
             {view === "stats" && <PlaceholderView title="Stats" emoji="📊" description="4:1 Ratio Tracker — coming in Phase 2" />}
         </AppShell>
     );

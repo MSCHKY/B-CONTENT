@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { generateRoutes } from "./routes/generate";
 import { knowledgeRoutes } from "./routes/knowledge";
+import { postRoutes } from "./routes/posts";
 
 export interface Env {
     DB: D1Database;
@@ -23,6 +24,7 @@ app.get("/api/health", (c) =>
 // Mount routes
 app.route("/api/generate", generateRoutes);
 app.route("/api/knowledge", knowledgeRoutes);
+app.route("/api/posts", postRoutes);
 
 // ============================================================
 // Image Serving — GET /api/images/:key+
