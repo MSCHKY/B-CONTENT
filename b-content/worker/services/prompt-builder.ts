@@ -271,3 +271,158 @@ export function buildWebsiteArticlePrompt(params: {
 
     return { system, user: userParts.join("\n") };
 }
+
+// ============================================================
+// Image Prompt Builder — vDNA-powered brand-conformant image prompts
+// Uses prompt_fragments from /assets/vdna/tokens.json
+// ============================================================
+
+/**
+ * vDNA prompt fragments — sourced from tokens.json ai.prompt_fragments
+ * These are the brand-level visual instructions that ensure every
+ * generated image matches the BenderWire Group corporate identity.
+ */
+const VDNA_PROMPT_FRAGMENTS = {
+    brand_style:
+        "Professional, modern corporate style using BenderWire Group brand identity. Deep green (#24616B) as primary color with bright green (#46B384) and crisp cyan (#32B7BE) accents. Clean, minimalist layout with Gilroy typography. Wire gradient for dynamic elements.",
+    photo_style:
+        "High-quality industrial photography. Clean, modern production environments. Macro shots of wire and metal surfaces. Natural lighting with deep green tonal accents.",
+    illustration_style:
+        "Geometric vector style inspired by Gilroy typeface. Wire-cross-section circular motifs. Brand color palette. Modern, abstract, professional.",
+    linkedin_post:
+        "Professional LinkedIn post image. BenderWire Group branding. Deep green background or white with green accents. Gilroy SemiBold for headlines. Wire gradient for accent elements.",
+} as const;
+
+/**
+ * LinkedIn image formats with pixel dimensions from vDNA tokens.
+ */
+const LINKEDIN_FORMATS: Record<string, { width: number; height: number; label: string }> = {
+    "single-square": { width: 1200, height: 1200, label: "Standard Post" },
+    "single-landscape": { width: 1200, height: 627, label: "Landscape / Link Preview" },
+    "single-portrait": { width: 1080, height: 1350, label: "Portrait / Story-Style" },
+    "carousel-slide": { width: 1080, height: 1080, label: "Karussell-Slide" },
+    "company-banner": { width: 1584, height: 396, label: "Unternehmensbanner" },
+};
+
+/**
+ * Instance-specific visual guidelines for image generation.
+ * Extends the persona tonality into the visual domain.
+ */
+const INSTANCE_VISUAL_GUIDES: Record<InstanceId, string> = {
+    alex: [
+        "Visual tone: Cool, structured, authoritative.",
+        "Subject matter: Sustainability, circular economy, energy infrastructure.",
+        "Mood: Thoughtful, deliberate, industrial precision.",
+        "Avoid: Flashy graphics, playful elements, stock photo clichés.",
+    ].join(" "),
+    ablas: [
+        "Visual tone: Warm, energetic, innovation-focused.",
+        "Subject matter: High-tech wire applications, medical technology, customer stories.",
+        "Mood: Excited discovery, pushing boundaries, hands-on engineering.",
+        "Avoid: Corporate blandness, overly formal compositions.",
+    ].join(" "),
+    bwg: [
+        "Visual tone: Factual, awe-inspiring, brand-consistent.",
+        "Subject matter: Wire in everyday life, company culture, technology showcase.",
+        "Mood: Understated pride, staunend (astonished, not boastful).",
+        "Avoid: Personal flair, individual perspectives, promotional push.",
+    ].join(" "),
+};
+
+type ImageStyle = "photo" | "illustration" | "abstract" | "infographic";
+
+interface BuildImagePromptParams {
+    instance: InstanceId;
+    format: string;
+    topicField: TopicFieldId;
+    userInput: string;
+    style?: ImageStyle;
+}
+
+/**
+ * Build a brand-conformant image generation prompt.
+ *
+ * Assembly order:
+ * 1. Base brand style from vDNA
+ * 2. Format-specific dimensions
+ * 3. Style-specific fragment (photo / illustration)
+ * 4. Instance visual guide (Alex vs Ablas vs BWG mood)
+ * 5. Topic context (facts + keywords for subject inspiration)
+ * 6. User creative input
+ */
+export function buildImagePrompt(params: BuildImagePromptParams): string {
+    const {
+        instance,
+        format,
+        topicField,
+        userInput,
+        style = "photo",
+    } = params;
+
+    const parts: string[] = [];
+
+    // 1. Core brand identity
+    parts.push(VDNA_PROMPT_FRAGMENTS.brand_style);
+
+    // 2. LinkedIn format + dimensions
+    const formatSpec = LINKEDIN_FORMATS[format];
+    if (formatSpec) {
+        parts.push(
+            `Image format: ${formatSpec.label} (${formatSpec.width}×${formatSpec.height}px).`,
+        );
+    }
+
+    // 3. Visual style fragment
+    parts.push(VDNA_PROMPT_FRAGMENTS.linkedin_post);
+    switch (style) {
+        case "photo":
+            parts.push(VDNA_PROMPT_FRAGMENTS.photo_style);
+            break;
+        case "illustration":
+            parts.push(VDNA_PROMPT_FRAGMENTS.illustration_style);
+            break;
+        case "abstract":
+            parts.push(
+                VDNA_PROMPT_FRAGMENTS.illustration_style,
+                "Abstract and conceptual. No recognizable objects — pure geometric and wire-inspired forms.",
+            );
+            break;
+        case "infographic":
+            parts.push(
+                "Clean infographic layout. Data-driven visual. Use brand colors for charts/icons. Minimal text. Wire gradient for accent lines.",
+            );
+            break;
+    }
+
+    // 4. Instance visual guide
+    const visualGuide = INSTANCE_VISUAL_GUIDES[instance];
+    if (visualGuide) {
+        parts.push(visualGuide);
+    }
+
+    // 5. Topic context (compact — just core message + key facts for visual inspiration)
+    const topics = topicFields as TopicFieldData[];
+    const topic = topics.find((t) => t.id === topicField);
+    if (topic) {
+        parts.push(
+            `Topic: ${topic.label}. ${topic.kernbotschaft}`,
+        );
+        if (topic.keywords.length > 0) {
+            parts.push(`Visual keywords: ${topic.keywords.slice(0, 6).join(", ")}.`);
+        }
+    }
+
+    // 6. User creative input
+    if (userInput.trim()) {
+        parts.push(`Specific request: ${userInput.trim()}`);
+    }
+
+    // 7. Quality + safety rails
+    parts.push(
+        "Do NOT include any text or typography in the image unless explicitly requested.",
+        "High resolution, professional quality, suitable for LinkedIn publishing.",
+    );
+
+    return parts.join("\n\n");
+}
+
