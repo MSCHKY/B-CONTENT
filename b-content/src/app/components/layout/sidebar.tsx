@@ -1,17 +1,19 @@
 import { useAppStore } from "@/stores";
 import type { AppView } from "@/types";
+import { Sparkles, Brain, Library, BarChart3 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 interface NavItem {
     id: AppView;
-    icon: string;
+    icon: LucideIcon;
     label: string;
 }
 
 const NAV_ITEMS: NavItem[] = [
-    { id: "create", icon: "✨", label: "Create" },
-    { id: "knowledge", icon: "🧠", label: "Knowledge" },
-    { id: "library", icon: "📚", label: "Library" },
-    { id: "stats", icon: "📊", label: "Stats" },
+    { id: "create", icon: Sparkles, label: "Create" },
+    { id: "knowledge", icon: Brain, label: "Knowledge" },
+    { id: "library", icon: Library, label: "Library" },
+    { id: "stats", icon: BarChart3, label: "Stats" },
 ];
 
 export function Sidebar() {
@@ -42,13 +44,14 @@ export function Sidebar() {
                 <nav className="flex-1 flex flex-col gap-1 p-2 mt-2">
                     {NAV_ITEMS.map((item, index) => {
                         const isActive = view === item.id;
+                        const Icon = item.icon;
                         return (
                             <button
                                 key={item.id}
                                 onClick={() => setView(item.id)}
                                 style={{ animationDelay: `${index * 50}ms` }}
                                 className={`
-                                    flex items-center gap-3 px-3 py-2.5
+                                    group flex items-center gap-3 px-3 py-2.5
                                     rounded-lg text-left
                                     transition-all duration-[var(--vdna-transition-base)]
                                     cursor-pointer animate-slide-in-left
@@ -58,9 +61,11 @@ export function Sidebar() {
                                     }
                                 `}
                             >
-                                <span className={`text-xl w-8 text-center transition-transform duration-200 ${isActive ? "" : "group-hover:scale-110"}`}>
-                                    {item.icon}
-                                </span>
+                                <Icon
+                                    size={20}
+                                    strokeWidth={isActive ? 2.2 : 1.8}
+                                    className={`shrink-0 transition-transform duration-200 ${isActive ? "" : "group-hover:scale-110"}`}
+                                />
                                 <span className="hidden lg:block text-sm font-medium">
                                     {item.label}
                                 </span>
@@ -92,13 +97,14 @@ export function Sidebar() {
                 <div className="flex items-center justify-around h-16 px-2">
                     {NAV_ITEMS.map((item) => {
                         const isActive = view === item.id;
+                        const Icon = item.icon;
                         return (
                             <button
                                 key={item.id}
                                 onClick={() => setView(item.id)}
                                 className={`
                                     flex flex-col items-center gap-0.5 px-3 py-1.5
-                                    rounded-lg min-w-[60px]
+                                    rounded-lg min-w-[60px] relative
                                     transition-all duration-[var(--vdna-transition-fast)]
                                     cursor-pointer
                                     ${isActive
@@ -107,12 +113,14 @@ export function Sidebar() {
                                     }
                                 `}
                             >
-                                <span className={`text-lg transition-transform duration-200 ${isActive ? "scale-110" : ""}`}>
-                                    {item.icon}
-                                </span>
+                                <Icon
+                                    size={20}
+                                    strokeWidth={isActive ? 2.2 : 1.6}
+                                    className={`transition-transform duration-200 ${isActive ? "scale-110" : ""}`}
+                                />
                                 <span className="text-[10px] font-medium">{item.label}</span>
                                 {isActive && (
-                                    <span className="absolute bottom-1 w-4 h-0.5 rounded-full wire-gradient" />
+                                    <span className="absolute bottom-0 w-4 h-0.5 rounded-full wire-gradient" />
                                 )}
                             </button>
                         );

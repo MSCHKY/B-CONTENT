@@ -1,6 +1,6 @@
 # 🏗️ B/CONTENT — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-06 23:45
+> **Zuletzt aktualisiert:** 2026-03-07 00:08
 > **Modul:** B/CONTENT (Content-Gehirn)
 > **Status:** Phase 1 NEAR COMPLETE — Text + Bild-Generierung live, Visual Polish deployed
 > **Branch:** `main` (Workers Builds Git-Integration aktiv)
@@ -133,7 +133,7 @@
 | ~~Bild-Generierung~~ | ✅ Gelöst | Gemini 2.5 Flash Image + vDNA-Prompts + R2 Upload |
 | Gilroy Web-Lizenz | 🟡 Unklar | Nur für Public Deploy relevant |
 | ~~Bildmaterial~~ | ✅ Gelöst (AI) | AI-Generierung mit vDNA-Brand-Fragmenten live |
-| CD Manual PDF | ⏳ Marco lädt hoch | Design-Abgleich |
+| ~~CD Manual PDF~~ | ✅ Gelöst | `assets/brand/BenderWireGroup_Styleguide_2025.pdf` — vDNA-Abgleich: 100% Match |
 
 ---
 
