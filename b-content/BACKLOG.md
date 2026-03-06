@@ -29,11 +29,11 @@ Entspricht Features F1-F6 aus PRODUCT_SPEC.md:
 | M-001 | P0   | Instanz-Auswahl (Alex/Ablas/BWG)                 | F1      | 🔲 Offen  |
 | M-002 | P0   | Content-Type-Auswahl (dynamisch pro Instanz)     | F2      | 🔲 Offen  |
 | M-003 | P0   | Text-Generator mit Tonalitäts-Profilen           | F3      | 🔲 Offen  |
-| M-004 | P0   | Bild-Generator (Nano Banana 2)                   | F4      | 🔲 Offen  |
-| M-005 | P1   | Export (PNG/JPG + Klartext)                       | F5      | 🔲 Offen  |
-| M-006 | P1   | Wissensbasis-Viewer (read-only)                  | F6      | 🔲 Offen  |
-| M-007 | P1   | Create-Flow UI (4-Step Wizard)                   | —       | 🔲 Offen  |
-| M-008 | P2   | Smoke Test (Playwright)                          | —       | 🔲 Offen  |
+| M-004 | P0   | Bild-Generator (Gemini 2.5 Flash Image)          | F4      | ✅ Done   |
+| M-005 | P1   | Export (PNG/JPG + Klartext)                       | F5      | ✅ Done   |
+| M-006 | P1   | Wissensbasis-Viewer (read-only)                  | F6      | ✅ Done   |
+| M-007 | P1   | Create-Flow UI (4-Step Wizard)                   | —       | ✅ Done   |
+| M-008 | P2   | Smoke Test (Playwright)                          | —       | ✅ Done   |
 
 ---
 
@@ -46,7 +46,7 @@ Entspricht Features F7-F11 aus PRODUCT_SPEC.md:
 | E-001 | P1   | Content-Orchestrierung (Dreier-Regel)            | F7      | 🔲 Offen  |
 | E-002 | P1   | 4:1 Ratio Tracker                                | F8      | 🔲 Offen  |
 | E-003 | P2   | Wissensbasis-Editor (CRUD)                       | F9      | 🔲 Offen  |
-| E-004 | P2   | Post-History / Archiv                            | F10     | 🔲 Offen  |
+| E-004 | P2   | Post-History / Archiv                            | F10     | ✅ Done (MVP) |
 | E-005 | P3   | Template-Builder (visuell)                       | F11     | 🔲 Offen  |
 
 ---
@@ -82,3 +82,7 @@ Entspricht Features F12-F17 aus PRODUCT_SPEC.md:
 | —     | AI System-Prompts (3 Instanzen × 11 Content-Typen + Website-Beitrag) | 2026-03-06 |
 | —     | Prompt-Builder Service + Gemini Client + Generate-Route | 2026-03-06 |
 | —     | Playwright Smoke Test (6 Tests)                  | 2026-03-06 |
+| —     | Bild-Generierung (Gemini 2.5 Flash Image + vDNA-Prompts) | 2026-03-06 |
+| —     | R2 Upload-Pipeline (EU Jurisdiction)             | 2026-03-06 |
+| —     | Content Library (D1 + Archive-UI + Save-to-Library) | 2026-03-06 |
+| —     | Deploy + E2E verifiziert (b-content.maschkeai.workers.dev) | 2026-03-06 |

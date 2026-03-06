@@ -1,8 +1,8 @@
 # 🏗️ B/CONTENT — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-06 20:56
+> **Zuletzt aktualisiert:** 2026-03-06 21:30
 > **Modul:** B/CONTENT (Content-Gehirn)
-> **Status:** Phase 1 IN PROGRESS — Text-Generierung live, Bild-Generierung offen
+> **Status:** Phase 1 NEAR COMPLETE — Text + Bild-Generierung live, Library implementiert
 > **Branch:** `feature/b-content-foundation`
 > **Live URL:** https://b-content.maschkeai.workers.dev
 
@@ -48,10 +48,15 @@
 - [x] **Generate-Route verdrahtet** — Mock-Fallback + echte Pipeline + Website-Artikel-Endpoint
 - [x] **Playwright Smoke Test** — 6 Tests (App-Load, Navigation, Create-Flow, Knowledge, API)
 - [x] **Website-Beitrag Format** — Cross-Instance Prompt + API-Endpoint
+- [x] **Bild-Generierung** — Gemini 2.5 Flash Image (Imagen 3) + vDNA-Prompt-Builder (7 Schichten)
+- [x] **R2 Upload-Pipeline** — Base64 → Binary → R2 PUT mit strukturiertem Key + EU Jurisdiction
+- [x] **Content Library** — D1 Persistierung + Archive-UI (Filter, Expand, Copy, Download, Status, Delete)
+- [x] **Save-to-Library Flow** — Bewusste Nutzeraktion, kein Auto-Save
+- [x] **Generate Image Button** — Im Result-Editor verdrahtet (war Placeholder)
 - [ ] Transkript-Import (V2 Feature)
-- [ ] GitHub Repo + CI/CD ← **ROBERT ERFORDERLICH**
-- [ ] Cloudflare D1/R2 anlegen ← **ROBERT ERFORDERLICH**
-- [ ] Gemini API Key konfigurieren ← **ROBERT ERFORDERLICH**
+- [x] GitHub Repo + CI/CD ← ✅ Deployed
+- [x] Cloudflare D1/R2 angelegt ← ✅ EU Jurisdiction
+- [x] Gemini API Key konfiguriert ← ✅ Live
 
 ---
 
@@ -62,13 +67,14 @@
 | Frontend | React 19 + Vite 6.4 + TypeScript | ✅ Implementiert |
 | Styling | Tailwind CSS v4 + vDNA Tokens | ✅ Implementiert |
 | State Management | Zustand v5 | ✅ Implementiert |
-| Backend/API | Hono + @cloudflare/vite-plugin | ✅ Skeleton |
-| AI (Text + Bild) | Google Gemini API | 🔲 Wartet auf API Key |
-| Datenbank | Cloudflare D1 (EU Region) | 🔲 Schema ready, DB nicht erstellt |
-| File Storage | Cloudflare R2 (Bilder) | 🔲 Nicht erstellt |
-| Hosting | Cloudflare Pages + Workers (EU) | 🔲 Nicht deployed |
+| Backend/API | Hono + @cloudflare/vite-plugin | ✅ Live |
+| AI Text | Google Gemini API (gemini-2.0-flash) | ✅ Live |
+| AI Bild | Google Gemini API (gemini-2.5-flash-image) | ✅ Live |
+| Datenbank | Cloudflare D1 (EU Region) | ✅ Live (posts + generated_images) |
+| File Storage | Cloudflare R2 (b-content-images, EU) | ✅ Live |
+| Hosting | Cloudflare Workers | ✅ b-content.maschkeai.workers.dev |
 | Auth (V1) | Keine (ggf. CF Access) → Phase 3 | ⏸️ Deferred |
-| Brand-System | vDNA (`/assets/vdna/tokens.json`) | ✅ CSS-Tokens generiert |
+| Brand-System | vDNA (`/assets/vdna/tokens.json`) | ✅ CSS-Tokens + Image-Prompts |
 
 ---
 
@@ -120,11 +126,11 @@
 | Blocker | Status | Impact |
 |---------|--------|--------|
 | ~~GitHub Repo fehlt~~ | ✅ Gelöst | github.com/MSCHKY/B-CONTENT |
-| ~~D1 + R2 nicht erstellt~~ | ✅ Gelöst (EU Jurisdiction) | D1 Schema deployed, R2 ready |
-| ~~Gemini API Key fehlt~~ | ✅ Gelöst | Text-Generierung live |
-| Bild-Generierung | 🔲 Offen | Imagen 3 / Nano Banana 2 API noch nicht implementiert |
+| ~~D1 + R2 nicht erstellt~~ | ✅ Gelöst (EU Jurisdiction) | D1 Schema deployed, R2 live |
+| ~~Gemini API Key fehlt~~ | ✅ Gelöst | Text + Bild-Generierung live |
+| ~~Bild-Generierung~~ | ✅ Gelöst | Gemini 2.5 Flash Image + vDNA-Prompts + R2 Upload |
 | Gilroy Web-Lizenz | 🟡 Unklar | Nur für Public Deploy relevant |
-| Bildmaterial | 🟡 Kein professionelles Material | AI-Generierung oder eigene Fotos |
+| ~~Bildmaterial~~ | ✅ Gelöst (AI) | AI-Generierung mit vDNA-Brand-Fragmenten live |
 | CD Manual PDF | ⏳ Marco lädt hoch | Design-Abgleich |
 
 ---
@@ -140,3 +146,4 @@
 | 2026-03-06 | Follow-up   | Marco-Feedback: Website-Beitrag, Bild-Gap, User-Scope, Budget | ✅ Dokumentiert |
 | 2026-03-06 | Execution   | AI-Pipeline: System-Prompts + Prompt-Builder + Gemini Client + Smoke Test | ✅ Done |
 | 2026-03-06 | Ops         | GitHub Push + D1/R2 (EU) + Gemini Key + First Deploy + E2E Test | ✅ Live |
+| 2026-03-06 | Execution   | Bild-Pipeline (Gemini Image + R2 + vDNA Prompts) + Content Library (D1 + UI) | ✅ Live |
