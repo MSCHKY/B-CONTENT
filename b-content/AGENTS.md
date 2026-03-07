@@ -115,8 +115,23 @@ CREATE TABLE IF NOT EXISTS generated_images (
 );
 ```
 
+## Git Hygiene
+- **NEVER** commit `test-results/`, `.last-run.json`, or `trace.zip` files.
+- **NEVER** modify `package-lock.json` unless you explicitly changed `package.json`.
+- **NEVER** create files outside the `b-content/` directory (the repo root has other modules).
+- **ALWAYS** verify your changes build cleanly: `cd b-content && npx vite build` (must show 0 errors).
+- **ALWAYS** run existing tests after changes: `cd b-content && npx playwright test` — fix any failures before creating a PR.
+- One PR = one logical change. Don't mix features with refactoring or documentation.
+
+## Task Boundaries
+- Each task should touch as few files as possible. If your changes affect more than 5 files, reconsider the scope.
+- When writing tests, provide ONLY the test file in the PR — no side-effect changes to production code.
+- When fixing bugs, explain the root cause in the PR description.
+- When adding features, reference the relevant section in `PRODUCT_SPEC.md`.
+
 ## Important Context
 - This is a tool for a **Fortune-500-level industrial corporation**. Quality matters.
 - The three communication instances (Alex, Ablas, BWG) have very different tonal profiles. Review `src/data/instances/` before touching any prompt or content logic.
 - The vDNA brand token system is the source of truth for all visual styling. Check `assets/vdna/tokens.json` and `src/styles/vdna.css`.
 - Auth is intentionally deferred to Phase 3 (B/WIRE integration). Do NOT add authentication code.
+- Error responses MUST use the format `{ error: string, code?: string }`. Use `AppError` class from `worker/services/gemini.ts`.
