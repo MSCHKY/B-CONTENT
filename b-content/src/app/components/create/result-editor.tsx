@@ -96,10 +96,13 @@ export function ResultEditor() {
         }
     };
 
+    const [saveError, setSaveError] = useState<string | null>(null);
+
     // Save to Library (D1)
     const handleSaveToLibrary = async () => {
         if (!generatedText || !instance || !contentType) return;
         setIsSaving(true);
+        setSaveError(null);
 
         try {
             const hashtags = generatedText.match(/#\w+/g) ?? [];
@@ -120,11 +123,18 @@ export function ResultEditor() {
             });
 
             const data = (await response.json()) as { id?: string; error?: string };
+            if (!response.ok) {
+                const errMsg = data.error || `Server error (${response.status})`;
+                console.error("[Save to Library]", errMsg);
+                setSaveError(errMsg);
+                return;
+            }
             if (data.id) {
                 setSavedPostId(data.id);
             }
-        } catch {
-            // Silent fail
+        } catch (err) {
+            console.error("[Save to Library] Network error:", err);
+            setSaveError("Network error — please try again");
         } finally {
             setIsSaving(false);
         }
@@ -244,6 +254,16 @@ export function ResultEditor() {
                     </Button>
                 </div>
             </div>
+
+            {/* Save Error Display */}
+            {saveError && (
+                <div className="mt-4 p-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm flex items-center justify-between">
+                    <span>⚠️ {saveError}</span>
+                    <Button variant="ghost" size="sm" onClick={() => setSaveError(null)}>
+                        ✕
+                    </Button>
+                </div>
+            )}
 
             {/* Bottom Action Bar */}
             <div className="mt-8 pt-6 border-t border-border-default flex items-center justify-between">

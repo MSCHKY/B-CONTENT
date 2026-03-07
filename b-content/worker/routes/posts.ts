@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import type { Env } from "../index";
-import { validateRequiredString, validateRequiredArray, validateInstanceId, validateContentType, validateTextLength, sanitizeText } from "../services/validation";
+import { validateRequiredString, validateInstanceId, validateContentType, validateTextLength, sanitizeText } from "../services/validation";
 import type { InstanceId } from "../services/validation";
 
 /**
@@ -35,14 +35,16 @@ postRoutes.post("/", async (c) => {
         body.hashtags = body.hashtags.map(h => sanitizeText(h));
     }
 
+    // topicFields and hashtags are optional — allow empty arrays
+    if (!Array.isArray(body.topicFields)) body.topicFields = [];
+    if (!Array.isArray(body.hashtags)) body.hashtags = [];
+
     const errors = [
         body.contentType !== "website-article" ? validateRequiredString(body.instance, "instance") : null,
         body.contentType !== "website-article" ? validateInstanceId(body.instance) : null,
         validateRequiredString(body.contentType, "contentType"),
-        validateRequiredArray(body.topicFields, "topicFields"),
         validateRequiredString(body.text, "text"),
         validateRequiredString(body.language, "language"),
-        validateRequiredArray(body.hashtags, "hashtags"),
     ].filter(Boolean);
 
     if (errors.length === 0 && body.contentType !== "website-article") {
