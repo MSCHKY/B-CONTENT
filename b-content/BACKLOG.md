@@ -1,6 +1,6 @@
 # 📋 B/CONTENT — Backlog
 
-> **Zuletzt aktualisiert:** 2026-03-07 00:40
+> **Zuletzt aktualisiert:** 2026-03-07 01:23
 > **Referenz:** `PRODUCT_SPEC.md` für vollständige Feature-Beschreibungen
 
 ---
@@ -93,3 +93,4 @@ Entspricht Features F12-F17 aus PRODUCT_SPEC.md:
 | —     | Brand-Assets in public/ (Fonts + Logo 404 gefixt) | 2026-03-07 |
 | —     | Lucide React Icons (Emojis → SVG)                | 2026-03-07 |
 | —     | vDNA–Styleguide Compliance Report dokumentiert   | 2026-03-07 |
+| —     | Jules AI Integration (AGENTS.md + CLI + Prompt Library + 7 Tasks delegiert) | 2026-03-07 |
