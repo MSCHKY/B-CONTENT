@@ -1,6 +1,6 @@
 # 📋 B/CONTENT — Backlog
 
-> **Zuletzt aktualisiert:** 2026-03-07 20:55
+> **Zuletzt aktualisiert:** 2026-03-07 22:15
 > **Referenz:** `PRODUCT_SPEC.md` für vollständige Feature-Beschreibungen
 
 ---
@@ -46,7 +46,7 @@ Entspricht Features F7-F11 aus PRODUCT_SPEC.md:
 |-------|------|--------------------------------------------------|---------|-----------|
 | E-001 | P1   | Content-Orchestrierung (Dreier-Regel)            | F7      | ✅ Done   |
 | E-002 | P1   | 4:1 Ratio Tracker                                | F8      | ✅ Done   |
-| E-003 | P2   | Wissensbasis-Editor (CRUD)                       | F9      | 🟡 Jules 2× gescheitert, manuell umsetzen |
+| E-003 | P2   | Wissensbasis-Editor (CRUD)                       | F9      | ✅ Done (KV Overlay + manuell) |
 | E-004 | P2   | Post-History / Archiv                            | F10     | ✅ Done (MVP) |
 | E-005 | P3   | Template-Builder (visuell)                       | F11     | 🔲 Offen  |
 | E-006 | P1   | Jules AI Agent Integration (AGENTS.md + API + CLI + Prompts) | —       | ✅ Done   |
@@ -106,3 +106,5 @@ Entspricht Features F12-F17 aus PRODUCT_SPEC.md:
 | —     | i18n: DE/EN Sprachumschaltung (7 Views, Globe-Toggle, useSyncExternalStore) | 2026-03-07 |
 | —     | Stats-Bug gefixt (instance_id → instance in SQL)  | 2026-03-07 |
 | —     | Library: Emoji-Buttons → Lucide Icons (Copy, Download, Trash2, RefreshCw) | 2026-03-07 |
+| —     | E-003 Knowledge CRUD: KV Overlay + 7 API Routes + TopicEditor + QuoteEditor + i18n 16 Keys | 2026-03-07 |
+| —     | Library Archive: Soft-Delete, Restore, Purge + Hono Route-Ordering Fix | 2026-03-07 |

@@ -1,7 +1,7 @@
 # 🏗️ BENDERWIRE GROUP — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-07 20:55
-> **Aktiver Fokus:** B/CONTENT (Content-Gehirn) — Phase 2 läuft, i18n DE/EN ✅, Jules E-003 offen
+> **Zuletzt aktualisiert:** 2026-03-07 22:15
+> **Aktiver Fokus:** B/CONTENT (Content-Gehirn) — Phase 2 near complete, **Nächster Schritt: Code-Audit**
 > **Phase:** Pitch / MVP
 
 ---
@@ -60,6 +60,7 @@ Vollständige Spezifikation → `B-CONTENT/PRODUCT_SPEC.md`
 - [x] Content Library (D1 Persistierung + Archive-UI) ✅
 - [x] Deploy + E2E verifiziert ✅
 - [x] **Phase 2:** E-001 Content Orchestration (Dreier-Regel) + E-002 4:1 Ratio Tracker ✅
+- [x] **Phase 2:** E-003 Knowledge Editor (CRUD) + Library Archive (Soft-Delete) ✅
 
 ---
 
@@ -147,3 +148,5 @@ BENDERGROUP/
 | 2026-03-07 | Phase 2     | E-001 Content Orchestration (Dreier-Regel) + E-002 4:1 Ratio Tracker: Backend + Frontend + 9 Tests | ✅ Build OK, pushed |
 | 2026-03-07 | Feature     | i18n DE/EN (7 Views, Globe-Toggle), Stats-Bug Fix, Library Icons | ✅ Deployed |
 | 2026-03-07 | Delegation  | Jules E-003 Knowledge CRUD: 2× Sandbox-Reset, kein PR | ❌ Fehlgeschlagen |
+| 2026-03-07 | Execution   | E-003 manuell: Knowledge CRUD (KV Overlay, 7 Routes, TopicEditor, QuoteEditor, i18n) | ✅ Deployed |
+| 2026-03-07 | Feature     | Library Archive: Soft-Delete, Restore, Purge + Route-Ordering-Fix | ✅ Deployed |

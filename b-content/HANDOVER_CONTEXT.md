@@ -1,8 +1,8 @@
 # 🏗️ B/CONTENT — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-07 20:55
+> **Zuletzt aktualisiert:** 2026-03-07 22:15
 > **Modul:** B/CONTENT (Content-Gehirn)
-> **Status:** Phase 2 IN PROGRESS — E-001 + E-002 ✅, i18n DE/EN ✅, E-003 offen (Jules 2× gescheitert)
+> **Status:** Phase 2 NEAR COMPLETE — E-001–E-004 ✅, i18n DE/EN ✅, Library Archive ✅, **Nächster Schritt: Code-Audit**
 > **Branch:** `main` (Workers Builds Git-Integration aktiv)
 > **Live URL:** https://b-content.maschkeai.workers.dev
 > **Deploy:** Push auf `main` = automatisch live (Workers Builds, Root Dir: `b-content`)
@@ -71,7 +71,14 @@
   - [x] 7 View-Komponenten übersetzt (Sidebar, Create, Knowledge, Library, Orchestrate, Stats, InstancePicker)
   - [x] Globe-Toggle in Sidebar-Footer
   - [x] Deutsch als Default
-- [ ] **E-003: Wissensbasis-Editor (CRUD)** — Jules 2× gescheitert (Sandbox-Reset), manuell umsetzen
+- [x] **E-003: Wissensbasis-Editor (CRUD)** — Manuell umgesetzt (KV Overlay Pattern, 7 API Routes, TopicEditor + QuoteEditor Components)
+  - [x] Backend: KV Overlay (`KB_STORE`) für Topics + Quotes CRUD
+  - [x] Frontend: Inline-Editing (topic-editor.tsx, quote-editor.tsx) in knowledge-viewer.tsx
+  - [x] Rules-Tab: content-rules.json korrekt gerendert (5 Sektionen)
+- [x] **Library Archive** — Soft-Delete statt Hard-Delete
+  - [x] DELETE archiviert (status='archived'), POST restore, DELETE purge
+  - [x] Archiv-Filter im Dropdown, Wiederherstellen + Endgültig löschen Buttons
+  - ⚠️ Hono Route-Ordering-Bug gefixed (purge/restore VOR /:id catch-all)
 - [ ] Transkript-Import (V2 Feature)
 
 ---
@@ -175,3 +182,8 @@
 | 2026-03-07 | Phase 2     | E-001 Orchestrate (Dreier-Regel) + E-002 Stats (4:1 Ratio Tracker): Backend + Frontend + Tests | ✅ Build OK |
 | 2026-03-07 | Feature     | i18n: DE/EN Sprachumschaltung (7 Views, Globe-Toggle, localStorage), Stats-Bug gefixt (instance_id→instance), Library Emoji→Lucide Icons | ✅ Deployed |
 | 2026-03-07 | Delegation  | Jules E-003 Knowledge CRUD: 2× gescheitert (Sandbox-Reset, Code verloren). Session 1: `3594320281645123255`, Session 2: `15320552779448508024` — AWAITING_USER_FEEDBACK | ❌ Fehlgeschlagen |
+| 2026-03-07 | Execution   | E-003 manuell umgesetzt: Knowledge CRUD (KV Overlay + 7 API Routes + TopicEditor + QuoteEditor + knowledge-viewer rewrite + i18n 16 Keys) | ✅ Deployed |
+| 2026-03-07 | Feature     | Library Archive: Soft-Delete, Restore, Purge + Hono Route-Ordering-Bugfix | ✅ Deployed |
+
+### ⚠️ Bekanntes Problem
+- **Archiv erstmalig auf Production testen** — der erste Versuch hat mit dem alten Code (hard-delete) einen Post gelöscht. Der Bugfix (`8ce0d4f`) ist deployed, muss aber in der nächsten Session verifiziert werden.

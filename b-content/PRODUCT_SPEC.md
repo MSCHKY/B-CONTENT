@@ -249,7 +249,8 @@ CRUD für die Wissensbasis:
 Archiv aller generierten Posts:
 - Filtbar nach Instanz, Themenfeld, Content-Typ
 - Wiederverwendung / Remix von alten Posts
-- Status-Tracking (Draft, Review, Approved, Published)
+- Status-Tracking (Draft, Review, Approved, Published, **Archived**)
+- **Soft-Delete:** Löschen archiviert Posts (kein Hard-Delete). Wiederherstellung möglich. Endgültiges Löschen nur aus Archiv-Ansicht.
 
 #### F11: Template-Builder
 Visuelle Bild-Templates erstellen:
