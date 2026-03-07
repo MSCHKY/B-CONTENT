@@ -99,20 +99,22 @@ postRoutes.get("/", async (c) => {
     const limit = parseInt(c.req.query("limit") ?? "50", 10);
     const offset = parseInt(c.req.query("offset") ?? "0", 10);
 
-    let query = "SELECT * FROM posts";
+    let query = `SELECT p.*, gi.id as img_id, gi.format as img_format, gi.width as img_width, gi.height as img_height, gi.url as img_url
+        FROM posts p
+        LEFT JOIN generated_images gi ON p.image_id = gi.id`;
     const conditions: string[] = [];
     const params: (string | number)[] = [];
 
     if (instance) {
-        conditions.push("instance = ?");
+        conditions.push("p.instance = ?");
         params.push(instance);
     }
     if (contentType) {
-        conditions.push("content_type = ?");
+        conditions.push("p.content_type = ?");
         params.push(contentType);
     }
     if (status) {
-        conditions.push("status = ?");
+        conditions.push("p.status = ?");
         params.push(status);
     }
 
@@ -120,18 +122,39 @@ postRoutes.get("/", async (c) => {
         query += ` WHERE ${conditions.join(" AND ")}`;
     }
 
-    query += " ORDER BY created_at DESC LIMIT ? OFFSET ?";
+    query += " ORDER BY p.created_at DESC LIMIT ? OFFSET ?";
     params.push(limit, offset);
 
     try {
         const result = await c.env.DB.prepare(query).bind(...params).all();
 
-        // Also get image data for posts that have images
-        const posts = result.results.map((row) => ({
-            ...row,
-            topic_fields: JSON.parse((row.topic_fields as string) || "[]"),
-            hashtags: JSON.parse((row.hashtags as string) || "[]"),
-        }));
+        const posts = result.results.map((row) => {
+            const post: Record<string, unknown> = {
+                ...row,
+                topic_fields: JSON.parse((row.topic_fields as string) || "[]"),
+                hashtags: JSON.parse((row.hashtags as string) || "[]"),
+            };
+
+            // Attach nested image object if image data exists
+            if (row.img_id) {
+                post.image = {
+                    id: row.img_id,
+                    format: row.img_format,
+                    width: row.img_width,
+                    height: row.img_height,
+                    url: row.img_url,
+                };
+            }
+
+            // Clean up prefixed columns from the JOIN
+            delete post.img_id;
+            delete post.img_format;
+            delete post.img_width;
+            delete post.img_height;
+            delete post.img_url;
+
+            return post;
+        });
 
         return c.json({ posts, total: posts.length });
     } catch (err) {
