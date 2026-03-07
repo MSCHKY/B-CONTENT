@@ -92,11 +92,17 @@ export interface Translations {
         downloadImage: string;
         delete: string;
         confirmDelete: string;
+        archive: string;
+        confirmArchive: string;
+        restore: string;
+        purge: string;
+        confirmPurge: string;
         statusLabels: {
             draft: string;
             review: string;
             approved: string;
             published: string;
+            archived: string;
         };
     };
 
@@ -230,11 +236,17 @@ export const de: Translations = {
         downloadImage: "Bild herunterladen",
         delete: "Löschen",
         confirmDelete: "Beitrag wirklich löschen?",
+        archive: "Archivieren",
+        confirmArchive: "Beitrag archivieren?",
+        restore: "Wiederherstellen",
+        purge: "Endgültig löschen",
+        confirmPurge: "Beitrag endgültig löschen? Das kann nicht rückgängig gemacht werden.",
         statusLabels: {
             draft: "Entwurf",
             review: "Review",
             approved: "Freigegeben",
             published: "Veröffentlicht",
+            archived: "Archiviert",
         },
     },
 
@@ -365,11 +377,17 @@ export const en: Translations = {
         downloadImage: "Download image",
         delete: "Delete",
         confirmDelete: "Really delete this post?",
+        archive: "Archive",
+        confirmArchive: "Archive this post?",
+        restore: "Restore",
+        purge: "Delete permanently",
+        confirmPurge: "Permanently delete this post? This cannot be undone.",
         statusLabels: {
             draft: "Draft",
             review: "Review",
             approved: "Approved",
             published: "Published",
+            archived: "Archived",
         },
     },
 

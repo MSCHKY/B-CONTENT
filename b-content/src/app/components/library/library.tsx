@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Select } from "@/components/ui/select";
-import { Copy, Download, Trash2, RefreshCw } from "lucide-react";
+import { Copy, Download, Trash2, Archive, RotateCcw, RefreshCw } from "lucide-react";
 import { useTranslation } from "@/i18n";
 
 // --- Types matching D1 response ---
@@ -43,6 +43,7 @@ const STATUS_VARIANTS: Record<string, "default" | "accent" | "warning" | "muted"
     review: "warning",
     approved: "accent",
     published: "default",
+    archived: "muted",
 };
 
 export function Library() {
@@ -67,6 +68,7 @@ export function Library() {
         { value: "review", label: t.library.statusLabels.review },
         { value: "approved", label: t.library.statusLabels.approved },
         { value: "published", label: t.library.statusLabels.published },
+        { value: "archived", label: t.library.statusLabels.archived },
     ];
 
     // Fetch posts from API
@@ -122,10 +124,29 @@ export function Library() {
         }
     };
 
-    const handleDelete = async (postId: string) => {
-        if (!confirm(t.library.confirmDelete)) return;
+    const handleArchive = async (postId: string) => {
+        if (!confirm(t.library.confirmArchive)) return;
         try {
             await fetch(`/api/posts/${postId}`, { method: "DELETE" });
+            fetchPosts();
+        } catch {
+            // Silent fail
+        }
+    };
+
+    const handleRestore = async (postId: string) => {
+        try {
+            await fetch(`/api/posts/${postId}/restore`, { method: "POST" });
+            fetchPosts();
+        } catch {
+            // Silent fail
+        }
+    };
+
+    const handlePurge = async (postId: string) => {
+        if (!confirm(t.library.confirmPurge)) return;
+        try {
+            await fetch(`/api/posts/${postId}/purge`, { method: "DELETE" });
             fetchPosts();
         } catch {
             // Silent fail
@@ -311,21 +332,43 @@ export function Library() {
                                                     <Download size={14} className="mr-1" /> {t.library.downloadImage}
                                                 </Button>
                                             )}
-                                            <Select
-                                                options={statusOptions.slice(1)} // Remove "All" option
-                                                value={post.status}
-                                                onChange={(e) =>
-                                                    handleStatusChange(post.id, e.target.value)
-                                                }
-                                            />
+                                            {post.status !== "archived" && (
+                                                <Select
+                                                    options={statusOptions.slice(1, -1)} // Remove "All" and "Archived" options
+                                                    value={post.status}
+                                                    onChange={(e) =>
+                                                        handleStatusChange(post.id, e.target.value)
+                                                    }
+                                                />
+                                            )}
                                             <div className="flex-1" />
-                                            <Button
-                                                variant="ghost"
-                                                size="sm"
-                                                onClick={() => handleDelete(post.id)}
-                                            >
-                                                <Trash2 size={14} />
-                                            </Button>
+                                            {post.status === "archived" ? (
+                                                <>
+                                                    <Button
+                                                        variant="secondary"
+                                                        size="sm"
+                                                        onClick={() => handleRestore(post.id)}
+                                                    >
+                                                        <RotateCcw size={14} className="mr-1" /> {t.library.restore}
+                                                    </Button>
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="sm"
+                                                        onClick={() => handlePurge(post.id)}
+                                                    >
+                                                        <Trash2 size={14} className="mr-1 text-red-400" /> {t.library.purge}
+                                                    </Button>
+                                                </>
+                                            ) : (
+                                                <Button
+                                                    variant="ghost"
+                                                    size="sm"
+                                                    onClick={() => handleArchive(post.id)}
+                                                    title={t.library.archive}
+                                                >
+                                                    <Archive size={14} />
+                                                </Button>
+                                            )}
                                         </div>
                                     </div>
                                 )}

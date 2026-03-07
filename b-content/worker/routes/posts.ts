@@ -116,6 +116,9 @@ postRoutes.get("/", async (c) => {
     if (status) {
         conditions.push("p.status = ?");
         params.push(status);
+    } else {
+        // By default, exclude archived posts
+        conditions.push("p.status != 'archived'");
     }
 
     if (conditions.length > 0) {
@@ -258,9 +261,49 @@ postRoutes.patch("/:id", async (c) => {
 });
 
 // ============================================================
-// DELETE /api/posts/:id — Delete a post
+// DELETE /api/posts/:id — Soft-delete (archive) a post
 // ============================================================
 postRoutes.delete("/:id", async (c) => {
+    const id = c.req.param("id");
+
+    try {
+        await c.env.DB.prepare(
+            "UPDATE posts SET status = 'archived', updated_at = datetime('now') WHERE id = ?"
+        )
+            .bind(id)
+            .run();
+
+        return c.json({ id, status: "archived" });
+    } catch (err) {
+        const message = err instanceof Error ? err.message : String(err);
+        return c.json({ error: `Failed to archive post: ${message}` }, 500);
+    }
+});
+
+// ============================================================
+// POST /api/posts/:id/restore — Restore an archived post
+// ============================================================
+postRoutes.post("/:id/restore", async (c) => {
+    const id = c.req.param("id");
+
+    try {
+        await c.env.DB.prepare(
+            "UPDATE posts SET status = 'draft', updated_at = datetime('now') WHERE id = ? AND status = 'archived'"
+        )
+            .bind(id)
+            .run();
+
+        return c.json({ id, status: "restored" });
+    } catch (err) {
+        const message = err instanceof Error ? err.message : String(err);
+        return c.json({ error: `Failed to restore post: ${message}` }, 500);
+    }
+});
+
+// ============================================================
+// DELETE /api/posts/:id/purge — Permanently delete a post
+// ============================================================
+postRoutes.delete("/:id/purge", async (c) => {
     const id = c.req.param("id");
 
     try {
@@ -268,9 +311,9 @@ postRoutes.delete("/:id", async (c) => {
             .bind(id)
             .run();
 
-        return c.json({ id, status: "deleted" });
+        return c.json({ id, status: "purged" });
     } catch (err) {
         const message = err instanceof Error ? err.message : String(err);
-        return c.json({ error: `Failed to delete post: ${message}` }, 500);
+        return c.json({ error: `Failed to purge post: ${message}` }, 500);
     }
 });
