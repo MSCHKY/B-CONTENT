@@ -4,6 +4,21 @@
 // ============================================================
 
 /**
+ * Typed application error for API route error handling.
+ * Carries a machine-readable code and HTTP status.
+ */
+export class AppError extends Error {
+    constructor(
+        message: string,
+        public code: string,
+        public status: number = 500,
+    ) {
+        super(message);
+        this.name = "AppError";
+    }
+}
+
+/**
  * Text generation request for Gemini.
  */
 interface GeminiTextRequest {
@@ -75,6 +90,10 @@ export async function generateText(
     apiKey: string,
     request: GeminiTextRequest,
 ): Promise<GeminiResponse> {
+    if (!apiKey) {
+        throw new AppError("API key missing", "API_KEY_MISSING", 400);
+    }
+
     const url = `${GEMINI_API_URL}/models/${TEXT_MODEL}:generateContent?key=${apiKey}`;
 
     const body = {
@@ -117,15 +136,25 @@ export async function generateText(
 
     // Attempt with 1 retry
     for (let attempt = 0; attempt < 2; attempt++) {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 30000);
+
         try {
             const response = await fetch(url, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body),
+                signal: controller.signal,
             });
+            clearTimeout(timeoutId);
 
             if (!response.ok) {
                 const errorText = await response.text();
+
+                if (response.status === 429) {
+                    throw new AppError("Rate limit exceeded", "RATE_LIMIT_EXCEEDED", 429);
+                }
+
                 lastError = {
                     error: `Gemini API error: ${response.status} — ${errorText}`,
                     status: response.status,
@@ -140,13 +169,18 @@ export async function generateText(
                 continue;
             }
 
-            const data = (await response.json()) as {
-                candidates?: {
-                    content?: { parts?: { text?: string }[] };
-                    finishReason?: string;
-                }[];
-                usageMetadata?: { totalTokenCount?: number };
-            };
+            let data;
+            try {
+                data = (await response.json()) as {
+                    candidates?: {
+                        content?: { parts?: { text?: string }[] };
+                        finishReason?: string;
+                    }[];
+                    usageMetadata?: { totalTokenCount?: number };
+                };
+            } catch {
+                throw new AppError("Invalid response format", "INVALID_RESPONSE_FORMAT", 502);
+            }
 
             const candidate = data.candidates?.[0];
             const text = candidate?.content?.parts?.[0]?.text;
@@ -164,13 +198,20 @@ export async function generateText(
                 tokenCount: data.usageMetadata?.totalTokenCount,
             };
         } catch (err) {
+            clearTimeout(timeoutId);
+            if (err instanceof AppError) {
+                throw err;
+            }
+            if (err instanceof Error && err.name === "AbortError") {
+                throw new AppError("Network timeout", "TIMEOUT", 504);
+            }
             lastError = {
                 error: `Network error: ${err instanceof Error ? err.message : String(err)}`,
             };
         }
     }
 
-    throw new Error(lastError?.error ?? "Gemini API request failed");
+    throw new AppError(lastError?.error ?? "Gemini API request failed", "API_FAILURE", 500);
 }
 
 // ============================================================

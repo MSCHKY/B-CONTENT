@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import type { Env } from "../index";
 import { buildTextPrompt, buildWebsiteArticlePrompt, buildImagePrompt } from "../services/prompt-builder";
-import { generateText, generateImage } from "../services/gemini";
+import { generateText, generateImage, AppError } from "../services/gemini";
 import { validateRequiredString, validateInstanceId, validateContentType, sanitizeText } from "../services/validation";
 
 type InstanceId = "alex" | "ablas" | "bwg";
@@ -18,13 +18,18 @@ export const generateRoutes = new Hono<{ Bindings: Env }>();
 
 // POST /api/generate/text
 generateRoutes.post("/text", async (c) => {
-    const body = await c.req.json<{
-        instance: InstanceId;
-        contentType: string;
-        topicField: string;
-        userInput: string;
-        language: "en" | "de";
-    }>();
+    let body;
+    try {
+        body = await c.req.json<{
+            instance: InstanceId;
+            contentType: string;
+            topicField: string;
+            userInput: string;
+            language: "en" | "de";
+        }>();
+    } catch {
+        return c.json({ error: "Invalid JSON format", code: "INVALID_JSON" }, 400);
+    }
 
     body.userInput = sanitizeText(body.userInput);
 
@@ -82,6 +87,9 @@ generateRoutes.post("/text", async (c) => {
             mock: false,
         });
     } catch (err) {
+        if (err instanceof AppError) {
+            return c.json({ error: err.message, code: err.code }, err.status as 400 | 429 | 500 | 502 | 504);
+        }
         const message = err instanceof Error ? err.message : String(err);
         return c.json({ error: `Generation failed: ${message}` }, 500);
     }
@@ -130,6 +138,9 @@ generateRoutes.post("/website-article", async (c) => {
             mock: false,
         });
     } catch (err) {
+        if (err instanceof AppError) {
+            return c.json({ error: err.message, code: err.code }, err.status as 400 | 429 | 500 | 502 | 504);
+        }
         const message = err instanceof Error ? err.message : String(err);
         return c.json({ error: `Generation failed: ${message}` }, 500);
     }
@@ -256,6 +267,10 @@ generateRoutes.post("/image", async (c) => {
             mock: false,
         });
     } catch (err) {
+        if (err instanceof AppError) {
+            console.error(`[Image Generation Error] ${err.code}: ${err.message}`);
+            return c.json({ error: err.message, code: err.code }, err.status as 400 | 429 | 500 | 502 | 504);
+        }
         const message = err instanceof Error ? err.message : String(err);
         console.error("[Image Generation Error]", message);
         return c.json({ error: `Image generation failed: ${message}` }, 500);
