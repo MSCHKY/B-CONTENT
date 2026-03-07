@@ -1,8 +1,8 @@
 # 🏗️ B/CONTENT — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-07 10:15
+> **Zuletzt aktualisiert:** 2026-03-07 20:55
 > **Modul:** B/CONTENT (Content-Gehirn)
-> **Status:** Phase 2 IN PROGRESS — E-001 (Content Orchestration) + E-002 (4:1 Ratio Tracker) implementiert, Build ✅
+> **Status:** Phase 2 IN PROGRESS — E-001 + E-002 ✅, i18n DE/EN ✅, E-003 offen (Jules 2× gescheitert)
 > **Branch:** `main` (Workers Builds Git-Integration aktiv)
 > **Live URL:** https://b-content.maschkeai.workers.dev
 > **Deploy:** Push auf `main` = automatisch live (Workers Builds, Root Dir: `b-content`)
@@ -67,6 +67,11 @@
   - [x] Backend: `GET /api/stats` Route (D1-Aggregation)
   - [x] Frontend: Stats Dashboard (Summary-Cards, Ratio-Bars, Topic-Distribution)
   - [x] PlaceholderView ersetzt durch echte Stats-Komponente
+- [x] **i18n: DE/EN Sprachumschaltung** — Zero-Dependency, useSyncExternalStore, localStorage-Persistenz
+  - [x] 7 View-Komponenten übersetzt (Sidebar, Create, Knowledge, Library, Orchestrate, Stats, InstancePicker)
+  - [x] Globe-Toggle in Sidebar-Footer
+  - [x] Deutsch als Default
+- [ ] **E-003: Wissensbasis-Editor (CRUD)** — Jules 2× gescheitert (Sandbox-Reset), manuell umsetzen
 - [ ] Transkript-Import (V2 Feature)
 
 ---
@@ -168,3 +173,5 @@
 | 2026-03-07 | Review      | Jules PR-Review: 3 gemerged (JSDoc+Validation+ErrorHandling), 3 closed, Code-Hardening cherry-picked, Prompt Library → 4 Drahtwerk-Personas | ✅ Done |
 | 2026-03-07 | QA + Bugfix | Live Smoke Test: AI-Gen ✅, Save-to-Library-Bug gefixt (Validation + Silent Fail), Image-JOIN in Library, GEMINI_API_KEY persistent via REST API | ✅ Deployed |
 | 2026-03-07 | Phase 2     | E-001 Orchestrate (Dreier-Regel) + E-002 Stats (4:1 Ratio Tracker): Backend + Frontend + Tests | ✅ Build OK |
+| 2026-03-07 | Feature     | i18n: DE/EN Sprachumschaltung (7 Views, Globe-Toggle, localStorage), Stats-Bug gefixt (instance_id→instance), Library Emoji→Lucide Icons | ✅ Deployed |
+| 2026-03-07 | Delegation  | Jules E-003 Knowledge CRUD: 2× gescheitert (Sandbox-Reset, Code verloren). Session 1: `3594320281645123255`, Session 2: `15320552779448508024` — AWAITING_USER_FEEDBACK | ❌ Fehlgeschlagen |

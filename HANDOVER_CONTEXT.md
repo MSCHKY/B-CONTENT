@@ -1,7 +1,7 @@
 # 🏗️ BENDERWIRE GROUP — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-07 09:51
-> **Aktiver Fokus:** B/CONTENT (Content-Gehirn) — Phase 2 gestartet, E-001 + E-002 implementiert, Build ✅, deploying
+> **Zuletzt aktualisiert:** 2026-03-07 20:55
+> **Aktiver Fokus:** B/CONTENT (Content-Gehirn) — Phase 2 läuft, i18n DE/EN ✅, Jules E-003 offen
 > **Phase:** Pitch / MVP
 
 ---
@@ -145,3 +145,5 @@ BENDERGROUP/
 | 2026-03-07 | Review      | Jules PRs: 3 gemerged, 3 closed, Error Handling cherry-picked, Prompt Library → Drahtwerk-Personas | ✅ Done |
 | 2026-03-07 | QA + Bugfix | Live Smoke Test, GEMINI_API_KEY persistent fix, Save-to-Library Validation, Library Image JOIN | ✅ Deployed |
 | 2026-03-07 | Phase 2     | E-001 Content Orchestration (Dreier-Regel) + E-002 4:1 Ratio Tracker: Backend + Frontend + 9 Tests | ✅ Build OK, pushed |
+| 2026-03-07 | Feature     | i18n DE/EN (7 Views, Globe-Toggle), Stats-Bug Fix, Library Icons | ✅ Deployed |
+| 2026-03-07 | Delegation  | Jules E-003 Knowledge CRUD: 2× Sandbox-Reset, kein PR | ❌ Fehlgeschlagen |
