@@ -1,0 +1,219 @@
+import { test, expect } from "@playwright/test";
+
+test.describe("B/CONTENT API Tests", () => {
+    // ---------------------------------------------------------
+    // POST /api/generate/text
+    // ---------------------------------------------------------
+    test.describe("POST /api/generate/text", () => {
+        test("happy path - returns mock generation when no API key", async ({ request }) => {
+            const response = await request.post("/api/generate/text", {
+                data: {
+                    instance: "alex",
+                    contentType: "Deep Dive",
+                    topicField: "Innovation",
+                    userInput: "Test input",
+                    language: "en"
+                }
+            });
+            expect(response.ok()).toBeTruthy();
+            const body = await response.json();
+
+            expect(body).toHaveProperty("text");
+            expect(typeof body.text).toBe("string");
+            expect(body).toHaveProperty("hashtags");
+            expect(Array.isArray(body.hashtags)).toBe(true);
+            expect(body).toHaveProperty("charCount");
+            expect(typeof body.charCount).toBe("number");
+            expect(body).toHaveProperty("mock");
+            expect(typeof body.mock).toBe("boolean");
+        });
+
+        test("error case - missing required fields", async ({ request }) => {
+            const response = await request.post("/api/generate/text", {
+                data: {
+                    // Empty object, missing required properties
+                }
+            });
+
+            // When no API key is set, the endpoint currently returns 200 with a mock flag
+            // even if properties are missing, due to early return in the handler.
+            expect(response.ok()).toBeTruthy();
+            const body = await response.json();
+            expect(body.mock).toBe(true);
+        });
+    });
+
+    // ---------------------------------------------------------
+    // GET /api/knowledge/topics
+    // ---------------------------------------------------------
+    test.describe("GET /api/knowledge/topics", () => {
+        test("happy path - returns topic fields", async ({ request }) => {
+            const response = await request.get("/api/knowledge/topics");
+            expect(response.ok()).toBeTruthy();
+            const body = await response.json();
+
+            expect(Array.isArray(body)).toBe(true);
+            expect(body.length).toBeGreaterThan(0);
+            expect(body[0]).toHaveProperty("id");
+            expect(body[0]).toHaveProperty("label");
+        });
+
+        test("error case - missing endpoint should 404", async ({ request }) => {
+            const response = await request.get("/api/knowledge/topics/nonexistent/subroute");
+            expect(response.status()).toBe(404);
+        });
+    });
+
+    // ---------------------------------------------------------
+    // GET /api/knowledge/quotes
+    // ---------------------------------------------------------
+    test.describe("GET /api/knowledge/quotes", () => {
+        test("happy path - returns all quotes", async ({ request }) => {
+            const response = await request.get("/api/knowledge/quotes");
+            expect(response.ok()).toBeTruthy();
+            const body = await response.json();
+
+            expect(Array.isArray(body)).toBe(true);
+            expect(body.length).toBeGreaterThan(0);
+            expect(body[0]).toHaveProperty("author");
+            expect(body[0]).toHaveProperty("quotes");
+        });
+
+        test("happy path - returns quotes for specific author", async ({ request }) => {
+            const response = await request.get("/api/knowledge/quotes?author=J%C3%BCrgen%20Alex");
+            expect(response.ok()).toBeTruthy();
+            const body = await response.json();
+
+            expect(Array.isArray(body)).toBe(true);
+            if (body.length > 0) {
+                expect(body[0]).toHaveProperty("text");
+            }
+        });
+
+        test("error case - unsupported method", async ({ request }) => {
+            const response = await request.post("/api/knowledge/quotes");
+            expect(response.status()).toBe(404); // Hono returns 404 for wrong methods on a specific route without generic handler
+        });
+    });
+
+    // ---------------------------------------------------------
+    // GET /api/knowledge/rules
+    // ---------------------------------------------------------
+    test.describe("GET /api/knowledge/rules", () => {
+        test("happy path - returns content rules", async ({ request }) => {
+            const response = await request.get("/api/knowledge/rules");
+            expect(response.ok()).toBeTruthy();
+            const body = await response.json();
+
+            expect(typeof body).toBe("object");
+            expect(body).not.toBeNull();
+            // Should have some keys like 'general' or 'formatting'
+            expect(Object.keys(body).length).toBeGreaterThan(0);
+        });
+
+        test("error case - extra path parameter", async ({ request }) => {
+            const response = await request.get("/api/knowledge/rules/extra");
+            expect(response.status()).toBe(404);
+        });
+    });
+
+    // ---------------------------------------------------------
+    // POST /api/posts & GET /api/posts & DELETE /api/posts/:id
+    // ---------------------------------------------------------
+    test.describe("Posts CRUD", () => {
+        // Run sequentially so that state is maintained across tests
+        test.describe.configure({ mode: 'serial' });
+
+        let createdPostId: string;
+
+        test("POST /api/posts - happy path", async ({ request }) => {
+            const response = await request.post("/api/posts", {
+                data: {
+                    instance: "alex",
+                    contentType: "Deep Dive",
+                    topicFields: ["Innovation"],
+                    text: "This is a test post.",
+                    language: "en",
+                    hashtags: ["#Test"],
+                    charCount: 20,
+                    isPersonal: false
+                }
+            });
+            expect(response.ok()).toBeTruthy();
+            const body = await response.json();
+
+            expect(body).toHaveProperty("id");
+            expect(body).toHaveProperty("status", "saved");
+            createdPostId = body.id;
+        });
+
+        test("POST /api/posts - error case missing required fields", async ({ request }) => {
+            const response = await request.post("/api/posts", {
+                data: {
+                    instance: "alex"
+                    // missing contentType, topicFields, text, etc.
+                }
+            });
+            // Should fail due to DB NOT NULL constraints or similar
+            expect(response.status()).toBe(500);
+            const body = await response.json();
+            expect(body).toHaveProperty("error");
+        });
+
+        test("GET /api/posts - happy path", async ({ request }) => {
+            const response = await request.get("/api/posts");
+            expect(response.ok()).toBeTruthy();
+            const body = await response.json();
+
+            expect(body).toHaveProperty("posts");
+            expect(Array.isArray(body.posts)).toBe(true);
+            expect(body).toHaveProperty("total");
+            expect(typeof body.total).toBe("number");
+
+            // Should contain the post we just created
+            const createdPost = body.posts.find((p: any) => p.id === createdPostId);
+            expect(createdPost).toBeDefined();
+            expect(createdPost.text).toBe("This is a test post.");
+        });
+
+        test("GET /api/posts - query parameters", async ({ request }) => {
+            const response = await request.get("/api/posts?limit=1");
+            expect(response.ok()).toBeTruthy();
+            const body = await response.json();
+
+            expect(body.posts.length).toBeLessThanOrEqual(1);
+        });
+
+        test("GET /api/posts - error case invalid method", async ({ request }) => {
+            // we already test POST above. We'll test PUT which is unhandled.
+            const response = await request.put("/api/posts");
+            expect(response.status()).toBe(404);
+        });
+
+        test("DELETE /api/posts/:id - happy path", async ({ request }) => {
+            // Ensure we have an ID to delete
+            expect(createdPostId).toBeDefined();
+
+            const response = await request.delete(`/api/posts/${createdPostId}`);
+            expect(response.ok()).toBeTruthy();
+            const body = await response.json();
+
+            expect(body).toHaveProperty("id", createdPostId);
+            expect(body).toHaveProperty("status", "deleted");
+
+            // Verify it was deleted from list
+            const listResponse = await request.get(`/api/posts`);
+            const listBody = await listResponse.json();
+            const foundPost = listBody.posts?.find((p: any) => p.id === createdPostId);
+            expect(foundPost).toBeUndefined();
+        });
+
+        test("DELETE /api/posts/:id - error case non-existent id (should still return 200 or 404 depending on implementation)", async ({ request }) => {
+            const response = await request.delete(`/api/posts/non-existent-id`);
+            // SQLite DELETE without matching row doesn't error, it just returns 0 rows affected.
+            // Depending on the implementation, it might still return 200 "deleted".
+            // So we just expect it not to throw a 500.
+            expect(response.status()).toBeLessThan(500);
+        });
+    });
+});
