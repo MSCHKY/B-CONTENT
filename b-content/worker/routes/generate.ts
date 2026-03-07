@@ -6,6 +6,13 @@ import { generateText, generateImage } from "../services/gemini";
 type InstanceId = "alex" | "ablas" | "bwg";
 type ImageStyle = "photo" | "illustration" | "abstract" | "infographic";
 
+/**
+ * Hono router for content and image generation endpoints.
+ *
+ * @type {Hono<{ Bindings: Env }>}
+ * @example
+ * app.route("/api/generate", generateRoutes);
+ */
 export const generateRoutes = new Hono<{ Bindings: Env }>();
 
 // POST /api/generate/text

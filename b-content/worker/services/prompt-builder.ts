@@ -53,16 +53,29 @@ interface InstanceData {
     }[];
 }
 
-interface BuildPromptParams {
+/**
+ * Parameters for building a text generation prompt.
+ */
+export interface BuildPromptParams {
+    /** The ID of the instance generating the text */
     instance: InstanceId;
+    /** The content type ID */
     contentType: string;
+    /** The primary topic field ID */
     topicField: TopicFieldId;
+    /** The user's creative input */
     userInput: string;
+    /** The language of the post ("en" or "de") */
     language: "en" | "de";
 }
 
-interface BuiltPrompt {
+/**
+ * Output structure of the prompt builder.
+ */
+export interface BuiltPrompt {
+    /** The system instruction component */
     system: string;
+    /** The user prompt component */
     user: string;
 }
 
@@ -154,6 +167,21 @@ function getContentTypeInfo(
 
 // --- Main Builder ---
 
+/**
+ * Builds a prompt for generating text content based on given parameters.
+ *
+ * @param {BuildPromptParams} params - The parameters for building the text prompt.
+ * @returns {BuiltPrompt} The constructed system and user prompt strings.
+ * @example
+ * const prompt = buildTextPrompt({
+ *   instance: "alex",
+ *   contentType: "post",
+ *   topicField: "sustainability",
+ *   userInput: "Talk about our new green energy initiative.",
+ *   language: "en"
+ * });
+ * console.log(prompt.system);
+ */
 export function buildTextPrompt(params: BuildPromptParams): BuiltPrompt {
     const { instance, contentType, topicField, userInput, language } = params;
 
@@ -227,6 +255,20 @@ export function buildTextPrompt(params: BuildPromptParams): BuiltPrompt {
     return { system, user };
 }
 
+/**
+ * Builds a prompt for generating a website article.
+ *
+ * @param {Object} params - The parameters for building the article prompt.
+ * @param {TopicFieldId} params.topicField - The topic field for the article.
+ * @param {string} params.userInput - The user's input or context for the article.
+ * @returns {BuiltPrompt} The constructed system and user prompt strings.
+ * @example
+ * const prompt = buildWebsiteArticlePrompt({
+ *   topicField: "innovation",
+ *   userInput: "Focus on our latest R&D breakthrough."
+ * });
+ * console.log(prompt.user);
+ */
 export function buildWebsiteArticlePrompt(params: {
     topicField: TopicFieldId;
     userInput: string;
@@ -329,13 +371,24 @@ const INSTANCE_VISUAL_GUIDES: Record<InstanceId, string> = {
     ].join(" "),
 };
 
+/**
+ * Visual style options for the generated image.
+ */
 type ImageStyle = "photo" | "illustration" | "abstract" | "infographic";
 
+/**
+ * Parameters for building an image generation prompt.
+ */
 interface BuildImagePromptParams {
+    /** The ID of the instance generating the image */
     instance: InstanceId;
+    /** The target format (e.g., 'single-square') */
     format: string;
+    /** The topic field for the image content */
     topicField: TopicFieldId;
+    /** The user's creative input for the image */
     userInput: string;
+    /** The visual style of the image (defaults to 'photo') */
     style?: ImageStyle;
 }
 
@@ -349,6 +402,18 @@ interface BuildImagePromptParams {
  * 4. Instance visual guide (Alex vs Ablas vs BWG mood)
  * 5. Topic context (facts + keywords for subject inspiration)
  * 6. User creative input
+ *
+ * @param {BuildImagePromptParams} params - The parameters for building the image prompt.
+ * @returns {string} The constructed prompt string for image generation.
+ * @example
+ * const prompt = buildImagePrompt({
+ *   instance: "alex",
+ *   format: "single-square",
+ *   topicField: "sustainability",
+ *   userInput: "A wind turbine in a green field.",
+ *   style: "photo"
+ * });
+ * console.log(prompt);
  */
 export function buildImagePrompt(params: BuildImagePromptParams): string {
     const {

@@ -6,6 +6,21 @@ interface CardProps extends HTMLAttributes<HTMLDivElement> {
     glass?: boolean;
 }
 
+/**
+ * A versatile card component used for displaying grouped content.
+ *
+ * @param {CardProps} props - The component props.
+ * @param {boolean} [props.selected=false] - Highlights the card to indicate selection.
+ * @param {boolean} [props.hoverable=true] - Adds hover effects like lifting.
+ * @param {boolean} [props.glass=true] - Applies a glassmorphism style.
+ * @param {string} [props.className] - Additional CSS classes.
+ * @param {React.ReactNode} props.children - The card's content.
+ * @returns {JSX.Element} The rendered Card component.
+ * @example
+ * <Card selected hoverable={false}>
+ *   <CardBody>Content here</CardBody>
+ * </Card>
+ */
 export const Card = forwardRef<HTMLDivElement, CardProps>(
     (
         {
@@ -45,6 +60,13 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
 Card.displayName = "Card";
 
 // Card sub-components for consistent layout
+
+/**
+ * Header section for the Card component.
+ *
+ * @param {React.HTMLAttributes<HTMLDivElement>} props - Standard div props.
+ * @returns {JSX.Element} The card header section.
+ */
 export function CardHeader({
     className = "",
     children,
@@ -57,6 +79,12 @@ export function CardHeader({
     );
 }
 
+/**
+ * Main body content section for the Card component.
+ *
+ * @param {React.HTMLAttributes<HTMLDivElement>} props - Standard div props.
+ * @returns {JSX.Element} The card body section.
+ */
 export function CardBody({
     className = "",
     children,
@@ -69,6 +97,12 @@ export function CardBody({
     );
 }
 
+/**
+ * Footer section for the Card component, typically used for actions.
+ *
+ * @param {React.HTMLAttributes<HTMLDivElement>} props - Standard div props.
+ * @returns {JSX.Element} The card footer section.
+ */
 export function CardFooter({
     className = "",
     children,

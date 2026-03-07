@@ -3,6 +3,16 @@ interface StepperProps {
     currentStep: number;
 }
 
+/**
+ * A styled step indicator for multi-step processes.
+ *
+ * @param {StepperProps} props - The component props.
+ * @param {string[]} props.steps - An array of labels for each step.
+ * @param {number} props.currentStep - The current active step (1-indexed).
+ * @returns {JSX.Element} The rendered Stepper component.
+ * @example
+ * <Stepper steps={["One", "Two", "Three"]} currentStep={2} />
+ */
 export function Stepper({ steps, currentStep }: StepperProps) {
     return (
         <nav className="flex items-center gap-2 w-full max-w-xl mx-auto py-4">

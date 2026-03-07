@@ -24,6 +24,19 @@ const sizeStyles: Record<ButtonSize, string> = {
     lg: "px-7 py-3.5 text-lg rounded-xl gap-2.5",
 };
 
+/**
+ * A reusable button component with different variants and sizes.
+ *
+ * @param {ButtonProps} props - The component props.
+ * @param {ButtonVariant} [props.variant="primary"] - The visual style of the button.
+ * @param {ButtonSize} [props.size="md"] - The size of the button.
+ * @param {boolean} [props.loading=false] - Whether the button should show a loading state.
+ * @param {string} [props.className] - Additional CSS classes.
+ * @param {React.ReactNode} props.children - The content of the button.
+ * @returns {JSX.Element} The rendered Button component.
+ * @example
+ * <Button variant="secondary" size="lg" onClick={() => {}}>Click Me</Button>
+ */
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     (
         {

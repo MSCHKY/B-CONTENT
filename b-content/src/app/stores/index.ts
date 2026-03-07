@@ -15,6 +15,14 @@ interface AppStore {
     setView: (view: AppView) => void;
 }
 
+/**
+ * Zustand store for global application state (navigation).
+ *
+ * @returns {AppStore} The application store state and actions.
+ * @example
+ * const { view, setView } = useAppStore();
+ * setView("library");
+ */
 export const useAppStore = create<AppStore>((set) => ({
     view: "create",
     setView: (view) => set({ view }),
@@ -58,6 +66,15 @@ interface CreateStore extends CreateFlowState {
     reset: () => void;
 }
 
+/**
+ * Zustand store for the content creation wizard state.
+ *
+ * @returns {CreateStore} The create wizard store state and actions.
+ * @example
+ * const { step, nextStep, selectInstance } = useCreateStore();
+ * selectInstance("alex");
+ * nextStep();
+ */
 export const useCreateStore = create<CreateStore>((set) => ({
     ...initialCreateState,
 

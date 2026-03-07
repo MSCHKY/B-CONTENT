@@ -3,17 +3,31 @@
 // Lightweight wrapper for Google Gemini text + image generation
 // ============================================================
 
+/**
+ * Text generation request for Gemini.
+ */
 interface GeminiTextRequest {
+    /** The system instruction */
     system: string;
+    /** The user prompt */
     user: string;
 }
 
+/**
+ * Response from Gemini text generation.
+ */
 interface GeminiResponse {
+    /** The generated text */
     text: string;
+    /** The reason the model stopped generating */
     finishReason: string;
+    /** Total tokens used in generation */
     tokenCount?: number;
 }
 
+/**
+ * Response from Gemini image generation.
+ */
 interface GeminiImageResponse {
     /** Base64-encoded image data */
     data: string;
@@ -21,11 +35,17 @@ interface GeminiImageResponse {
     mimeType: string;
     /** Optional text description from the model */
     text?: string;
+    /** The reason the model stopped generating */
     finishReason: string;
 }
 
+/**
+ * Error structure from Gemini API.
+ */
 interface GeminiError {
+    /** Error message string */
     error: string;
+    /** HTTP status code */
     status?: number;
 }
 
@@ -40,6 +60,16 @@ const IMAGE_MODEL = "gemini-2.5-flash-image";
  * Uses the standard API endpoint. For EU-only data processing,
  * switch to Vertex AI EU endpoint when ready:
  * https://europe-west1-aiplatform.googleapis.com/v1/projects/{PROJECT}/locations/europe-west1/publishers/google/models/{MODEL}:generateContent
+ *
+ * @param {string} apiKey - The Gemini API key.
+ * @param {GeminiTextRequest} request - The request object containing system instruction and user prompt.
+ * @returns {Promise<GeminiResponse>} The generated text response and metadata.
+ * @example
+ * const response = await generateText("api-key-here", {
+ *   system: "You are a helpful assistant.",
+ *   user: "Hello!"
+ * });
+ * console.log(response.text);
  */
 export async function generateText(
     apiKey: string,
@@ -155,6 +185,13 @@ export async function generateText(
  * Returns base64-encoded image data that can be piped to R2 storage.
  *
  * API docs: https://ai.google.dev/gemini-api/docs/image-generation
+ *
+ * @param {string} apiKey - The Gemini API key.
+ * @param {string} prompt - The prompt to generate the image.
+ * @returns {Promise<GeminiImageResponse>} The generated image response containing base64 data and metadata.
+ * @example
+ * const response = await generateImage("api-key-here", "A futuristic city skyline at night.");
+ * console.log(response.mimeType);
  */
 export async function generateImage(
     apiKey: string,
