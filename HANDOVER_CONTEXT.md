@@ -1,7 +1,7 @@
 # 🏗️ BENDERWIRE GROUP — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-07 08:18
-> **Aktiver Fokus:** B/CONTENT (Content-Gehirn) — Phase 1 fast komplett, Text + Bild live, Jules AI Code-Hardening gemerged
+> **Zuletzt aktualisiert:** 2026-03-07 09:32
+> **Aktiver Fokus:** B/CONTENT (Content-Gehirn) — Phase 1 fast komplett, Live QA bestanden, Bugfixes deployed
 > **Phase:** Pitch / MVP
 
 ---
@@ -142,3 +142,4 @@ BENDERGROUP/
 | 2026-03-07 | Maintenance | Styleguide-Abgleich, Assets-Fix, Lucide Icons, CF Access, Jules AI Research | ✅ Alle Blocker gelöst |
 | 2026-03-07 | Integration | Jules AI Agent via API: AGENTS.md, CLI, Prompt Library, 7 Overnight-Tasks delegiert | ✅ Live |
 | 2026-03-07 | Review      | Jules PRs: 3 gemerged, 3 closed, Error Handling cherry-picked, Prompt Library → Drahtwerk-Personas | ✅ Done |
+| 2026-03-07 | QA + Bugfix | Live Smoke Test, GEMINI_API_KEY persistent fix, Save-to-Library Validation, Library Image JOIN | ✅ Deployed |

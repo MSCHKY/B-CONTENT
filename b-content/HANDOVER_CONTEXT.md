@@ -1,8 +1,8 @@
 # 🏗️ B/CONTENT — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-07 08:18
+> **Zuletzt aktualisiert:** 2026-03-07 09:32
 > **Modul:** B/CONTENT (Content-Gehirn)
-> **Status:** Phase 1 NEAR COMPLETE — Text + Bild-Generierung live, Visual Polish deployed, Jules AI Integration live, Code-Hardening gemerged
+> **Status:** Phase 1 NEAR COMPLETE — Live Smoke Test bestanden, Save-to-Library + Image-JOIN Bugs gefixt, GEMINI_API_KEY persistent gelöst
 > **Branch:** `main` (Workers Builds Git-Integration aktiv)
 > **Live URL:** https://b-content.maschkeai.workers.dev
 > **Deploy:** Push auf `main` = automatisch live (Workers Builds, Root Dir: `b-content`)
@@ -156,3 +156,4 @@
 | 2026-03-07 | Maintenance | Styleguide↔vDNA Compliance (100%), Assets-Fix (Fonts+Logo), Lucide Icons, CF Access, Jules Research | ✅ Deployed |
 | 2026-03-07 | Integration | Jules AI Agent: AGENTS.md, CLI Script, Prompt Library (12 Templates), 7 Tasks delegiert | ✅ Live |
 | 2026-03-07 | Review      | Jules PR-Review: 3 gemerged (JSDoc+Validation+ErrorHandling), 3 closed, Code-Hardening cherry-picked, Prompt Library → 4 Drahtwerk-Personas | ✅ Done |
+| 2026-03-07 | QA + Bugfix | Live Smoke Test: AI-Gen ✅, Save-to-Library-Bug gefixt (Validation + Silent Fail), Image-JOIN in Library, GEMINI_API_KEY persistent via REST API | ✅ Deployed |
