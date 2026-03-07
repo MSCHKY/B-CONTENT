@@ -70,21 +70,23 @@ cmd_create() {
   local source="${1:?Usage: jules create <source> \"<prompt>\"}"
   local prompt="${2:?Usage: jules create <source> \"<prompt>\"}"
 
+  # Normalize source: add sources/ prefix if missing
+  [[ "$source" != sources/* ]] && source="sources/$source"
+
   _header "Creating Jules Session"
   echo "📦 Source: $source"
   echo "📝 Prompt: ${prompt:0:100}..."
   echo ""
 
   _api POST "/sessions" \
-    -d "$(cat <<EOF
-{
-  "sourceContext": {
-    "source": "$source"
-  },
-  "prompt": "$prompt"
-}
-EOF
-)" | _json_pretty
+    -d "$(jq -n \
+      --arg s "$source" \
+      --arg p "$prompt" \
+      '{
+        sourceContext: { source: $s, githubRepoContext: { startingBranch: "main" } },
+        prompt: $p,
+        automationMode: "AUTO_CREATE_PR"
+      }')" | _json_pretty
 }
 
 cmd_list() {
@@ -129,9 +131,12 @@ cmd_delegate() {
       if [[ -n "$current_prompt" ]]; then
         count=$((count + 1))
         echo "🚀 Task $count: ${current_prompt:0:80}..."
+        # Normalize source
+        local src="$source"
+        [[ "$src" != sources/* ]] && src="sources/$src"
         _api POST "/sessions" \
-          -d "$(jq -n --arg s "$source" --arg p "$current_prompt" \
-            '{sourceContext: {source: $s}, prompt: $p}')" | _json_pretty
+          -d "$(jq -n --arg s "$src" --arg p "$current_prompt" \
+            '{sourceContext: {source: $s, githubRepoContext: {startingBranch: "main"}}, prompt: $p, automationMode: "AUTO_CREATE_PR"}')" | _json_pretty
         echo ""
         sleep 1  # Rate limit courtesy
       fi
@@ -150,9 +155,11 @@ $line"
   if [[ -n "$current_prompt" ]]; then
     count=$((count + 1))
     echo "🚀 Task $count: ${current_prompt:0:80}..."
+    local src="$source"
+    [[ "$src" != sources/* ]] && src="sources/$src"
     _api POST "/sessions" \
-      -d "$(jq -n --arg s "$source" --arg p "$current_prompt" \
-        '{sourceContext: {source: $s}, prompt: $p}')" | _json_pretty
+      -d "$(jq -n --arg s "$src" --arg p "$current_prompt" \
+        '{sourceContext: {source: $s, githubRepoContext: {startingBranch: "main"}}, prompt: $p, automationMode: "AUTO_CREATE_PR"}')" | _json_pretty
   fi
 
   echo ""
@@ -177,10 +184,10 @@ EXAMPLES:
   jules sources
 
   # Create a task
-  jules create "github:MSCHKY/B-CONTENT" "Add Playwright tests for /api/generate endpoint"
+  jules create "github/MSCHKY/B-CONTENT" "Add Playwright tests for /api/generate endpoint"
 
   # Batch delegate overnight tasks
-  jules delegate "github:MSCHKY/B-CONTENT" docs/jules-overnight.txt
+  jules delegate "github/MSCHKY/B-CONTENT" docs/jules-overnight.txt
 
 ENVIRONMENT:
   JULES_API_KEY    Required. Get from jules.google.com/settings
