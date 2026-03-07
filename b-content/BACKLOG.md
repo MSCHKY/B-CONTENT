@@ -1,6 +1,6 @@
 # 📋 B/CONTENT — Backlog
 
-> **Zuletzt aktualisiert:** 2026-03-07 09:32
+> **Zuletzt aktualisiert:** 2026-03-07 09:51
 > **Referenz:** `PRODUCT_SPEC.md` für vollständige Feature-Beschreibungen
 
 ---
@@ -38,14 +38,14 @@ Entspricht Features F1-F6 aus PRODUCT_SPEC.md:
 
 ---
 
-## 🟢 Phase 2: Erweiterungen (WARTEND)
+## 🟢 Phase 2: Erweiterungen (IN PROGRESS)
 
 Entspricht Features F7-F11 aus PRODUCT_SPEC.md:
 
 | ID    | Prio | Aufgabe                                          | Feature | Status    |
 |-------|------|--------------------------------------------------|---------|-----------|
-| E-001 | P1   | Content-Orchestrierung (Dreier-Regel)            | F7      | 🔲 Offen  |
-| E-002 | P1   | 4:1 Ratio Tracker                                | F8      | 🔲 Offen  |
+| E-001 | P1   | Content-Orchestrierung (Dreier-Regel)            | F7      | ✅ Done   |
+| E-002 | P1   | 4:1 Ratio Tracker                                | F8      | ✅ Done   |
 | E-003 | P2   | Wissensbasis-Editor (CRUD)                       | F9      | 🔲 Offen  |
 | E-004 | P2   | Post-History / Archiv                            | F10     | ✅ Done (MVP) |
 | E-005 | P3   | Template-Builder (visuell)                       | F11     | 🔲 Offen  |
@@ -83,7 +83,7 @@ Entspricht Features F12-F17 aus PRODUCT_SPEC.md:
 | —     | Vite-Projekt initialisiert + Design System + Create-Flow + Knowledge | 2026-03-06 |
 | —     | AI System-Prompts (3 Instanzen × 11 Content-Typen + Website-Beitrag) | 2026-03-06 |
 | —     | Prompt-Builder Service + Gemini Client + Generate-Route | 2026-03-06 |
-| —     | Playwright Smoke Test (6 Tests)                  | 2026-03-06 |
+| —     | Playwright Smoke Test (9 Tests)                  | 2026-03-07 |
 | —     | Bild-Generierung (Gemini 2.5 Flash Image + vDNA-Prompts) | 2026-03-06 |
 | —     | R2 Upload-Pipeline (EU Jurisdiction)             | 2026-03-06 |
 | —     | Content Library (D1 + Archive-UI + Save-to-Library) | 2026-03-06 |
@@ -101,3 +101,5 @@ Entspricht Features F12-F17 aus PRODUCT_SPEC.md:
 | —     | GEMINI_API_KEY persistent gelöst (REST API statt wrangler versions) | 2026-03-07 |
 | —     | Save-to-Library Bug gefixt (Validation zu streng + Silent Fail → Error-Feedback) | 2026-03-07 |
 | —     | Library Image-JOIN gefixt (LEFT JOIN auf generated_images) | 2026-03-07 |
+| —     | E-001: Content Orchestration (Dreier-Regel) — API + Frontend | 2026-03-07 |
+| —     | E-002: 4:1 Ratio Tracker — API + Dashboard       | 2026-03-07 |
