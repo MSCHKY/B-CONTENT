@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useCreateStore } from "@/stores";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/input";
@@ -57,17 +58,20 @@ export function TopicInput() {
     } = useCreateStore();
 
     // Find relevant quotes for the selected instance and topic
-    const relevantQuotes = topicField
-        ? allQuotes
-            .filter(
-                (q) =>
-                    (q.author === instance || q.author === "general") &&
-                    q.topics.includes(topicField)
-            )
-            .slice(0, 3)
-        : allQuotes
-            .filter((q) => q.author === instance || q.author === "general")
-            .slice(0, 3);
+    // ⚡ Bolt: Memoize relevant quotes to prevent unnecessary filtering on every keystroke
+    const relevantQuotes = useMemo(() => {
+        return topicField
+            ? allQuotes
+                .filter(
+                    (q) =>
+                        (q.author === instance || q.author === "general") &&
+                        q.topics.includes(topicField)
+                )
+                .slice(0, 3)
+            : allQuotes
+                .filter((q) => q.author === instance || q.author === "general")
+                .slice(0, 3);
+    }, [instance, topicField]);
 
     const handleGenerate = async () => {
         setIsGenerating(true);
