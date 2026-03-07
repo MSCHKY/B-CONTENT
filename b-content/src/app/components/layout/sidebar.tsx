@@ -1,24 +1,26 @@
 import { useAppStore } from "@/stores";
 import type { AppView } from "@/types";
-import { Sparkles, Brain, Library, Layers, BarChart3 } from "lucide-react";
+import { Sparkles, Brain, Library, Layers, BarChart3, Globe } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { useTranslation } from "@/i18n";
 
 interface NavItem {
     id: AppView;
     icon: LucideIcon;
-    label: string;
+    labelKey: keyof ReturnType<typeof useTranslation>["t"]["nav"];
 }
 
 const NAV_ITEMS: NavItem[] = [
-    { id: "create", icon: Sparkles, label: "Create" },
-    { id: "knowledge", icon: Brain, label: "Knowledge" },
-    { id: "library", icon: Library, label: "Library" },
-    { id: "orchestrate", icon: Layers, label: "Orchestrate" },
-    { id: "stats", icon: BarChart3, label: "Stats" },
+    { id: "create", icon: Sparkles, labelKey: "create" },
+    { id: "knowledge", icon: Brain, labelKey: "knowledge" },
+    { id: "library", icon: Library, labelKey: "library" },
+    { id: "orchestrate", icon: Layers, labelKey: "orchestrate" },
+    { id: "stats", icon: BarChart3, labelKey: "stats" },
 ];
 
 export function Sidebar() {
     const { view, setView } = useAppStore();
+    const { t, locale, toggleLocale } = useTranslation();
 
     return (
         <>
@@ -68,7 +70,7 @@ export function Sidebar() {
                                     className={`shrink-0 transition-transform duration-200 ${isActive ? "" : "group-hover:scale-110"}`}
                                 />
                                 <span className="hidden lg:block text-sm font-medium">
-                                    {item.label}
+                                    {t.nav[item.labelKey]}
                                 </span>
                                 {isActive && (
                                     <span className="hidden lg:block ml-auto w-1.5 h-1.5 rounded-full bg-white/60" />
@@ -78,17 +80,29 @@ export function Sidebar() {
                     })}
                 </nav>
 
-                {/* Footer */}
+                {/* Footer — Language Toggle + Branding */}
                 <div className="p-3 border-t border-white/10">
-                    <div className="hidden lg:flex items-center gap-2">
-                        <img
-                            src="/assets/brand/logos/group/bildmarke.png"
-                            alt=""
-                            className="w-4 h-4 rounded-sm opacity-30"
-                        />
-                        <span className="text-text-on-dark/30 text-xs font-light">
-                            BenderWire Group
-                        </span>
+                    <div className="hidden lg:flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                            <img
+                                src="/assets/brand/logos/group/bildmarke.png"
+                                alt=""
+                                className="w-4 h-4 rounded-sm opacity-30"
+                            />
+                            <span className="text-text-on-dark/30 text-xs font-light">
+                                BenderWire Group
+                            </span>
+                        </div>
+                        <button
+                            onClick={toggleLocale}
+                            className="flex items-center gap-1 text-text-on-dark/40 hover:text-text-on-dark/70 transition-colors duration-200 cursor-pointer"
+                            title={locale === "de" ? "Switch to English" : "Auf Deutsch wechseln"}
+                        >
+                            <Globe size={12} />
+                            <span className="text-[10px] font-medium uppercase tracking-wider">
+                                {locale}
+                            </span>
+                        </button>
                     </div>
                 </div>
             </aside>
@@ -119,7 +133,7 @@ export function Sidebar() {
                                     strokeWidth={isActive ? 2.2 : 1.6}
                                     className={`transition-transform duration-200 ${isActive ? "scale-110" : ""}`}
                                 />
-                                <span className="text-[10px] font-medium">{item.label}</span>
+                                <span className="text-[10px] font-medium">{t.nav[item.labelKey]}</span>
                                 {isActive && (
                                     <span className="absolute bottom-0 w-4 h-0.5 rounded-full wire-gradient" />
                                 )}

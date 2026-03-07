@@ -2,6 +2,7 @@ import { useCreateStore } from "@/stores";
 import { Card, CardBody } from "@/components/ui/card";
 import type { InstanceId } from "@/types";
 import instancesData from "@data/instances/instances.json";
+import { useTranslation } from "@/i18n";
 
 interface InstanceDisplay {
     id: InstanceId;
@@ -29,12 +30,12 @@ const INSTANCE_CARDS: InstanceDisplay[] = Object.values(instances).map(
 
 export function InstancePicker() {
     const { instance, selectInstance } = useCreateStore();
+    const { t } = useTranslation();
 
     return (
         <div>
             <p className="text-text-secondary mb-6">
-                Choose the voice for your content. Each instance has its own tonality,
-                themes, and style.
+                {t.create.instancePicker.subtitle}
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 stagger-children">

@@ -5,11 +5,11 @@ import { ContentTypePicker } from "./content-type-picker";
 import { TopicInput } from "./topic-input";
 import { ResultEditor } from "./result-editor";
 import { Button } from "@/components/ui/button";
-
-const STEPS = ["Instance", "Content Type", "Input", "Result"];
+import { useTranslation } from "@/i18n";
 
 export function CreateFlow() {
     const { step, reset } = useCreateStore();
+    const { t } = useTranslation();
 
     return (
         <div>
@@ -17,12 +17,12 @@ export function CreateFlow() {
             <div className="flex items-center justify-between mb-2">
                 <div>
                     <h1 className="text-2xl font-semibold text-text-primary section-header">
-                        Create Content
+                        {t.create.title}
                     </h1>
                 </div>
                 {step > 1 && (
                     <Button variant="ghost" size="sm" onClick={reset}>
-                        ↺ Start Over
+                        {t.create.startOver}
                     </Button>
                 )}
             </div>
@@ -31,7 +31,7 @@ export function CreateFlow() {
             <hr className="gradient-line mb-4" />
 
             {/* Stepper */}
-            <Stepper steps={STEPS} currentStep={step} />
+            <Stepper steps={[...t.create.steps]} currentStep={step} />
 
             {/* Step Content with animation */}
             <div className="mt-6 animate-fade-in-up" key={step}>

@@ -4,6 +4,7 @@ import { Select } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Layers, Copy, Save, Calendar, Loader2, AlertTriangle } from "lucide-react";
 import topicFields from "@data/topics/topic-fields.json";
+import { useTranslation } from "@/i18n";
 
 // --- Types ---
 
@@ -58,6 +59,7 @@ export function Orchestrate() {
     const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
     const [savingAll, setSavingAll] = useState(false);
     const [saveResult, setSaveResult] = useState<string | null>(null);
+    const { t } = useTranslation();
 
     const handleGenerate = async () => {
         if (!topicField || !userInput.trim()) return;
@@ -85,7 +87,7 @@ export function Orchestrate() {
                 setPosts(data.posts);
             }
         } catch {
-            setError("Failed to generate. Make sure the Worker is running.");
+            setError(t.common.error);
         } finally {
             setIsGenerating(false);
         }
@@ -148,29 +150,28 @@ export function Orchestrate() {
             <div className="flex items-center gap-3 mb-2">
                 <Layers className="text-crisp-cyan" size={24} strokeWidth={2} />
                 <h2 className="text-xl font-semibold text-text-primary section-header">
-                    Content Orchestration
+                    {t.orchestrate.title}
                 </h2>
             </div>
             <hr className="gradient-line mb-3" />
             <p className="text-sm text-text-muted mb-6">
-                Generate coordinated posts across all 3 instances from a single
-                topic — the <strong>Dreier-Regel</strong>.
+                {t.orchestrate.subtitle}
             </p>
 
             {/* Input Form */}
             <div className="glass-card rounded-xl p-5 mb-6 animate-fade-in-up">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                     <Select
-                        label="Topic Field"
+                        label={t.orchestrate.topicLabel}
                         options={[
-                            { value: "", label: "Choose topic..." },
+                            { value: "", label: t.orchestrate.topicPlaceholder },
                             ...topicOptions,
                         ]}
                         value={topicField}
                         onChange={(e) => setTopicField(e.target.value)}
                     />
                     <Select
-                        label="Language"
+                        label={t.create.topicInput.languageLabel}
                         options={[
                             { value: "en", label: "English" },
                             { value: "de", label: "Deutsch" },
@@ -182,12 +183,12 @@ export function Orchestrate() {
 
                 <div className="mb-4">
                     <label className="block text-sm font-medium text-text-secondary mb-1.5">
-                        Context / Keywords
+                        Context / Input
                     </label>
                     <textarea
                         value={userInput}
                         onChange={(e) => setUserInput(e.target.value)}
-                        placeholder="Describe the angle, context, or key points for this campaign..."
+                        placeholder={t.create.topicInput.inputPlaceholder}
                         className="w-full bg-bg-primary/80 backdrop-blur-sm border border-border-default rounded-lg px-4 py-3 text-text-primary placeholder:text-text-muted/50 focus:outline-none focus:ring-2 focus:ring-crisp-cyan/50 transition-all resize-none"
                         rows={3}
                     />
@@ -202,8 +203,8 @@ export function Orchestrate() {
                 >
                     <Layers size={18} />
                     {isGenerating
-                        ? "Generating 3 Posts..."
-                        : "Generate Campaign"}
+                        ? t.orchestrate.generating
+                        : t.orchestrate.generateWeek}
                 </Button>
             </div>
 
@@ -248,7 +249,7 @@ export function Orchestrate() {
                     {/* Action bar */}
                     <div className="flex items-center justify-between mb-4">
                         <h3 className="text-lg font-semibold text-text-primary">
-                            Campaign Preview
+                            {t.orchestrate.result.weekPlan}
                         </h3>
                         <div className="flex items-center gap-2">
                             <Button
@@ -258,8 +259,8 @@ export function Orchestrate() {
                             >
                                 <Copy size={14} />
                                 {copiedIndex === -1
-                                    ? "Copied!"
-                                    : "Copy All"}
+                                    ? t.orchestrate.result.copied
+                                    : t.orchestrate.result.copyAll}
                             </Button>
                             <Button
                                 variant="primary"
@@ -269,7 +270,7 @@ export function Orchestrate() {
                                 disabled={savingAll}
                             >
                                 <Save size={14} />
-                                Save All to Library
+                                {t.orchestrate.result.saveAll}
                             </Button>
                         </div>
                     </div>
@@ -323,7 +324,7 @@ export function Orchestrate() {
                                 {/* Meta + Actions */}
                                 <div className="flex items-center justify-between">
                                     <span className="text-xs text-text-muted">
-                                        {post.charCount} chars
+                                        {post.charCount} {t.create.result.charCount}
                                     </span>
                                     <Button
                                         variant="ghost"
@@ -334,8 +335,8 @@ export function Orchestrate() {
                                     >
                                         <Copy size={12} />
                                         {copiedIndex === i
-                                            ? "Copied!"
-                                            : "Copy"}
+                                            ? t.orchestrate.result.copied
+                                            : t.orchestrate.result.copy}
                                     </Button>
                                 </div>
 
@@ -358,7 +359,7 @@ export function Orchestrate() {
                                 {post.mock && (
                                     <div className="mt-2 text-xs text-amber-400/70 flex items-center gap-1">
                                         <AlertTriangle size={10} />
-                                        Mock mode — no API key
+                                        {t.orchestrate.mockNotice}
                                     </div>
                                 )}
                             </div>

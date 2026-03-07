@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { BarChart3, AlertTriangle, TrendingUp, Hash } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { useTranslation } from "@/i18n";
 
 // --- Types matching API response ---
 
@@ -67,6 +68,7 @@ export function Stats() {
     const [data, setData] = useState<StatsResponse | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const { t } = useTranslation();
 
     useEffect(() => {
         const fetchStats = async () => {
@@ -80,9 +82,7 @@ export function Stats() {
                     setData(json);
                 }
             } catch {
-                setError(
-                    "Failed to load stats. Make sure the Worker is running.",
-                );
+                setError(t.common.error);
             } finally {
                 setLoading(false);
             }
@@ -98,7 +98,7 @@ export function Stats() {
                     style={{ animation: "gentleSpin 0.8s linear infinite" }}
                 />
                 <span className="text-text-muted text-sm">
-                    Loading Stats...
+                    {t.common.loading}
                 </span>
             </div>
         );
@@ -108,13 +108,13 @@ export function Stats() {
         return (
             <div className="rounded-lg bg-red-500/10 border border-red-500/30 p-4 text-sm text-red-400 animate-fade-in-up flex items-center gap-2">
                 <AlertTriangle size={16} />
-                {error ?? "No data available"}
+                {error ?? t.common.noData}
             </div>
         );
     }
 
     const maxTopicCount = Math.max(
-        ...data.topicDistribution.map((t) => t.count),
+        ...data.topicDistribution.map((tc) => tc.count),
         1,
     );
 
@@ -128,13 +128,12 @@ export function Stats() {
                     strokeWidth={2}
                 />
                 <h2 className="text-xl font-semibold text-text-primary section-header">
-                    Content Stats
+                    {t.stats.title}
                 </h2>
             </div>
             <hr className="gradient-line mb-3" />
             <p className="text-sm text-text-muted mb-6">
-                Track posting ratios, topic distribution, and content health
-                across all instances.
+                {t.stats.subtitle}
             </p>
 
             {/* Warnings */}
@@ -146,7 +145,7 @@ export function Stats() {
                             className="text-amber-400"
                         />
                         <span className="text-sm font-semibold text-amber-400">
-                            Attention Required
+                            {t.stats.attentionRequired}
                         </span>
                     </div>
                     <ul className="space-y-1">
@@ -165,22 +164,22 @@ export function Stats() {
             {/* Summary Cards */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6 stagger-children">
                 <SummaryCard
-                    label="Total Posts"
+                    label={t.stats.totalPosts}
                     value={data.summary.totalPosts}
                     icon={<BarChart3 size={16} />}
                 />
                 <SummaryCard
-                    label="This Month"
+                    label={t.stats.thisMonth}
                     value={data.summary.thisMonth}
                     icon={<TrendingUp size={16} />}
                 />
                 <SummaryCard
-                    label="Topics Used"
+                    label={t.stats.topicsUsed}
                     value={data.topicDistribution.length}
                     icon={<Hash size={16} />}
                 />
                 <SummaryCard
-                    label="Instances"
+                    label={t.stats.instances}
                     value={data.ratios.filter((r) => r.totalPosts > 0).length}
                     suffix={`/ ${data.ratios.length}`}
                     icon={<BarChart3 size={16} />}
@@ -191,10 +190,10 @@ export function Stats() {
             <div className="glass-card rounded-xl p-5 mb-6 animate-fade-in-up">
                 <h3 className="text-lg font-semibold text-text-primary mb-4 flex items-center gap-2">
                     <TrendingUp size={18} className="text-crisp-cyan" />
-                    4:1 Ratio Tracker
+                    {t.stats.ratioTracker}
                 </h3>
                 <p className="text-xs text-text-muted mb-4">
-                    Rule: 4 expert posts, then 1 personal post per instance.
+                    {t.stats.ratioRule}
                 </p>
 
                 <div className="space-y-4">
@@ -208,13 +207,12 @@ export function Stats() {
             <div className="glass-card rounded-xl p-5 animate-fade-in-up">
                 <h3 className="text-lg font-semibold text-text-primary mb-4 flex items-center gap-2">
                     <Hash size={18} className="text-crisp-cyan" />
-                    Topic Distribution
+                    {t.stats.topicDistribution}
                 </h3>
 
                 {data.topicDistribution.length === 0 ? (
                     <p className="text-sm text-text-muted text-center py-8">
-                        No posts yet — generate content in the Create or
-                        Orchestrate view.
+                        {t.stats.noPostsHint}
                     </p>
                 ) : (
                     <div className="space-y-3">
@@ -285,6 +283,7 @@ function RatioBar({ ratio }: { ratio: InstanceRatio }) {
     const total = ratio.fachPosts + ratio.personalPosts;
     const fachPercent = total > 0 ? (ratio.fachPosts / total) * 100 : 0;
     const personalPercent = total > 0 ? (ratio.personalPosts / total) * 100 : 0;
+    const { t } = useTranslation();
 
     return (
         <div
@@ -307,11 +306,11 @@ function RatioBar({ ratio }: { ratio: InstanceRatio }) {
                     </Badge>
                     {ratio.nextShouldBePersonal && (
                         <Badge variant="warning">
-                            <AlertTriangle size={10} /> Next: Personal
+                            <AlertTriangle size={10} /> {t.stats.nextPersonal}
                         </Badge>
                     )}
                     {total === 0 && (
-                        <Badge variant="muted">No posts yet</Badge>
+                        <Badge variant="muted">{t.stats.noPostsYet}</Badge>
                     )}
                 </div>
             </div>
@@ -321,12 +320,12 @@ function RatioBar({ ratio }: { ratio: InstanceRatio }) {
                     <div
                         className={`${INSTANCE_COLORS[ratio.instance] ?? "bg-text-muted"} transition-all duration-700 ease-out`}
                         style={{ width: `${fachPercent}%` }}
-                        title={`Expert: ${ratio.fachPosts}`}
+                        title={`${t.stats.expert}: ${ratio.fachPosts}`}
                     />
                     <div
                         className="bg-white/30 transition-all duration-700 ease-out"
                         style={{ width: `${personalPercent}%` }}
-                        title={`Personal: ${ratio.personalPosts}`}
+                        title={`${t.stats.personal}: ${ratio.personalPosts}`}
                     />
                 </div>
             )}
@@ -334,10 +333,10 @@ function RatioBar({ ratio }: { ratio: InstanceRatio }) {
             {total > 0 && (
                 <div className="flex items-center justify-between mt-1.5">
                     <span className="text-[10px] text-text-muted">
-                        Expert: {ratio.fachPosts}
+                        {t.stats.expert}: {ratio.fachPosts}
                     </span>
                     <span className="text-[10px] text-text-muted">
-                        Personal: {ratio.personalPosts}
+                        {t.stats.personal}: {ratio.personalPosts}
                     </span>
                 </div>
             )}

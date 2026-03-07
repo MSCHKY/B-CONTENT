@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Select } from "@/components/ui/select";
+import { Copy, Download, Trash2, RefreshCw } from "lucide-react";
+import { useTranslation } from "@/i18n";
 
 // --- Types matching D1 response ---
 
@@ -28,20 +30,7 @@ interface PostRecord {
     };
 }
 
-const instanceOptions = [
-    { value: "", label: "All Instances" },
-    { value: "alex", label: "Jürgen Alex" },
-    { value: "ablas", label: "Sebastian Ablas" },
-    { value: "bwg", label: "BWG Company" },
-];
-
-const statusOptions = [
-    { value: "", label: "All Statuses" },
-    { value: "draft", label: "Draft" },
-    { value: "review", label: "In Review" },
-    { value: "approved", label: "Approved" },
-    { value: "published", label: "Published" },
-];
+// Instance/status options are built dynamically in component to support i18n
 
 const INSTANCE_LABELS: Record<string, string> = {
     alex: "Jürgen Alex",
@@ -63,6 +52,22 @@ export function Library() {
     const [filterInstance, setFilterInstance] = useState("");
     const [filterStatus, setFilterStatus] = useState("");
     const [expandedPost, setExpandedPost] = useState<string | null>(null);
+    const { t } = useTranslation();
+
+    const instanceOptions = [
+        { value: "", label: t.library.allInstances },
+        { value: "alex", label: "Jürgen Alex" },
+        { value: "ablas", label: "Sebastian Ablas" },
+        { value: "bwg", label: "BWG Company" },
+    ];
+
+    const statusOptions = [
+        { value: "", label: t.library.allStatuses },
+        { value: "draft", label: t.library.statusLabels.draft },
+        { value: "review", label: t.library.statusLabels.review },
+        { value: "approved", label: t.library.statusLabels.approved },
+        { value: "published", label: t.library.statusLabels.published },
+    ];
 
     // Fetch posts from API
     const fetchPosts = async () => {
@@ -83,7 +88,7 @@ export function Library() {
                 setPosts(data.posts ?? []);
             }
         } catch {
-            setError("Failed to load posts. Make sure the Worker is running.");
+            setError(t.common.error);
         } finally {
             setLoading(false);
         }
@@ -118,7 +123,7 @@ export function Library() {
     };
 
     const handleDelete = async (postId: string) => {
-        if (!confirm("Delete this post?")) return;
+        if (!confirm(t.library.confirmDelete)) return;
         try {
             await fetch(`/api/posts/${postId}`, { method: "DELETE" });
             fetchPosts();
@@ -131,7 +136,7 @@ export function Library() {
         return (
             <div className="flex flex-col items-center justify-center h-64 gap-3">
                 <div className="w-8 h-8 border-2 border-crisp-cyan/30 border-t-crisp-cyan rounded-full" style={{ animation: "gentleSpin 0.8s linear infinite" }} />
-                <span className="text-text-muted text-sm">Loading Library...</span>
+                <span className="text-text-muted text-sm">{t.common.loading}</span>
             </div>
         );
     }
@@ -141,28 +146,28 @@ export function Library() {
             <div className="flex items-center justify-between mb-2">
                 <div>
                     <h2 className="text-xl font-semibold text-text-primary section-header">
-                        📚 Content Library
+                        {t.library.title}
                     </h2>
                 </div>
                 <Button variant="ghost" size="sm" onClick={fetchPosts}>
-                    🔄 Refresh
+                    <RefreshCw size={14} className="mr-1" /> Refresh
                 </Button>
             </div>
             <hr className="gradient-line mb-3" />
             <p className="text-sm text-text-muted mb-6">
-                {posts.length} post{posts.length !== 1 ? "s" : ""} generated
+                {t.library.subtitle}
             </p>
 
             {/* Filters */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
                 <Select
-                    label="Instance"
+                    label={t.library.filterInstance}
                     options={instanceOptions}
                     value={filterInstance}
                     onChange={(e) => setFilterInstance(e.target.value)}
                 />
                 <Select
-                    label="Status"
+                    label={t.library.filterStatus}
                     options={statusOptions}
                     value={filterStatus}
                     onChange={(e) => setFilterStatus(e.target.value)}
@@ -179,9 +184,9 @@ export function Library() {
             {posts.length === 0 ? (
                 <div className="text-center py-16 animate-fade-in-up">
                     <span className="text-5xl block mb-4">📭</span>
-                    <p className="text-text-muted text-lg">No posts yet</p>
+                    <p className="text-text-muted text-lg">{t.library.noPosts}</p>
                     <p className="text-text-muted text-sm mt-2">
-                        Generated content will appear here after you save it from the Create flow.
+                        {t.library.noPostsHint}
                     </p>
                 </div>
             ) : (
@@ -253,7 +258,7 @@ export function Library() {
                                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                                             {/* Full text */}
                                             <div>
-                                                <h4 className="text-sm font-semibold text-text-primary mb-2">Full Text</h4>
+                                                <h4 className="text-sm font-semibold text-text-primary mb-2">Text</h4>
                                                 <div className="bg-bg-primary/80 rounded-lg p-3 text-sm text-text-secondary whitespace-pre-wrap max-h-64 overflow-y-auto backdrop-blur-sm">
                                                     {post.text}
                                                 </div>
@@ -293,7 +298,7 @@ export function Library() {
                                                 size="sm"
                                                 onClick={() => handleCopyText(post.text)}
                                             >
-                                                📋 Copy Text
+                                                <Copy size={14} className="mr-1" /> {t.library.copyText}
                                             </Button>
                                             {post.image?.url && (
                                                 <Button
@@ -303,7 +308,7 @@ export function Library() {
                                                         handleDownloadImage(post.image!.url, post.instance)
                                                     }
                                                 >
-                                                    ⬇️ Download Image
+                                                    <Download size={14} className="mr-1" /> {t.library.downloadImage}
                                                 </Button>
                                             )}
                                             <Select
@@ -319,7 +324,7 @@ export function Library() {
                                                 size="sm"
                                                 onClick={() => handleDelete(post.id)}
                                             >
-                                                🗑️
+                                                <Trash2 size={14} />
                                             </Button>
                                         </div>
                                     </div>
