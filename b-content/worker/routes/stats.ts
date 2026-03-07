@@ -46,18 +46,18 @@ statsRoutes.get("/", async (c) => {
         const instanceResult = await db
             .prepare(
                 `SELECT 
-                    instance_id,
+                    instance,
                     COUNT(*) as total,
                     SUM(CASE WHEN is_personal = 1 THEN 1 ELSE 0 END) as personal,
                     SUM(CASE WHEN is_personal = 0 THEN 1 ELSE 0 END) as fach
                  FROM posts
-                 GROUP BY instance_id`,
+                 GROUP BY instance`,
             )
             .all();
 
         const ratios: InstanceRatio[] = (
             instanceResult.results as Array<{
-                instance_id: string;
+                instance: string;
                 total: number;
                 personal: number;
                 fach: number;
@@ -65,9 +65,9 @@ statsRoutes.get("/", async (c) => {
         ).map((row) => {
             const fachSinceLastPersonal = row.fach % 5; // Simplified: modulo to track within 4:1 cycle
             return {
-                instance: row.instance_id,
+                instance: row.instance,
                 label:
-                    INSTANCE_LABELS[row.instance_id] ?? row.instance_id,
+                    INSTANCE_LABELS[row.instance] ?? row.instance,
                 totalPosts: row.total,
                 fachPosts: row.fach,
                 personalPosts: row.personal,
