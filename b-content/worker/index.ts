@@ -3,6 +3,8 @@ import { cors } from "hono/cors";
 import { generateRoutes } from "./routes/generate";
 import { knowledgeRoutes } from "./routes/knowledge";
 import { postRoutes } from "./routes/posts";
+import { orchestrateRoutes } from "./routes/orchestrate";
+import { statsRoutes } from "./routes/stats";
 
 export interface Env {
     DB: D1Database;
@@ -25,6 +27,8 @@ app.get("/api/health", (c) =>
 app.route("/api/generate", generateRoutes);
 app.route("/api/knowledge", knowledgeRoutes);
 app.route("/api/posts", postRoutes);
+app.route("/api/orchestrate", orchestrateRoutes);
+app.route("/api/stats", statsRoutes);
 
 // ============================================================
 // Image Serving — GET /api/images/:key+

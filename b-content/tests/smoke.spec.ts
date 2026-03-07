@@ -28,10 +28,22 @@ test.describe("B/CONTENT Smoke Tests", () => {
         await page.getByRole("button", { name: /Knowledge/ }).click();
         await expect(page.getByText("Knowledge")).toBeVisible();
 
-        // Navigate to Library (placeholder)
+        // Navigate to Library
         await page.getByRole("button", { name: /Library/ }).click();
         await expect(
-            page.getByText("Post-History & Archiv"),
+            page.getByText("Content Library"),
+        ).toBeVisible();
+
+        // Navigate to Orchestrate
+        await page.getByRole("button", { name: /Orchestrate/ }).click();
+        await expect(
+            page.getByText("Content Orchestration"),
+        ).toBeVisible();
+
+        // Navigate to Stats
+        await page.getByRole("button", { name: /Stats/ }).click();
+        await expect(
+            page.getByText("Content Stats"),
         ).toBeVisible();
 
         // Navigate back to Create
@@ -86,5 +98,63 @@ test.describe("B/CONTENT Smoke Tests", () => {
 
         const body = await response.json();
         expect(body.status).toBe("ok");
+    });
+
+    // --- Phase 2 Tests ---
+
+    test("orchestrate view: form elements present", async ({ page }) => {
+        await page.goto("/");
+
+        // Navigate to Orchestrate
+        await page.getByRole("button", { name: /Orchestrate/ }).click();
+
+        // Header and description
+        await expect(page.getByText("Content Orchestration")).toBeVisible();
+        await expect(page.getByText("Dreier-Regel")).toBeVisible();
+
+        // Form elements
+        await expect(page.getByText("Topic Field")).toBeVisible();
+        await expect(page.getByText("Language")).toBeVisible();
+        await expect(
+            page.getByPlaceholder(/angle|context|key points/i),
+        ).toBeVisible();
+
+        // Generate button
+        await expect(
+            page.getByRole("button", { name: /Generate Campaign/ }),
+        ).toBeVisible();
+    });
+
+    test("stats view: section headers present", async ({ page }) => {
+        await page.goto("/");
+
+        // Navigate to Stats
+        await page.getByRole("button", { name: /Stats/ }).click();
+
+        // Header
+        await expect(page.getByText("Content Stats")).toBeVisible();
+    });
+
+    test("api orchestrate returns posts (mock mode)", async ({ request }) => {
+        const response = await request.post("/api/orchestrate", {
+            data: {
+                topicField: "energie",
+                userInput: "Test campaign about energy transition",
+                language: "en",
+            },
+        });
+        expect(response.ok()).toBeTruthy();
+
+        const body = await response.json();
+        expect(body.posts).toBeDefined();
+        expect(body.posts).toHaveLength(3);
+
+        // Verify all 3 instances are represented
+        const instances = body.posts.map(
+            (p: { instance: string }) => p.instance,
+        );
+        expect(instances).toContain("alex");
+        expect(instances).toContain("ablas");
+        expect(instances).toContain("bwg");
     });
 });

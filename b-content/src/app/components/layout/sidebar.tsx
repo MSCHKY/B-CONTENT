@@ -1,6 +1,6 @@
 import { useAppStore } from "@/stores";
 import type { AppView } from "@/types";
-import { Sparkles, Brain, Library, BarChart3 } from "lucide-react";
+import { Sparkles, Brain, Library, Layers, BarChart3 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 interface NavItem {
@@ -13,6 +13,7 @@ const NAV_ITEMS: NavItem[] = [
     { id: "create", icon: Sparkles, label: "Create" },
     { id: "knowledge", icon: Brain, label: "Knowledge" },
     { id: "library", icon: Library, label: "Library" },
+    { id: "orchestrate", icon: Layers, label: "Orchestrate" },
     { id: "stats", icon: BarChart3, label: "Stats" },
 ];
 

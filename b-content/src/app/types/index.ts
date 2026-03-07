@@ -147,7 +147,7 @@ export const LINKEDIN_FORMATS: Record<ImageFormat, LinkedInFormat> = {
 
 // --- App State ---
 
-export type AppView = "create" | "knowledge" | "library" | "stats";
+export type AppView = "create" | "knowledge" | "library" | "orchestrate" | "stats";
 
 export interface CreateFlowState {
     step: 1 | 2 | 3 | 4;

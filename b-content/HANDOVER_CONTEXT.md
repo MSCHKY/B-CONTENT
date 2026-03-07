@@ -1,8 +1,8 @@
 # 🏗️ B/CONTENT — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-07 09:32
+> **Zuletzt aktualisiert:** 2026-03-07 10:15
 > **Modul:** B/CONTENT (Content-Gehirn)
-> **Status:** Phase 1 NEAR COMPLETE — Live Smoke Test bestanden, Save-to-Library + Image-JOIN Bugs gefixt, GEMINI_API_KEY persistent gelöst
+> **Status:** Phase 2 IN PROGRESS — E-001 (Content Orchestration) + E-002 (4:1 Ratio Tracker) implementiert, Build ✅
 > **Branch:** `main` (Workers Builds Git-Integration aktiv)
 > **Live URL:** https://b-content.maschkeai.workers.dev
 > **Deploy:** Push auf `main` = automatisch live (Workers Builds, Root Dir: `b-content`)
@@ -47,17 +47,27 @@
 - [x] **Prompt-Builder Service** — Runtime-Assembly aus Instanz + Typ + KB-Kontext
 - [x] **Gemini Client** — Text-Generierung (gemini-2.0-flash, Retry, EU-Endpoint vorbereitet)
 - [x] **Generate-Route verdrahtet** — Mock-Fallback + echte Pipeline + Website-Artikel-Endpoint
-- [x] **Playwright Smoke Test** — 6 Tests (App-Load, Navigation, Create-Flow, Knowledge, API)
+- [x] **Playwright Smoke Test** — 9 Tests (App-Load, Navigation, Create-Flow, Knowledge, API, Orchestrate, Stats)
 - [x] **Website-Beitrag Format** — Cross-Instance Prompt + API-Endpoint
 - [x] **Bild-Generierung** — Gemini 2.5 Flash Image (Imagen 3) + vDNA-Prompt-Builder (7 Schichten)
 - [x] **R2 Upload-Pipeline** — Base64 → Binary → R2 PUT mit strukturiertem Key + EU Jurisdiction
 - [x] **Content Library** — D1 Persistierung + Archive-UI (Filter, Expand, Copy, Download, Status, Delete)
 - [x] **Save-to-Library Flow** — Bewusste Nutzeraktion, kein Auto-Save
 - [x] **Generate Image Button** — Im Result-Editor verdrahtet (war Placeholder)
-- [ ] Transkript-Import (V2 Feature)
 - [x] GitHub Repo + CI/CD ← ✅ Deployed
 - [x] Cloudflare D1/R2 angelegt ← ✅ EU Jurisdiction
 - [x] Gemini API Key konfiguriert ← ✅ Live
+
+### Phase 2: Features — IN PROGRESS
+- [x] **E-001: Content Orchestration** — Dreier-Regel: Parallele 3-Post-Generierung (Alex/Ablas/BWG)
+  - [x] Backend: `POST /api/orchestrate` Route (Mock + Live)
+  - [x] Frontend: Orchestrate View (Topic-Select, Language, Context-Input, Campaign-Preview)
+  - [x] Sidebar: Orchestrate Nav-Item mit Layers-Icon
+- [x] **E-002: 4:1 Ratio Tracker** — Content-Health Dashboard
+  - [x] Backend: `GET /api/stats` Route (D1-Aggregation)
+  - [x] Frontend: Stats Dashboard (Summary-Cards, Ratio-Bars, Topic-Distribution)
+  - [x] PlaceholderView ersetzt durch echte Stats-Komponente
+- [ ] Transkript-Import (V2 Feature)
 
 ---
 
@@ -157,3 +167,4 @@
 | 2026-03-07 | Integration | Jules AI Agent: AGENTS.md, CLI Script, Prompt Library (12 Templates), 7 Tasks delegiert | ✅ Live |
 | 2026-03-07 | Review      | Jules PR-Review: 3 gemerged (JSDoc+Validation+ErrorHandling), 3 closed, Code-Hardening cherry-picked, Prompt Library → 4 Drahtwerk-Personas | ✅ Done |
 | 2026-03-07 | QA + Bugfix | Live Smoke Test: AI-Gen ✅, Save-to-Library-Bug gefixt (Validation + Silent Fail), Image-JOIN in Library, GEMINI_API_KEY persistent via REST API | ✅ Deployed |
+| 2026-03-07 | Phase 2     | E-001 Orchestrate (Dreier-Regel) + E-002 Stats (4:1 Ratio Tracker): Backend + Frontend + Tests | ✅ Build OK |
