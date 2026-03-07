@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import type { Env } from "../index";
 import { buildTextPrompt, buildWebsiteArticlePrompt, buildImagePrompt } from "../services/prompt-builder";
 import { generateText, generateImage } from "../services/gemini";
+import { validateRequiredString, validateInstanceId, validateContentType, sanitizeText } from "../services/validation";
 
 type InstanceId = "alex" | "ablas" | "bwg";
 type ImageStyle = "photo" | "illustration" | "abstract" | "infographic";
@@ -17,6 +18,26 @@ generateRoutes.post("/text", async (c) => {
         userInput: string;
         language: "en" | "de";
     }>();
+
+    body.userInput = sanitizeText(body.userInput);
+
+    const errors = [
+        validateRequiredString(body.instance, "instance"),
+        validateInstanceId(body.instance),
+        validateRequiredString(body.contentType, "contentType"),
+        validateRequiredString(body.topicField, "topicField"),
+        validateRequiredString(body.userInput, "userInput"),
+        validateRequiredString(body.language, "language"),
+    ].filter(Boolean);
+
+    if (errors.length === 0 && body.instance) {
+        const cTypeError = validateContentType(body.instance, body.contentType);
+        if (cTypeError) errors.push(cTypeError);
+    }
+
+    if (errors.length > 0) {
+        return c.json(errors[0], 400);
+    }
 
     const hasApiKey = Boolean(c.env.GEMINI_API_KEY);
 
@@ -66,6 +87,17 @@ generateRoutes.post("/website-article", async (c) => {
         userInput: string;
     }>();
 
+    body.userInput = sanitizeText(body.userInput);
+
+    const errors = [
+        validateRequiredString(body.topicField, "topicField"),
+        validateRequiredString(body.userInput, "userInput"),
+    ].filter(Boolean);
+
+    if (errors.length > 0) {
+        return c.json(errors[0], 400);
+    }
+
     const hasApiKey = Boolean(c.env.GEMINI_API_KEY);
 
     if (!hasApiKey) {
@@ -108,6 +140,20 @@ generateRoutes.post("/image", async (c) => {
         userInput: string;
         style?: ImageStyle;
     }>();
+
+    body.userInput = sanitizeText(body.userInput);
+
+    const errors = [
+        validateRequiredString(body.instance, "instance"),
+        validateInstanceId(body.instance),
+        validateRequiredString(body.format, "format"),
+        validateRequiredString(body.topicField, "topicField"),
+        validateRequiredString(body.userInput, "userInput"),
+    ].filter(Boolean);
+
+    if (errors.length > 0) {
+        return c.json(errors[0], 400);
+    }
 
     const hasApiKey = Boolean(c.env.GEMINI_API_KEY);
 
