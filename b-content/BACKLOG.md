@@ -49,7 +49,7 @@ Entspricht Features F7-F11 aus PRODUCT_SPEC.md:
 | E-003 | P2   | Wissensbasis-Editor (CRUD)                       | F9      | 🔲 Offen  |
 | E-004 | P2   | Post-History / Archiv                            | F10     | ✅ Done (MVP) |
 | E-005 | P3   | Template-Builder (visuell)                       | F11     | 🔲 Offen  |
-| E-006 | P1   | Jules AI Agent Integration (AGENTS.md + API + Ultra) | —       | 🔲 Offen  |
+| E-006 | P1   | Jules AI Agent Integration (AGENTS.md + API + CLI + Prompts) | —       | ✅ Done   |
 
 ---
 
