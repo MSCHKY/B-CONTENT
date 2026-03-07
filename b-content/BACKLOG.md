@@ -1,6 +1,6 @@
 # 📋 B/CONTENT — Backlog
 
-> **Zuletzt aktualisiert:** 2026-03-07 01:23
+> **Zuletzt aktualisiert:** 2026-03-07 08:18
 > **Referenz:** `PRODUCT_SPEC.md` für vollständige Feature-Beschreibungen
 
 ---
@@ -94,3 +94,6 @@ Entspricht Features F12-F17 aus PRODUCT_SPEC.md:
 | —     | Lucide React Icons (Emojis → SVG)                | 2026-03-07 |
 | —     | vDNA–Styleguide Compliance Report dokumentiert   | 2026-03-07 |
 | —     | Jules AI Integration (AGENTS.md + CLI + Prompt Library + 7 Tasks delegiert) | 2026-03-07 |
+| —     | Jules PR-Review: 3 gemerged (JSDoc, Validation, Error Handling), 3 closed | 2026-03-07 |
+| —     | AGENTS.md gehärtet (Git Hygiene, Task Boundaries, AppError) | 2026-03-07 |
+| —     | Prompt Library: 12 Task-Prompts → 4 Drahtwerk-Personas (STAHL/GLUT/ZINK/SCHLIFF) | 2026-03-07 |
