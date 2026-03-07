@@ -261,27 +261,8 @@ postRoutes.patch("/:id", async (c) => {
 });
 
 // ============================================================
-// DELETE /api/posts/:id — Soft-delete (archive) a post
-// ============================================================
-postRoutes.delete("/:id", async (c) => {
-    const id = c.req.param("id");
-
-    try {
-        await c.env.DB.prepare(
-            "UPDATE posts SET status = 'archived', updated_at = datetime('now') WHERE id = ?"
-        )
-            .bind(id)
-            .run();
-
-        return c.json({ id, status: "archived" });
-    } catch (err) {
-        const message = err instanceof Error ? err.message : String(err);
-        return c.json({ error: `Failed to archive post: ${message}` }, 500);
-    }
-});
-
-// ============================================================
 // POST /api/posts/:id/restore — Restore an archived post
+// (Must be registered BEFORE /:id catch-all routes)
 // ============================================================
 postRoutes.post("/:id/restore", async (c) => {
     const id = c.req.param("id");
@@ -302,6 +283,7 @@ postRoutes.post("/:id/restore", async (c) => {
 
 // ============================================================
 // DELETE /api/posts/:id/purge — Permanently delete a post
+// (Must be registered BEFORE /:id catch-all to avoid being swallowed)
 // ============================================================
 postRoutes.delete("/:id/purge", async (c) => {
     const id = c.req.param("id");
@@ -315,5 +297,25 @@ postRoutes.delete("/:id/purge", async (c) => {
     } catch (err) {
         const message = err instanceof Error ? err.message : String(err);
         return c.json({ error: `Failed to purge post: ${message}` }, 500);
+    }
+});
+
+// ============================================================
+// DELETE /api/posts/:id — Soft-delete (archive) a post
+// ============================================================
+postRoutes.delete("/:id", async (c) => {
+    const id = c.req.param("id");
+
+    try {
+        await c.env.DB.prepare(
+            "UPDATE posts SET status = 'archived', updated_at = datetime('now') WHERE id = ?"
+        )
+            .bind(id)
+            .run();
+
+        return c.json({ id, status: "archived" });
+    } catch (err) {
+        const message = err instanceof Error ? err.message : String(err);
+        return c.json({ error: `Failed to archive post: ${message}` }, 500);
     }
 });
