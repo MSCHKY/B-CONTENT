@@ -9,6 +9,7 @@ import { statsRoutes } from "./routes/stats";
 export interface Env {
     DB: D1Database;
     IMAGES: R2Bucket;
+    KB_STORE: KVNamespace;
     GEMINI_API_KEY: string;
     ENVIRONMENT: string;
 }

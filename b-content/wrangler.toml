@@ -16,6 +16,11 @@ binding = "IMAGES"
 bucket_name = "b-content-images"
 jurisdiction = "eu"
 
+# --- KV Namespace (Knowledge Base CRUD overrides) ---
+[[kv_namespaces]]
+binding = "KB_STORE"
+id = "89a4c051ccd440998a6b503189f0650b"
+
 # --- Environment Variables ---
 [vars]
 ENVIRONMENT = "development"

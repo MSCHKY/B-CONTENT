@@ -58,6 +58,24 @@ export interface Translations {
         coreMessage: string;
         facts: string;
         keywords: string;
+        editor: {
+            edit: string;
+            save: string;
+            cancel: string;
+            delete: string;
+            confirmDelete: string;
+            addFact: string;
+            addQuote: string;
+            addKeyword: string;
+            factPlaceholder: string;
+            quotePlaceholder: string;
+            authorLabel: string;
+            topicsLabel: string;
+            emotionLabel: string;
+            contextLabel: string;
+            saved: string;
+            deleted: string;
+        };
     };
 
     // --- Library ---
@@ -179,6 +197,24 @@ export const de: Translations = {
         coreMessage: "Kernbotschaft",
         facts: "Fakten",
         keywords: "Schlüsselwörter",
+        editor: {
+            edit: "Bearbeiten",
+            save: "Speichern",
+            cancel: "Abbrechen",
+            delete: "Löschen",
+            confirmDelete: "Wirklich löschen?",
+            addFact: "Fakt hinzufügen",
+            addQuote: "Zitat hinzufügen",
+            addKeyword: "Schlüsselwort hinzufügen",
+            factPlaceholder: "Neuen Fakt eingeben…",
+            quotePlaceholder: "Zitattext eingeben…",
+            authorLabel: "Autor",
+            topicsLabel: "Themenfelder",
+            emotionLabel: "Emotion",
+            contextLabel: "Kontext",
+            saved: "Gespeichert!",
+            deleted: "Gelöscht!",
+        },
     },
 
     library: {
@@ -296,6 +332,24 @@ export const en: Translations = {
         coreMessage: "Core Message",
         facts: "Facts",
         keywords: "Keywords",
+        editor: {
+            edit: "Edit",
+            save: "Save",
+            cancel: "Cancel",
+            delete: "Delete",
+            confirmDelete: "Really delete?",
+            addFact: "Add fact",
+            addQuote: "Add quote",
+            addKeyword: "Add keyword",
+            factPlaceholder: "Enter a new fact…",
+            quotePlaceholder: "Enter quote text…",
+            authorLabel: "Author",
+            topicsLabel: "Topic Fields",
+            emotionLabel: "Emotion",
+            contextLabel: "Context",
+            saved: "Saved!",
+            deleted: "Deleted!",
+        },
     },
 
     library: {
