@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import type { Env } from "../index";
 import { buildTextPrompt, buildWebsiteArticlePrompt, buildImagePrompt } from "../services/prompt-builder";
-import { generateText, generateImage } from "../services/gemini";
+import { generateText, generateImage, AppError } from "../services/gemini";
 
 type InstanceId = "alex" | "ablas" | "bwg";
 type ImageStyle = "photo" | "illustration" | "abstract" | "infographic";
@@ -10,13 +10,22 @@ export const generateRoutes = new Hono<{ Bindings: Env }>();
 
 // POST /api/generate/text
 generateRoutes.post("/text", async (c) => {
-    const body = await c.req.json<{
-        instance: InstanceId;
-        contentType: string;
-        topicField: string;
-        userInput: string;
-        language: "en" | "de";
-    }>();
+    let body;
+    try {
+        body = await c.req.json<{
+            instance: InstanceId;
+            contentType: string;
+            topicField: string;
+            userInput: string;
+            language: "en" | "de";
+        }>();
+    } catch (e) {
+        return c.json({ error: "Invalid JSON format", code: "INVALID_JSON" }, 400);
+    }
+
+    if (!body.instance || !body.contentType || !body.topicField || !body.userInput) {
+        return c.json({ error: "Missing required fields", code: "VALIDATION_ERROR" }, 400);
+    }
 
     const hasApiKey = Boolean(c.env.GEMINI_API_KEY);
 
@@ -54,17 +63,29 @@ generateRoutes.post("/text", async (c) => {
             mock: false,
         });
     } catch (err) {
+        if (err instanceof AppError) {
+            return c.json({ error: err.message, code: err.code }, err.status as any);
+        }
         const message = err instanceof Error ? err.message : String(err);
-        return c.json({ error: `Generation failed: ${message}` }, 500);
+        return c.json({ error: `Generation failed: ${message}`, code: "INTERNAL_ERROR" }, 500);
     }
 });
 
 // POST /api/generate/website-article
 generateRoutes.post("/website-article", async (c) => {
-    const body = await c.req.json<{
-        topicField: string;
-        userInput: string;
-    }>();
+    let body;
+    try {
+        body = await c.req.json<{
+            topicField: string;
+            userInput: string;
+        }>();
+    } catch (e) {
+        return c.json({ error: "Invalid JSON format", code: "INVALID_JSON" }, 400);
+    }
+
+    if (!body.topicField || !body.userInput) {
+        return c.json({ error: "Missing required fields", code: "VALIDATION_ERROR" }, 400);
+    }
 
     const hasApiKey = Boolean(c.env.GEMINI_API_KEY);
 
@@ -91,8 +112,11 @@ generateRoutes.post("/website-article", async (c) => {
             mock: false,
         });
     } catch (err) {
+        if (err instanceof AppError) {
+            return c.json({ error: err.message, code: err.code }, err.status as any);
+        }
         const message = err instanceof Error ? err.message : String(err);
-        return c.json({ error: `Generation failed: ${message}` }, 500);
+        return c.json({ error: `Generation failed: ${message}`, code: "INTERNAL_ERROR" }, 500);
     }
 });
 
@@ -101,13 +125,22 @@ generateRoutes.post("/website-article", async (c) => {
 // Full pipeline: vDNA prompt → Gemini Image API → R2 Upload → URL
 // ============================================================
 generateRoutes.post("/image", async (c) => {
-    const body = await c.req.json<{
-        instance: InstanceId;
-        format: string;
-        topicField: string;
-        userInput: string;
-        style?: ImageStyle;
-    }>();
+    let body;
+    try {
+        body = await c.req.json<{
+            instance: InstanceId;
+            format: string;
+            topicField: string;
+            userInput: string;
+            style?: ImageStyle;
+        }>();
+    } catch (e) {
+        return c.json({ error: "Invalid JSON format", code: "INVALID_JSON" }, 400);
+    }
+
+    if (!body.instance || !body.topicField || !body.userInput) {
+        return c.json({ error: "Missing required fields", code: "VALIDATION_ERROR" }, 400);
+    }
 
     const hasApiKey = Boolean(c.env.GEMINI_API_KEY);
 
@@ -203,9 +236,12 @@ generateRoutes.post("/image", async (c) => {
             mock: false,
         });
     } catch (err) {
+        if (err instanceof AppError) {
+            return c.json({ error: err.message, code: err.code }, err.status as any);
+        }
         const message = err instanceof Error ? err.message : String(err);
         console.error("[Image Generation Error]", message);
-        return c.json({ error: `Image generation failed: ${message}` }, 500);
+        return c.json({ error: `Image generation failed: ${message}`, code: "INTERNAL_ERROR" }, 500);
     }
 });
 

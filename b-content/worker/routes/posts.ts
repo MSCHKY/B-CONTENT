@@ -7,17 +7,29 @@ export const postRoutes = new Hono<{ Bindings: Env }>();
 // POST /api/posts — Save a generated post to D1
 // ============================================================
 postRoutes.post("/", async (c) => {
-    const body = await c.req.json<{
-        instance: string;
-        contentType: string;
-        topicFields: string[];
-        text: string;
-        language: string;
-        hashtags: string[];
-        charCount: number;
-        isPersonal?: boolean;
-        imageId?: string;
-    }>();
+    let body;
+    try {
+        body = await c.req.json<{
+            instance: string;
+            contentType: string;
+            topicFields: string[];
+            text: string;
+            language: string;
+            hashtags: string[];
+            charCount: number;
+            isPersonal?: boolean;
+            imageId?: string;
+        }>();
+    } catch (e) {
+        return c.json({ error: "Invalid JSON format", code: "INVALID_JSON" }, 400);
+    }
+
+    if (!body.instance || !body.contentType || !body.text || !body.language) {
+        return c.json({ error: "Missing required fields", code: "VALIDATION_ERROR" }, 400);
+    }
+
+    // sanitize inputs
+    body.text = body.text.trim();
 
     const id = crypto.randomUUID();
 
@@ -43,7 +55,7 @@ postRoutes.post("/", async (c) => {
         return c.json({ id, status: "saved" }, 201);
     } catch (err) {
         const message = err instanceof Error ? err.message : String(err);
-        return c.json({ error: `Failed to save post: ${message}` }, 500);
+        return c.json({ error: `Failed to save post: ${message}`, code: "DATABASE_ERROR" }, 500);
     }
 });
 
@@ -94,7 +106,7 @@ postRoutes.get("/", async (c) => {
         return c.json({ posts, total: posts.length });
     } catch (err) {
         const message = err instanceof Error ? err.message : String(err);
-        return c.json({ error: `Failed to fetch posts: ${message}` }, 500);
+        return c.json({ error: `Failed to fetch posts: ${message}`, code: "DATABASE_ERROR" }, 500);
     }
 });
 
@@ -110,7 +122,7 @@ postRoutes.get("/:id", async (c) => {
             .first();
 
         if (!post) {
-            return c.json({ error: "Post not found" }, 404);
+            return c.json({ error: "Post not found", code: "NOT_FOUND" }, 404);
         }
 
         // Parse JSON fields
@@ -133,7 +145,7 @@ postRoutes.get("/:id", async (c) => {
         return c.json(parsed);
     } catch (err) {
         const message = err instanceof Error ? err.message : String(err);
-        return c.json({ error: `Failed to fetch post: ${message}` }, 500);
+        return c.json({ error: `Failed to fetch post: ${message}`, code: "DATABASE_ERROR" }, 500);
     }
 });
 
@@ -142,12 +154,17 @@ postRoutes.get("/:id", async (c) => {
 // ============================================================
 postRoutes.patch("/:id", async (c) => {
     const id = c.req.param("id");
-    const body = await c.req.json<{
-        text?: string;
-        status?: string;
-        hashtags?: string[];
-        imageId?: string;
-    }>();
+    let body;
+    try {
+        body = await c.req.json<{
+            text?: string;
+            status?: string;
+            hashtags?: string[];
+            imageId?: string;
+        }>();
+    } catch (e) {
+        return c.json({ error: "Invalid JSON format", code: "INVALID_JSON" }, 400);
+    }
 
     const updates: string[] = [];
     const params: (string | number)[] = [];
@@ -172,23 +189,27 @@ postRoutes.patch("/:id", async (c) => {
     }
 
     if (updates.length === 0) {
-        return c.json({ error: "No fields to update" }, 400);
+        return c.json({ error: "No fields to update", code: "VALIDATION_ERROR" }, 400);
     }
 
     updates.push("updated_at = datetime('now')");
     params.push(id);
 
     try {
-        await c.env.DB.prepare(
+        const result = await c.env.DB.prepare(
             `UPDATE posts SET ${updates.join(", ")} WHERE id = ?`
         )
             .bind(...params)
             .run();
 
+        if (result.meta.changes === 0) {
+            return c.json({ error: "Post not found", code: "NOT_FOUND" }, 404);
+        }
+
         return c.json({ id, status: "updated" });
     } catch (err) {
         const message = err instanceof Error ? err.message : String(err);
-        return c.json({ error: `Failed to update post: ${message}` }, 500);
+        return c.json({ error: `Failed to update post: ${message}`, code: "DATABASE_ERROR" }, 500);
     }
 });
 
@@ -199,13 +220,17 @@ postRoutes.delete("/:id", async (c) => {
     const id = c.req.param("id");
 
     try {
-        await c.env.DB.prepare("DELETE FROM posts WHERE id = ?")
+        const result = await c.env.DB.prepare("DELETE FROM posts WHERE id = ?")
             .bind(id)
             .run();
+
+        if (result.meta.changes === 0) {
+            return c.json({ error: "Post not found", code: "NOT_FOUND" }, 404);
+        }
 
         return c.json({ id, status: "deleted" });
     } catch (err) {
         const message = err instanceof Error ? err.message : String(err);
-        return c.json({ error: `Failed to delete post: ${message}` }, 500);
+        return c.json({ error: `Failed to delete post: ${message}`, code: "DATABASE_ERROR" }, 500);
     }
 });

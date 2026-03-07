@@ -26,12 +26,12 @@ test.describe("B/CONTENT Smoke Tests", () => {
 
         // Navigate to Knowledge
         await page.getByRole("button", { name: /Knowledge/ }).click();
-        await expect(page.getByText("Knowledge")).toBeVisible();
+        await expect(page.getByRole("heading", { name: "Knowledge" })).toBeVisible();
 
         // Navigate to Library (placeholder)
         await page.getByRole("button", { name: /Library/ }).click();
         await expect(
-            page.getByText("Post-History & Archiv"),
+            page.getByRole("heading", { name: /Content Library/i }),
         ).toBeVisible();
 
         // Navigate back to Create
@@ -43,26 +43,26 @@ test.describe("B/CONTENT Smoke Tests", () => {
         await page.goto("/");
 
         // Three instance cards should be visible
-        await expect(page.getByText("Jürgen Alex")).toBeVisible();
-        await expect(page.getByText("Sebastian Ablas")).toBeVisible();
-        await expect(page.getByText("BenderWire Group")).toBeVisible();
+        await expect(page.getByRole("heading", { name: "Jürgen Alex" })).toBeVisible();
+        await expect(page.getByRole("heading", { name: "Sebastian Ablas" })).toBeVisible();
+        await expect(page.getByRole("heading", { name: "BenderWire Group" })).toBeVisible();
 
         // Click Alex → should advance to content type step
-        await page.getByText("Jürgen Alex").click();
+        await page.getByRole("heading", { name: "Jürgen Alex" }).click();
 
         // Content type options should appear (Step 2)
-        await expect(page.getByText("Deep Dive")).toBeVisible();
+        await expect(page.getByRole("heading", { name: "Deep Dive" })).toBeVisible();
     });
 
     test("create-flow: full flow to input step", async ({ page }) => {
         await page.goto("/");
 
         // Step 1: Select instance
-        await page.getByText("Sebastian Ablas").click();
+        await page.getByRole("heading", { name: "Sebastian Ablas" }).click();
 
         // Step 2: Select content type (Ablas-specific)
-        await expect(page.getByText("Proof Point")).toBeVisible();
-        await page.getByText("Proof Point").click();
+        await expect(page.getByRole("heading", { name: "Proof Point" })).toBeVisible();
+        await page.getByRole("heading", { name: "Proof Point" }).click();
 
         // Step 3: Topic & input should be visible
         await expect(
@@ -77,7 +77,7 @@ test.describe("B/CONTENT Smoke Tests", () => {
         await page.getByRole("button", { name: /Knowledge/ }).click();
 
         // Should show topic fields from the knowledge base
-        await expect(page.getByText("Energie")).toBeVisible();
+        await expect(page.getByRole("heading", { name: /Energie/i })).toBeVisible();
     });
 
     test("api health check responds", async ({ request }) => {
