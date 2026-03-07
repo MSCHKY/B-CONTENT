@@ -1,5 +1,7 @@
 import { Hono } from "hono";
 import type { Env } from "../index";
+import { validateRequiredString, validateRequiredArray, validateInstanceId, validateContentType, validateTextLength, sanitizeText } from "../services/validation";
+import type { InstanceId } from "../services/validation";
 
 /**
  * Hono router for post management endpoints.
@@ -27,6 +29,35 @@ postRoutes.post("/", async (c) => {
         isPersonal?: boolean;
         imageId?: string;
     }>();
+
+    body.text = sanitizeText(body.text);
+    if (Array.isArray(body.hashtags)) {
+        body.hashtags = body.hashtags.map(h => sanitizeText(h));
+    }
+
+    const errors = [
+        body.contentType !== "website-article" ? validateRequiredString(body.instance, "instance") : null,
+        body.contentType !== "website-article" ? validateInstanceId(body.instance) : null,
+        validateRequiredString(body.contentType, "contentType"),
+        validateRequiredArray(body.topicFields, "topicFields"),
+        validateRequiredString(body.text, "text"),
+        validateRequiredString(body.language, "language"),
+        validateRequiredArray(body.hashtags, "hashtags"),
+    ].filter(Boolean);
+
+    if (errors.length === 0 && body.contentType !== "website-article") {
+        const cTypeError = validateContentType(body.instance as InstanceId, body.contentType);
+        if (cTypeError) errors.push(cTypeError);
+    }
+
+    if (errors.length === 0) {
+        const lenError = validateTextLength(body.instance, body.contentType, body.text);
+        if (lenError) errors.push(lenError);
+    }
+
+    if (errors.length > 0) {
+        return c.json(errors[0], 400);
+    }
 
     const id = crypto.randomUUID();
 
