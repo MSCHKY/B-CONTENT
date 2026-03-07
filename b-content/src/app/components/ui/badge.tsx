@@ -14,6 +14,17 @@ const variantStyles: Record<BadgeVariant, string> = {
     warning: "bg-warning/10 text-warning border border-warning/15",
 };
 
+/**
+ * A styled badge component for displaying tags or status indicators.
+ *
+ * @param {BadgeProps} props - The component props.
+ * @param {BadgeVariant} [props.variant="default"] - The visual variant of the badge.
+ * @param {string} [props.className] - Additional CSS classes.
+ * @param {React.ReactNode} props.children - The content of the badge.
+ * @returns {JSX.Element} The rendered Badge component.
+ * @example
+ * <Badge variant="success">Active</Badge>
+ */
 export function Badge({
     variant = "default",
     className = "",

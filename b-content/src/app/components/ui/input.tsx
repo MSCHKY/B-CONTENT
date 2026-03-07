@@ -11,6 +11,17 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     error?: string;
 }
 
+/**
+ * A styled single-line text input component.
+ *
+ * @param {InputProps} props - The component props.
+ * @param {string} [props.label] - The label for the input.
+ * @param {string} [props.error] - An error message to display below the input.
+ * @param {string} [props.className] - Additional CSS classes.
+ * @returns {JSX.Element} The rendered Input component.
+ * @example
+ * <Input label="Email" type="email" placeholder="Enter email" />
+ */
 export const Input = forwardRef<HTMLInputElement, InputProps>(
     ({ label, error, className = "", id, ...props }, ref) => {
         const inputId = id || label?.toLowerCase().replace(/\s+/g, "-");
@@ -57,6 +68,19 @@ interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
     charMax?: number;
 }
 
+/**
+ * A styled multi-line text area component with optional character counting.
+ *
+ * @param {TextareaProps} props - The component props.
+ * @param {string} [props.label] - The label for the textarea.
+ * @param {string} [props.error] - An error message to display below the textarea.
+ * @param {number} [props.charCount] - The current character count.
+ * @param {number} [props.charMax] - The maximum allowed characters.
+ * @param {string} [props.className] - Additional CSS classes.
+ * @returns {JSX.Element} The rendered Textarea component.
+ * @example
+ * <Textarea label="Message" charCount={10} charMax={100} />
+ */
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
     (
         { label, error, charCount, charMax, className = "", id, ...props },

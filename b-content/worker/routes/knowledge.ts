@@ -6,6 +6,15 @@ import topicFields from "../../src/data/topics/topic-fields.json";
 import quotesData from "../../src/data/quotes/quotes.json";
 import contentRules from "../../src/data/content-rules.json";
 
+/**
+ * Hono router for knowledge base endpoints.
+ *
+ * Exposes internal topics, instances, and quotes data as a JSON API for frontend consumption.
+ *
+ * @type {Hono<{ Bindings: Env }>}
+ * @example
+ * app.route("/api/knowledge", knowledgeRoutes);
+ */
 export const knowledgeRoutes = new Hono<{ Bindings: Env }>();
 
 // GET /api/knowledge/topics

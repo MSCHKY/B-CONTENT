@@ -15,6 +15,19 @@ interface SelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement>, "chi
     error?: string;
 }
 
+/**
+ * A styled dropdown select component.
+ *
+ * @param {SelectProps} props - The component props.
+ * @param {string} [props.label] - The label for the select dropdown.
+ * @param {SelectOption[]} props.options - The list of options to display.
+ * @param {string} [props.placeholder] - The placeholder text when no option is selected.
+ * @param {string} [props.error] - An error message to display below the select.
+ * @param {string} [props.className] - Additional CSS classes.
+ * @returns {JSX.Element} The rendered Select component.
+ * @example
+ * <Select options={[{value: "1", label: "One"}]} placeholder="Select number" />
+ */
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
     ({ label, options, placeholder, error, className = "", id, ...props }, ref) => {
         const selectId = id || label?.toLowerCase().replace(/\s+/g, "-");

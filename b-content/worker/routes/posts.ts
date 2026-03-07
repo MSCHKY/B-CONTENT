@@ -1,6 +1,15 @@
 import { Hono } from "hono";
 import type { Env } from "../index";
 
+/**
+ * Hono router for post management endpoints.
+ *
+ * Provides CRUD operations for generated content (posts) stored in the D1 database.
+ *
+ * @type {Hono<{ Bindings: Env }>}
+ * @example
+ * app.route("/api/posts", postRoutes);
+ */
 export const postRoutes = new Hono<{ Bindings: Env }>();
 
 // ============================================================
