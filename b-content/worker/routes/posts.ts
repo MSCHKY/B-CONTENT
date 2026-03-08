@@ -18,17 +18,22 @@ export const postRoutes = new Hono<{ Bindings: Env }>();
 // POST /api/posts — Save a generated post to D1
 // ============================================================
 postRoutes.post("/", async (c) => {
-    const body = await c.req.json<{
-        instance: string;
-        contentType: string;
-        topicFields: string[];
-        text: string;
-        language: string;
-        hashtags: string[];
-        charCount: number;
-        isPersonal?: boolean;
-        imageId?: string;
-    }>();
+    let body;
+    try {
+        body = await c.req.json<{
+            instance: string;
+            contentType: string;
+            topicFields: string[];
+            text: string;
+            language: string;
+            hashtags: string[];
+            charCount: number;
+            isPersonal?: boolean;
+            imageId?: string;
+        }>();
+    } catch {
+        return c.json({ error: "Invalid JSON format", code: "INVALID_JSON" }, 400);
+    }
 
     body.text = sanitizeText(body.text);
     if (Array.isArray(body.hashtags)) {
@@ -84,8 +89,8 @@ postRoutes.post("/", async (c) => {
 
         return c.json({ id, status: "saved" }, 201);
     } catch (err) {
-        const message = err instanceof Error ? err.message : String(err);
-        return c.json({ error: `Failed to save post: ${message}` }, 500);
+        console.error("[POST /api/posts]", err instanceof Error ? err.message : err);
+        return c.json({ error: "Failed to save post" }, 500);
     }
 });
 
@@ -159,10 +164,21 @@ postRoutes.get("/", async (c) => {
             return post;
         });
 
-        return c.json({ posts, total: posts.length });
+        // Separate count query for accurate pagination total
+        let countQuery = `SELECT COUNT(*) as total FROM posts p`;
+        const countConditions = [...conditions];
+        const countParams = params.slice(0, -2); // exclude LIMIT and OFFSET
+
+        if (countConditions.length > 0) {
+            countQuery += ` WHERE ${countConditions.join(" AND ")}`;
+        }
+
+        const countResult = await c.env.DB.prepare(countQuery).bind(...countParams).first<{ total: number }>();
+
+        return c.json({ posts, total: countResult?.total ?? posts.length });
     } catch (err) {
-        const message = err instanceof Error ? err.message : String(err);
-        return c.json({ error: `Failed to fetch posts: ${message}` }, 500);
+        console.error("[GET /api/posts]", err instanceof Error ? err.message : err);
+        return c.json({ error: "Failed to fetch posts" }, 500);
     }
 });
 
@@ -200,8 +216,8 @@ postRoutes.get("/:id", async (c) => {
 
         return c.json(parsed);
     } catch (err) {
-        const message = err instanceof Error ? err.message : String(err);
-        return c.json({ error: `Failed to fetch post: ${message}` }, 500);
+        console.error("[GET /api/posts/:id]", err instanceof Error ? err.message : err);
+        return c.json({ error: "Failed to fetch post" }, 500);
     }
 });
 
@@ -255,8 +271,8 @@ postRoutes.patch("/:id", async (c) => {
 
         return c.json({ id, status: "updated" });
     } catch (err) {
-        const message = err instanceof Error ? err.message : String(err);
-        return c.json({ error: `Failed to update post: ${message}` }, 500);
+        console.error("[PATCH /api/posts/:id]", err instanceof Error ? err.message : err);
+        return c.json({ error: "Failed to update post" }, 500);
     }
 });
 
@@ -276,8 +292,8 @@ postRoutes.post("/:id/restore", async (c) => {
 
         return c.json({ id, status: "restored" });
     } catch (err) {
-        const message = err instanceof Error ? err.message : String(err);
-        return c.json({ error: `Failed to restore post: ${message}` }, 500);
+        console.error("[POST /api/posts/:id/restore]", err instanceof Error ? err.message : err);
+        return c.json({ error: "Failed to restore post" }, 500);
     }
 });
 
@@ -295,8 +311,8 @@ postRoutes.delete("/:id/purge", async (c) => {
 
         return c.json({ id, status: "purged" });
     } catch (err) {
-        const message = err instanceof Error ? err.message : String(err);
-        return c.json({ error: `Failed to purge post: ${message}` }, 500);
+        console.error("[DELETE /api/posts/:id/purge]", err instanceof Error ? err.message : err);
+        return c.json({ error: "Failed to purge post" }, 500);
     }
 });
 
@@ -315,7 +331,7 @@ postRoutes.delete("/:id", async (c) => {
 
         return c.json({ id, status: "archived" });
     } catch (err) {
-        const message = err instanceof Error ? err.message : String(err);
-        return c.json({ error: `Failed to archive post: ${message}` }, 500);
+        console.error("[DELETE /api/posts/:id]", err instanceof Error ? err.message : err);
+        return c.json({ error: "Failed to archive post" }, 500);
     }
 });

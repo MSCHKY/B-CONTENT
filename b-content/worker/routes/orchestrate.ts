@@ -117,6 +117,7 @@ orchestrateRoutes.post("/", async (c) => {
             );
         }
         const message = err instanceof Error ? err.message : String(err);
-        return c.json({ error: `Orchestration failed: ${message}` }, 500);
+        console.error("[POST /api/orchestrate]", message);
+        return c.json({ error: "Orchestration failed" }, 500);
     }
 });

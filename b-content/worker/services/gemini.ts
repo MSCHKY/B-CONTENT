@@ -94,7 +94,7 @@ export async function generateText(
         throw new AppError("API key missing", "API_KEY_MISSING", 400);
     }
 
-    const url = `${GEMINI_API_URL}/models/${TEXT_MODEL}:generateContent?key=${apiKey}`;
+    const url = `${GEMINI_API_URL}/models/${TEXT_MODEL}:generateContent`;
 
     const body = {
         system_instruction: {
@@ -142,7 +142,10 @@ export async function generateText(
         try {
             const response = await fetch(url, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-goog-api-key": apiKey,
+                },
                 body: JSON.stringify(body),
                 signal: controller.signal,
             });
@@ -238,7 +241,7 @@ export async function generateImage(
     apiKey: string,
     prompt: string,
 ): Promise<GeminiImageResponse> {
-    const url = `${GEMINI_API_URL}/models/${IMAGE_MODEL}:generateContent?key=${apiKey}`;
+    const url = `${GEMINI_API_URL}/models/${IMAGE_MODEL}:generateContent`;
 
     const body = {
         contents: [
@@ -280,7 +283,10 @@ export async function generateImage(
         try {
             const response = await fetch(url, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-goog-api-key": apiKey,
+                },
                 body: JSON.stringify(body),
             });
 

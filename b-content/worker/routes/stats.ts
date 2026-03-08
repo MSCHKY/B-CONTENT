@@ -173,7 +173,7 @@ statsRoutes.get("/", async (c) => {
 
         return c.json({ ratios, topicDistribution, summary });
     } catch (err) {
-        const message = err instanceof Error ? err.message : String(err);
-        return c.json({ error: `Failed to fetch stats: ${message}` }, 500);
+        console.error("[GET /api/stats]", err instanceof Error ? err.message : err);
+        return c.json({ error: "Failed to fetch stats" }, 500);
     }
 });

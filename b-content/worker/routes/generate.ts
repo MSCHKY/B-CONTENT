@@ -91,7 +91,8 @@ generateRoutes.post("/text", async (c) => {
             return c.json({ error: err.message, code: err.code }, err.status as 400 | 429 | 500 | 502 | 504);
         }
         const message = err instanceof Error ? err.message : String(err);
-        return c.json({ error: `Generation failed: ${message}` }, 500);
+        console.error("[POST /api/generate/text]", message);
+        return c.json({ error: "Generation failed" }, 500);
     }
 });
 
@@ -142,7 +143,8 @@ generateRoutes.post("/website-article", async (c) => {
             return c.json({ error: err.message, code: err.code }, err.status as 400 | 429 | 500 | 502 | 504);
         }
         const message = err instanceof Error ? err.message : String(err);
-        return c.json({ error: `Generation failed: ${message}` }, 500);
+        console.error("[POST /api/generate/website-article]", message);
+        return c.json({ error: "Generation failed" }, 500);
     }
 });
 
@@ -272,8 +274,8 @@ generateRoutes.post("/image", async (c) => {
             return c.json({ error: err.message, code: err.code }, err.status as 400 | 429 | 500 | 502 | 504);
         }
         const message = err instanceof Error ? err.message : String(err);
-        console.error("[Image Generation Error]", message);
-        return c.json({ error: `Image generation failed: ${message}` }, 500);
+        console.error("[POST /api/generate/image]", message);
+        return c.json({ error: "Image generation failed" }, 500);
     }
 });
 

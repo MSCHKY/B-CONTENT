@@ -5,6 +5,7 @@ import type { Env } from "../index";
 import staticTopics from "../../src/data/topics/topic-fields.json";
 import staticQuotes from "../../src/data/quotes/quotes.json";
 import contentRules from "../../src/data/content-rules.json";
+import { sanitizeText } from "../services/validation";
 
 // --- Types for KB data ---
 interface TopicData {
@@ -101,14 +102,19 @@ knowledgeRoutes.get("/rules", (c) => {
 // PUT /api/knowledge/topics/:id — Update a topic (facts, keywords)
 knowledgeRoutes.put("/topics/:id", async (c) => {
     const id = c.req.param("id");
-    const body = await c.req.json<{ facts?: string[]; keywords?: string[] }>();
+    let body;
+    try {
+        body = await c.req.json<{ facts?: string[]; keywords?: string[] }>();
+    } catch {
+        return c.json({ error: "Invalid JSON format" }, 400);
+    }
     const topics = await getTopics(c.env.KB_STORE);
     const idx = topics.findIndex((t) => t.id === id);
     if (idx === -1) return c.json({ error: "Topic not found" }, 404);
 
     const topic = topics[idx]!;
-    if (body.facts) topic.facts = body.facts;
-    if (body.keywords) topic.keywords = body.keywords;
+    if (body.facts) topic.facts = body.facts.map(f => sanitizeText(f));
+    if (body.keywords) topic.keywords = body.keywords.map(k => sanitizeText(k));
 
     await saveTopics(c.env.KB_STORE, topics);
     return c.json(topic);
@@ -117,14 +123,20 @@ knowledgeRoutes.put("/topics/:id", async (c) => {
 // POST /api/knowledge/topics/:id/facts — Add a fact
 knowledgeRoutes.post("/topics/:id/facts", async (c) => {
     const id = c.req.param("id");
-    const { fact } = await c.req.json<{ fact: string }>();
-    if (!fact?.trim()) return c.json({ error: "Fact is required" }, 400);
+    let body;
+    try {
+        body = await c.req.json<{ fact: string }>();
+    } catch {
+        return c.json({ error: "Invalid JSON format" }, 400);
+    }
+    const fact = sanitizeText(body.fact);
+    if (!fact) return c.json({ error: "Fact is required" }, 400);
 
     const topics = await getTopics(c.env.KB_STORE);
     const topic = topics.find((t) => t.id === id);
     if (!topic) return c.json({ error: "Topic not found" }, 404);
 
-    topic.facts.push(fact.trim());
+    topic.facts.push(fact);
     await saveTopics(c.env.KB_STORE, topics);
     return c.json(topic, 201);
 });
@@ -151,32 +163,40 @@ knowledgeRoutes.delete("/topics/:id/facts/:index", async (c) => {
 
 // POST /api/knowledge/quotes — Add a new quote
 knowledgeRoutes.post("/quotes", async (c) => {
-    const body = await c.req.json<{
-        author: string;
-        content: string;
-        topics?: string[];
-        emotion?: string;
-        context?: string;
-    }>();
-    if (!body.author?.trim() || !body.content?.trim()) {
+    let body;
+    try {
+        body = await c.req.json<{
+            author: string;
+            content: string;
+            topics?: string[];
+            emotion?: string;
+            context?: string;
+        }>();
+    } catch {
+        return c.json({ error: "Invalid JSON format" }, 400);
+    }
+
+    const author = sanitizeText(body.author);
+    const content = sanitizeText(body.content);
+    if (!author || !content) {
         return c.json({ error: "Author and content are required" }, 400);
     }
 
     const groups = await getQuotes(c.env.KB_STORE);
-    let group = groups.find((g) => g.author === body.author);
+    let group = groups.find((g) => g.author === author);
 
     // If author group doesn't exist, create it
     if (!group) {
-        group = { author: body.author, name: body.author, quotes: [] };
+        group = { author, name: author, quotes: [] };
         groups.push(group);
     }
 
     const newQuote: QuoteItem = {
-        id: `${body.author}-${Date.now()}`,
-        content: body.content.trim(),
-        topics: body.topics ?? [],
-        emotion: body.emotion ?? "",
-        context: body.context,
+        id: `${author}-${Date.now()}`,
+        content,
+        topics: (body.topics ?? []).map(t => sanitizeText(t)),
+        emotion: sanitizeText(body.emotion ?? ""),
+        context: body.context ? sanitizeText(body.context) : undefined,
     };
 
     group.quotes.push(newQuote);
@@ -187,17 +207,22 @@ knowledgeRoutes.post("/quotes", async (c) => {
 // PUT /api/knowledge/quotes/:id — Update a quote
 knowledgeRoutes.put("/quotes/:id", async (c) => {
     const id = c.req.param("id");
-    const body = await c.req.json<Partial<QuoteItem>>();
+    let body;
+    try {
+        body = await c.req.json<Partial<QuoteItem>>();
+    } catch {
+        return c.json({ error: "Invalid JSON format" }, 400);
+    }
     const groups = await getQuotes(c.env.KB_STORE);
 
     for (const group of groups) {
         const idx = group.quotes.findIndex((q) => q.id === id);
         if (idx !== -1) {
             const quote = group.quotes[idx]!;
-            if (body.content) quote.content = body.content;
-            if (body.topics) quote.topics = body.topics;
-            if (body.emotion !== undefined) quote.emotion = body.emotion ?? "";
-            if (body.context !== undefined) quote.context = body.context ?? undefined;
+            if (body.content) quote.content = sanitizeText(body.content);
+            if (body.topics) quote.topics = body.topics.map(t => sanitizeText(t));
+            if (body.emotion !== undefined) quote.emotion = sanitizeText(body.emotion ?? "");
+            if (body.context !== undefined) quote.context = body.context ? sanitizeText(body.context) : undefined;
 
             await saveQuotes(c.env.KB_STORE, groups);
             return c.json(quote);
