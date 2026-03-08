@@ -76,6 +76,7 @@ interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
     error?: string;
     charCount?: number;
     charMax?: number;
+    charLabel?: string;
 }
 
 /**
@@ -93,7 +94,7 @@ interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
  */
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
     (
-        { label, error, charCount, charMax, className = "", id, ...props },
+        { label, error, charCount, charMax, charLabel, className = "", id, ...props },
         ref
     ) => {
         const textareaId = id || label?.toLowerCase().replace(/\s+/g, "-");
@@ -133,7 +134,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
                                 }`}
                         >
                             {charCount}
-                            {charMax ? ` / ${charMax}` : ""} characters
+                            {charMax ? ` / ${charMax}` : ""} {charLabel ?? "characters"}
                         </p>
                     )}
                 </div>

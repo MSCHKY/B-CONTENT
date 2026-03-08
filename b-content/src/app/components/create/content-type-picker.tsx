@@ -3,6 +3,7 @@ import { useShallow } from "zustand/react/shallow";
 import { Card, CardBody } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useTranslation } from "@/i18n";
 import instancesData from "@data/instances/instances.json";
 
 interface ContentTypeData {
@@ -31,6 +32,8 @@ export function ContentTypePicker() {
             }))
         );
 
+    const { t } = useTranslation();
+
     if (!instance) return null;
 
     const instanceData = instances[instance];
@@ -42,10 +45,10 @@ export function ContentTypePicker() {
         <div>
             <div className="flex items-center gap-3 mb-6">
                 <Button variant="ghost" size="sm" onClick={prevStep}>
-                    ← Back
+                    {t.create.back}
                 </Button>
                 <p className="text-text-secondary">
-                    Select a content type for{" "}
+                    {t.create.contentTypePicker.subtitle}{" "}
                     <span className="font-semibold wire-gradient-text">
                         {instanceData.name}
                     </span>
@@ -71,7 +74,7 @@ export function ContentTypePicker() {
                             )}
                             <div className="flex items-center gap-2 flex-wrap">
                                 <Badge variant="default">
-                                    {ct.char_range.min}–{ct.char_range.max} chars
+                                    {ct.char_range.min}–{ct.char_range.max} {t.create.result.charCount}
                                 </Badge>
                                 <Badge variant="muted">{ct.frequenz}</Badge>
                             </div>

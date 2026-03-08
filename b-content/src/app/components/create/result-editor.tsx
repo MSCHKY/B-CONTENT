@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
+import { useTranslation } from "@/i18n";
 import type { ImageFormat } from "@/types";
 import { LINKEDIN_FORMATS } from "@/types";
 
@@ -52,6 +53,7 @@ export function ResultEditor() {
     );
 
     const setView = useAppStore((s) => s.setView);
+    const { t } = useTranslation();
 
     const [savedPostId, setSavedPostId] = useState<string | null>(null);
     const [savedImageId, setSavedImageId] = useState<string | null>(null);
@@ -163,10 +165,10 @@ export function ResultEditor() {
         <div>
             <div className="flex items-center gap-3 mb-6">
                 <Button variant="ghost" size="sm" onClick={prevStep}>
-                    ← Back
+                    {t.create.back}
                 </Button>
                 <p className="text-text-secondary">
-                    Edit and export your content
+                    {t.create.result.subtitle}
                 </p>
             </div>
 
@@ -174,10 +176,10 @@ export function ResultEditor() {
                 {/* Text Editor */}
                 <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                        <h3 className="font-semibold text-text-primary">Post Text</h3>
+                        <h3 className="font-semibold text-text-primary">{t.create.result.postText}</h3>
                         <div className="flex items-center gap-2">
                             <Badge variant={charCount > 1200 ? "warning" : "default"}>
-                                {charCount} chars
+                                {charCount} {t.create.result.charCount}
                             </Badge>
                             <Badge variant="accent">{contentType}</Badge>
                         </div>
@@ -187,23 +189,24 @@ export function ResultEditor() {
                         value={generatedText ?? ""}
                         onChange={(e) => setGeneratedText(e.target.value)}
                         charCount={charCount}
+                        charLabel={t.create.result.charCount}
                         rows={12}
                         className="font-mono text-sm"
                     />
 
                     <div className="flex gap-2">
                         <Button variant="secondary" size="sm" onClick={handleCopyText}>
-                            📋 Copy
+                            📋 {t.create.result.copy}
                         </Button>
                         <Button variant="secondary" size="sm" onClick={handleExportText}>
-                            ⬇️ Export .txt
+                            ⬇️ {t.create.result.exportTxt}
                         </Button>
                         <Button
                             variant="ghost"
                             size="sm"
                             onClick={prevStep}
                         >
-                            🔄 Regenerate
+                            🔄 {t.create.result.regenerate}
                         </Button>
                     </div>
                 </div>
@@ -211,7 +214,7 @@ export function ResultEditor() {
                 {/* Image Area */}
                 <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                        <h3 className="font-semibold text-text-primary">Post Image</h3>
+                        <h3 className="font-semibold text-text-primary">{t.create.result.postImage}</h3>
                         <Badge variant="muted">
                             {format.width}×{format.height}
                         </Badge>
@@ -244,18 +247,14 @@ export function ResultEditor() {
                             <div className="text-center p-8">
                                 <span className="text-4xl block mb-3 animate-pulse">🎨</span>
                                 <p className="text-sm text-text-muted">
-                                    Generating image...
-                                    <br />
-                                    This may take 10-20 seconds
+                                    {t.create.result.generatingImage}
                                 </p>
                             </div>
                         ) : (
                             <div className="text-center p-8">
                                 <span className="text-4xl block mb-3">🎨</span>
                                 <p className="text-sm text-text-muted">
-                                    Click "Generate Image" to create
-                                    <br />
-                                    a brand-conformant visual
+                                    {t.create.result.generateImageHint}
                                 </p>
                             </div>
                         )}
@@ -269,14 +268,14 @@ export function ResultEditor() {
                         loading={isGeneratingImage}
                         onClick={handleGenerateImage}
                     >
-                        🎨 Generate Image
+                        🎨 {t.create.result.generateImage}
                     </Button>
                 </div>
             </div>
 
             {/* Save Error Display */}
             {saveError && (
-                <div className="mt-4 p-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm flex items-center justify-between">
+                <div className="mt-4 p-3 rounded-lg bg-error/10 border border-error/30 text-error text-sm flex items-center justify-between">
                     <span>⚠️ {saveError}</span>
                     <Button variant="ghost" size="sm" onClick={() => setSaveError(null)}>
                         ✕
@@ -287,21 +286,21 @@ export function ResultEditor() {
             {/* Bottom Action Bar */}
             <div className="mt-8 pt-6 border-t border-border-default flex items-center justify-between">
                 <p className="text-sm text-text-muted">
-                    Instance: <span className="font-medium text-text-secondary">{instance}</span>
-                    {" · "}Type: <span className="font-medium text-text-secondary">{contentType}</span>
+                    {t.create.result.instanceLabel}: <span className="font-medium text-text-secondary">{instance}</span>
+                    {" · "}{t.create.result.typeLabel}: <span className="font-medium text-text-secondary">{contentType}</span>
                 </p>
                 <div className="flex gap-3">
                     <Button variant="ghost" onClick={reset}>
-                        New Post
+                        {t.create.result.newPost}
                     </Button>
                     <Button variant="secondary" onClick={handleExportText}>
-                        ⬇️ Export All
+                        ⬇️ {t.create.result.exportAll}
                     </Button>
                     {savedPostId ? (
                         <Button
                             onClick={() => setView("library")}
                         >
-                            ✅ Saved — View Library
+                            ✅ {t.create.result.savedViewLibrary}
                         </Button>
                     ) : (
                         <Button
@@ -309,7 +308,7 @@ export function ResultEditor() {
                             loading={isSaving}
                             disabled={!generatedText}
                         >
-                            💾 Save to Library
+                            💾 {t.create.result.saveToLibrary}
                         </Button>
                     )}
                 </div>

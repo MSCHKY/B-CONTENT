@@ -21,29 +21,47 @@ export interface Translations {
     create: {
         title: string;
         startOver: string;
+        back: string;
         steps: [string, string, string, string];
         instancePicker: {
             subtitle: string;
         };
+        contentTypePicker: {
+            subtitle: string;
+        };
         topicInput: {
+            subtitle: string;
             topicLabel: string;
             topicPlaceholder: string;
             inputLabel: string;
             inputPlaceholder: string;
             languageLabel: string;
             quotesTitle: string;
+            quotesEmpty: string;
             generate: string;
             generating: string;
         };
         result: {
             title: string;
+            subtitle: string;
+            postText: string;
+            postImage: string;
             copy: string;
             copied: string;
+            exportTxt: string;
+            regenerate: string;
+            generateImage: string;
+            generatingImage: string;
+            generateImageHint: string;
             saveToLibrary: string;
+            savedViewLibrary: string;
             saved: string;
             newPost: string;
+            exportAll: string;
             charCount: string;
             hashtagsLabel: string;
+            instanceLabel: string;
+            typeLabel: string;
             mockNotice: string;
         };
     };
@@ -223,29 +241,47 @@ export const de: Translations = {
     create: {
         title: "Content erstellen",
         startOver: "↺ Neu starten",
+        back: "← Zurück",
         steps: ["Instanz", "Inhaltstyp", "Eingabe", "Ergebnis"],
         instancePicker: {
             subtitle: "Für wen soll der Content erstellt werden?",
         },
+        contentTypePicker: {
+            subtitle: "Inhaltstyp wählen für",
+        },
         topicInput: {
+            subtitle: "Thema definieren und Kontext angeben",
             topicLabel: "Themenfeld",
             topicPlaceholder: "Themenfeld wählen…",
-            inputLabel: "Ihr Input",
+            inputLabel: "Kontext / Stichworte",
             inputPlaceholder: "Beschreiben Sie Ihr Thema, Kernaussage oder Fakten…",
             languageLabel: "Sprache",
-            quotesTitle: "Passende Zitate",
-            generate: "Generieren",
+            quotesTitle: "Wissens-Vorschläge",
+            quotesEmpty: "Wählen Sie ein Themenfeld, um passende Zitate zu sehen.",
+            generate: "Content generieren",
             generating: "Wird generiert…",
         },
         result: {
             title: "Ergebnis",
+            subtitle: "Bearbeiten und exportieren Sie Ihren Content",
+            postText: "Beitragstext",
+            postImage: "Beitragsbild",
             copy: "Kopieren",
             copied: "Kopiert!",
+            exportTxt: "Export .txt",
+            regenerate: "Neu generieren",
+            generateImage: "Bild generieren",
+            generatingImage: "Bild wird generiert…",
+            generateImageHint: "Klicken Sie auf \"Bild generieren\" für ein markenkonforme Visual",
             saveToLibrary: "In Bibliothek speichern",
+            savedViewLibrary: "Gespeichert — Bibliothek öffnen",
             saved: "Gespeichert!",
             newPost: "Neuer Beitrag",
+            exportAll: "Alles exportieren",
             charCount: "Zeichen",
             hashtagsLabel: "Hashtags",
+            instanceLabel: "Instanz",
+            typeLabel: "Typ",
             mockNotice: "Demo-Modus: Kein API-Key konfiguriert.",
         },
     },
@@ -418,29 +454,47 @@ export const en: Translations = {
     create: {
         title: "Create Content",
         startOver: "↺ Start Over",
+        back: "← Back",
         steps: ["Instance", "Content Type", "Input", "Result"],
         instancePicker: {
             subtitle: "Who should this content be created for?",
         },
+        contentTypePicker: {
+            subtitle: "Select a content type for",
+        },
         topicInput: {
+            subtitle: "Define your topic and provide context",
             topicLabel: "Topic Field",
             topicPlaceholder: "Select a topic…",
-            inputLabel: "Your Input",
+            inputLabel: "Context / Keywords",
             inputPlaceholder: "Describe your topic, key message or facts…",
             languageLabel: "Language",
-            quotesTitle: "Relevant Quotes",
-            generate: "Generate",
+            quotesTitle: "Knowledge Suggestions",
+            quotesEmpty: "Select a topic to see relevant quotes and facts.",
+            generate: "Generate Content",
             generating: "Generating…",
         },
         result: {
             title: "Result",
+            subtitle: "Edit and export your content",
+            postText: "Post Text",
+            postImage: "Post Image",
             copy: "Copy",
             copied: "Copied!",
+            exportTxt: "Export .txt",
+            regenerate: "Regenerate",
+            generateImage: "Generate Image",
+            generatingImage: "Generating image…",
+            generateImageHint: "Click \"Generate Image\" to create a brand-conformant visual",
             saveToLibrary: "Save to Library",
+            savedViewLibrary: "Saved — View Library",
             saved: "Saved!",
             newPost: "New Post",
+            exportAll: "Export All",
             charCount: "Characters",
             hashtagsLabel: "Hashtags",
+            instanceLabel: "Instance",
+            typeLabel: "Type",
             mockNotice: "Demo mode: No API key configured.",
         },
     },

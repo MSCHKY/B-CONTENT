@@ -489,7 +489,7 @@ function ActivityTimeline({ timeline }: { timeline: TimelineWeek[] }) {
                                 />
                             )}
                             {week.count === 0 && (
-                                <div className="w-full h-full bg-white/5 rounded-t-md" />
+                                <div className="w-full h-full bg-border-default/30 rounded-t-md" />
                             )}
 
                             {/* Tooltip on hover */}
@@ -580,7 +580,7 @@ function SchedulingRing({ scheduling }: { scheduling: SchedulingHealth }) {
                         fill="none"
                         stroke="currentColor"
                         strokeWidth="8"
-                        className="text-white/5"
+                        className="text-border-default"
                     />
                     {/* Progress circle */}
                     <circle
@@ -615,7 +615,7 @@ function SchedulingRing({ scheduling }: { scheduling: SchedulingHealth }) {
                     <span className="font-semibold text-text-primary ml-auto">{scheduling.scheduled}</span>
                 </div>
                 <div className="flex items-center gap-3">
-                    <div className="w-3 h-3 rounded-full bg-white/10" />
+                    <div className="w-3 h-3 rounded-full bg-border-default" />
                     <span className="text-text-secondary">{t.stats.unscheduledLabel}</span>
                     <span className="font-semibold text-text-primary ml-auto">{scheduling.unscheduled}</span>
                 </div>

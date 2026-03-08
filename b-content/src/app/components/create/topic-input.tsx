@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
+import { useTranslation } from "@/i18n";
 import type { TopicFieldId } from "@/types";
 import topicFields from "@data/topics/topic-fields.json";
 import quotesData from "@data/quotes/quotes.json";
@@ -74,6 +75,8 @@ export function TopicInput() {
         }))
     );
 
+    const { t } = useTranslation();
+
     // Find relevant quotes for the selected instance and topic
     // ⚡ Bolt: Memoize relevant quotes to prevent unnecessary filtering on every keystroke
     const relevantQuotes = useMemo(() => {
@@ -124,10 +127,10 @@ export function TopicInput() {
         <div>
             <div className="flex items-center gap-3 mb-6">
                 <Button variant="ghost" size="sm" onClick={prevStep}>
-                    ← Back
+                    {t.create.back}
                 </Button>
                 <p className="text-text-secondary">
-                    Define your topic and provide context
+                    {t.create.topicInput.subtitle}
                 </p>
             </div>
 
@@ -136,16 +139,16 @@ export function TopicInput() {
                 <div className="lg:col-span-2 space-y-4">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <Select
-                            label="Topic Field"
+                            label={t.create.topicInput.topicLabel}
                             options={topicOptions}
-                            placeholder="Select a topic..."
+                            placeholder={t.create.topicInput.topicPlaceholder}
                             value={topicField ?? ""}
                             onChange={(e) =>
                                 selectTopicField(e.target.value as TopicFieldId)
                             }
                         />
                         <Select
-                            label="Language"
+                            label={t.create.topicInput.languageLabel}
                             options={languageOptions}
                             value={language}
                             onChange={(e) =>
@@ -155,11 +158,12 @@ export function TopicInput() {
                     </div>
 
                     <Textarea
-                        label="Context / Keywords"
-                        placeholder="Describe the topic, add keywords, mention specific facts or angles you want to highlight..."
+                        label={t.create.topicInput.inputLabel}
+                        placeholder={t.create.topicInput.inputPlaceholder}
                         value={userInput}
                         onChange={(e) => setUserInput(e.target.value)}
                         charCount={userInput.length}
+                        charLabel={t.create.result.charCount}
                         rows={6}
                     />
 
@@ -170,14 +174,14 @@ export function TopicInput() {
                         loading={isGenerating}
                         disabled={!topicField || !userInput.trim()}
                     >
-                        ✨ Generate Content
+                        ✨ {t.create.topicInput.generate}
                     </Button>
                 </div>
 
                 {/* Knowledge Suggestions */}
                 <div className="bg-bg-card rounded-xl border border-border-default p-4">
                     <h3 className="text-sm font-semibold text-text-primary mb-3 flex items-center gap-2">
-                        <span>💡</span> Knowledge Suggestions
+                        <span>💡</span> {t.create.topicInput.quotesTitle}
                     </h3>
                     {relevantQuotes.length > 0 ? (
                         <div className="space-y-3">
@@ -204,7 +208,7 @@ export function TopicInput() {
                         </div>
                     ) : (
                         <p className="text-sm text-text-muted">
-                            Select a topic to see relevant quotes and facts.
+                            {t.create.topicInput.quotesEmpty}
                         </p>
                     )}
                 </div>
