@@ -25,23 +25,23 @@ test.describe("B/CONTENT Smoke Tests", () => {
         await expect(page.getByText("Choose the voice")).toBeVisible();
 
         // Navigate to Knowledge
-        await page.getByRole("button", { name: /Knowledge/ }).click();
+        await page.getByRole("button", { name: /Wissen/ }).click();
         await expect(page.getByText("Knowledge")).toBeVisible();
 
         // Navigate to Library
-        await page.getByRole("button", { name: /Library/ }).click();
+        await page.getByRole("button", { name: /Bibliothek/ }).click();
         await expect(
             page.getByText("Content Library"),
         ).toBeVisible();
 
         // Navigate to Orchestrate
-        await page.getByRole("button", { name: /Orchestrate/ }).click();
+        await page.getByRole("button", { name: /Orchestrate|Orchestrieren/ }).click();
         await expect(
             page.getByText("Content Orchestration"),
         ).toBeVisible();
 
         // Navigate to Stats
-        await page.getByRole("button", { name: /Stats/ }).click();
+        await page.getByRole("button", { name: /Stats|Statistik/ }).click();
         await expect(
             page.getByText("Content Stats"),
         ).toBeVisible();
@@ -86,7 +86,7 @@ test.describe("B/CONTENT Smoke Tests", () => {
         await page.goto("/");
 
         // Navigate to Knowledge
-        await page.getByRole("button", { name: /Knowledge/ }).click();
+        await page.getByRole("button", { name: /Wissen/ }).click();
 
         // Should show topic fields from the knowledge base
         await expect(page.getByText("Energie")).toBeVisible();
@@ -106,7 +106,7 @@ test.describe("B/CONTENT Smoke Tests", () => {
         await page.goto("/");
 
         // Navigate to Orchestrate
-        await page.getByRole("button", { name: /Orchestrate/ }).click();
+        await page.getByRole("button", { name: /Orchestrate|Orchestrieren/ }).click();
 
         // Header and description
         await expect(page.getByText("Content Orchestration")).toBeVisible();
@@ -129,7 +129,7 @@ test.describe("B/CONTENT Smoke Tests", () => {
         await page.goto("/");
 
         // Navigate to Stats
-        await page.getByRole("button", { name: /Stats/ }).click();
+        await page.getByRole("button", { name: /Stats|Statistik/ }).click();
 
         // Header
         await expect(page.getByText("Content Stats")).toBeVisible();

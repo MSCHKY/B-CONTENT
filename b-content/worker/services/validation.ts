@@ -34,7 +34,13 @@ const instanceCharRanges: Record<InstanceId, Record<string, {min: number, max: n
 
 export const sanitizeText = (text: any): string => {
     if (typeof text !== "string") return "";
-    return text.replace(/[<>]/g, "").trim();
+    return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#x27;")
+        .trim();
 };
 
 export const validateRequiredString = (value: any, fieldName: string): ValidationError | null => {

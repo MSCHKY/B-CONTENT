@@ -386,7 +386,7 @@ function RulesView() {
     useEffect(() => {
         fetch("/api/knowledge/rules")
             .then((r) => r.json())
-            .then(setRules)
+            .then((data) => setRules(data as ContentRules))
             .catch(console.error);
     }, []);
 
