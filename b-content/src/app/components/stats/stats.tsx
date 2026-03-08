@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { BarChart3, AlertTriangle, TrendingUp, TrendingDown, Minus, Hash, CalendarCheck, Activity } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useTranslation } from "@/i18n";
+import { TOPIC_LABELS, CONTENT_TYPE_LABELS, INSTANCE_COLORS_DOT, INSTANCE_HEX, INSTANCE_COLORS_BG, INSTANCE_LABELS } from "@shared/constants";
 
 // --- Types matching API response ---
 
@@ -65,54 +66,9 @@ interface StatsResponse {
     error?: string;
 }
 
-const TOPIC_LABELS: Record<string, string> = {
-    energie: "Energie & Energiewende",
-    circular: "Circular Economy",
-    medtech: "Medizintechnik",
-    bau: "Bau & Infrastruktur",
-    alltag: "Alltagsprodukte & Tech",
-    luxus: "Luxus & Kultur",
-    sicherheit: "Sicherheit & Defence",
-    wasser: "Wasser & Filtration",
-    "vertikale-integration": "Vertikale Integration",
-    geopolitik: "Geopolitische Resilienz",
-    "image-reframe": "Image-Reframe",
-    "ingredient-branding": "Ingredient Branding",
-    qualitaet: "Qualität",
-};
-
-const CONTENT_TYPE_LABELS: Record<string, string> = {
-    "deep-dive": "Deep Dive",
-    "position": "Position",
-    "frage": "Die Frage",
-    "persoenlich": "Persönlich",
-    "proof-point": "Proof Point",
-    "wusstest-du": "Wusstest du?",
-    "messe-story": "Messe/Story",
-    "draht-steckt-in": "Draht steckt in…",
-    "unternehmensnews": "News",
-    "behind-the-scenes": "Behind the Scenes",
-    "zahlen-fakten": "Zahlen & Fakten",
-    "website-article": "Website-Beitrag",
-};
-
-const INSTANCE_COLORS: Record<string, string> = {
-    alex: "bg-emerald-500",
-    ablas: "bg-cyan-500",
-    bwg: "bg-amber-500",
-};
-
-const INSTANCE_HEX: Record<string, string> = {
-    alex: "#10b981",
-    ablas: "#06b6d4",
-    bwg: "#f59e0b",
-};
-
-const INSTANCE_BG: Record<string, string> = {
-    alex: "bg-emerald-500/10 border-emerald-500/20",
-    ablas: "bg-cyan-500/10 border-cyan-500/20",
-    bwg: "bg-amber-500/10 border-amber-500/20",
-};
+// Constants imported from @shared/constants
+const INSTANCE_COLORS = INSTANCE_COLORS_DOT;
+const INSTANCE_BG = INSTANCE_COLORS_BG;
 
 export function Stats() {
     const [data, setData] = useState<StatsResponse | null>(null);
@@ -528,7 +484,7 @@ function ContentTypeBreakdown({ breakdown }: { breakdown: ContentTypeCount[] }) 
                     <div className="flex items-center gap-2 mb-2">
                         <div className={`w-2 h-2 rounded-full ${INSTANCE_COLORS[instance] ?? "bg-text-muted"}`} />
                         <span className="text-sm font-medium text-text-primary">
-                            {INSTANCE_LABELS_MAP[instance] ?? instance}
+                            {INSTANCE_LABELS[instance] ?? instance}
                         </span>
                     </div>
                     <div className="space-y-1.5 pl-4">
@@ -555,11 +511,7 @@ function ContentTypeBreakdown({ breakdown }: { breakdown: ContentTypeCount[] }) 
     );
 }
 
-const INSTANCE_LABELS_MAP: Record<string, string> = {
-    alex: "Jürgen Alex",
-    ablas: "Sebastian Ablas",
-    bwg: "BWG Company",
-};
+// INSTANCE_LABELS_MAP removed — now using INSTANCE_LABELS from shared
 
 /** Scheduling Health — SVG progress ring */
 function SchedulingRing({ scheduling }: { scheduling: SchedulingHealth }) {

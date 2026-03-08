@@ -191,6 +191,10 @@ export interface Translations {
         unscheduleBtn: string;
         cancel: string;
         scheduled: string;
+        charsSuffix: string;
+        dropToUnschedule: string;
+        allScheduled: string;
+        languageSwitchTitle: string;
     };
 
     // --- Interview ---
@@ -218,6 +222,9 @@ export interface Translations {
         tryAgain: string;
         errorFormat: string;
         errorSize: string;
+        formatHint: string;
+        openKnowledgeBase: string;
+        quotesLabel: string;
     };
 
     // --- Common ---
@@ -408,6 +415,10 @@ export const de: Translations = {
         unscheduleBtn: "Planung aufheben",
         cancel: "Abbrechen",
         scheduled: "Geplant",
+        charsSuffix: "Zeichen",
+        dropToUnschedule: "Hier ablegen zum Entplanen",
+        allScheduled: "Alle Beiträge sind geplant",
+        languageSwitchTitle: "Switch to English",
     },
 
     interview: {
@@ -434,6 +445,9 @@ export const de: Translations = {
         tryAgain: "Erneut versuchen",
         errorFormat: "Nicht unterstütztes Audioformat. Bitte MP3, M4A, WAV, WebM, OGG oder FLAC verwenden.",
         errorSize: "Datei zu groß. Maximal 20 MB.",
+        formatHint: "MP3, M4A, WAV, WebM, OGG, FLAC — max 20 MB",
+        openKnowledgeBase: "→ Wissensbasis öffnen",
+        quotesLabel: "Zitate",
     },
 
     common: {
@@ -623,6 +637,10 @@ export const en: Translations = {
         unscheduleBtn: "Unschedule",
         cancel: "Cancel",
         scheduled: "Scheduled",
+        charsSuffix: "chars",
+        dropToUnschedule: "Drop here to unschedule",
+        allScheduled: "All posts are scheduled",
+        languageSwitchTitle: "Auf Deutsch wechseln",
     },
 
     interview: {
@@ -649,6 +667,9 @@ export const en: Translations = {
         tryAgain: "Try Again",
         errorFormat: "Unsupported audio format. Please use MP3, M4A, WAV, WebM, OGG or FLAC.",
         errorSize: "File too large. Maximum 20 MB.",
+        formatHint: "MP3, M4A, WAV, WebM, OGG, FLAC — max 20 MB",
+        openKnowledgeBase: "→ Open Knowledge Base",
+        quotesLabel: "Quotes",
     },
 
     common: {

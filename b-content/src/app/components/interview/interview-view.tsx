@@ -358,7 +358,7 @@ export function InterviewView() {
                                     {t.interview.dropzone}
                                 </p>
                                 <p className="text-text-secondary text-sm mt-1">
-                                    MP3, M4A, WAV, WebM, OGG, FLAC — max 20 MB
+                                    {t.interview.formatHint}
                                 </p>
                             </div>
                         </div>
@@ -569,7 +569,7 @@ export function InterviewView() {
                                         key={topic}
                                         className="text-xs px-2 py-1 rounded-full bg-bright-green/10 text-bright-green/80 border border-bright-green/20"
                                     >
-                                        {topic === "_quotes" ? (locale === "de" ? "Zitate" : "Quotes") : topic}
+                                        {topic === "_quotes" ? t.interview.quotesLabel : topic}
                                     </span>
                                 ))}
                             </div>
@@ -584,7 +584,7 @@ export function InterviewView() {
                                 className="px-4 py-2 rounded-lg wire-gradient text-white
                                     hover:shadow-lg transition-all cursor-pointer text-sm font-medium"
                             >
-                                {locale === "de" ? "→ Wissensbasis öffnen" : "→ Open Knowledge Base"}
+                                {t.interview.openKnowledgeBase}
                             </button>
                             <button
                                 onClick={resetToIdle}

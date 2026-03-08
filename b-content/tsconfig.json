@@ -30,6 +30,9 @@
             ],
             "@data/*": [
                 "./src/data/*"
+            ],
+            "@shared/*": [
+                "./src/shared/*"
             ]
         }
     },

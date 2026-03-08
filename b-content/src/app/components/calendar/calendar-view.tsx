@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Select } from "@/components/ui/select";
 import { ChevronLeft, ChevronRight, AlertTriangle, CalendarClock, GripVertical } from "lucide-react";
 import { useTranslation } from "@/i18n";
+import { INSTANCE_COLORS_BORDER, INSTANCE_LABELS, STATUS_VARIANTS } from "@shared/constants";
 
 // --- Types ---
 
@@ -30,27 +31,8 @@ interface Conflict {
     daysBetween: number;
 }
 
-// --- Constants ---
-
-const INSTANCE_COLORS: Record<string, string> = {
-    alex: "border-l-deep-green",
-    ablas: "border-l-crisp-cyan",
-    bwg: "border-l-bright-green",
-};
-
-const INSTANCE_LABELS: Record<string, string> = {
-    alex: "Jürgen Alex",
-    ablas: "Sebastian Ablas",
-    bwg: "BWG",
-};
-
-const STATUS_VARIANTS: Record<string, "default" | "accent" | "warning" | "muted" | "success"> = {
-    draft: "muted",
-    scheduled: "accent",
-    review: "warning",
-    approved: "success",
-    published: "default",
-};
+// --- Constants (from shared) ---
+const INSTANCE_COLORS = INSTANCE_COLORS_BORDER;
 
 const WEEKDAY_LABELS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const WEEKDAY_LABELS_DE = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
@@ -453,7 +435,7 @@ export function CalendarView() {
                                             {post.text.slice(0, 100)}{post.text.length > 100 ? "…" : ""}
                                         </p>
                                         <p className="text-[10px] text-text-muted mt-1">
-                                            {post.content_type} · {post.char_count} {locale === "de" ? "Zeichen" : "chars"}
+                                            {post.content_type} · {post.char_count} {t.calendar.charsSuffix}
                                         </p>
                                     </div>
                                 </div>
@@ -463,8 +445,8 @@ export function CalendarView() {
                 ) : (
                     <p className="text-xs text-text-muted italic">
                         {dragOverUnscheduled
-                            ? (locale === "de" ? "Hier ablegen zum Entplanen" : "Drop here to unschedule")
-                            : (locale === "de" ? "Alle Beiträge sind geplant" : "All posts are scheduled")
+                            ? t.calendar.dropToUnschedule
+                            : t.calendar.allScheduled
                         }
                     </p>
                 )}

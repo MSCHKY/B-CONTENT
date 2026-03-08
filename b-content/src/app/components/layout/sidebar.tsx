@@ -98,7 +98,7 @@ export function Sidebar() {
                         <button
                             onClick={toggleLocale}
                             className="flex items-center gap-1 text-text-on-dark/40 hover:text-text-on-dark/70 transition-colors duration-200 cursor-pointer"
-                            title={locale === "de" ? "Switch to English" : "Auf Deutsch wechseln"}
+                            title={t.calendar.languageSwitchTitle}
                         >
                             <Globe size={12} />
                             <span className="text-[10px] font-medium uppercase tracking-wider">

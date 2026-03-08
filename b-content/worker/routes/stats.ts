@@ -1,5 +1,6 @@
 import { Hono } from "hono";
 import type { Env } from "../index";
+import { INSTANCE_LABELS } from "@shared/constants";
 
 /**
  * Hono router for content statistics, 4:1 ratio tracker, and analytics.
@@ -55,12 +56,6 @@ interface SchedulingHealth {
     unscheduled: number;
     coverage: number;
 }
-
-const INSTANCE_LABELS: Record<string, string> = {
-    alex: "Jürgen Alex",
-    ablas: "Sebastian Ablas",
-    bwg: "BWG Company",
-};
 
 // GET /api/stats — Aggregate stats + analytics from D1
 statsRoutes.get("/", async (c) => {

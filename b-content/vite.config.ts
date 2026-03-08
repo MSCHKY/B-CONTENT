@@ -9,6 +9,7 @@ export default defineConfig({
         alias: [
             { find: "@/", replacement: "/src/app/" },
             { find: "@data/", replacement: "/src/data/" },
+            { find: "@shared/", replacement: "/src/shared/" },
         ],
     },
     // Allow serving font files from parent directory

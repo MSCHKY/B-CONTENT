@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Layers, Copy, Save, Calendar, Loader2, AlertTriangle } from "lucide-react";
 import topicFields from "@data/topics/topic-fields.json";
 import { useTranslation } from "@/i18n";
+import { INSTANCE_LABELS, INSTANCE_COLORS_GRADIENT, INSTANCE_ACCENT, CONTENT_TYPE_LABELS } from "@shared/constants";
 
 // --- Types ---
 
@@ -18,29 +19,8 @@ interface OrchestratedPost {
     mock: boolean;
 }
 
-const INSTANCE_LABELS: Record<string, string> = {
-    alex: "Jürgen Alex",
-    ablas: "Sebastian Ablas",
-    bwg: "BWG Company",
-};
-
-const INSTANCE_COLORS: Record<string, string> = {
-    alex: "from-emerald-500/20 to-emerald-900/10 border-emerald-500/30",
-    ablas: "from-cyan-500/20 to-cyan-900/10 border-cyan-500/30",
-    bwg: "from-amber-500/20 to-amber-900/10 border-amber-500/30",
-};
-
-const INSTANCE_ACCENT: Record<string, string> = {
-    alex: "text-emerald-400",
-    ablas: "text-cyan-400",
-    bwg: "text-amber-400",
-};
-
-const CONTENT_TYPE_LABELS: Record<string, string> = {
-    "deep-dive": "Deep Dive",
-    "proof-point": "Proof Point",
-    "draht-steckt-in": "Draht steckt in...",
-};
+// Constants imported from @shared/constants
+const INSTANCE_COLORS = INSTANCE_COLORS_GRADIENT;
 
 const topicOptions = (topicFields as Array<{ id: string; label: string }>).map(
     (t) => ({

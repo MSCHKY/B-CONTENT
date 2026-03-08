@@ -35,24 +35,42 @@ interface QuoteGroup {
 
 /** Get topics: KV override merged with static defaults */
 async function getTopics(kv: KVNamespace): Promise<TopicData[]> {
-    const override = await kv.get("kb_topics", "json");
-    if (override) return override as TopicData[];
+    try {
+        const override = await kv.get("kb_topics", "json");
+        if (override) return override as TopicData[];
+    } catch (err) {
+        console.error("[KV] Failed to read kb_topics, using static defaults:", err instanceof Error ? err.message : err);
+    }
     return structuredClone(staticTopics) as TopicData[];
 }
 
 async function saveTopics(kv: KVNamespace, topics: TopicData[]): Promise<void> {
-    await kv.put("kb_topics", JSON.stringify(topics));
+    try {
+        await kv.put("kb_topics", JSON.stringify(topics));
+    } catch (err) {
+        console.error("[KV] Failed to save kb_topics:", err instanceof Error ? err.message : err);
+        throw new Error("Failed to persist topic changes");
+    }
 }
 
 /** Get quotes: KV override merged with static defaults */
 async function getQuotes(kv: KVNamespace): Promise<QuoteGroup[]> {
-    const override = await kv.get("kb_quotes", "json");
-    if (override) return override as QuoteGroup[];
+    try {
+        const override = await kv.get("kb_quotes", "json");
+        if (override) return override as QuoteGroup[];
+    } catch (err) {
+        console.error("[KV] Failed to read kb_quotes, using static defaults:", err instanceof Error ? err.message : err);
+    }
     return structuredClone(staticQuotes) as QuoteGroup[];
 }
 
 async function saveQuotes(kv: KVNamespace, quotes: QuoteGroup[]): Promise<void> {
-    await kv.put("kb_quotes", JSON.stringify(quotes));
+    try {
+        await kv.put("kb_quotes", JSON.stringify(quotes));
+    } catch (err) {
+        console.error("[KV] Failed to save kb_quotes:", err instanceof Error ? err.message : err);
+        throw new Error("Failed to persist quote changes");
+    }
 }
 
 // --- Router ---

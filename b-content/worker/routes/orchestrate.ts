@@ -3,8 +3,7 @@ import type { Env } from "../index";
 import { buildTextPrompt } from "../services/prompt-builder";
 import { generateText, AppError } from "../services/gemini";
 import { validateRequiredString, sanitizeText } from "../services/validation";
-
-type InstanceId = "alex" | "ablas" | "bwg";
+import type { InstanceId } from "@shared/constants";
 
 // Default content types per instance for orchestration
 const ORCHESTRATION_CONTENT_TYPES: Record<InstanceId, string> = {

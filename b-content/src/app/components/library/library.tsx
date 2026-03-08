@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { INSTANCE_LABELS, STATUS_VARIANTS } from "@shared/constants";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Select } from "@/components/ui/select";
@@ -31,20 +32,6 @@ interface PostRecord {
 }
 
 // Instance/status options are built dynamically in component to support i18n
-
-const INSTANCE_LABELS: Record<string, string> = {
-    alex: "Jürgen Alex",
-    ablas: "Sebastian Ablas",
-    bwg: "BWG",
-};
-
-const STATUS_VARIANTS: Record<string, "default" | "accent" | "warning" | "muted"> = {
-    draft: "muted",
-    review: "warning",
-    approved: "accent",
-    published: "default",
-    archived: "muted",
-};
 
 export function Library() {
     const [posts, setPosts] = useState<PostRecord[]>([]);

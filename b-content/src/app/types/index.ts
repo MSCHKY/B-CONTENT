@@ -5,7 +5,8 @@
 
 // --- Instance & Identity ---
 
-export type InstanceId = "alex" | "ablas" | "bwg";
+import type { InstanceId as _InstanceId } from "@shared/constants";
+export type InstanceId = _InstanceId;
 
 export interface ContentInstance {
     id: InstanceId;
