@@ -131,6 +131,7 @@ interviewRoutes.post("/import", async (c) => {
 
     const kv = c.env.KB_STORE;
     let importedCount = 0;
+    const affectedTopics = new Set<string>();
 
     for (const item of body.items) {
         if (!item.content || !item.type) continue;
@@ -147,6 +148,7 @@ interviewRoutes.post("/import", async (c) => {
                     source: "Interview Import",
                 });
                 await kv.put(kvKey, JSON.stringify(facts));
+                affectedTopics.add(topicId);
             }
             importedCount++;
         } else if (item.type === "quote") {
@@ -166,6 +168,7 @@ interviewRoutes.post("/import", async (c) => {
                 context: "Interview Import",
             });
             await kv.put(kvKey, JSON.stringify(quotes));
+            affectedTopics.add("_quotes");
             importedCount++;
         } else if (item.type === "anecdote" || item.type === "proof_point") {
             // Store anecdotes and proof points as facts in the relevant topic
@@ -179,6 +182,7 @@ interviewRoutes.post("/import", async (c) => {
                     source: "Interview Import",
                 });
                 await kv.put(kvKey, JSON.stringify(facts));
+                affectedTopics.add(topicId);
             }
             importedCount++;
         }
@@ -194,6 +198,7 @@ interviewRoutes.post("/import", async (c) => {
     return c.json({
         imported: importedCount,
         interviewId: body.interviewId,
+        affectedTopics: [...affectedTopics],
     });
 });
 

@@ -5,6 +5,7 @@
 
 import { useState, useRef, useCallback } from "react";
 import { useTranslation } from "@/i18n";
+import { useAppStore } from "@/stores";
 import {
     Mic,
     Upload,
@@ -68,6 +69,7 @@ export function InterviewView() {
 
     // Import result
     const [importedCount, setImportedCount] = useState(0);
+    const [affectedTopics, setAffectedTopics] = useState<string[]>([]);
 
     // --- File handling ---
     const processFile = useCallback(async (file: File) => {
@@ -176,8 +178,9 @@ export function InterviewView() {
                 throw new Error(`Import failed: HTTP ${response.status}`);
             }
 
-            const data = await response.json() as { imported: number };
+            const data = await response.json() as { imported: number; affectedTopics: string[] };
             setImportedCount(data.imported);
+            setAffectedTopics(data.affectedTopics || []);
             setViewState("done");
         } catch (err) {
             setErrorMessage(err instanceof Error ? err.message : String(err));
@@ -206,6 +209,7 @@ export function InterviewView() {
         setContextInput("");
         setTitleInput("");
         setImportedCount(0);
+        setAffectedTopics([]);
     }, []);
 
     // --- Counts ---
@@ -213,7 +217,7 @@ export function InterviewView() {
     const groupedItems = items.reduce(
         (acc, item) => {
             if (!acc[item.type]) acc[item.type] = [];
-            acc[item.type].push(item);
+            acc[item.type]!.push(item);
             return acc;
         },
         {} as Record<string, ExtractedItem[]>,
@@ -556,13 +560,40 @@ export function InterviewView() {
                                 {importedCount} {t.interview.itemsImported}
                             </p>
                         </div>
-                        <button
-                            onClick={resetToIdle}
-                            className="mt-4 px-4 py-2 rounded-lg bg-white/10 text-text-primary
-                                hover:bg-white/15 transition-colors cursor-pointer text-sm"
-                        >
-                            {t.interview.newInterview}
-                        </button>
+
+                        {/* Affected topic fields */}
+                        {affectedTopics.length > 0 && (
+                            <div className="mt-2 flex flex-wrap justify-center gap-2">
+                                {affectedTopics.map((topic) => (
+                                    <span
+                                        key={topic}
+                                        className="text-xs px-2 py-1 rounded-full bg-bright-green/10 text-bright-green/80 border border-bright-green/20"
+                                    >
+                                        {topic === "_quotes" ? (locale === "de" ? "Zitate" : "Quotes") : topic}
+                                    </span>
+                                ))}
+                            </div>
+                        )}
+
+                        <div className="flex gap-3 mt-4">
+                            <button
+                                onClick={() => {
+                                    resetToIdle();
+                                    useAppStore.getState().setView("knowledge");
+                                }}
+                                className="px-4 py-2 rounded-lg wire-gradient text-white
+                                    hover:shadow-lg transition-all cursor-pointer text-sm font-medium"
+                            >
+                                {locale === "de" ? "→ Wissensbasis öffnen" : "→ Open Knowledge Base"}
+                            </button>
+                            <button
+                                onClick={resetToIdle}
+                                className="px-4 py-2 rounded-lg bg-white/10 text-text-primary
+                                    hover:bg-white/15 transition-colors cursor-pointer text-sm"
+                            >
+                                {t.interview.newInterview}
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}
