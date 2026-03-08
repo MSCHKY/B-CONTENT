@@ -1,6 +1,6 @@
 # 🏗️ B/CONTENT — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-08 21:45
+> **Zuletzt aktualisiert:** 2026-03-09 00:17
 > **Modul:** B/CONTENT (Content-Gehirn)
 > **Status:** Phase 3 IN PROGRESS — Z-002 ✅, Z-003 ✅, Z-005 Analytics ✅ LIVE
 > **Branch:** `main` (Workers Builds Git-Integration aktiv)
@@ -223,6 +223,7 @@
 | 2026-03-08 | Hardening   | Audit Critical Fixes: 7 Silent-Fail-Catches → Error-Feedback, Dev-Mock-Leak → DEV-only, getElementById → useRef, response.ok Checks, 3 i18n-Strings | ✅ Deployed |
 | 2026-03-08 | Refactoring | Audit Fixes Batch 2: Shared Constants (`src/shared/constants.ts`, 11 Exports, 8 Dateien), KV try/catch, Error Boundary, 9 i18n-Keys, 6 Inline-Strings eliminiert | ✅ Deployed |
 | 2026-03-08 | Refactoring | Component Splitting: 5 übergroße Komponenten (stats 579→236, knowledge 498→95, interview 624→303, calendar 536→216, library 374→197) in 22 fokussierte Sub-Dateien zerlegt. `/split` Workflow erstellt. | ✅ Build OK |
+| 2026-03-09 | Feature     | CHANGELOG.md (4 retroaktive Releases) + Automatische Versionierung (commit-and-tag-version) + Unsichtbarer Changelog-Trigger + Version → 1.0.0-beta.0 | ✅ Deployed |
 
 ### ⚠️ Bekannte Probleme
 - **6 Audit-Findings bewusst deferred:** KV Race Condition (#1), Rate Limiting (#5), DSGVO Gemini EU (#6), KV Jurisdiction (#7), POST Idempotenz (#12), REST-Konsistenz (#13).
