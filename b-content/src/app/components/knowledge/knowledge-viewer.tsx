@@ -160,6 +160,7 @@ function TopicsView({ topics, onRefresh }: { topics: TopicFieldData[]; onRefresh
                                 onClick={() => setEditingId(topic.id)}
                                 className="opacity-0 group-hover:opacity-100 text-text-muted hover:text-crisp-cyan transition-all cursor-pointer p-1 rounded-md hover:bg-bg-card-hover"
                                 title={t.knowledge.editor.edit}
+                                aria-label={t.knowledge.editor.edit}
                             >
                                 <Pencil size={14} />
                             </button>
@@ -319,6 +320,7 @@ function QuotesView({
                                                     onClick={() => setEditingId(q.id)}
                                                     className="text-text-muted hover:text-crisp-cyan p-1 rounded-md hover:bg-bg-card-hover transition-colors cursor-pointer"
                                                     title={t.knowledge.editor.edit}
+                                                    aria-label={t.knowledge.editor.edit}
                                                 >
                                                     <Pencil size={13} />
                                                 </button>
@@ -326,6 +328,7 @@ function QuotesView({
                                                     onClick={() => handleDelete(q.id)}
                                                     className="text-text-muted hover:text-red-400 p-1 rounded-md hover:bg-bg-card-hover transition-colors cursor-pointer"
                                                     title={t.knowledge.editor.delete}
+                                                    aria-label={t.knowledge.editor.delete}
                                                 >
                                                     <Trash2 size={13} />
                                                 </button>
@@ -386,7 +389,7 @@ function RulesView() {
     useEffect(() => {
         fetch("/api/knowledge/rules")
             .then((r) => r.json())
-            .then(setRules)
+            .then((data) => setRules(data as ContentRules))
             .catch(console.error);
     }, []);
 
