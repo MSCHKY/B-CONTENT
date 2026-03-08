@@ -342,11 +342,12 @@ cmd_persona() {
   local persona_name
   persona_name=$(echo "$1" | tr '[:upper:]' '[:lower:]')
   local prompt_file="${PROMPTS_DIR}/${persona_name}.txt"
+  local core_file="${PROMPTS_DIR}/core-contract.txt"
 
   if [[ ! -f "$prompt_file" ]]; then
     echo "❌ Persona not found: ${persona_name}"
     echo "   Available personas:"
-    ls -1 "$PROMPTS_DIR"/*.txt 2>/dev/null | xargs -I{} basename {} .txt | sed 's/^/   - /'
+    ls -1 "$PROMPTS_DIR"/*.txt 2>/dev/null | grep -v core-contract | xargs -I{} basename {} .txt | sed 's/^/   - /'
     exit 1
   fi
 
@@ -360,9 +361,21 @@ cmd_persona() {
     *)        persona_title="$persona_name" ;;
   esac
 
+  # Merge core contract + persona lens into single prompt
+  local merged_prompt
+  merged_prompt=$(mktemp)
+  if [[ -f "$core_file" ]]; then
+    cat "$core_file" "$prompt_file" > "$merged_prompt"
+    echo "📋 Merged core-contract + ${persona_name} lens"
+  else
+    cp "$prompt_file" "$merged_prompt"
+    echo "⚠️  No core-contract.txt found, using persona file only"
+  fi
+
   PERSONA_NAME="$persona_name"
   echo "🎭 Deploying persona: ${persona_title}"
-  cmd_create "$prompt_file" "${persona_title}" "true"
+  cmd_create "$merged_prompt" "${persona_title}" "true"
+  rm -f "$merged_prompt"
 }
 
 cmd_batch() {

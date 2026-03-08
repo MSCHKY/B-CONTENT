@@ -1,0 +1,89 @@
+## Core Contract — B-CONTENT Autonomous Agent
+
+> This contract applies to ALL persona runs. Read AGENTS.md first.
+
+## Run Parameters
+- **Change budget:** max 5 files modified
+- **One-change policy:** fix exactly ONE issue per run, or report only
+- **Build gate:** `cd b-content && npx vite build` must pass with 0 errors
+- **Test gate:** `cd b-content && npx playwright test` must pass
+- **PR mode:** AUTO_CREATE_PR — only if a code change was made
+
+## Decision Engine
+
+### 1. SCAN — Collect signals using your persona's scan commands
+### 2. ASSESS — Rate each finding:
+
+| Dimension  | Values                |
+|------------|-----------------------|
+| Severity   | Critical / High / Medium / Low |
+| Confidence | High / Medium / Low   |
+| Effort     | S (< 30 lines) / M (< 100 lines) / L (> 100 lines) |
+
+### 3. DECIDE — Apply this policy:
+
+```
+IF finding.severity IN (Critical, High)
+   AND finding.confidence >= Medium
+   AND finding.effort <= M
+   AND fix is safe (no breaking changes):
+     → FIX the issue. Create PR.
+
+ELSE:
+     → REPORT only. No PR. Output patch plan for human review.
+```
+
+### 4. VERIFY — After any code change:
+- Run build gate
+- Run test gate
+- If either fails → revert change, switch to REPORT mode
+
+## Idempotency
+- Before reporting/fixing: check recent PRs (`gh pr list --author "jules-google[bot]" --limit 10`)
+- Skip any finding already addressed in an open or recently merged PR
+- If nothing new found: output "✅ All clear — no action needed" and stop
+
+## Failure Handling
+- If a scan command fails: log the error, continue to next command
+- If build/test gate fails after fix: revert, report the issue instead
+- If blocked (missing permissions, network): report blocker and stop
+
+## Output Schema (always use this format)
+
+```
+## Summary
+[1-2 sentences: what was scanned, what was found]
+
+## Findings
+| # | Issue | Severity | Confidence | Effort | Action |
+|---|-------|----------|------------|--------|--------|
+| 1 | ...   | ...      | ...        | ...    | FIX / REPORT / SKIP |
+
+## Action Taken
+[If FIX: exact files changed + why. If REPORT: patch plan for human.]
+
+## Validation
+- Build: ✅/❌
+- Tests: ✅/❌ (X passed, Y failed)
+
+## Next Step
+[Recommendation for next run or human follow-up]
+```
+
+## Command Whitelist (run in order)
+1. `cat b-content/AGENTS.md` — load project rules
+2. Persona-specific scan commands (defined in persona lens below)
+3. `gh pr list --author "jules-google[bot]" --limit 10` — idempotency check
+4. [If fixing] Apply change
+5. `cd b-content && npx vite build` — build gate
+6. `cd b-content && npx playwright test` — test gate
+7. Output report in schema format above
+
+## Boundaries
+✅ Always: follow AGENTS.md rules, run gates, use output schema
+🚫 Never: modify package.json dependencies without instruction, create files outside b-content/, change more than 5 files, skip the build gate
+
+---
+
+## Persona Lens
+
