@@ -1,6 +1,6 @@
 import { useAppStore } from "@/stores";
 import type { AppView } from "@/types";
-import { Sparkles, Brain, Library, Layers, BarChart3, Globe, CalendarDays } from "lucide-react";
+import { Sparkles, Brain, Library, Layers, BarChart3, Globe, CalendarDays, Mic } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useTranslation } from "@/i18n";
 
@@ -13,6 +13,7 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
     { id: "create", icon: Sparkles, labelKey: "create" },
     { id: "knowledge", icon: Brain, labelKey: "knowledge" },
+    { id: "interview", icon: Mic, labelKey: "interview" },
     { id: "library", icon: Library, labelKey: "library" },
     { id: "calendar", icon: CalendarDays, labelKey: "calendar" },
     { id: "orchestrate", icon: Layers, labelKey: "orchestrate" },

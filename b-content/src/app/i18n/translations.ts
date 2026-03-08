@@ -10,6 +10,7 @@ export interface Translations {
     nav: {
         create: string;
         knowledge: string;
+        interview: string;
         library: string;
         orchestrate: string;
         stats: string;
@@ -162,6 +163,33 @@ export interface Translations {
         scheduled: string;
     };
 
+    // --- Interview ---
+    interview: {
+        title: string;
+        subtitle: string;
+        titleLabel: string;
+        titlePlaceholder: string;
+        context: string;
+        contextPlaceholder: string;
+        dropzone: string;
+        uploading: string;
+        processing: string;
+        processingHint: string;
+        transcript: string;
+        extracted: string;
+        selected: string;
+        itemsSelected: string;
+        import: string;
+        importing: string;
+        imported: string;
+        itemsImported: string;
+        newInterview: string;
+        history: string;
+        tryAgain: string;
+        errorFormat: string;
+        errorSize: string;
+    };
+
     // --- Common ---
     common: {
         loading: string;
@@ -174,6 +202,7 @@ export const de: Translations = {
     nav: {
         create: "Erstellen",
         knowledge: "Wissen",
+        interview: "Interview",
         library: "Bibliothek",
         orchestrate: "Orchestrieren",
         stats: "Statistik",
@@ -320,6 +349,32 @@ export const de: Translations = {
         scheduled: "Geplant",
     },
 
+    interview: {
+        title: "Interview-Pipeline",
+        subtitle: "Audio-Interviews hochladen, transkribieren und Fakten für die Wissensbasis extrahieren.",
+        titleLabel: "Interview-Titel",
+        titlePlaceholder: "z.B. Interview Alex März 2026",
+        context: "Kontext (optional)",
+        contextPlaceholder: "Worum geht es im Interview?",
+        dropzone: "Audio-Datei hierher ziehen oder klicken",
+        uploading: "Wird hochgeladen…",
+        processing: "Wird verarbeitet…",
+        processingHint: "Transkription und Extraktion dauern ca. 30–60 Sekunden.",
+        transcript: "Transkript",
+        extracted: "Extrahierte Items",
+        selected: "ausgewählt",
+        itemsSelected: "Items ausgewählt",
+        import: "In Wissensbasis importieren",
+        importing: "Wird importiert…",
+        imported: "Erfolgreich importiert!",
+        itemsImported: "Items in die Wissensbasis importiert",
+        newInterview: "Neues Interview",
+        history: "Vergangene Interviews",
+        tryAgain: "Erneut versuchen",
+        errorFormat: "Nicht unterstütztes Audioformat. Bitte MP3, M4A, WAV, WebM, OGG oder FLAC verwenden.",
+        errorSize: "Datei zu groß. Maximal 20 MB.",
+    },
+
     common: {
         loading: "Wird geladen…",
         error: "Ein Fehler ist aufgetreten.",
@@ -331,6 +386,7 @@ export const en: Translations = {
     nav: {
         create: "Create",
         knowledge: "Knowledge",
+        interview: "Interview",
         library: "Library",
         orchestrate: "Orchestrate",
         stats: "Stats",
@@ -475,6 +531,32 @@ export const en: Translations = {
         unscheduleBtn: "Unschedule",
         cancel: "Cancel",
         scheduled: "Scheduled",
+    },
+
+    interview: {
+        title: "Interview Pipeline",
+        subtitle: "Upload audio interviews, transcribe and extract facts for the knowledge base.",
+        titleLabel: "Interview Title",
+        titlePlaceholder: "e.g. Interview Alex March 2026",
+        context: "Context (optional)",
+        contextPlaceholder: "What is the interview about?",
+        dropzone: "Drop audio file here or click to upload",
+        uploading: "Uploading…",
+        processing: "Processing…",
+        processingHint: "Transcription and extraction take about 30–60 seconds.",
+        transcript: "Transcript",
+        extracted: "Extracted Items",
+        selected: "selected",
+        itemsSelected: "items selected",
+        import: "Import to Knowledge Base",
+        importing: "Importing…",
+        imported: "Successfully imported!",
+        itemsImported: "items imported to knowledge base",
+        newInterview: "New Interview",
+        history: "Past Interviews",
+        tryAgain: "Try Again",
+        errorFormat: "Unsupported audio format. Please use MP3, M4A, WAV, WebM, OGG or FLAC.",
+        errorSize: "File too large. Maximum 20 MB.",
     },
 
     common: {
