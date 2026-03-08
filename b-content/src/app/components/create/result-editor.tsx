@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAppStore, useCreateStore } from "@/stores";
+import { useShallow } from "zustand/react/shallow";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
@@ -15,6 +16,7 @@ const formatOptions = Object.entries(LINKEDIN_FORMATS).map(
 );
 
 export function ResultEditor() {
+    // ⚡ Bolt: Use useShallow to prevent ResultEditor from re-rendering on every keystroke in TopicInput
     const {
         instance,
         contentType,
@@ -30,7 +32,24 @@ export function ResultEditor() {
         setGeneratedImageUrl,
         prevStep,
         reset,
-    } = useCreateStore();
+    } = useCreateStore(
+        useShallow((state) => ({
+            instance: state.instance,
+            contentType: state.contentType,
+            topicField: state.topicField,
+            userInput: state.userInput,
+            language: state.language,
+            generatedText: state.generatedText,
+            imageFormat: state.imageFormat,
+            generatedImageUrl: state.generatedImageUrl,
+            isGenerating: state.isGenerating,
+            setGeneratedText: state.setGeneratedText,
+            setImageFormat: state.setImageFormat,
+            setGeneratedImageUrl: state.setGeneratedImageUrl,
+            prevStep: state.prevStep,
+            reset: state.reset,
+        }))
+    );
 
     const setView = useAppStore((s) => s.setView);
 
