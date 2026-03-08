@@ -1,8 +1,8 @@
 # 🏗️ B/CONTENT — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-08 13:45
+> **Zuletzt aktualisiert:** 2026-03-08 14:42
 > **Modul:** B/CONTENT (Content-Gehirn)
-> **Status:** Phase 3 IN PROGRESS — Z-002 Content-Kalender ✅ LIVE, Z-003 Interview-Pipeline als Nächstes
+> **Status:** Phase 3 IN PROGRESS — Z-002 Content-Kalender ✅ LIVE, Z-003 Interview-Pipeline ✅ LIVE
 > **Branch:** `main` (Workers Builds Git-Integration aktiv)
 > **Live URL:** https://b-content.maschkeai.workers.dev
 > **Deploy:** Push auf `main` = automatisch live (Workers Builds, Root Dir: `b-content`)
@@ -89,7 +89,14 @@
   - [x] Sidebar: Kalender-Nav zwischen Bibliothek und Orchestrieren
   - [x] i18n: 13 Calendar Keys (DE + EN) + `scheduled` Status-Label
   - [x] Drag-to-Unschedule: Drop-Zone auf Ungeplante-Beiträge-Sektion
-- [ ] **Z-003: Interview-Pipeline** (Audio → Transkription → KB) — Wave 1, nächstes Feature
+- [x] **Z-003: Interview-Pipeline** (Audio → Transkription → KB) — Wave 1
+  - [x] Backend: D1 Migration (`interviews` Tabelle), 3 API Routes (process, import, history)
+  - [x] Gemini `transcribeAndExtract`: Single-Call Audio-Transkription + Fakten-Extraktion
+  - [x] Frontend: InterviewView (State Machine: idle→upload→processing→review→import→done)
+  - [x] Sidebar: Mic-Icon zwischen Wissen und Bibliothek
+  - [x] i18n: 25 Interview Keys (DE + EN)
+  - [x] Import-Feedback: Affected Topic Fields + "Wissensbasis öffnen" Button
+  - ⚠️ iPhone `audio/x-m4a` MIME-Type Hotfix deployed
 - [ ] **Z-001: Review-Workflow** — Wave 2 (benötigt Auth/CF Access)
 - [ ] **Z-005: Analytics** — Wave 3
 - [ ] **E-005: Template-Builder** — Wave 3
@@ -205,6 +212,8 @@
 | 2026-03-08 | Planning    | Phase 3 Roadmap: 3-Wave-Strategie (Calendar→Interview→Review→Analytics→Templates). Z-002 priorisiert. | ✅ Plan erstellt + genehmigt |
 | 2026-03-08 | Execution   | Z-002 Content-Kalender: 3 API-Routes, CalendarView Component (380 Zeilen), D1 Migration (scheduled_at + status CHECK), Drag & Drop, Conflict Detection | ✅ Live + Verifiziert |
 | 2026-03-08 | Polish      | Calendar Drag-to-Unschedule: Drop-Zone auf Ungeplante-Beiträge-Sektion mit visuellem Feedback | ✅ Deployed |
+| 2026-03-08 | Execution   | Z-003 Interview-Pipeline: D1 Migration, Gemini Audio Service, 3 API Routes, InterviewView UI (594 Zeilen), Sidebar + i18n (25 Keys) | ✅ Live |
+| 2026-03-08 | Hotfix      | iPhone audio/x-m4a MIME-Type Fix + Import-Feedback Polish (affected topics + KB-Link) | ✅ Deployed |
 
 ### ⚠️ Bekannte Probleme
 - **6 Audit-Findings bewusst deferred:** KV Race Condition (#1), Rate Limiting (#5), DSGVO Gemini EU (#6), KV Jurisdiction (#7), POST Idempotenz (#12), REST-Konsistenz (#13).

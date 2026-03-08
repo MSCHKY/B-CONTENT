@@ -1,6 +1,6 @@
 # 📋 B/CONTENT — Backlog
 
-> **Zuletzt aktualisiert:** 2026-03-08 13:45
+> **Zuletzt aktualisiert:** 2026-03-08 14:42
 > **Referenz:** `PRODUCT_SPEC.md` für vollständige Feature-Beschreibungen
 
 ---
@@ -61,7 +61,7 @@ Entspricht Features F12-F17 aus PRODUCT_SPEC.md:
 |-------|------|--------------------------------------------------|---------|-----------|
 | Z-001 | P3   | Review-Workflow (benötigt Auth)                  | F12     | 🔲 Offen  |
 | Z-002 | P1   | Content-Kalender                                 | F13     | ✅ Done   |
-| Z-003 | P2   | Interview-Pipeline (Audio→Transkription→KB)      | F14     | 🔲 Offen  |
+| Z-003 | P2   | Interview-Pipeline (Audio→Transkription→KB)      | F14     | ✅ Done   |
 | Z-004 | P3   | Multi-Channel (Instagram, X)                     | F15     | 🔲 Offen  |
 | Z-005 | P3   | Analytics                                        | F16     | 🔲 Offen  |
 | Z-006 | P3   | B/WIRE Integration                               | F17     | 🔲 Offen  |
@@ -110,3 +110,4 @@ Entspricht Features F12-F17 aus PRODUCT_SPEC.md:
 | —     | Library Archive: Soft-Delete, Restore, Purge + Hono Route-Ordering Fix | 2026-03-07 |
 | —     | Multi-Model Code Audit: 14 Findings gefixt, 6 deferred, Jules PRs reviewed | 2026-03-08 |
 | —     | Z-002: Content-Kalender (Month Grid, Drag & Drop, 2-Day Rule Conflicts, 3 API Routes) | 2026-03-08 |
+| —     | Z-003: Interview-Pipeline (Gemini Audio, 3 API Routes, InterviewView, i18n 25 Keys) | 2026-03-08 |

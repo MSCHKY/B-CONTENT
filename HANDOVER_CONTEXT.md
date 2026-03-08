@@ -1,7 +1,7 @@
 # 🏗️ BENDERWIRE GROUP — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-08 13:45
-> **Aktiver Fokus:** B/CONTENT (Content-Gehirn) — Phase 3 IN PROGRESS, **Z-002 Content-Kalender ✅ LIVE**
+> **Zuletzt aktualisiert:** 2026-03-08 14:42
+> **Aktiver Fokus:** B/CONTENT (Content-Gehirn) — Phase 3 IN PROGRESS, **Z-003 Interview-Pipeline ✅ LIVE**
 > **Phase:** Pitch / MVP
 
 ---
@@ -62,6 +62,7 @@ Vollständige Spezifikation → `B-CONTENT/PRODUCT_SPEC.md`
 - [x] **Phase 2:** E-001 Content Orchestration (Dreier-Regel) + E-002 4:1 Ratio Tracker ✅
 - [x] **Phase 2:** E-003 Knowledge Editor (CRUD) + Library Archive (Soft-Delete) ✅
 - [x] **Phase 3:** Z-002 Content-Kalender (Month Grid, Drag & Drop, 2-Day Rule Conflicts) ✅
+- [x] **Phase 3:** Z-003 Interview-Pipeline (Audio Upload, Gemini Transcription, KB Import) ✅
 
 ---
 
@@ -156,3 +157,4 @@ BENDERGROUP/
 | 2026-03-08 | Tooling     | Jules Workflow V2→V3: API-CLI, Prompt V3 (Core Contract + Persona Lens), 7 Scheduled Tasks | ✅ Deployed |
 | 2026-03-08 | Review      | Jules Audit Batch 3: 9 PRs — 7 merged, 2 closed. Archive 500 Bugfix (D1 CHECK constraint) | ✅ Done |
 | 2026-03-08 | Phase 3     | Z-002 Content-Kalender: 3 API-Routes, CalendarView, D1 Migration, Drag & Drop, Conflict Detection | ✅ Live |
+| 2026-03-08 | Phase 3     | Z-003 Interview-Pipeline: Gemini Audio Transcription+Extraction, 3 API Routes, InterviewView UI, i18n 25 Keys, iPhone MIME Fix, Import Feedback Polish | ✅ Live |
