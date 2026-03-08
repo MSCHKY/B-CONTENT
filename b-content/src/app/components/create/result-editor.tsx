@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAppStore, useCreateStore } from "@/stores";
+import { useShallow } from "zustand/react/shallow";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
@@ -15,6 +16,7 @@ const formatOptions = Object.entries(LINKEDIN_FORMATS).map(
 );
 
 export function ResultEditor() {
+    // 🔥 GLUT: Use useShallow to prevent unnecessary re-renders when other store properties change
     const {
         instance,
         contentType,
@@ -30,7 +32,24 @@ export function ResultEditor() {
         setGeneratedImageUrl,
         prevStep,
         reset,
-    } = useCreateStore();
+    } = useCreateStore(
+        useShallow((s) => ({
+            instance: s.instance,
+            contentType: s.contentType,
+            topicField: s.topicField,
+            userInput: s.userInput,
+            language: s.language,
+            generatedText: s.generatedText,
+            imageFormat: s.imageFormat,
+            generatedImageUrl: s.generatedImageUrl,
+            isGenerating: s.isGenerating,
+            setGeneratedText: s.setGeneratedText,
+            setImageFormat: s.setImageFormat,
+            setGeneratedImageUrl: s.setGeneratedImageUrl,
+            prevStep: s.prevStep,
+            reset: s.reset,
+        }))
+    );
 
     const setView = useAppStore((s) => s.setView);
 

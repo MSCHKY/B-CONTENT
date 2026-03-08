@@ -1,4 +1,5 @@
 import { useCreateStore } from "@/stores";
+import { useShallow } from "zustand/react/shallow";
 import { Card, CardBody } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -19,8 +20,15 @@ const instances = instancesData as Record<
 >;
 
 export function ContentTypePicker() {
-    const { instance, contentType, selectContentType, prevStep } =
-        useCreateStore();
+    // 🔥 GLUT: Use useShallow to prevent unnecessary re-renders when other store properties change
+    const { instance, contentType, selectContentType, prevStep } = useCreateStore(
+        useShallow((s) => ({
+            instance: s.instance,
+            contentType: s.contentType,
+            selectContentType: s.selectContentType,
+            prevStep: s.prevStep,
+        }))
+    );
 
     if (!instance) return null;
 

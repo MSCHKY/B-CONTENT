@@ -1,4 +1,5 @@
 import { useCreateStore } from "@/stores";
+import { useShallow } from "zustand/react/shallow";
 import { Card, CardBody } from "@/components/ui/card";
 import type { InstanceId } from "@/types";
 import instancesData from "@data/instances/instances.json";
@@ -29,7 +30,13 @@ const INSTANCE_CARDS: InstanceDisplay[] = Object.values(instances).map(
 );
 
 export function InstancePicker() {
-    const { instance, selectInstance } = useCreateStore();
+    // 🔥 GLUT: Use useShallow to prevent unnecessary re-renders when other store properties change
+    const { instance, selectInstance } = useCreateStore(
+        useShallow((s) => ({
+            instance: s.instance,
+            selectInstance: s.selectInstance,
+        }))
+    );
     const { t } = useTranslation();
 
     return (
