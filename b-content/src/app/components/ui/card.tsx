@@ -29,13 +29,29 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
             glass = true,
             className = "",
             children,
+            onClick,
+            onKeyDown,
             ...props
         },
         ref
     ) => {
+        const isInteractive = !!onClick;
+
+        const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+            if (isInteractive && (e.key === "Enter" || e.key === " ")) {
+                e.preventDefault();
+                onClick(e as any);
+            }
+            onKeyDown?.(e);
+        };
+
         return (
             <div
                 ref={ref}
+                role={isInteractive ? "button" : undefined}
+                tabIndex={isInteractive ? 0 : undefined}
+                onClick={onClick}
+                onKeyDown={handleKeyDown}
                 className={`
                     rounded-xl transition-all duration-[var(--vdna-transition-base)]
                     ${glass ? "glass-card" : "bg-bg-card border border-border-default"}
@@ -47,6 +63,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
                         ? "hover-lift cursor-pointer"
                         : ""
                     }
+                    ${isInteractive ? "focus-ring outline-none" : ""}
                     ${className}
                 `}
                 {...props}
