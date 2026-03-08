@@ -44,6 +44,68 @@ test.describe("B/CONTENT API Tests", () => {
     });
 
     // ---------------------------------------------------------
+    // POST /api/generate/image
+    // ---------------------------------------------------------
+    test.describe("POST /api/generate/image", () => {
+        test("happy path - returns mock generation when no API key", async ({ request }) => {
+            const response = await request.post("/api/generate/image", {
+                data: {
+                    instance: "alex",
+                    format: "single-square",
+                    topicField: "Innovation",
+                    userInput: "Test image"
+                }
+            });
+            expect(response.ok()).toBeTruthy();
+            const body = await response.json();
+
+            expect(body).toHaveProperty("imageUrl");
+            expect(typeof body.imageUrl === "string" || body.imageUrl === null).toBe(true);
+
+            if (body.imageId !== undefined) {
+                expect(typeof body.imageId === "string" || body.imageId === null).toBe(true);
+            }
+            if (body.r2Key !== undefined) {
+                expect(typeof body.r2Key === "string" || body.r2Key === null).toBe(true);
+            }
+            if (body.mimeType !== undefined) {
+                expect(typeof body.mimeType === "string" || body.mimeType === null).toBe(true);
+            }
+            expect(body).toHaveProperty("prompt");
+            expect(typeof body.prompt === "string" || body.prompt === null).toBe(true);
+            expect(body).toHaveProperty("mock");
+            expect(typeof body.mock).toBe("boolean");
+        });
+    });
+
+    // ---------------------------------------------------------
+    // POST /api/generate/website-article
+    // ---------------------------------------------------------
+    test.describe("POST /api/generate/website-article", () => {
+        test("happy path - returns mock generation when no API key", async ({ request }) => {
+            const response = await request.post("/api/generate/website-article", {
+                data: {
+                    topicField: "Innovation",
+                    userInput: "Test input"
+                }
+            });
+            expect(response.ok()).toBeTruthy();
+            const body = await response.json();
+
+            expect(body).toHaveProperty("text");
+            expect(typeof body.text).toBe("string");
+            expect(body).toHaveProperty("charCount");
+            expect(typeof body.charCount).toBe("number");
+            expect(body).toHaveProperty("mock");
+            expect(typeof body.mock).toBe("boolean");
+
+            if (body.tokenCount !== undefined) {
+                expect(typeof body.tokenCount).toBe("number");
+            }
+        });
+    });
+
+    // ---------------------------------------------------------
     // GET /api/knowledge/topics
     // ---------------------------------------------------------
     test.describe("GET /api/knowledge/topics", () => {
