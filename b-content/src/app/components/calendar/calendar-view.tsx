@@ -69,6 +69,7 @@ export function CalendarView() {
     const [filterInstance, setFilterInstance] = useState("");
     const [loading, setLoading] = useState(true);
     const [scheduleModal, setScheduleModal] = useState<{ post: CalendarPost; date?: string } | null>(null);
+    const [dragOverUnscheduled, setDragOverUnscheduled] = useState(false);
 
     const weekdays = locale === "de" ? WEEKDAY_LABELS_DE : WEEKDAY_LABELS;
 
@@ -387,13 +388,32 @@ export function CalendarView() {
                 </div>
             </div>
 
-            {/* Unscheduled Posts (Drag Source) */}
-            {unscheduled.length > 0 && (
-                <div className="mb-8">
-                    <h3 className="text-sm font-semibold text-text-primary mb-3 flex items-center gap-2">
-                        <CalendarClock size={16} className="text-text-muted" />
-                        {t.calendar.unscheduled} ({unscheduled.length})
-                    </h3>
+            {/* Unscheduled Posts (Drag Source + Drop Target to unschedule) */}
+            <div
+                className={`mb-8 rounded-xl p-4 transition-all duration-200 ${dragOverUnscheduled
+                    ? "bg-crisp-cyan/10 ring-2 ring-crisp-cyan/30 ring-dashed"
+                    : ""
+                    }`}
+                onDragOver={(e) => {
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = "move";
+                    setDragOverUnscheduled(true);
+                }}
+                onDragLeave={() => setDragOverUnscheduled(false)}
+                onDrop={(e) => {
+                    e.preventDefault();
+                    setDragOverUnscheduled(false);
+                    const postId = e.dataTransfer.getData("text/plain");
+                    if (postId) {
+                        handleUnschedule(postId);
+                    }
+                }}
+            >
+                <h3 className="text-sm font-semibold text-text-primary mb-3 flex items-center gap-2">
+                    <CalendarClock size={16} className="text-text-muted" />
+                    {t.calendar.unscheduled} ({unscheduled.length})
+                </h3>
+                {unscheduled.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                         {unscheduled.map((post) => (
                             <div
@@ -428,8 +448,15 @@ export function CalendarView() {
                             </div>
                         ))}
                     </div>
-                </div>
-            )}
+                ) : (
+                    <p className="text-xs text-text-muted italic">
+                        {dragOverUnscheduled
+                            ? (locale === "de" ? "Hier ablegen zum Entplanen" : "Drop here to unschedule")
+                            : (locale === "de" ? "Alle Beiträge sind geplant" : "All posts are scheduled")
+                        }
+                    </p>
+                )}
+            </div>
 
             {/* Schedule Modal */}
             {scheduleModal && (
