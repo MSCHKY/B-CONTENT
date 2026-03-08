@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useCreateStore } from "@/stores";
 import { useShallow } from "zustand/react/shallow";
 import { Button } from "@/components/ui/button";
@@ -76,6 +76,7 @@ export function TopicInput() {
     );
 
     const { t } = useTranslation();
+    const [error, setError] = useState<string | null>(null);
 
     // Find relevant quotes for the selected instance and topic
     // ⚡ Bolt: Memoize relevant quotes to prevent unnecessary filtering on every keystroke
@@ -95,6 +96,7 @@ export function TopicInput() {
 
     const handleGenerate = async () => {
         setIsGenerating(true);
+        setError(null);
 
         try {
             const response = await fetch("/api/generate/text", {
@@ -109,15 +111,25 @@ export function TopicInput() {
                 }),
             });
 
+            if (!response.ok) {
+                const errData = await response.json().catch(() => ({ error: "Unknown error" })) as { error?: string };
+                throw new Error(errData.error || `HTTP ${response.status}`);
+            }
+
             const data = (await response.json()) as { text: string };
             setGeneratedText(data.text);
             nextStep();
-        } catch {
-            // Fallback mock for dev without worker
-            setGeneratedText(
-                `[Dev Mock] Content for ${instance}\n\nTopic: ${topicField}\nInput: "${userInput}"\n\nThis is a placeholder. The real AI generation requires the Worker API to be running.\n\n#BenderWire #Innovation`
-            );
-            nextStep();
+        } catch (err) {
+            if (import.meta.env.DEV) {
+                // Dev-only fallback when worker is not running
+                setGeneratedText(
+                    `[Dev Mock] Content for ${instance}\n\nTopic: ${topicField}\nInput: "${userInput}"\n\nThis is a placeholder. The real AI generation requires the Worker API to be running.\n\n#BenderWire #Innovation`
+                );
+                nextStep();
+            } else {
+                console.error("[handleGenerate]", err);
+                setError(err instanceof Error ? err.message : t.common.error);
+            }
         } finally {
             setIsGenerating(false);
         }
@@ -176,6 +188,13 @@ export function TopicInput() {
                     >
                         ✨ {t.create.topicInput.generate}
                     </Button>
+
+                    {error && (
+                        <div className="rounded-lg bg-red-500/10 border border-red-500/30 p-3 text-sm text-red-400 animate-fade-in-up flex items-center justify-between">
+                            <span>⚠️ {error}</span>
+                            <button onClick={() => setError(null)} className="text-red-400 hover:text-red-300 ml-2">✕</button>
+                        </div>
+                    )}
                 </div>
 
                 {/* Knowledge Suggestions */}

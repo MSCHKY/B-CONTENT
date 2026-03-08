@@ -59,6 +59,7 @@ export function ResultEditor() {
     const [savedImageId, setSavedImageId] = useState<string | null>(null);
     const [isSaving, setIsSaving] = useState(false);
     const [isGeneratingImage, setIsGeneratingImage] = useState(false);
+    const [imageError, setImageError] = useState<string | null>(null);
 
     const charCount = generatedText?.length ?? 0;
     const format = LINKEDIN_FORMATS[imageFormat];
@@ -83,6 +84,7 @@ export function ResultEditor() {
     // Generate image via API
     const handleGenerateImage = async () => {
         setIsGeneratingImage(true);
+        setImageError(null);
         try {
             const response = await fetch("/api/generate/image", {
                 method: "POST",
@@ -96,6 +98,11 @@ export function ResultEditor() {
                 }),
             });
 
+            if (!response.ok) {
+                const errData = await response.json().catch(() => ({ error: "Unknown error" })) as { error?: string };
+                throw new Error(errData.error || `HTTP ${response.status}`);
+            }
+
             const data = (await response.json()) as {
                 imageUrl?: string;
                 imageId?: string;
@@ -108,10 +115,11 @@ export function ResultEditor() {
                     setSavedImageId(data.imageId);
                 }
             } else if (data.error) {
-                console.error("[Image Generation]", data.error);
+                setImageError(data.error);
             }
         } catch (err) {
             console.error("[Image Generation] Failed:", err);
+            setImageError(err instanceof Error ? err.message : "Image generation failed");
         } finally {
             setIsGeneratingImage(false);
         }
@@ -270,6 +278,13 @@ export function ResultEditor() {
                     >
                         🎨 {t.create.result.generateImage}
                     </Button>
+
+                    {imageError && (
+                        <div className="rounded-lg bg-red-500/10 border border-red-500/30 p-3 text-sm text-red-400 animate-fade-in-up flex items-center justify-between">
+                            <span>⚠️ {imageError}</span>
+                            <button onClick={() => setImageError(null)} className="text-red-400 hover:text-red-300 ml-2">✕</button>
+                        </div>
+                    )}
                 </div>
             </div>
 

@@ -117,6 +117,7 @@ export interface Translations {
         restore: string;
         purge: string;
         confirmPurge: string;
+        refresh: string;
         statusLabels: {
             draft: string;
             scheduled: string;
@@ -223,6 +224,7 @@ export interface Translations {
     common: {
         loading: string;
         error: string;
+        actionFailed: string;
         noData: string;
     };
 }
@@ -335,6 +337,7 @@ export const de: Translations = {
         restore: "Wiederherstellen",
         purge: "Endgültig löschen",
         confirmPurge: "Beitrag endgültig löschen? Das kann nicht rückgängig gemacht werden.",
+        refresh: "Aktualisieren",
         statusLabels: {
             draft: "Entwurf",
             scheduled: "Geplant",
@@ -436,6 +439,7 @@ export const de: Translations = {
     common: {
         loading: "Wird geladen…",
         error: "Ein Fehler ist aufgetreten.",
+        actionFailed: "Aktion fehlgeschlagen.",
         noData: "Keine Daten verfügbar.",
     },
 };
@@ -548,6 +552,7 @@ export const en: Translations = {
         restore: "Restore",
         purge: "Delete permanently",
         confirmPurge: "Permanently delete this post? This cannot be undone.",
+        refresh: "Refresh",
         statusLabels: {
             draft: "Draft",
             scheduled: "Scheduled",
@@ -649,6 +654,7 @@ export const en: Translations = {
     common: {
         loading: "Loading…",
         error: "An error occurred.",
+        actionFailed: "Action failed.",
         noData: "No data available.",
     },
 };

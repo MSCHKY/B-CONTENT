@@ -119,8 +119,9 @@ export function Library() {
                 body: JSON.stringify({ status: newStatus }),
             });
             fetchPosts(); // Refresh
-        } catch {
-            // Silent fail
+        } catch (err) {
+            console.error("[handleStatusChange]", err);
+            setError(t.common.actionFailed);
         }
     };
 
@@ -129,8 +130,9 @@ export function Library() {
         try {
             await fetch(`/api/posts/${postId}`, { method: "DELETE" });
             fetchPosts();
-        } catch {
-            // Silent fail
+        } catch (err) {
+            console.error("[handleArchive]", err);
+            setError(t.common.actionFailed);
         }
     };
 
@@ -138,8 +140,9 @@ export function Library() {
         try {
             await fetch(`/api/posts/${postId}/restore`, { method: "POST" });
             fetchPosts();
-        } catch {
-            // Silent fail
+        } catch (err) {
+            console.error("[handleRestore]", err);
+            setError(t.common.actionFailed);
         }
     };
 
@@ -148,8 +151,9 @@ export function Library() {
         try {
             await fetch(`/api/posts/${postId}/purge`, { method: "DELETE" });
             fetchPosts();
-        } catch {
-            // Silent fail
+        } catch (err) {
+            console.error("[handlePurge]", err);
+            setError(t.common.actionFailed);
         }
     };
 
@@ -171,7 +175,7 @@ export function Library() {
                     </h2>
                 </div>
                 <Button variant="ghost" size="sm" onClick={fetchPosts}>
-                    <RefreshCw size={14} className="mr-1" /> Refresh
+                    <RefreshCw size={14} className="mr-1" /> {t.library.refresh}
                 </Button>
             </div>
             <hr className="gradient-line mb-3" />
@@ -279,7 +283,7 @@ export function Library() {
                                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                                             {/* Full text */}
                                             <div>
-                                                <h4 className="text-sm font-semibold text-text-primary mb-2">Text</h4>
+                                                <h4 className="text-sm font-semibold text-text-primary mb-2">{t.create.result.postText}</h4>
                                                 <div className="bg-bg-primary/80 rounded-lg p-3 text-sm text-text-secondary whitespace-pre-wrap max-h-64 overflow-y-auto backdrop-blur-sm">
                                                     {post.text}
                                                 </div>
@@ -298,7 +302,7 @@ export function Library() {
                                             <div>
                                                 {post.image?.url && (
                                                     <>
-                                                        <h4 className="text-sm font-semibold text-text-primary mb-2">Image</h4>
+                                                        <h4 className="text-sm font-semibold text-text-primary mb-2">{t.create.result.postImage}</h4>
                                                         <img
                                                             src={post.image.url}
                                                             alt="Generated post image"

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Select } from "@/components/ui/select";
@@ -70,6 +70,8 @@ export function CalendarView() {
     const [loading, setLoading] = useState(true);
     const [scheduleModal, setScheduleModal] = useState<{ post: CalendarPost; date?: string } | null>(null);
     const [dragOverUnscheduled, setDragOverUnscheduled] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const dateInputRef = useRef<HTMLInputElement>(null);
 
     const weekdays = locale === "de" ? WEEKDAY_LABELS_DE : WEEKDAY_LABELS;
 
@@ -103,8 +105,9 @@ export function CalendarView() {
             setScheduled(calData.scheduled ?? []);
             setUnscheduled(calData.unscheduled ?? []);
             setConflicts(confData.conflicts ?? []);
-        } catch {
-            // Silent fail
+        } catch (err) {
+            console.error("[fetchCalendar]", err);
+            setError(t.common.actionFailed);
         } finally {
             setLoading(false);
         }
@@ -200,8 +203,9 @@ export function CalendarView() {
             });
             setScheduleModal(null);
             fetchCalendar();
-        } catch {
-            // Silent fail
+        } catch (err) {
+            console.error("[handleSchedule]", err);
+            setError(t.common.actionFailed);
         }
     };
 
@@ -214,8 +218,9 @@ export function CalendarView() {
                 body: JSON.stringify({ scheduledAt: null }),
             });
             fetchCalendar();
-        } catch {
-            // Silent fail
+        } catch (err) {
+            console.error("[handleUnschedule]", err);
+            setError(t.common.actionFailed);
         }
     };
 
@@ -264,6 +269,13 @@ export function CalendarView() {
             <p className="text-sm text-text-muted mb-6">
                 {t.calendar.subtitle}
             </p>
+
+            {error && (
+                <div className="rounded-lg bg-red-500/10 border border-red-500/30 p-4 mb-6 text-sm text-red-400 animate-fade-in-up flex items-center justify-between">
+                    <span>{error}</span>
+                    <button onClick={() => setError(null)} className="text-red-400 hover:text-red-300 ml-2">✕</button>
+                </div>
+            )}
 
             {/* Controls */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-6">
@@ -491,10 +503,10 @@ export function CalendarView() {
                         </label>
                         <input
                             type="date"
+                            ref={dateInputRef}
                             defaultValue={scheduleModal.date ?? scheduleModal.post.scheduled_at ?? ""}
                             className="w-full rounded-lg border border-border-default/30 bg-bg-card px-3 py-2 text-sm text-text-primary mb-4
                                        focus:outline-none focus:ring-2 focus:ring-deep-green/50"
-                            id="schedule-date-input"
                         />
 
                         {/* Actions */}
@@ -503,9 +515,8 @@ export function CalendarView() {
                                 variant="primary"
                                 size="sm"
                                 onClick={() => {
-                                    const input = document.getElementById("schedule-date-input") as HTMLInputElement;
-                                    if (input?.value) {
-                                        handleSchedule(scheduleModal.post.id, input.value);
+                                    if (dateInputRef.current?.value) {
+                                        handleSchedule(scheduleModal.post.id, dateInputRef.current.value);
                                     }
                                 }}
                             >
