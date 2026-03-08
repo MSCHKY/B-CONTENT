@@ -1,7 +1,7 @@
 # 🏗️ BENDERWIRE GROUP — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-08 12:50
-> **Aktiver Fokus:** B/CONTENT (Content-Gehirn) — Phase 2 near complete, **Jules Workflow V3 live (API-CLI + Scheduled Tasks)**
+> **Zuletzt aktualisiert:** 2026-03-08 13:45
+> **Aktiver Fokus:** B/CONTENT (Content-Gehirn) — Phase 3 IN PROGRESS, **Z-002 Content-Kalender ✅ LIVE**
 > **Phase:** Pitch / MVP
 
 ---
@@ -61,6 +61,7 @@ Vollständige Spezifikation → `B-CONTENT/PRODUCT_SPEC.md`
 - [x] Deploy + E2E verifiziert ✅
 - [x] **Phase 2:** E-001 Content Orchestration (Dreier-Regel) + E-002 4:1 Ratio Tracker ✅
 - [x] **Phase 2:** E-003 Knowledge Editor (CRUD) + Library Archive (Soft-Delete) ✅
+- [x] **Phase 3:** Z-002 Content-Kalender (Month Grid, Drag & Drop, 2-Day Rule Conflicts) ✅
 
 ---
 
@@ -153,3 +154,5 @@ BENDERGROUP/
 | 2026-03-08 | QA/Audit    | Multi-Model Code Audit (Opus/Sonnet/Gemini/Codex + Jules): Context7-backed Prompts, 4/5 done | ✅ Jules pending |
 | 2026-03-08 | Hardening   | Audit Batch 1+2: 7 Findings gefixt (Error Handler, API Key Header, CORS, Sanitization, Pagination), /jules Workflow V1 | ✅ Deployed |
 | 2026-03-08 | Tooling     | Jules Workflow V2→V3: API-CLI, Prompt V3 (Core Contract + Persona Lens), 7 Scheduled Tasks | ✅ Deployed |
+| 2026-03-08 | Review      | Jules Audit Batch 3: 9 PRs — 7 merged, 2 closed. Archive 500 Bugfix (D1 CHECK constraint) | ✅ Done |
+| 2026-03-08 | Phase 3     | Z-002 Content-Kalender: 3 API-Routes, CalendarView, D1 Migration, Drag & Drop, Conflict Detection | ✅ Live |

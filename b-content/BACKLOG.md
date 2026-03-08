@@ -1,6 +1,6 @@
 # 📋 B/CONTENT — Backlog
 
-> **Zuletzt aktualisiert:** 2026-03-07 22:15
+> **Zuletzt aktualisiert:** 2026-03-08 13:45
 > **Referenz:** `PRODUCT_SPEC.md` für vollständige Feature-Beschreibungen
 
 ---
@@ -60,8 +60,8 @@ Entspricht Features F12-F17 aus PRODUCT_SPEC.md:
 | ID    | Prio | Aufgabe                                          | Feature | Status    |
 |-------|------|--------------------------------------------------|---------|-----------|
 | Z-001 | P3   | Review-Workflow (benötigt Auth)                  | F12     | 🔲 Offen  |
-| Z-002 | P3   | Content-Kalender                                 | F13     | 🔲 Offen  |
-| Z-003 | P3   | Interview-Pipeline (Audio→Transkription→KB)      | F14     | 🔲 Offen  |
+| Z-002 | P1   | Content-Kalender                                 | F13     | ✅ Done   |
+| Z-003 | P2   | Interview-Pipeline (Audio→Transkription→KB)      | F14     | 🔲 Offen  |
 | Z-004 | P3   | Multi-Channel (Instagram, X)                     | F15     | 🔲 Offen  |
 | Z-005 | P3   | Analytics                                        | F16     | 🔲 Offen  |
 | Z-006 | P3   | B/WIRE Integration                               | F17     | 🔲 Offen  |
@@ -108,3 +108,5 @@ Entspricht Features F12-F17 aus PRODUCT_SPEC.md:
 | —     | Library: Emoji-Buttons → Lucide Icons (Copy, Download, Trash2, RefreshCw) | 2026-03-07 |
 | —     | E-003 Knowledge CRUD: KV Overlay + 7 API Routes + TopicEditor + QuoteEditor + i18n 16 Keys | 2026-03-07 |
 | —     | Library Archive: Soft-Delete, Restore, Purge + Hono Route-Ordering Fix | 2026-03-07 |
+| —     | Multi-Model Code Audit: 14 Findings gefixt, 6 deferred, Jules PRs reviewed | 2026-03-08 |
+| —     | Z-002: Content-Kalender (Month Grid, Drag & Drop, 2-Day Rule Conflicts, 3 API Routes) | 2026-03-08 |

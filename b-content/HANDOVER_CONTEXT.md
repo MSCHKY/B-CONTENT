@@ -1,8 +1,8 @@
 # 🏗️ B/CONTENT — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-08 12:50
+> **Zuletzt aktualisiert:** 2026-03-08 13:45
 > **Modul:** B/CONTENT (Content-Gehirn)
-> **Status:** Phase 2 NEAR COMPLETE — E-001–E-004 ✅, i18n DE/EN ✅, Library Archive ✅, **Audit Batch 1–3 complete (7+7=14 Findings merged, 6 deferred)**
+> **Status:** Phase 3 IN PROGRESS — Z-002 Content-Kalender ✅ LIVE, Z-003 Interview-Pipeline als Nächstes
 > **Branch:** `main` (Workers Builds Git-Integration aktiv)
 > **Live URL:** https://b-content.maschkeai.workers.dev
 > **Deploy:** Push auf `main` = automatisch live (Workers Builds, Root Dir: `b-content`)
@@ -80,6 +80,19 @@
   - [x] Archiv-Filter im Dropdown, Wiederherstellen + Endgültig löschen Buttons
   - ⚠️ Hono Route-Ordering-Bug gefixed (purge/restore VOR /:id catch-all)
 - [ ] Transkript-Import (V2 Feature)
+
+### Phase 3: Zukunfts-Features — IN PROGRESS
+- [x] **Z-002: Content-Kalender** — Monats-Grid, Drag & Drop Scheduling, 2-Tage-Regel Konflikterkennung
+  - [x] Backend: `calendar.ts` Routes (GET month, PATCH schedule, GET conflicts)
+  - [x] D1 Migration: `scheduled_at` Column + `scheduled` Status in CHECK constraint
+  - [x] Frontend: CalendarView (Month Grid, DnD, Schedule-Modal, Conflict-Warnings)
+  - [x] Sidebar: Kalender-Nav zwischen Bibliothek und Orchestrieren
+  - [x] i18n: 13 Calendar Keys (DE + EN) + `scheduled` Status-Label
+  - [x] Drag-to-Unschedule: Drop-Zone auf Ungeplante-Beiträge-Sektion
+- [ ] **Z-003: Interview-Pipeline** (Audio → Transkription → KB) — Wave 1, nächstes Feature
+- [ ] **Z-001: Review-Workflow** — Wave 2 (benötigt Auth/CF Access)
+- [ ] **Z-005: Analytics** — Wave 3
+- [ ] **E-005: Template-Builder** — Wave 3
 
 ---
 
@@ -189,6 +202,9 @@
 | 2026-03-08 | Tooling     | Jules Workflow V2→V3: API-CLI (`scripts/jules.sh`), Prompt V3 (Core Contract + Persona Lens), 7 Scheduled Tasks, 60+ alte Sessions bereinigt | ✅ Committed + deployed |
 | 2026-03-08 | Review      | Jules Audit Batch 3: 9 PRs reviewed — 7 merged (#10-#14, #16, #17), 2 closed (#9 dup onError, #15 dup useShallow). Perf, Security, A11y, Tests. | ✅ 0 open PRs |
 | 2026-03-08 | Bugfix      | Archive 500 on Production: D1 CHECK constraint missing 'archived' status. Migration applied, Archive/Restore/Purge verifiziert. | ✅ Fixed + Verified |
+| 2026-03-08 | Planning    | Phase 3 Roadmap: 3-Wave-Strategie (Calendar→Interview→Review→Analytics→Templates). Z-002 priorisiert. | ✅ Plan erstellt + genehmigt |
+| 2026-03-08 | Execution   | Z-002 Content-Kalender: 3 API-Routes, CalendarView Component (380 Zeilen), D1 Migration (scheduled_at + status CHECK), Drag & Drop, Conflict Detection | ✅ Live + Verifiziert |
+| 2026-03-08 | Polish      | Calendar Drag-to-Unschedule: Drop-Zone auf Ungeplante-Beiträge-Sektion mit visuellem Feedback | ✅ Deployed |
 
 ### ⚠️ Bekannte Probleme
 - **6 Audit-Findings bewusst deferred:** KV Race Condition (#1), Rate Limiting (#5), DSGVO Gemini EU (#6), KV Jurisdiction (#7), POST Idempotenz (#12), REST-Konsistenz (#13).
