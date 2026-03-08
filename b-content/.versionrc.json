@@ -1,0 +1,46 @@
+{
+    "types": [
+        {
+            "type": "feat",
+            "section": "Features"
+        },
+        {
+            "type": "fix",
+            "section": "Bug Fixes"
+        },
+        {
+            "type": "refactor",
+            "section": "Code Quality"
+        },
+        {
+            "type": "perf",
+            "section": "Performance"
+        },
+        {
+            "type": "security",
+            "section": "Security"
+        },
+        {
+            "type": "polish",
+            "section": "Visual"
+        },
+        {
+            "type": "docs",
+            "hidden": true
+        },
+        {
+            "type": "chore",
+            "hidden": true
+        },
+        {
+            "type": "test",
+            "hidden": true
+        }
+    ],
+    "skip": {
+        "changelog": false,
+        "commit": false,
+        "tag": false
+    },
+    "tagPrefix": "v"
+}

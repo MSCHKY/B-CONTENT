@@ -7,19 +7,23 @@ import { Orchestrate } from "@/components/orchestrate/orchestrate";
 import { Stats } from "@/components/stats/stats";
 import { CalendarView } from "@/components/calendar/calendar-view";
 import { InterviewView } from "@/components/interview/interview-view";
+import { ChangelogTrigger } from "@/components/layout/changelog-modal";
 
 export function App() {
     const view = useAppStore((s) => s.view);
 
     return (
-        <AppShell>
-            {view === "create" && <CreateFlow />}
-            {view === "knowledge" && <KnowledgeViewer />}
-            {view === "interview" && <InterviewView />}
-            {view === "library" && <Library />}
-            {view === "calendar" && <CalendarView />}
-            {view === "orchestrate" && <Orchestrate />}
-            {view === "stats" && <Stats />}
-        </AppShell>
+        <>
+            <AppShell>
+                {view === "create" && <CreateFlow />}
+                {view === "knowledge" && <KnowledgeViewer />}
+                {view === "interview" && <InterviewView />}
+                {view === "library" && <Library />}
+                {view === "calendar" && <CalendarView />}
+                {view === "orchestrate" && <Orchestrate />}
+                {view === "stats" && <Stats />}
+            </AppShell>
+            <ChangelogTrigger />
+        </>
     );
 }

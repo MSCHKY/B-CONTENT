@@ -227,6 +227,11 @@ export interface Translations {
         quotesLabel: string;
     };
 
+    // --- Changelog ---
+    changelog: {
+        title: string;
+    };
+
     // --- Common ---
     common: {
         loading: string;
@@ -450,6 +455,10 @@ export const de: Translations = {
         quotesLabel: "Zitate",
     },
 
+    changelog: {
+        title: "Changelog",
+    },
+
     common: {
         loading: "Wird geladen…",
         error: "Ein Fehler ist aufgetreten.",
@@ -670,6 +679,10 @@ export const en: Translations = {
         formatHint: "MP3, M4A, WAV, WebM, OGG, FLAC — max 20 MB",
         openKnowledgeBase: "→ Open Knowledge Base",
         quotesLabel: "Quotes",
+    },
+
+    changelog: {
+        title: "Changelog",
     },
 
     common: {
