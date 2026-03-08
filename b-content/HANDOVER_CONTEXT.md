@@ -1,8 +1,8 @@
 # 🏗️ B/CONTENT — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-08 14:42
+> **Zuletzt aktualisiert:** 2026-03-08 17:44
 > **Modul:** B/CONTENT (Content-Gehirn)
-> **Status:** Phase 3 IN PROGRESS — Z-002 Content-Kalender ✅ LIVE, Z-003 Interview-Pipeline ✅ LIVE
+> **Status:** Phase 3 IN PROGRESS — Z-002 ✅, Z-003 ✅, Z-005 Analytics ✅ LIVE
 > **Branch:** `main` (Workers Builds Git-Integration aktiv)
 > **Live URL:** https://b-content.maschkeai.workers.dev
 > **Deploy:** Push auf `main` = automatisch live (Workers Builds, Root Dir: `b-content`)
@@ -98,7 +98,11 @@
   - [x] Import-Feedback: Affected Topic Fields + "Wissensbasis öffnen" Button
   - ⚠️ iPhone `audio/x-m4a` MIME-Type Hotfix deployed
 - [ ] **Z-001: Review-Workflow** — Wave 2 (benötigt Auth/CF Access)
-- [ ] **Z-005: Analytics** — Wave 3
+- [x] **Z-005: Analytics Dashboard** — Wave 3
+  - [x] Backend: 4 neue D1-Queries (Timeline, Content-Type Breakdown, Cadence, Scheduling Health)
+  - [x] Frontend: ActivityTimeline, ContentTypeBreakdown, SchedulingRing, 6 SummaryCards
+  - [x] i18n: 11 neue Keys (DE + EN)
+  - [x] Scheduling Query try-catch für DB-Migration-Resilienz
 - [ ] **E-005: Template-Builder** — Wave 3
 
 ---
@@ -214,6 +218,8 @@
 | 2026-03-08 | Polish      | Calendar Drag-to-Unschedule: Drop-Zone auf Ungeplante-Beiträge-Sektion mit visuellem Feedback | ✅ Deployed |
 | 2026-03-08 | Execution   | Z-003 Interview-Pipeline: D1 Migration, Gemini Audio Service, 3 API Routes, InterviewView UI (594 Zeilen), Sidebar + i18n (25 Keys) | ✅ Live |
 | 2026-03-08 | Hotfix      | iPhone audio/x-m4a MIME-Type Fix + Import-Feedback Polish (affected topics + KB-Link) | ✅ Deployed |
+| 2026-03-08 | Feature     | Z-005 Analytics Dashboard: 4 D1-Queries (Timeline/Content-Types/Cadence/Scheduling), 4 Chart-Komponenten, 6 SummaryCards, 11 i18n Keys | ✅ Live |
+| 2026-03-08 | Bugfix      | Sidebar fixed positioning: .sidebar-glow position:relative entfernt, sticky→fixed, overflow-hidden→overflow-x-clip | ✅ Deployed |
 
 ### ⚠️ Bekannte Probleme
 - **6 Audit-Findings bewusst deferred:** KV Race Condition (#1), Rate Limiting (#5), DSGVO Gemini EU (#6), KV Jurisdiction (#7), POST Idempotenz (#12), REST-Konsistenz (#13).
