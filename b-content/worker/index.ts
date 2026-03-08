@@ -32,6 +32,11 @@ app.onError((err, c) => {
         return c.json({ error: err.message, code: err.code }, err.status as 400 | 429 | 500 | 502 | 504);
     }
 
+    // 🛡️ ZINK: Catch JSON syntax errors from invalid c.req.json() payloads globally.
+    if (err instanceof SyntaxError && err.message.includes("JSON")) {
+        return c.json({ error: "Invalid JSON format", code: "INVALID_JSON" }, 400);
+    }
+
     // Log full error internally, return safe message to client
     console.error(`[Unhandled Error] ${err.message}`, err.stack);
     return c.json({ error: "Internal server error" }, 500);
