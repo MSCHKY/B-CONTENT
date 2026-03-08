@@ -4,6 +4,26 @@ import { validateRequiredString, validateInstanceId, validateContentType, valida
 import type { InstanceId } from "../services/validation";
 
 /**
+ * Interface representing a row in the posts table.
+ */
+export interface PostRow {
+    id: string;
+    instance: string;
+    content_type: string;
+    topic_fields: string;
+    text: string;
+    language: string;
+    hashtags: string;
+    char_count: number;
+    is_personal: number;
+    status: string;
+    linked_posts: string | null;
+    image_id: string | null;
+    created_at: string;
+    updated_at: string;
+}
+
+/**
  * Hono router for post management endpoints.
  *
  * Provides CRUD operations for generated content (posts) stored in the D1 database.
@@ -129,13 +149,15 @@ postRoutes.get("/", async (c) => {
     params.push(limit, offset);
 
     try {
-        const result = await c.env.DB.prepare(query).bind(...params).all();
+        const result = await c.env.DB.prepare(query)
+            .bind(...params)
+            .all<PostRow & { img_id?: string; img_format?: string; img_width?: number; img_height?: number; img_url?: string }>();
 
         const posts = result.results.map((row) => {
             const post: Record<string, unknown> = {
                 ...row,
-                topic_fields: JSON.parse((row.topic_fields as string) || "[]"),
-                hashtags: JSON.parse((row.hashtags as string) || "[]"),
+                topic_fields: JSON.parse(row.topic_fields || "[]"),
+                hashtags: JSON.parse(row.hashtags || "[]"),
             };
 
             // Attach nested image object if image data exists
@@ -175,7 +197,7 @@ postRoutes.get("/:id", async (c) => {
     try {
         const post = await c.env.DB.prepare("SELECT * FROM posts WHERE id = ?")
             .bind(id)
-            .first();
+            .first<PostRow>();
 
         if (!post) {
             return c.json({ error: "Post not found" }, 404);
@@ -184,8 +206,8 @@ postRoutes.get("/:id", async (c) => {
         // Parse JSON fields
         const parsed = {
             ...post,
-            topic_fields: JSON.parse((post.topic_fields as string) || "[]"),
-            hashtags: JSON.parse((post.hashtags as string) || "[]"),
+            topic_fields: JSON.parse(post.topic_fields || "[]"),
+            hashtags: JSON.parse(post.hashtags || "[]"),
         };
 
         // If post has an image, fetch image data too
@@ -194,7 +216,7 @@ postRoutes.get("/:id", async (c) => {
                 "SELECT * FROM generated_images WHERE id = ?"
             )
                 .bind(post.image_id)
-                .first();
+                .first<Record<string, unknown>>();
             return c.json({ ...parsed, image });
         }
 

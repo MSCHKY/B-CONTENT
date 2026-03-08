@@ -5,6 +5,7 @@ import { knowledgeRoutes } from "./routes/knowledge";
 import { postRoutes } from "./routes/posts";
 import { orchestrateRoutes } from "./routes/orchestrate";
 import { statsRoutes } from "./routes/stats";
+import { AppError } from "./services/gemini";
 
 export interface Env {
     DB: D1Database;
@@ -30,6 +31,14 @@ app.route("/api/knowledge", knowledgeRoutes);
 app.route("/api/posts", postRoutes);
 app.route("/api/orchestrate", orchestrateRoutes);
 app.route("/api/stats", statsRoutes);
+
+app.onError(async (err, c) => {
+  if (err instanceof AppError) {
+    return c.json({ error: err.message, code: err.code }, err.status as any);
+  }
+  console.error('[Unhandled Error]', err);
+  return c.json({ error: 'Internal server error' }, 500);
+});
 
 // ============================================================
 // Image Serving — GET /api/images/:key+

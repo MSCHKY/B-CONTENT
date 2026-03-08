@@ -3,8 +3,14 @@
  * No external dependencies — just a typed object per language.
  */
 
+/**
+ * Supported locale types.
+ */
 export type Locale = "de" | "en";
 
+/**
+ * Interface defining the structure of translation dictionaries.
+ */
 export interface Translations {
     // --- Navigation ---
     nav: {

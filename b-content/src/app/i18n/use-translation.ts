@@ -33,6 +33,12 @@ function getSnapshot(): Locale {
     return getLocale();
 }
 
+/**
+ * Sets the active locale and updates local storage.
+ * Subscribed components will re-render automatically.
+ *
+ * @param {Locale} locale - The new locale to set.
+ */
 export function setLocale(locale: Locale): void {
     try {
         localStorage.setItem(STORAGE_KEY, locale);
@@ -43,6 +49,15 @@ export function setLocale(locale: Locale): void {
     listeners.forEach((cb) => cb());
 }
 
+/**
+ * Hook to access translations and manage the active locale.
+ * Uses `useSyncExternalStore` for global state synchronization.
+ *
+ * @returns {Object} Translation dictionary, current locale, and setter functions.
+ * @example
+ * const { t, locale, toggleLocale } = useTranslation();
+ * console.log(t.common.loading);
+ */
 export function useTranslation(): {
     t: Translations;
     locale: Locale;

@@ -31,6 +31,17 @@ interface StatsSummary {
     warnings: string[];
 }
 
+export interface StatsInstanceRow {
+    instance: string;
+    total: number;
+    personal: number;
+    fach: number;
+}
+
+export interface StatsTopicRow {
+    topic_fields: string;
+}
+
 const INSTANCE_LABELS: Record<string, string> = {
     alex: "Jürgen Alex",
     ablas: "Sebastian Ablas",
@@ -53,16 +64,9 @@ statsRoutes.get("/", async (c) => {
                  FROM posts
                  GROUP BY instance`,
             )
-            .all();
+            .all<StatsInstanceRow>();
 
-        const ratios: InstanceRatio[] = (
-            instanceResult.results as Array<{
-                instance: string;
-                total: number;
-                personal: number;
-                fach: number;
-            }>
-        ).map((row) => {
+        const ratios: InstanceRatio[] = instanceResult.results.map((row) => {
             const fachSinceLastPersonal = row.fach % 5; // Simplified: modulo to track within 4:1 cycle
             return {
                 instance: row.instance,
@@ -107,12 +111,10 @@ statsRoutes.get("/", async (c) => {
             .prepare(
                 `SELECT topic_fields FROM posts`,
             )
-            .all();
+            .all<StatsTopicRow>();
 
         const topicCounts: Record<string, number> = {};
-        for (const row of topicResult.results as Array<{
-            topic_fields: string;
-        }>) {
+        for (const row of topicResult.results) {
             try {
                 const fields: string[] = JSON.parse(row.topic_fields);
                 for (const field of fields) {
