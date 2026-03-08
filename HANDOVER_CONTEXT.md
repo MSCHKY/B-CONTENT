@@ -1,7 +1,7 @@
 # 🏗️ BENDERWIRE GROUP — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-08 09:45
-> **Aktiver Fokus:** B/CONTENT (Content-Gehirn) — Phase 2 near complete, **Audit Batch 1+2 deployed (7/13 Findings gefixt)**
+> **Zuletzt aktualisiert:** 2026-03-08 11:54
+> **Aktiver Fokus:** B/CONTENT (Content-Gehirn) — Phase 2 near complete, **Jules Workflow V3 live (API-CLI + Scheduled Tasks)**
 > **Phase:** Pitch / MVP
 
 ---
@@ -152,3 +152,4 @@ BENDERGROUP/
 | 2026-03-07 | Feature     | Library Archive: Soft-Delete, Restore, Purge + Route-Ordering-Fix | ✅ Deployed |
 | 2026-03-08 | QA/Audit    | Multi-Model Code Audit (Opus/Sonnet/Gemini/Codex + Jules): Context7-backed Prompts, 4/5 done | ✅ Jules pending |
 | 2026-03-08 | Hardening   | Audit Batch 1+2: 7 Findings gefixt (Error Handler, API Key Header, CORS, Sanitization, Pagination), /jules Workflow V1 | ✅ Deployed |
+| 2026-03-08 | Tooling     | Jules Workflow V2→V3: API-CLI, Prompt V3 (Core Contract + Persona Lens), 7 Scheduled Tasks, Codex-Integration | ✅ Deployed |
