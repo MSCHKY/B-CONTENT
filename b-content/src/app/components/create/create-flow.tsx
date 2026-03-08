@@ -1,4 +1,5 @@
 import { useCreateStore } from "@/stores";
+import { useShallow } from "zustand/react/shallow";
 import { Stepper } from "@/components/ui/stepper";
 import { InstancePicker } from "./instance-picker";
 import { ContentTypePicker } from "./content-type-picker";
@@ -8,7 +9,13 @@ import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/i18n";
 
 export function CreateFlow() {
-    const { step, reset } = useCreateStore();
+    // 🔥 GLUT: Use useShallow to prevent unnecessary re-renders when other store properties change
+    const { step, reset } = useCreateStore(
+        useShallow((s) => ({
+            step: s.step,
+            reset: s.reset,
+        }))
+    );
     const { t } = useTranslation();
 
     return (
