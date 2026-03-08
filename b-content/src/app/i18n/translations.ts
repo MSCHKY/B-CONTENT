@@ -146,6 +146,17 @@ export interface Translations {
         personal: string;
         nextPersonal: string;
         attentionRequired: string;
+        activityTimeline: string;
+        contentTypes: string;
+        avgPerWeek: string;
+        thisWeekLabel: string;
+        trendUp: string;
+        trendDown: string;
+        trendStable: string;
+        schedulingHealth: string;
+        scheduledLabel: string;
+        unscheduledLabel: string;
+        coverage: string;
     };
 
     // --- Calendar ---
@@ -333,6 +344,17 @@ export const de: Translations = {
         personal: "Persönlich",
         nextPersonal: "Nächster: Persönlich",
         attentionRequired: "Handlungsbedarf",
+        activityTimeline: "Aktivitätsverlauf",
+        contentTypes: "Content-Typen",
+        avgPerWeek: "Ø / Woche",
+        thisWeekLabel: "Diese Woche",
+        trendUp: "Steigend",
+        trendDown: "Fallend",
+        trendStable: "Stabil",
+        schedulingHealth: "Planungsquote",
+        scheduledLabel: "Geplant",
+        unscheduledLabel: "Ungeplant",
+        coverage: "Abdeckung",
     },
 
     calendar: {
@@ -517,6 +539,17 @@ export const en: Translations = {
         personal: "Personal",
         nextPersonal: "Next: Personal",
         attentionRequired: "Attention Required",
+        activityTimeline: "Activity Timeline",
+        contentTypes: "Content Types",
+        avgPerWeek: "Avg / Week",
+        thisWeekLabel: "This Week",
+        trendUp: "Trending Up",
+        trendDown: "Trending Down",
+        trendStable: "Stable",
+        schedulingHealth: "Scheduling Health",
+        scheduledLabel: "Scheduled",
+        unscheduledLabel: "Unscheduled",
+        coverage: "Coverage",
     },
 
     calendar: {

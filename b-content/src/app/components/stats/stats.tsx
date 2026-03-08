@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BarChart3, AlertTriangle, TrendingUp, Hash } from "lucide-react";
+import { BarChart3, AlertTriangle, TrendingUp, TrendingDown, Minus, Hash, CalendarCheck, Activity } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useTranslation } from "@/i18n";
 
@@ -29,10 +29,39 @@ interface StatsSummary {
     warnings: string[];
 }
 
+interface TimelineWeek {
+    week: string;
+    weekLabel: string;
+    count: number;
+    instances: Record<string, number>;
+}
+
+interface ContentTypeCount {
+    instance: string;
+    contentType: string;
+    count: number;
+}
+
+interface Cadence {
+    avgPerWeek: number;
+    thisWeek: number;
+    trend: "up" | "down" | "stable";
+}
+
+interface SchedulingHealth {
+    scheduled: number;
+    unscheduled: number;
+    coverage: number;
+}
+
 interface StatsResponse {
     ratios: InstanceRatio[];
     topicDistribution: TopicCount[];
     summary: StatsSummary;
+    timeline: TimelineWeek[];
+    contentTypeBreakdown: ContentTypeCount[];
+    cadence: Cadence;
+    scheduling: SchedulingHealth;
     error?: string;
 }
 
@@ -52,10 +81,31 @@ const TOPIC_LABELS: Record<string, string> = {
     qualitaet: "Qualität",
 };
 
+const CONTENT_TYPE_LABELS: Record<string, string> = {
+    "deep-dive": "Deep Dive",
+    "position": "Position",
+    "frage": "Die Frage",
+    "persoenlich": "Persönlich",
+    "proof-point": "Proof Point",
+    "wusstest-du": "Wusstest du?",
+    "messe-story": "Messe/Story",
+    "draht-steckt-in": "Draht steckt in…",
+    "unternehmensnews": "News",
+    "behind-the-scenes": "Behind the Scenes",
+    "zahlen-fakten": "Zahlen & Fakten",
+    "website-article": "Website-Beitrag",
+};
+
 const INSTANCE_COLORS: Record<string, string> = {
     alex: "bg-emerald-500",
     ablas: "bg-cyan-500",
     bwg: "bg-amber-500",
+};
+
+const INSTANCE_HEX: Record<string, string> = {
+    alex: "#10b981",
+    ablas: "#06b6d4",
+    bwg: "#f59e0b",
 };
 
 const INSTANCE_BG: Record<string, string> = {
@@ -118,6 +168,10 @@ export function Stats() {
         1,
     );
 
+    const TrendIcon = data.cadence.trend === "up" ? TrendingUp : data.cadence.trend === "down" ? TrendingDown : Minus;
+    const trendLabel = data.cadence.trend === "up" ? t.stats.trendUp : data.cadence.trend === "down" ? t.stats.trendDown : t.stats.trendStable;
+    const trendColor = data.cadence.trend === "up" ? "text-emerald-400" : data.cadence.trend === "down" ? "text-amber-400" : "text-text-muted";
+
     return (
         <div>
             {/* Header */}
@@ -161,8 +215,8 @@ export function Stats() {
                 </div>
             )}
 
-            {/* Summary Cards */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6 stagger-children">
+            {/* Summary Cards — expanded to 6 */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-6 stagger-children">
                 <SummaryCard
                     label={t.stats.totalPosts}
                     value={data.summary.totalPosts}
@@ -179,10 +233,21 @@ export function Stats() {
                     icon={<Hash size={16} />}
                 />
                 <SummaryCard
-                    label={t.stats.instances}
-                    value={data.ratios.filter((r) => r.totalPosts > 0).length}
-                    suffix={`/ ${data.ratios.length}`}
-                    icon={<BarChart3 size={16} />}
+                    label={t.stats.avgPerWeek}
+                    value={data.cadence.avgPerWeek}
+                    icon={<Activity size={16} />}
+                />
+                <SummaryCard
+                    label={t.stats.thisWeekLabel}
+                    value={data.cadence.thisWeek}
+                    icon={<TrendIcon size={16} className={trendColor} />}
+                    suffix={` ${trendLabel}`}
+                />
+                <SummaryCard
+                    label={t.stats.coverage}
+                    value={data.scheduling.coverage}
+                    suffix="%"
+                    icon={<CalendarCheck size={16} />}
                 />
             </div>
 
@@ -201,6 +266,35 @@ export function Stats() {
                         <RatioBar key={ratio.instance} ratio={ratio} />
                     ))}
                 </div>
+            </div>
+
+            {/* Activity Timeline — 12-week stacked bar chart */}
+            <div className="glass-card rounded-xl p-5 mb-6 animate-fade-in-up">
+                <h3 className="text-lg font-semibold text-text-primary mb-4 flex items-center gap-2">
+                    <Activity size={18} className="text-crisp-cyan" />
+                    {t.stats.activityTimeline}
+                </h3>
+                <ActivityTimeline timeline={data.timeline} />
+            </div>
+
+            {/* Content-Type Breakdown */}
+            {data.contentTypeBreakdown.length > 0 && (
+                <div className="glass-card rounded-xl p-5 mb-6 animate-fade-in-up">
+                    <h3 className="text-lg font-semibold text-text-primary mb-4 flex items-center gap-2">
+                        <BarChart3 size={18} className="text-crisp-cyan" />
+                        {t.stats.contentTypes}
+                    </h3>
+                    <ContentTypeBreakdown breakdown={data.contentTypeBreakdown} />
+                </div>
+            )}
+
+            {/* Scheduling Health */}
+            <div className="glass-card rounded-xl p-5 mb-6 animate-fade-in-up">
+                <h3 className="text-lg font-semibold text-text-primary mb-4 flex items-center gap-2">
+                    <CalendarCheck size={18} className="text-crisp-cyan" />
+                    {t.stats.schedulingHealth}
+                </h3>
+                <SchedulingRing scheduling={data.scheduling} />
             </div>
 
             {/* Topic Distribution */}
@@ -343,3 +437,190 @@ function RatioBar({ ratio }: { ratio: InstanceRatio }) {
         </div>
     );
 }
+
+/** 12-week stacked bar chart — pure CSS */
+function ActivityTimeline({ timeline }: { timeline: TimelineWeek[] }) {
+    const maxCount = Math.max(...timeline.map((w) => w.count), 1);
+    const { t } = useTranslation();
+
+    if (timeline.every((w) => w.count === 0)) {
+        return (
+            <p className="text-sm text-text-muted text-center py-8">
+                {t.stats.noPostsHint}
+            </p>
+        );
+    }
+
+    return (
+        <div className="flex items-end gap-1.5 h-40">
+            {timeline.map((week) => {
+                const totalHeight = (week.count / maxCount) * 100;
+                const alexH = week.count > 0 ? ((week.instances.alex ?? 0) / week.count) * totalHeight : 0;
+                const ablasH = week.count > 0 ? ((week.instances.ablas ?? 0) / week.count) * totalHeight : 0;
+                const bwgH = week.count > 0 ? ((week.instances.bwg ?? 0) / week.count) * totalHeight : 0;
+
+                return (
+                    <div
+                        key={week.week}
+                        className="flex-1 flex flex-col items-center gap-1 group"
+                    >
+                        {/* Stacked bar */}
+                        <div
+                            className="w-full rounded-t-md overflow-hidden flex flex-col-reverse transition-all duration-500 ease-out relative"
+                            style={{ height: `${Math.max(totalHeight, 4)}%` }}
+                            title={`${week.weekLabel}: ${week.count} posts`}
+                        >
+                            {alexH > 0 && (
+                                <div
+                                    style={{ height: `${(alexH / totalHeight) * 100}%`, backgroundColor: INSTANCE_HEX.alex }}
+                                    className="w-full transition-all duration-500"
+                                />
+                            )}
+                            {ablasH > 0 && (
+                                <div
+                                    style={{ height: `${(ablasH / totalHeight) * 100}%`, backgroundColor: INSTANCE_HEX.ablas }}
+                                    className="w-full transition-all duration-500"
+                                />
+                            )}
+                            {bwgH > 0 && (
+                                <div
+                                    style={{ height: `${(bwgH / totalHeight) * 100}%`, backgroundColor: INSTANCE_HEX.bwg }}
+                                    className="w-full transition-all duration-500"
+                                />
+                            )}
+                            {week.count === 0 && (
+                                <div className="w-full h-full bg-white/5 rounded-t-md" />
+                            )}
+
+                            {/* Tooltip on hover */}
+                            <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-bg-sidebar/95 text-white text-[10px] px-2 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
+                                {week.count}
+                            </div>
+                        </div>
+
+                        {/* Week label */}
+                        <span className="text-[9px] text-text-muted leading-none">
+                            {week.weekLabel}
+                        </span>
+                    </div>
+                );
+            })}
+        </div>
+    );
+}
+
+/** Content-Type Breakdown — grouped horizontal bars per instance */
+function ContentTypeBreakdown({ breakdown }: { breakdown: ContentTypeCount[] }) {
+    // Group by instance
+    const grouped = new Map<string, ContentTypeCount[]>();
+    for (const item of breakdown) {
+        const existing = grouped.get(item.instance) ?? [];
+        existing.push(item);
+        grouped.set(item.instance, existing);
+    }
+
+    const maxCount = Math.max(...breakdown.map((b) => b.count), 1);
+
+    return (
+        <div className="space-y-5">
+            {Array.from(grouped.entries()).map(([instance, items]) => (
+                <div key={instance}>
+                    <div className="flex items-center gap-2 mb-2">
+                        <div className={`w-2 h-2 rounded-full ${INSTANCE_COLORS[instance] ?? "bg-text-muted"}`} />
+                        <span className="text-sm font-medium text-text-primary">
+                            {INSTANCE_LABELS_MAP[instance] ?? instance}
+                        </span>
+                    </div>
+                    <div className="space-y-1.5 pl-4">
+                        {items.map((item) => (
+                            <div key={`${instance}-${item.contentType}`} className="flex items-center gap-2">
+                                <span className="text-xs text-text-muted w-32 truncate shrink-0">
+                                    {CONTENT_TYPE_LABELS[item.contentType] ?? item.contentType}
+                                </span>
+                                <div className="flex-1 h-4 bg-bg-card-hover rounded-full overflow-hidden">
+                                    <div
+                                        className={`h-full rounded-full transition-all duration-700 ease-out ${INSTANCE_COLORS[instance] ?? "bg-text-muted"}`}
+                                        style={{ width: `${Math.max((item.count / maxCount) * 100, 6)}%` }}
+                                    />
+                                </div>
+                                <span className="text-xs font-semibold text-text-secondary w-6 text-right">
+                                    {item.count}
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
+}
+
+const INSTANCE_LABELS_MAP: Record<string, string> = {
+    alex: "Jürgen Alex",
+    ablas: "Sebastian Ablas",
+    bwg: "BWG Company",
+};
+
+/** Scheduling Health — SVG progress ring */
+function SchedulingRing({ scheduling }: { scheduling: SchedulingHealth }) {
+    const { t } = useTranslation();
+    const total = scheduling.scheduled + scheduling.unscheduled;
+    const radius = 52;
+    const circumference = 2 * Math.PI * radius;
+    const offset = total > 0 ? circumference - (scheduling.coverage / 100) * circumference : circumference;
+
+    return (
+        <div className="flex flex-col sm:flex-row items-center gap-6">
+            {/* SVG Ring */}
+            <div className="relative w-36 h-36 shrink-0">
+                <svg viewBox="0 0 120 120" className="w-full h-full -rotate-90">
+                    {/* Background circle */}
+                    <circle
+                        cx="60" cy="60" r={radius}
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="8"
+                        className="text-white/5"
+                    />
+                    {/* Progress circle */}
+                    <circle
+                        cx="60" cy="60" r={radius}
+                        fill="none"
+                        stroke="url(#ringGradient)"
+                        strokeWidth="8"
+                        strokeLinecap="round"
+                        strokeDasharray={circumference}
+                        strokeDashoffset={offset}
+                        className="transition-all duration-1000 ease-out"
+                    />
+                    <defs>
+                        <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#06b6d4" />
+                            <stop offset="100%" stopColor="#10b981" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                {/* Center text */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                    <span className="text-3xl font-bold text-text-primary">{scheduling.coverage}</span>
+                    <span className="text-[10px] text-text-muted uppercase tracking-wider">%</span>
+                </div>
+            </div>
+
+            {/* Legend */}
+            <div className="flex flex-col gap-3 text-sm">
+                <div className="flex items-center gap-3">
+                    <div className="w-3 h-3 rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500" />
+                    <span className="text-text-secondary">{t.stats.scheduledLabel}</span>
+                    <span className="font-semibold text-text-primary ml-auto">{scheduling.scheduled}</span>
+                </div>
+                <div className="flex items-center gap-3">
+                    <div className="w-3 h-3 rounded-full bg-white/10" />
+                    <span className="text-text-secondary">{t.stats.unscheduledLabel}</span>
+                    <span className="font-semibold text-text-primary ml-auto">{scheduling.unscheduled}</span>
+                </div>
+            </div>
+        </div>
+    );
+}
+

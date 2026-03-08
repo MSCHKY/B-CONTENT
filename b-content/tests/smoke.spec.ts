@@ -133,6 +133,10 @@ test.describe("B/CONTENT Smoke Tests", () => {
 
         // Header
         await expect(page.getByText("Content Stats")).toBeVisible();
+
+        // New analytics sections
+        await expect(page.getByText("Activity Timeline")).toBeVisible();
+        await expect(page.getByText("Scheduling Health")).toBeVisible();
     });
 
     test("api orchestrate returns posts (mock mode)", async ({ request }) => {
