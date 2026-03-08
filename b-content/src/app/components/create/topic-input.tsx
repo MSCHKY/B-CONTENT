@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { useCreateStore } from "@/stores";
+import { useShallow } from "zustand/react/shallow";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
@@ -42,6 +43,7 @@ const allQuotes = (quotesData as QuoteGroup[]).flatMap((group) =>
 );
 
 export function TopicInput() {
+    // ⚡ Bolt: Use useShallow to prevent TopicInput from unnecesarily re-rendering when other store values change
     const {
         instance,
         topicField,
@@ -55,7 +57,22 @@ export function TopicInput() {
         setIsGenerating,
         prevStep,
         nextStep,
-    } = useCreateStore();
+    } = useCreateStore(
+        useShallow((state) => ({
+            instance: state.instance,
+            topicField: state.topicField,
+            userInput: state.userInput,
+            language: state.language,
+            isGenerating: state.isGenerating,
+            selectTopicField: state.selectTopicField,
+            setUserInput: state.setUserInput,
+            setLanguage: state.setLanguage,
+            setGeneratedText: state.setGeneratedText,
+            setIsGenerating: state.setIsGenerating,
+            prevStep: state.prevStep,
+            nextStep: state.nextStep,
+        }))
+    );
 
     // Find relevant quotes for the selected instance and topic
     // ⚡ Bolt: Memoize relevant quotes to prevent unnecessary filtering on every keystroke

@@ -1,4 +1,5 @@
 import { useCreateStore } from "@/stores";
+import { useShallow } from "zustand/react/shallow";
 import { Stepper } from "@/components/ui/stepper";
 import { InstancePicker } from "./instance-picker";
 import { ContentTypePicker } from "./content-type-picker";
@@ -8,7 +9,10 @@ import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/i18n";
 
 export function CreateFlow() {
-    const { step, reset } = useCreateStore();
+    // ⚡ Bolt: Use useShallow to prevent CreateFlow from re-rendering on every keystroke in TopicInput
+    const { step, reset } = useCreateStore(
+        useShallow((state) => ({ step: state.step, reset: state.reset }))
+    );
     const { t } = useTranslation();
 
     return (

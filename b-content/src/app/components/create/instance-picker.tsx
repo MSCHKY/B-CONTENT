@@ -1,4 +1,5 @@
 import { useCreateStore } from "@/stores";
+import { useShallow } from "zustand/react/shallow";
 import { Card, CardBody } from "@/components/ui/card";
 import type { InstanceId } from "@/types";
 import instancesData from "@data/instances/instances.json";
@@ -29,7 +30,13 @@ const INSTANCE_CARDS: InstanceDisplay[] = Object.values(instances).map(
 );
 
 export function InstancePicker() {
-    const { instance, selectInstance } = useCreateStore();
+    // ⚡ Bolt: Use useShallow to prevent InstancePicker from re-rendering on every keystroke in TopicInput
+    const { instance, selectInstance } = useCreateStore(
+        useShallow((state) => ({
+            instance: state.instance,
+            selectInstance: state.selectInstance,
+        }))
+    );
     const { t } = useTranslation();
 
     return (

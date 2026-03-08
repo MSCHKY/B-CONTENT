@@ -1,4 +1,5 @@
 import { useCreateStore } from "@/stores";
+import { useShallow } from "zustand/react/shallow";
 import { Card, CardBody } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -19,8 +20,16 @@ const instances = instancesData as Record<
 >;
 
 export function ContentTypePicker() {
+    // ⚡ Bolt: Use useShallow to prevent ContentTypePicker from re-rendering on every keystroke in TopicInput
     const { instance, contentType, selectContentType, prevStep } =
-        useCreateStore();
+        useCreateStore(
+            useShallow((state) => ({
+                instance: state.instance,
+                contentType: state.contentType,
+                selectContentType: state.selectContentType,
+                prevStep: state.prevStep,
+            }))
+        );
 
     if (!instance) return null;
 
