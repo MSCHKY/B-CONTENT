@@ -1,6 +1,6 @@
 # 🏗️ BENDERWIRE GROUP — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-08 17:44
+> **Zuletzt aktualisiert:** 2026-03-08 21:25
 > **Aktiver Fokus:** B/CONTENT (Content-Gehirn) — Phase 3 IN PROGRESS, **Z-005 Analytics ✅ LIVE**
 > **Phase:** Pitch / MVP
 
@@ -162,3 +162,4 @@ BENDERGROUP/
 | 2026-03-08 | Feature     | Z-005 Analytics Dashboard: 4 D1-Queries, ActivityTimeline, ContentTypeBreakdown, SchedulingRing, 6 SummaryCards | ✅ Live |
 | 2026-03-08 | Bugfix      | Sidebar fixed positioning: sticky→fixed, position:relative aus .sidebar-glow entfernt, overflow-x-clip | ✅ Deployed |
 | 2026-03-08 | Hardening   | Audit Critical Fixes: 7 Silent-Fail-Catches, Dev-Mock-Leak, useRef, response.ok, 3 i18n-Strings | ✅ Deployed |
+| 2026-03-08 | Refactoring | Audit Batch 2: Shared Constants (11 Exports, 8 Dateien refaktoriert), KV try/catch, Error Boundary, 9 i18n-Keys | ✅ Deployed |

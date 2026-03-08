@@ -113,3 +113,4 @@ Entspricht Features F12-F17 aus PRODUCT_SPEC.md:
 | —     | Z-003: Interview-Pipeline (Gemini Audio, 3 API Routes, InterviewView, i18n 25 Keys) | 2026-03-08 |
 | —     | Z-005: Analytics Dashboard (4 D1-Queries, 4 Chart-Komponenten, 6 SummaryCards, 11 i18n Keys) | 2026-03-08 |
 | —     | Sidebar Fix: sticky→fixed, .sidebar-glow position:relative entfernt, overflow-x-clip | 2026-03-08 |
+| —     | Audit Refactoring: Shared Constants, KV try/catch, Error Boundary, i18n Cleanup (16 Dateien) | 2026-03-08 |

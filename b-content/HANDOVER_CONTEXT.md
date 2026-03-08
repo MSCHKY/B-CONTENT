@@ -1,6 +1,6 @@
 # 🏗️ B/CONTENT — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-08 17:44
+> **Zuletzt aktualisiert:** 2026-03-08 21:25
 > **Modul:** B/CONTENT (Content-Gehirn)
 > **Status:** Phase 3 IN PROGRESS — Z-002 ✅, Z-003 ✅, Z-005 Analytics ✅ LIVE
 > **Branch:** `main` (Workers Builds Git-Integration aktiv)
@@ -221,6 +221,7 @@
 | 2026-03-08 | Feature     | Z-005 Analytics Dashboard: 4 D1-Queries (Timeline/Content-Types/Cadence/Scheduling), 4 Chart-Komponenten, 6 SummaryCards, 11 i18n Keys | ✅ Live |
 | 2026-03-08 | Bugfix      | Sidebar fixed positioning: .sidebar-glow position:relative entfernt, sticky→fixed, overflow-hidden→overflow-x-clip | ✅ Deployed |
 | 2026-03-08 | Hardening   | Audit Critical Fixes: 7 Silent-Fail-Catches → Error-Feedback, Dev-Mock-Leak → DEV-only, getElementById → useRef, response.ok Checks, 3 i18n-Strings | ✅ Deployed |
+| 2026-03-08 | Refactoring | Audit Fixes Batch 2: Shared Constants (`src/shared/constants.ts`, 11 Exports, 8 Dateien), KV try/catch, Error Boundary, 9 i18n-Keys, 6 Inline-Strings eliminiert | ✅ Deployed |
 
 ### ⚠️ Bekannte Probleme
 - **6 Audit-Findings bewusst deferred:** KV Race Condition (#1), Rate Limiting (#5), DSGVO Gemini EU (#6), KV Jurisdiction (#7), POST Idempotenz (#12), REST-Konsistenz (#13).
