@@ -2,7 +2,7 @@
 
 > **Zuletzt aktualisiert:** 2026-03-08 12:50
 > **Modul:** B/CONTENT (Content-Gehirn)
-> **Status:** Phase 2 NEAR COMPLETE — E-001–E-004 ✅, i18n DE/EN ✅, Library Archive ✅, **Audit Batch 1+2 umgesetzt (7/13 Findings gefixt)**
+> **Status:** Phase 2 NEAR COMPLETE — E-001–E-004 ✅, i18n DE/EN ✅, Library Archive ✅, **Audit Batch 1–3 complete (7+7=14 Findings merged, 6 deferred)**
 > **Branch:** `main` (Workers Builds Git-Integration aktiv)
 > **Live URL:** https://b-content.maschkeai.workers.dev
 > **Deploy:** Push auf `main` = automatisch live (Workers Builds, Root Dir: `b-content`)
@@ -187,9 +187,9 @@
 | 2026-03-08 | QA/Audit    | Multi-Model Code Audit: Opus (Architektur), Sonnet (Hygiene), Gemini (Security), Codex (Tests) + Jules delegiert | ✅ 4/5 done, Jules IN_PROGRESS |
 | 2026-03-08 | Hardening   | Audit Batch 1+2: Global Error Handler, API Key→Header, CORS, R2 Validation, Sanitization, Pagination, Error Masking | ✅ 7/13 Findings gefixt, deployed |
 | 2026-03-08 | Tooling     | Jules Workflow V2→V3: API-CLI (`scripts/jules.sh`), Prompt V3 (Core Contract + Persona Lens), 7 Scheduled Tasks, 60+ alte Sessions bereinigt | ✅ Committed + deployed |
+| 2026-03-08 | Review      | Jules Audit Batch 3: 9 PRs reviewed — 7 merged (#10-#14, #16, #17), 2 closed (#9 dup onError, #15 dup useShallow). Perf, Security, A11y, Tests. | ✅ 0 open PRs |
 
 ### ⚠️ Bekannte Probleme
 - **Archiv auf Production verifizieren** — Bugfix (`8ce0d4f`) ist deployed, noch nicht getestet.
 - **6 Audit-Findings bewusst deferred:** KV Race Condition (#1), Rate Limiting (#5), DSGVO Gemini EU (#6), KV Jurisdiction (#7), POST Idempotenz (#12), REST-Konsistenz (#13).
-- **Jules Scheduled Tasks** — Neue Tasks (WÄCHTER/STAHL/ZINK) starten ab morgen 07:00. Alte Sentinel/Palette/Bolt laufen parallel.
 - **Portable Audit System** — Tracker #28: Core Contract als projektübergreifendes Template (eigene Session).
