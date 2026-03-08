@@ -364,9 +364,11 @@ const SUPPORTED_AUDIO_TYPES = [
     "audio/mpeg",
     "audio/mp4",
     "audio/m4a",
+    "audio/x-m4a",
     "audio/wav",
     "audio/ogg",
     "audio/flac",
+    "audio/aac",
 ] as const;
 
 /** Raw extracted item from Gemini (before we add id/selected) */

@@ -16,9 +16,11 @@ const ALLOWED_AUDIO_TYPES = [
     "audio/mpeg",
     "audio/mp4",
     "audio/m4a",
+    "audio/x-m4a",
     "audio/wav",
     "audio/ogg",
     "audio/flac",
+    "audio/aac",
 ];
 
 export const interviewRoutes = new Hono<{ Bindings: Env }>();
