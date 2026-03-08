@@ -231,6 +231,7 @@ postRoutes.patch("/:id", async (c) => {
         status?: string;
         hashtags?: string[];
         imageId?: string;
+        scheduledAt?: string | null;
     }>();
 
     const updates: string[] = [];
@@ -253,6 +254,15 @@ postRoutes.patch("/:id", async (c) => {
     if (body.imageId !== undefined) {
         updates.push("image_id = ?");
         params.push(body.imageId);
+    }
+    if (body.scheduledAt !== undefined) {
+        updates.push("scheduled_at = ?");
+        params.push(body.scheduledAt ?? "");
+        // Auto-set status if scheduling
+        if (body.scheduledAt && body.status === undefined) {
+            updates.push("status = ?");
+            params.push("scheduled");
+        }
     }
 
     if (updates.length === 0) {

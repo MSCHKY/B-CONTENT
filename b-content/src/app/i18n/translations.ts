@@ -13,6 +13,7 @@ export interface Translations {
         library: string;
         orchestrate: string;
         stats: string;
+        calendar: string;
     };
 
     // --- Create Flow ---
@@ -99,6 +100,7 @@ export interface Translations {
         confirmPurge: string;
         statusLabels: {
             draft: string;
+            scheduled: string;
             review: string;
             approved: string;
             published: string;
@@ -145,6 +147,21 @@ export interface Translations {
         attentionRequired: string;
     };
 
+    // --- Calendar ---
+    calendar: {
+        title: string;
+        subtitle: string;
+        allInstances: string;
+        conflicts: string;
+        unscheduled: string;
+        schedulePost: string;
+        selectDate: string;
+        schedule: string;
+        unscheduleBtn: string;
+        cancel: string;
+        scheduled: string;
+    };
+
     // --- Common ---
     common: {
         loading: string;
@@ -160,6 +177,7 @@ export const de: Translations = {
         library: "Bibliothek",
         orchestrate: "Orchestrieren",
         stats: "Statistik",
+        calendar: "Kalender",
     },
 
     create: {
@@ -243,6 +261,7 @@ export const de: Translations = {
         confirmPurge: "Beitrag endgültig löschen? Das kann nicht rückgängig gemacht werden.",
         statusLabels: {
             draft: "Entwurf",
+            scheduled: "Geplant",
             review: "Review",
             approved: "Freigegeben",
             published: "Veröffentlicht",
@@ -287,6 +306,20 @@ export const de: Translations = {
         attentionRequired: "Handlungsbedarf",
     },
 
+    calendar: {
+        title: "Content-Kalender",
+        subtitle: "Beiträge auf der Zeitachse planen und die 2-Tage-Regel einhalten.",
+        allInstances: "Alle Instanzen",
+        conflicts: "Konflikte (2-Tage-Regel)",
+        unscheduled: "Ungeplante Beiträge",
+        schedulePost: "Beitrag planen",
+        selectDate: "Datum wählen",
+        schedule: "Planen",
+        unscheduleBtn: "Planung aufheben",
+        cancel: "Abbrechen",
+        scheduled: "Geplant",
+    },
+
     common: {
         loading: "Wird geladen…",
         error: "Ein Fehler ist aufgetreten.",
@@ -301,6 +334,7 @@ export const en: Translations = {
         library: "Library",
         orchestrate: "Orchestrate",
         stats: "Stats",
+        calendar: "Calendar",
     },
 
     create: {
@@ -384,6 +418,7 @@ export const en: Translations = {
         confirmPurge: "Permanently delete this post? This cannot be undone.",
         statusLabels: {
             draft: "Draft",
+            scheduled: "Scheduled",
             review: "Review",
             approved: "Approved",
             published: "Published",
@@ -426,6 +461,20 @@ export const en: Translations = {
         personal: "Personal",
         nextPersonal: "Next: Personal",
         attentionRequired: "Attention Required",
+    },
+
+    calendar: {
+        title: "Content Calendar",
+        subtitle: "Plan posts on a timeline and respect the 2-day posting rule.",
+        allInstances: "All Instances",
+        conflicts: "Conflicts (2-Day Rule)",
+        unscheduled: "Unscheduled Posts",
+        schedulePost: "Schedule Post",
+        selectDate: "Select Date",
+        schedule: "Schedule",
+        unscheduleBtn: "Unschedule",
+        cancel: "Cancel",
+        scheduled: "Scheduled",
     },
 
     common: {

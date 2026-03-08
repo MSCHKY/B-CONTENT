@@ -85,7 +85,7 @@ export interface Anecdote {
 // --- Content ---
 
 export type PostLanguage = "en" | "de";
-export type PostStatus = "draft" | "review" | "approved" | "published";
+export type PostStatus = "draft" | "scheduled" | "review" | "approved" | "published";
 
 export type ImageFormat =
     | "single-square"
@@ -106,6 +106,7 @@ export interface Post {
     charCount: number;
     isPersonal: boolean;
     status: PostStatus;
+    scheduledAt?: string | null;
     linkedPosts?: string[];
     createdAt: string;
     updatedAt: string;
@@ -147,7 +148,7 @@ export const LINKEDIN_FORMATS: Record<ImageFormat, LinkedInFormat> = {
 
 // --- App State ---
 
-export type AppView = "create" | "knowledge" | "library" | "orchestrate" | "stats";
+export type AppView = "create" | "knowledge" | "library" | "orchestrate" | "stats" | "calendar";
 
 export interface CreateFlowState {
     step: 1 | 2 | 3 | 4;

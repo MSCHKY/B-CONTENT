@@ -14,9 +14,10 @@ CREATE TABLE IF NOT EXISTS posts (
   hashtags TEXT NOT NULL DEFAULT '[]', -- JSON array of strings
   char_count INTEGER NOT NULL DEFAULT 0,
   is_personal INTEGER NOT NULL DEFAULT 0, -- boolean: 0/1
-  status TEXT NOT NULL DEFAULT 'draft' CHECK(status IN ('draft', 'review', 'approved', 'published', 'archived')),
+  status TEXT NOT NULL DEFAULT 'draft' CHECK(status IN ('draft', 'scheduled', 'review', 'approved', 'published', 'archived')),
   linked_posts TEXT DEFAULT NULL, -- JSON array of post IDs (orchestration)
   image_id TEXT DEFAULT NULL,
+  scheduled_at TEXT DEFAULT NULL, -- YYYY-MM-DD for calendar scheduling
   created_at TEXT NOT NULL DEFAULT (datetime('now')),
   updated_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
@@ -39,3 +40,4 @@ CREATE INDEX IF NOT EXISTS idx_posts_content_type ON posts(content_type);
 CREATE INDEX IF NOT EXISTS idx_posts_status ON posts(status);
 CREATE INDEX IF NOT EXISTS idx_posts_created_at ON posts(created_at);
 CREATE INDEX IF NOT EXISTS idx_posts_is_personal ON posts(is_personal);
+CREATE INDEX IF NOT EXISTS idx_posts_scheduled_at ON posts(scheduled_at);

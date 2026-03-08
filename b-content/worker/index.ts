@@ -6,6 +6,7 @@ import { knowledgeRoutes } from "./routes/knowledge";
 import { postRoutes } from "./routes/posts";
 import { orchestrateRoutes } from "./routes/orchestrate";
 import { statsRoutes } from "./routes/stats";
+import { calendarRoutes } from "./routes/calendar";
 
 export interface Env {
     DB: D1Database;
@@ -53,6 +54,7 @@ app.route("/api/knowledge", knowledgeRoutes);
 app.route("/api/posts", postRoutes);
 app.route("/api/orchestrate", orchestrateRoutes);
 app.route("/api/stats", statsRoutes);
+app.route("/api/calendar", calendarRoutes);
 
 // ============================================================
 // Image Serving — GET /api/images/:key+

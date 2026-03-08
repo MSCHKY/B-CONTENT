@@ -5,6 +5,7 @@ import { KnowledgeViewer } from "@/components/knowledge/knowledge-viewer";
 import { Library } from "@/components/library/library";
 import { Orchestrate } from "@/components/orchestrate/orchestrate";
 import { Stats } from "@/components/stats/stats";
+import { CalendarView } from "@/components/calendar/calendar-view";
 
 export function App() {
     const view = useAppStore((s) => s.view);
@@ -14,6 +15,7 @@ export function App() {
             {view === "create" && <CreateFlow />}
             {view === "knowledge" && <KnowledgeViewer />}
             {view === "library" && <Library />}
+            {view === "calendar" && <CalendarView />}
             {view === "orchestrate" && <Orchestrate />}
             {view === "stats" && <Stats />}
         </AppShell>
