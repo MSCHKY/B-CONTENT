@@ -41,3 +41,4 @@ _Use `./scripts/jules.sh active` to see live status._
 | 2026-03-08 10:48 | 16111870264160609064 | glut | 🔥 GLUT: Performance | ⏳ QUEUED | — |
 | 2026-03-08 10:48 | 6644161972299354233 | zink | 🛡️ ZINK: Security | ⏳ QUEUED | — |
 | 2026-03-08 10:48 | 16852091670583670182 | schliff | ✨ SCHLIFF: UX Polish | ⏳ QUEUED | — |
+| 2026-03-08 10:56 | 3364864528324354222 | waechter | 🔍 WÄCHTER: Dependency Patrol | ⏳ QUEUED | — |

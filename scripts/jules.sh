@@ -352,11 +352,12 @@ cmd_persona() {
 
   local persona_title
   case "$persona_name" in
-    stahl)   persona_title="🔩 STAHL: Testing & QA" ;;
-    glut)    persona_title="🔥 GLUT: Performance" ;;
-    zink)    persona_title="🛡️ ZINK: Security" ;;
-    schliff) persona_title="✨ SCHLIFF: UX Polish" ;;
-    *)       persona_title="$persona_name" ;;
+    stahl)    persona_title="🔩 STAHL: Testing & QA" ;;
+    glut)     persona_title="🔥 GLUT: Performance" ;;
+    zink)     persona_title="🛡️ ZINK: Security" ;;
+    schliff)  persona_title="✨ SCHLIFF: UX Polish" ;;
+    waechter) persona_title="🔍 WÄCHTER: Dependency Patrol" ;;
+    *)        persona_title="$persona_name" ;;
   esac
 
   PERSONA_NAME="$persona_name"
