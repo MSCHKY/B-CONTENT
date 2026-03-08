@@ -1,8 +1,8 @@
 # 🏗️ B/CONTENT — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-07 22:15
+> **Zuletzt aktualisiert:** 2026-03-08 09:45
 > **Modul:** B/CONTENT (Content-Gehirn)
-> **Status:** Phase 2 NEAR COMPLETE — E-001–E-004 ✅, i18n DE/EN ✅, Library Archive ✅, **Code-Audit durchgeführt → Nächster Schritt: Findings umsetzen**
+> **Status:** Phase 2 NEAR COMPLETE — E-001–E-004 ✅, i18n DE/EN ✅, Library Archive ✅, **Audit Batch 1+2 umgesetzt (7/13 Findings gefixt)**
 > **Branch:** `main` (Workers Builds Git-Integration aktiv)
 > **Live URL:** https://b-content.maschkeai.workers.dev
 > **Deploy:** Push auf `main` = automatisch live (Workers Builds, Root Dir: `b-content`)
@@ -185,8 +185,10 @@
 | 2026-03-07 | Execution   | E-003 manuell umgesetzt: Knowledge CRUD (KV Overlay + 7 API Routes + TopicEditor + QuoteEditor + knowledge-viewer rewrite + i18n 16 Keys) | ✅ Deployed |
 | 2026-03-07 | Feature     | Library Archive: Soft-Delete, Restore, Purge + Hono Route-Ordering-Bugfix | ✅ Deployed |
 | 2026-03-08 | QA/Audit    | Multi-Model Code Audit: Opus (Architektur), Sonnet (Hygiene), Gemini (Security), Codex (Tests) + Jules delegiert | ✅ 4/5 done, Jules IN_PROGRESS |
+| 2026-03-08 | Hardening   | Audit Batch 1+2: Global Error Handler, API Key→Header, CORS, R2 Validation, Sanitization, Pagination, Error Masking | ✅ 7/13 Findings gefixt, deployed |
 
 ### ⚠️ Bekannte Probleme
 - **Archiv auf Production verifizieren** — Bugfix (`8ce0d4f`) ist deployed, noch nicht getestet.
-- **Jules Session `18319471948386100645`** — Code Cleanup (onError, typed D1, JSDoc) noch IN_PROGRESS. PR reviewen wenn fertig.
-- **Audit-Findings umsetzen** — Konsolidierter Report aus 4 Modellen steht aus, Findings in nächster Session priorisieren und fixen.
+- **Jules Session `18319471948386100645`** — Code Cleanup PR reviewen wenn fertig.
+- **Jules-Workflow (`/jules`) ist V1** — Noch nicht API-basiert, braucht Optimierung in eigener Session.
+- **6 Audit-Findings bewusst deferred:** KV Race Condition (#1), Rate Limiting (#5), DSGVO Gemini EU (#6), KV Jurisdiction (#7), POST Idempotenz (#12), REST-Konsistenz (#13).
