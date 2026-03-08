@@ -1,39 +1,38 @@
 -- ============================================================
--- B/CONTENT — D1 Database Schema
--- Run: wrangler d1 execute b-content-db --local --file=db/schema.sql
+-- Migration: Add 'archived' to posts status CHECK constraint
+-- 
+-- D1 does NOT support ALTER TABLE ... ALTER COLUMN for CHECK constraints.
+-- We must recreate the table with the updated constraint.
 -- ============================================================
 
--- Posts table
-CREATE TABLE IF NOT EXISTS posts (
+-- Step 1: Create new table with updated CHECK constraint
+CREATE TABLE posts_new (
   id TEXT PRIMARY KEY,
   instance TEXT NOT NULL CHECK(instance IN ('alex', 'ablas', 'bwg')),
   content_type TEXT NOT NULL,
-  topic_fields TEXT NOT NULL DEFAULT '[]', -- JSON array of TopicFieldIds
+  topic_fields TEXT NOT NULL DEFAULT '[]',
   text TEXT NOT NULL,
   language TEXT NOT NULL DEFAULT 'en' CHECK(language IN ('en', 'de')),
-  hashtags TEXT NOT NULL DEFAULT '[]', -- JSON array of strings
+  hashtags TEXT NOT NULL DEFAULT '[]',
   char_count INTEGER NOT NULL DEFAULT 0,
-  is_personal INTEGER NOT NULL DEFAULT 0, -- boolean: 0/1
+  is_personal INTEGER NOT NULL DEFAULT 0,
   status TEXT NOT NULL DEFAULT 'draft' CHECK(status IN ('draft', 'review', 'approved', 'published', 'archived')),
-  linked_posts TEXT DEFAULT NULL, -- JSON array of post IDs (orchestration)
+  linked_posts TEXT DEFAULT NULL,
   image_id TEXT DEFAULT NULL,
   created_at TEXT NOT NULL DEFAULT (datetime('now')),
   updated_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
--- Generated images table
-CREATE TABLE IF NOT EXISTS generated_images (
-  id TEXT PRIMARY KEY,
-  format TEXT NOT NULL CHECK(format IN ('single-square', 'single-landscape', 'single-portrait', 'carousel-slide', 'company-banner')),
-  width INTEGER NOT NULL,
-  height INTEGER NOT NULL,
-  prompt TEXT NOT NULL,
-  url TEXT NOT NULL, -- R2 storage URL
-  template_id TEXT DEFAULT NULL,
-  created_at TEXT NOT NULL DEFAULT (datetime('now'))
-);
+-- Step 2: Copy all data
+INSERT INTO posts_new SELECT * FROM posts;
 
--- Indices for common queries
+-- Step 3: Drop old table
+DROP TABLE posts;
+
+-- Step 4: Rename new table
+ALTER TABLE posts_new RENAME TO posts;
+
+-- Step 5: Recreate indices
 CREATE INDEX IF NOT EXISTS idx_posts_instance ON posts(instance);
 CREATE INDEX IF NOT EXISTS idx_posts_content_type ON posts(content_type);
 CREATE INDEX IF NOT EXISTS idx_posts_status ON posts(status);

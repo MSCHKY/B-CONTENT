@@ -188,8 +188,8 @@
 | 2026-03-08 | Hardening   | Audit Batch 1+2: Global Error Handler, API Key→Header, CORS, R2 Validation, Sanitization, Pagination, Error Masking | ✅ 7/13 Findings gefixt, deployed |
 | 2026-03-08 | Tooling     | Jules Workflow V2→V3: API-CLI (`scripts/jules.sh`), Prompt V3 (Core Contract + Persona Lens), 7 Scheduled Tasks, 60+ alte Sessions bereinigt | ✅ Committed + deployed |
 | 2026-03-08 | Review      | Jules Audit Batch 3: 9 PRs reviewed — 7 merged (#10-#14, #16, #17), 2 closed (#9 dup onError, #15 dup useShallow). Perf, Security, A11y, Tests. | ✅ 0 open PRs |
+| 2026-03-08 | Bugfix      | Archive 500 on Production: D1 CHECK constraint missing 'archived' status. Migration applied, Archive/Restore/Purge verifiziert. | ✅ Fixed + Verified |
 
 ### ⚠️ Bekannte Probleme
-- **Archiv auf Production verifizieren** — Bugfix (`8ce0d4f`) ist deployed, noch nicht getestet.
 - **6 Audit-Findings bewusst deferred:** KV Race Condition (#1), Rate Limiting (#5), DSGVO Gemini EU (#6), KV Jurisdiction (#7), POST Idempotenz (#12), REST-Konsistenz (#13).
 - **Portable Audit System** — Tracker #28: Core Contract als projektübergreifendes Template (eigene Session).
