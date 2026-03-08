@@ -161,3 +161,4 @@ BENDERGROUP/
 | 2026-03-08 | Phase 3     | Z-003 Interview-Pipeline: Gemini Audio Transcription+Extraction, 3 API Routes, InterviewView UI, i18n 25 Keys, iPhone MIME Fix, Import Feedback Polish | ✅ Live |
 | 2026-03-08 | Feature     | Z-005 Analytics Dashboard: 4 D1-Queries, ActivityTimeline, ContentTypeBreakdown, SchedulingRing, 6 SummaryCards | ✅ Live |
 | 2026-03-08 | Bugfix      | Sidebar fixed positioning: sticky→fixed, position:relative aus .sidebar-glow entfernt, overflow-x-clip | ✅ Deployed |
+| 2026-03-08 | Hardening   | Audit Critical Fixes: 7 Silent-Fail-Catches, Dev-Mock-Leak, useRef, response.ok, 3 i18n-Strings | ✅ Deployed |

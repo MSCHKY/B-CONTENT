@@ -220,6 +220,7 @@
 | 2026-03-08 | Hotfix      | iPhone audio/x-m4a MIME-Type Fix + Import-Feedback Polish (affected topics + KB-Link) | ✅ Deployed |
 | 2026-03-08 | Feature     | Z-005 Analytics Dashboard: 4 D1-Queries (Timeline/Content-Types/Cadence/Scheduling), 4 Chart-Komponenten, 6 SummaryCards, 11 i18n Keys | ✅ Live |
 | 2026-03-08 | Bugfix      | Sidebar fixed positioning: .sidebar-glow position:relative entfernt, sticky→fixed, overflow-hidden→overflow-x-clip | ✅ Deployed |
+| 2026-03-08 | Hardening   | Audit Critical Fixes: 7 Silent-Fail-Catches → Error-Feedback, Dev-Mock-Leak → DEV-only, getElementById → useRef, response.ok Checks, 3 i18n-Strings | ✅ Deployed |
 
 ### ⚠️ Bekannte Probleme
 - **6 Audit-Findings bewusst deferred:** KV Race Condition (#1), Rate Limiting (#5), DSGVO Gemini EU (#6), KV Jurisdiction (#7), POST Idempotenz (#12), REST-Konsistenz (#13).
