@@ -27,7 +27,7 @@ export function Sidebar() {
     return (
         <>
             {/* Desktop Sidebar */}
-            <aside className="hidden md:flex flex-col w-20 lg:w-56 h-dvh bg-bg-sidebar sticky top-0 shrink-0 sidebar-glow">
+            <aside className="hidden md:flex flex-col w-20 lg:w-56 h-dvh bg-bg-sidebar fixed top-0 left-0 shrink-0 sidebar-glow z-40">
                 {/* Logo Area */}
                 <div className="flex items-center justify-center lg:justify-start gap-3 px-4 h-16 border-b border-white/10 overflow-hidden">
                     <img

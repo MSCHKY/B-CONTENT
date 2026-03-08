@@ -308,10 +308,6 @@ body {
 }
 
 /* --- Sidebar Premium Styles --- */
-.sidebar-glow {
-    position: relative;
-}
-
 .sidebar-glow::before {
     content: "";
     position: absolute;
