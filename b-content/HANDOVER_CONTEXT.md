@@ -224,6 +224,7 @@
 | 2026-03-08 | Refactoring | Audit Fixes Batch 2: Shared Constants (`src/shared/constants.ts`, 11 Exports, 8 Dateien), KV try/catch, Error Boundary, 9 i18n-Keys, 6 Inline-Strings eliminiert | ✅ Deployed |
 | 2026-03-08 | Refactoring | Component Splitting: 5 übergroße Komponenten (stats 579→236, knowledge 498→95, interview 624→303, calendar 536→216, library 374→197) in 22 fokussierte Sub-Dateien zerlegt. `/split` Workflow erstellt. | ✅ Build OK |
 | 2026-03-09 | Feature     | CHANGELOG.md (4 retroaktive Releases) + Automatische Versionierung (commit-and-tag-version) + Unsichtbarer Changelog-Trigger + Version → 1.0.0-beta.0 | ✅ Deployed |
+| 2026-03-09 | Review      | Jules PR Status-Check: 5 neue PRs (#12-#17) alle gemerged (useShallow, Tests, JSON-Handler, A11y, Type-Fix). 0 offene PRs. | ✅ Sauber |
 
 ### ⚠️ Bekannte Probleme
 - **6 Audit-Findings bewusst deferred:** KV Race Condition (#1), Rate Limiting (#5), DSGVO Gemini EU (#6), KV Jurisdiction (#7), POST Idempotenz (#12), REST-Konsistenz (#13).
