@@ -6,6 +6,7 @@
 import { Hono } from "hono";
 import type { Env } from "../index";
 import { AppError, transcribeAndExtract } from "../services/gemini";
+import { sanitizeText } from "../services/validation";
 
 // Max upload size: 20MB (Gemini inline data limit after base64 encoding)
 const MAX_FILE_SIZE = 20 * 1024 * 1024;
@@ -75,10 +76,11 @@ interviewRoutes.post("/process", async (c) => {
 
     // Generate interview ID
     const id = crypto.randomUUID();
-    const interviewTitle = title || `Interview ${new Date().toISOString().split("T")[0]}`;
+    const interviewTitle = (title ? sanitizeText(title) : null) || `Interview ${new Date().toISOString().split("T")[0]}`;
+    const sanitizedContext = context ? sanitizeText(context) : null;
 
     // Call Gemini: Transcribe + Extract in one API call
-    const result = await transcribeAndExtract(apiKey, base64, mimeType, context || undefined);
+    const result = await transcribeAndExtract(apiKey, base64, mimeType, sanitizedContext || undefined);
 
     // Enrich extracted items with IDs and default selection
     const enrichedItems = result.items.map((item) => ({
@@ -144,7 +146,7 @@ interviewRoutes.post("/import", async (c) => {
                 const facts = existing || [];
                 facts.push({
                     id: item.id,
-                    content: item.content,
+                    content: sanitizeText(item.content),
                     source: "Interview Import",
                 });
                 await kv.put(kvKey, JSON.stringify(facts));
@@ -163,8 +165,8 @@ interviewRoutes.post("/import", async (c) => {
             const quotes = existing || [];
             quotes.push({
                 id: item.id,
-                content: item.content,
-                author: item.author || "alex",
+                content: sanitizeText(item.content),
+                author: item.author ? sanitizeText(item.author) : "alex",
                 context: "Interview Import",
             });
             await kv.put(kvKey, JSON.stringify(quotes));
@@ -178,7 +180,7 @@ interviewRoutes.post("/import", async (c) => {
                 const facts = existing || [];
                 facts.push({
                     id: item.id,
-                    content: `[${item.type === "proof_point" ? "Proof Point" : "Anecdote"}] ${item.content}`,
+                    content: sanitizeText(`[${item.type === "proof_point" ? "Proof Point" : "Anecdote"}] ${item.content}`),
                     source: "Interview Import",
                 });
                 await kv.put(kvKey, JSON.stringify(facts));
