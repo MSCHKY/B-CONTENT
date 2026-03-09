@@ -1,0 +1,3 @@
+## 2025-03-09 - Accessibility of inline error dismissal buttons
+**Learning:** Inline error notices using `<button>✕</button>` lack inherent meaning for screen readers, meaning users hear "times" or nothing instead of the action ("Schließen"). Using standard `<button>` tags without text or aria-labels for standard UI actions is an accessibility gap. Additionally, these inline close buttons lack `type="button"` which might trigger unintended form submissions, and lack clear focus visible styles.
+**Action:** When adding error dismissal or other small icon-only interactive elements, always include `aria-label="[Aktion]"`, ensure `type="button"` to avoid form submission, and provide explicit `focus-visible` styles to ensure keyboard navigation visibility.
