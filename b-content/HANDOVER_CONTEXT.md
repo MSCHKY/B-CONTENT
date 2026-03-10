@@ -1,6 +1,6 @@
 # 🏗️ B/CONTENT — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-10 01:12
+> **Zuletzt aktualisiert:** 2026-03-10 01:32
 > **Modul:** B/CONTENT (Content-Gehirn)
 > **Status:** Phase 3 IN PROGRESS — Z-002 ✅, Z-003 ✅, Z-005 Analytics ✅ LIVE
 > **Branch:** `main` (Workers Builds Git-Integration aktiv)
@@ -225,7 +225,10 @@
 | 2026-03-08 | Refactoring | Component Splitting: 5 übergroße Komponenten (stats 579→236, knowledge 498→95, interview 624→303, calendar 536→216, library 374→197) in 22 fokussierte Sub-Dateien zerlegt. `/split` Workflow erstellt. | ✅ Build OK |
 | 2026-03-09 | Feature     | CHANGELOG.md (4 retroaktive Releases) + Automatische Versionierung (commit-and-tag-version) + Unsichtbarer Changelog-Trigger + Version → 1.0.0-beta.0 | ✅ Deployed |
 | 2026-03-09 | Review      | Jules PR Status-Check: 5 neue PRs (#12-#17) alle gemerged (useShallow, Tests, JSON-Handler, A11y, Type-Fix). 0 offene PRs. | ✅ Sauber |
+| 2026-03-10 | Hardening   | Architecture Hardening Session A: FM1 Promise.allSettled (Partial-Success Orchestration), FM2 R2+Image Cleanup bei Purge, FM4 Schema-Health-Check in /api/health | ✅ Deployed |
 
 ### ⚠️ Bekannte Probleme
-- **6 Audit-Findings bewusst deferred:** KV Race Condition (#1), Rate Limiting (#5), DSGVO Gemini EU (#6), KV Jurisdiction (#7), POST Idempotenz (#12), REST-Konsistenz (#13).
+- **3 Audit-Findings bewusst deferred:** Rate Limiting (#5), DSGVO Gemini EU (#6), KV Jurisdiction (#7), POST Idempotenz (#12), REST-Konsistenz (#13).
+- **FM3 KV-Schema-Split:** Interview-Import und Knowledge CRUD nutzen verschiedene KV-Keys → Session B geplant.
+- **FM1/FM5 extended:** Circuit Breaker, Auth-Middleware-Stub → Session C (deferred).
 - **Portable Audit System** — Tracker #28: Core Contract als projektübergreifendes Template (eigene Session).
