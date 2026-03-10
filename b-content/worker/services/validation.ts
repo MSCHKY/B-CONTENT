@@ -11,35 +11,39 @@ const instanceTypes: Record<InstanceId, string[]> = {
     bwg: ["draht-steckt-in", "news", "behind-scenes", "zahlen-fakten"]
 };
 
-const instanceCharRanges: Record<InstanceId, Record<string, {min: number, max: number}>> = {
+const instanceCharRanges: Record<InstanceId, Record<string, { min: number, max: number }>> = {
     alex: {
-        "deep-dive": {min: 800, max: 1200},
-        "position": {min: 400, max: 600},
-        "frage": {min: 300, max: 500},
-        "persoenlich": {min: 400, max: 600}
+        "deep-dive": { min: 800, max: 1200 },
+        "position": { min: 400, max: 600 },
+        "frage": { min: 300, max: 500 },
+        "persoenlich": { min: 400, max: 600 }
     },
     ablas: {
-        "proof-point": {min: 400, max: 600},
-        "wusstest-du": {min: 200, max: 400},
-        "messe-story": {min: 400, max: 800},
-        "persoenlich": {min: 300, max: 600}
+        "proof-point": { min: 400, max: 600 },
+        "wusstest-du": { min: 200, max: 400 },
+        "messe-story": { min: 400, max: 800 },
+        "persoenlich": { min: 300, max: 600 }
     },
     bwg: {
-        "draht-steckt-in": {min: 200, max: 400},
-        "news": {min: 300, max: 600},
-        "behind-scenes": {min: 300, max: 500},
-        "zahlen-fakten": {min: 200, max: 300}
+        "draht-steckt-in": { min: 200, max: 400 },
+        "news": { min: 300, max: 600 },
+        "behind-scenes": { min: 300, max: 500 },
+        "zahlen-fakten": { min: 200, max: 300 }
     }
 };
 
 export const sanitizeText = (text: any): string => {
     if (typeof text !== "string") return "";
+    // Strip dangerous HTML tags but preserve normal punctuation.
+    // React handles XSS via JSX escaping — we only need to prevent
+    // actual script injection, not encode quotes/apostrophes.
     return text
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#x27;")
+        .replace(/<script[^>]*>.*?<\/script>/gi, "")
+        .replace(/<iframe[^>]*>.*?<\/iframe>/gi, "")
+        .replace(/<object[^>]*>.*?<\/object>/gi, "")
+        .replace(/<embed[^>]*>/gi, "")
+        .replace(/on\w+\s*=\s*["'][^"']*["']/gi, "")
+        .replace(/javascript\s*:/gi, "")
         .trim();
 };
 
