@@ -6,6 +6,7 @@
 import { Hono } from "hono";
 import type { Env } from "../index";
 import { AppError, transcribeAndExtract } from "../services/gemini";
+import { getTopics, saveTopics, getQuotes, saveQuotes } from "../services/kb-service";
 
 // Max upload size: 20MB (Gemini inline data limit after base64 encoding)
 const MAX_FILE_SIZE = 20 * 1024 * 1024;
@@ -133,59 +134,57 @@ interviewRoutes.post("/import", async (c) => {
     let importedCount = 0;
     const affectedTopics = new Set<string>();
 
+    // Load canonical KB data once — batch mutations, write once at the end
+    const topics = await getTopics(kv);
+    const quoteGroups = await getQuotes(kv);
+    let topicsModified = false;
+    let quotesModified = false;
+
     for (const item of body.items) {
         if (!item.content || !item.type) continue;
 
-        if (item.type === "fact" && item.topicFields.length > 0) {
-            // Import as fact into topic's fact list
+        if ((item.type === "fact" || item.type === "anecdote" || item.type === "proof_point") && item.topicFields.length > 0) {
+            // Import as fact into topic's facts array (canonical kb_topics key)
+            const factContent = item.type === "fact"
+                ? item.content
+                : `[${item.type === "proof_point" ? "Proof Point" : "Anecdote"}] ${item.content}`;
+
             for (const topicId of item.topicFields) {
-                const kvKey = `topics/${topicId}/facts`;
-                const existing = await kv.get(kvKey, "json") as Array<{ id: string; content: string; source: string }> | null;
-                const facts = existing || [];
-                facts.push({
-                    id: item.id,
-                    content: item.content,
-                    source: "Interview Import",
-                });
-                await kv.put(kvKey, JSON.stringify(facts));
-                affectedTopics.add(topicId);
+                const topic = topics.find(t => t.id === topicId);
+                if (topic) {
+                    topic.facts.push(factContent);
+                    topicsModified = true;
+                    affectedTopics.add(topicId);
+                }
             }
             importedCount++;
         } else if (item.type === "quote") {
-            // Import as quote
-            const kvKey = "quotes/all";
-            const existing = await kv.get(kvKey, "json") as Array<{
-                id: string;
-                content: string;
-                author: string;
-                context?: string;
-            }> | null;
-            const quotes = existing || [];
-            quotes.push({
+            // Import as quote into canonical kb_quotes key
+            const authorKey = item.author || "alex";
+            let group = quoteGroups.find(g => g.author === authorKey);
+            if (!group) {
+                group = { author: authorKey, name: authorKey, quotes: [] };
+                quoteGroups.push(group);
+            }
+            group.quotes.push({
                 id: item.id,
                 content: item.content,
-                author: item.author || "alex",
+                topics: item.topicFields || [],
+                emotion: "",
                 context: "Interview Import",
             });
-            await kv.put(kvKey, JSON.stringify(quotes));
+            quotesModified = true;
             affectedTopics.add("_quotes");
             importedCount++;
-        } else if (item.type === "anecdote" || item.type === "proof_point") {
-            // Store anecdotes and proof points as facts in the relevant topic
-            for (const topicId of item.topicFields) {
-                const kvKey = `topics/${topicId}/facts`;
-                const existing = await kv.get(kvKey, "json") as Array<{ id: string; content: string; source: string }> | null;
-                const facts = existing || [];
-                facts.push({
-                    id: item.id,
-                    content: `[${item.type === "proof_point" ? "Proof Point" : "Anecdote"}] ${item.content}`,
-                    source: "Interview Import",
-                });
-                await kv.put(kvKey, JSON.stringify(facts));
-                affectedTopics.add(topicId);
-            }
-            importedCount++;
         }
+    }
+
+    // Persist batched mutations
+    if (topicsModified) {
+        await saveTopics(kv, topics);
+    }
+    if (quotesModified) {
+        await saveQuotes(kv, quoteGroups);
     }
 
     // Update interview record
