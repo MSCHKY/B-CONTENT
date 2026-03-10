@@ -200,9 +200,17 @@ export function ResultEditor() {
                         charLabel={t.create.result.charCount}
                         rows={12}
                         className="font-mono text-sm"
+                        onClear={() => {
+                            setGeneratedText("");
+                            setGeneratedImageUrl(null);
+                            setSavedPostId(null);
+                            setSavedImageId(null);
+                            setSaveError(null);
+                            setImageError(null);
+                        }}
                     />
 
-                    <div className="flex gap-2 flex-wrap">
+                    <div className="flex gap-2">
                         <Button variant="secondary" size="sm" onClick={handleCopyText}>
                             📋 {t.create.result.copy}
                         </Button>
@@ -215,21 +223,6 @@ export function ResultEditor() {
                             onClick={prevStep}
                         >
                             🔄 {t.create.result.regenerate}
-                        </Button>
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => {
-                                setGeneratedText("");
-                                setGeneratedImageUrl(null);
-                                setSavedPostId(null);
-                                setSavedImageId(null);
-                                setSaveError(null);
-                                setImageError(null);
-                            }}
-                            disabled={!generatedText && !generatedImageUrl}
-                        >
-                            🗑️ {t.create.result.clearContent}
                         </Button>
                     </div>
                 </div>

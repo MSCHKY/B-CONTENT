@@ -177,6 +177,7 @@ export function TopicInput() {
                         charCount={userInput.length}
                         charLabel={t.create.result.charCount}
                         rows={6}
+                        onClear={() => setUserInput("")}
                     />
 
                     <Button
