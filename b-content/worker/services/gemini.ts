@@ -66,8 +66,8 @@ interface GeminiError {
 
 // Gemini API v1beta endpoint
 const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta";
-const TEXT_MODEL = "gemini-2.0-flash";
-const IMAGE_MODEL = "gemini-2.5-flash-image";
+const TEXT_MODEL = "gemini-2.5-flash";
+const IMAGE_MODEL = "gemini-3.1-flash-image-preview";
 
 /**
  * Generate text content using the Gemini API.
