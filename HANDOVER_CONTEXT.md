@@ -1,6 +1,6 @@
 # 🏗️ BENDERWIRE GROUP — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-10 01:44
+> **Zuletzt aktualisiert:** 2026-03-10 08:30
 > **Aktiver Fokus:** B/CONTENT (Content-Gehirn) — Phase 3 IN PROGRESS, **Z-005 Analytics ✅ LIVE**
 > **Phase:** Pitch / MVP
 
@@ -170,3 +170,4 @@ BENDERGROUP/
 | 2026-03-10 | Hardening   | Architecture Hardening Session A: FM1 Promise.allSettled, FM2 Purge R2-Cleanup, FM4 Schema-Health-Check | ✅ Deployed |
 | 2026-03-10 | Hardening   | Architecture Hardening Session B: FM3 KV-Schema-Konsolidierung, Shared kb-service.ts, Batched Writes | ✅ Deployed |
 | 2026-03-10 | Hardening   | Architecture Hardening Session C: FM1 Exponential Backoff, FM5 Auth-Middleware-Stub, x-gemini-key Override entfernt | ✅ Deployed |
+| 2026-03-10 | Experiment  | Gemini Model-Upgrade getestet → Reverted. 2.0-flash bleibt bis Prompt-Retuning. EOL: 1. Juni 2026 | ↩️ Reverted |
