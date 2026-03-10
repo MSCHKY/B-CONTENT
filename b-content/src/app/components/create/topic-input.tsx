@@ -192,7 +192,14 @@ export function TopicInput() {
                     {error && (
                         <div className="rounded-lg bg-red-500/10 border border-red-500/30 p-3 text-sm text-red-400 animate-fade-in-up flex items-center justify-between">
                             <span>⚠️ {error}</span>
-                            <button onClick={() => setError(null)} className="text-red-400 hover:text-red-300 ml-2">✕</button>
+                            <button
+                                type="button"
+                                aria-label="Fehlermeldung schließen"
+                                onClick={() => setError(null)}
+                                className="text-red-400 hover:text-red-300 ml-2 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400"
+                            >
+                                ✕
+                            </button>
                         </div>
                     )}
                 </div>
