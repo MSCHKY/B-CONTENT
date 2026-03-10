@@ -62,6 +62,7 @@ export interface Translations {
             hashtagsLabel: string;
             instanceLabel: string;
             typeLabel: string;
+            clearContent: string;
             mockNotice: string;
         };
     };
@@ -296,6 +297,7 @@ export const de: Translations = {
             hashtagsLabel: "Hashtags",
             instanceLabel: "Instanz",
             typeLabel: "Typ",
+            clearContent: "Inhalt leeren",
             mockNotice: "Demo-Modus: Kein API-Key konfiguriert.",
         },
     },
@@ -522,6 +524,7 @@ export const en: Translations = {
             hashtagsLabel: "Hashtags",
             instanceLabel: "Instance",
             typeLabel: "Type",
+            clearContent: "Clear content",
             mockNotice: "Demo mode: No API key configured.",
         },
     },

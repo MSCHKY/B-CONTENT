@@ -13,6 +13,18 @@ export const APP_VERSION = "1.0.0-beta.0";
 
 export const changelog: ChangelogEntry[] = [
     {
+        version: "1.0.0-beta.0+",
+        date: "2026-03-10",
+        highlights: [
+            "Architecture Hardening: Promise.allSettled, R2 Cleanup, Schema Health, KV Consolidation",
+            "Gemini 2.5 Flash + Nano Banana 2 (3.1-flash-image) — Live Model Upgrade",
+            "Exponential Backoff für Gemini API Retries",
+            "Auth Middleware Stub (CF Access)",
+            "Save-to-Library: Toleranz-Band statt harter charRange-Block",
+            "Content leeren Button im Result-Editor",
+        ],
+    },
+    {
         version: "1.0.0-beta.0",
         date: "2026-03-08",
         highlights: [

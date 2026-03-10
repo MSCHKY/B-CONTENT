@@ -225,6 +225,19 @@ export function buildTextPrompt(params: BuildPromptParams): BuiltPrompt {
             : "\nLANGUAGE: Write the post in ENGLISH.";
     systemParts.push(langInstruction);
 
+    // Explicit character range constraint for the model
+    const ctData = getContentTypeInfo(instance, contentType);
+    const rangeMatch = ctData.match(/Character range: (\d+)–(\d+)/);
+    if (rangeMatch) {
+        systemParts.push(`\nHARD CONSTRAINT — CHARACTER COUNT: Your output MUST be between ${rangeMatch[1]} and ${rangeMatch[2]} characters (including spaces and hashtags). Count carefully. If your draft is too short, add more substance. If too long, tighten the language. Do NOT exceed the upper limit.`);
+    }
+
+    // Self-critique for thinking models (gemini-2.5-flash)
+    systemParts.push(`\nBefore returning your final response, verify:
+1. Character count falls within the required range.
+2. Tone matches the requested persona — authentic, not generic.
+3. No corporate buzzwords or forbidden phrases.`);
+
     const system = systemParts.join("\n");
 
     // 2. Assemble user prompt with KB context

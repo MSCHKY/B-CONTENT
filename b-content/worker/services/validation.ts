@@ -84,8 +84,9 @@ export const validateContentType = (instance: InstanceId, contentType: any): Val
 
 export const validateTextLength = (instance: any, contentType: any, text: string): ValidationError | null => {
     if (contentType === "website-article") {
-        if (text.length < 500 || text.length > 1500) {
-            return { error: `Text length for website-article must be between 500 and 1500 characters.`, field: "text" };
+        // Tolerance band: hard-block only at ±50% of range (250–2250)
+        if (text.length < 250 || text.length > 2250) {
+            return { error: `Text length for website-article must be roughly between 500 and 1500 characters (current: ${text.length}).`, field: "text" };
         }
         return null;
     }
@@ -98,8 +99,14 @@ export const validateTextLength = (instance: any, contentType: any, text: string
     const range = ranges[contentType];
     if (!range) return null;
 
-    if (text.length < range.min || text.length > range.max) {
-        return { error: `Text length for ${instance} ${contentType} must be between ${range.min} and ${range.max} characters.`, field: "text" };
+    // Tolerance band: allow ±50% of the defined range.
+    // Only hard-block completely absurd lengths to avoid losing user work.
+    // The prompt-builder already instructs the AI to aim for the exact range.
+    const toleranceMin = Math.floor(range.min * 0.5);
+    const toleranceMax = Math.ceil(range.max * 1.5);
+
+    if (text.length < toleranceMin || text.length > toleranceMax) {
+        return { error: `Text length for ${instance} ${contentType} is far outside the expected ${range.min}–${range.max} range (current: ${text.length}).`, field: "text" };
     }
     return null;
 };
