@@ -1,6 +1,6 @@
 # 🏗️ BENDERWIRE GROUP — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-10 08:30
+> **Zuletzt aktualisiert:** 2026-03-10 10:20
 > **Aktiver Fokus:** B/CONTENT (Content-Gehirn) — Phase 3 IN PROGRESS, **Z-005 Analytics ✅ LIVE**
 > **Phase:** Pitch / MVP
 
@@ -35,7 +35,7 @@ Vollständige Spezifikation → `B-CONTENT/PRODUCT_SPEC.md`
 ### Tech-Stack (entschieden)
 - **Frontend:** React + Vite v7 + TypeScript + Tailwind CSS v4
 - **Backend:** Hono + Cloudflare Workers + D1 (EU)
-- **AI:** Google Gemini API (Text + Bilder)
+- **AI:** Google Gemini API (gemini-2.5-flash Text + gemini-3.1-flash-image-preview Bilder)
 - **Brand-System:** vDNA (`assets/vdna/tokens.json`)
 
 ### Status
@@ -171,3 +171,4 @@ BENDERGROUP/
 | 2026-03-10 | Hardening   | Architecture Hardening Session B: FM3 KV-Schema-Konsolidierung, Shared kb-service.ts, Batched Writes | ✅ Deployed |
 | 2026-03-10 | Hardening   | Architecture Hardening Session C: FM1 Exponential Backoff, FM5 Auth-Middleware-Stub, x-gemini-key Override entfernt | ✅ Deployed |
 | 2026-03-10 | Experiment  | Gemini Model-Upgrade getestet → Reverted. 2.0-flash bleibt bis Prompt-Retuning. EOL: 1. Juni 2026 | ↩️ Reverted |
+| 2026-03-10 | Debugging   | Qualitaets-Debugging: sanitizeText Bug gefixt, 429 Error Handling, Model-Upgrade LIVE (2.5-flash + NB2), API-Key rotiert, D1+R2 bereinigt | ✅ Deployed |

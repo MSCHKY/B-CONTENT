@@ -1,6 +1,6 @@
 # 🏗️ B/CONTENT — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-10 08:30
+> **Zuletzt aktualisiert:** 2026-03-10 10:20
 > **Modul:** B/CONTENT (Content-Gehirn)
 > **Status:** Phase 3 IN PROGRESS — Z-002 ✅, Z-003 ✅, Z-005 Analytics ✅ LIVE
 > **Branch:** `main` (Workers Builds Git-Integration aktiv)
@@ -45,7 +45,7 @@
 - [x] **Build verifiziert** — 0 TS Errors, Vite Build ok, visuell getestet
 - [x] **AI System-Prompts** — Base + 3 Instanzen + 11 Content-Typen + Website-Beitrag
 - [x] **Prompt-Builder Service** — Runtime-Assembly aus Instanz + Typ + KB-Kontext
-- [x] **Gemini Client** — Text-Generierung (gemini-2.0-flash, Retry, EU-Endpoint vorbereitet)
+- [x] **Gemini Client** -- Text-Generierung (gemini-2.5-flash, Retry, EU-Endpoint vorbereitet)
 - [x] **Generate-Route verdrahtet** — Mock-Fallback + echte Pipeline + Website-Artikel-Endpoint
 - [x] **Playwright Smoke Test** — 9 Tests (App-Load, Navigation, Create-Flow, Knowledge, API, Orchestrate, Stats)
 - [x] **Website-Beitrag Format** — Cross-Instance Prompt + API-Endpoint
@@ -115,8 +115,8 @@
 | Styling | Tailwind CSS v4 + vDNA Tokens | ✅ Implementiert |
 | State Management | Zustand v5 | ✅ Implementiert |
 | Backend/API | Hono + @cloudflare/vite-plugin | ✅ Live |
-| AI Text | Google Gemini API (gemini-2.0-flash) | ✅ Live |
-| AI Bild | Google Gemini API (gemini-2.5-flash-image) | ✅ Live |
+| AI Text | Google Gemini API (gemini-2.5-flash) | ✅ Live |
+| AI Bild | Google Gemini API (gemini-3.1-flash-image-preview / Nano Banana 2) | ✅ Live |
 | Datenbank | Cloudflare D1 (EU Region) | ✅ Live (posts + generated_images) |
 | File Storage | Cloudflare R2 (b-content-images, EU) | ✅ Live |
 | Hosting | Cloudflare Workers | ✅ b-content.maschkeai.workers.dev |
@@ -157,15 +157,15 @@
 
 ## 6. Invarianten
 
-1. **Content-Gehirn:** Drei Kommunikationsinstanzen (Alex, Ablas, BWG) + Website-Beitrag
-2. **Wissensbasis-gespeist:** AI generiert mit Kontext aus der Knowledge Engine
-3. **DSGVO-konform:** Cloudflare EU-Region, Gemini EU-Endpoint (Vertex AI)
-4. **Core-Ready:** Auth, API, DB so abstrahiert, dass B/WIRE-Integration möglich ist
-5. **Brand-konform:** Alle generierten Assets nutzen vDNA-Tokens
-6. **Export-First:** Generierte Inhalte sofort downloadbar
-7. **Anti-Patchwork:** Kein Feature ohne Eintrag im Product Spec
-8. **Instanzen als JSON-Config:** Neue Stimmen/Typen/Themen sind Config-Änderung, kein Code-Umbau
-9. **Deployment-Standard:** Push auf `main` = Live — Cloudflare Workers Builds, KEIN manuelles Deploy, KEIN CI/CD-Workaround
+1.  **Content-Gehirn:** Drei Kommunikationsinstanzen (Alex, Ablas, BWG) + Website-Beitrag
+2.  **Wissensbasis-gespeist:** AI generiert mit Kontext aus der Knowledge Engine
+3.  **DSGVO-konform:** Cloudflare EU-Region, Gemini EU-Endpoint (Vertex AI)
+4.  **Core-Ready:** Auth, API, DB so abstrahiert, dass B/WIRE-Integration möglich ist
+5.  **Brand-konform:** Alle generierten Assets nutzen vDNA-Tokens
+6.  **Export-First:** Generierte Inhalte sofort downloadbar
+7.  **Anti-Patchwork:** Kein Feature ohne Eintrag im Product Spec
+8.  **Instanzen als JSON-Config:** Neue Stimmen/Typen/Themen sind Config-Änderung, kein Code-Umbau
+9.  **Deployment-Standard:** Push auf `main` = Live — Cloudflare Workers Builds, KEIN manuelles Deploy, KEIN CI/CD-Workaround
 
 ---
 
@@ -187,50 +187,51 @@
 
 ## 8. Session-Log
 
-| Datum      | Session-Typ | Thema                           | Ergebnis |
+| Datum | Session-Typ | Thema | Ergebnis |
 |------------|-------------|---------------------------------|----------|
-| 2026-03-06 | Planning    | Modul-Infrastruktur aufgesetzt  | ✅ Done  |
-| 2026-03-06 | Planning    | Strategy Doc → Product Spec, vDNA, Wissensbasis | ✅ Done |
-| 2026-03-06 | Planning    | Kunden-Feedback, Assets sortiert, LinkedIn-Analyse | ✅ Done |
-| 2026-03-06 | Execution   | Phase A+B: Projekt-Setup + Design System + Create-Flow + Knowledge | ✅ Done |
-| 2026-03-06 | Follow-up   | Marco-Feedback: Website-Beitrag, Bild-Gap, User-Scope, Budget | ✅ Dokumentiert |
-| 2026-03-06 | Execution   | AI-Pipeline: System-Prompts + Prompt-Builder + Gemini Client + Smoke Test | ✅ Done |
-| 2026-03-06 | Ops         | GitHub Push + D1/R2 (EU) + Gemini Key + First Deploy + E2E Test | ✅ Live |
-| 2026-03-06 | Execution   | Bild-Pipeline (Gemini Image + R2 + vDNA Prompts) + Content Library (D1 + UI) | ✅ Live |
-| 2026-03-06 | Polish      | Visual Premium Upgrade: Glassmorphism, Micro-Animations, Logo, Gradient Accents (14 Dateien) | ✅ Deployed |
-| 2026-03-06 | Ops         | Deployment-Standard verankert: Workers Builds + Git-Integration, kein Sonderweg | ✅ Dokumentiert |
+| 2026-03-06 | Planning | Modul-Infrastruktur aufgesetzt | ✅ Done |
+| 2026-03-06 | Planning | Strategy Doc → Product Spec, vDNA, Wissensbasis | ✅ Done |
+| 2026-03-06 | Planning | Kunden-Feedback, Assets sortiert, LinkedIn-Analyse | ✅ Done |
+| 2026-03-06 | Execution | Phase A+B: Projekt-Setup + Design System + Create-Flow + Knowledge | ✅ Done |
+| 2026-03-06 | Follow-up | Marco-Feedback: Website-Beitrag, Bild-Gap, User-Scope, Budget | ✅ Dokumentiert |
+| 2026-03-06 | Execution | AI-Pipeline: System-Prompts + Prompt-Builder + Gemini Client + Smoke Test | ✅ Done |
+| 2026-03-06 | Ops | GitHub Push + D1/R2 (EU) + Gemini Key + First Deploy + E2E Test | ✅ Live |
+| 2026-03-06 | Execution | Bild-Pipeline (Gemini Image + R2 + vDNA Prompts) + Content Library (D1 + UI) | ✅ Live |
+| 2026-03-06 | Polish | Visual Premium Upgrade: Glassmorphism, Micro-Animations, Logo, Gradient Accents (14 Dateien) | ✅ Deployed |
+| 2026-03-06 | Ops | Deployment-Standard verankert: Workers Builds + Git-Integration, kein Sonderweg | ✅ Dokumentiert |
 | 2026-03-07 | Maintenance | Styleguide↔vDNA Compliance (100%), Assets-Fix (Fonts+Logo), Lucide Icons, CF Access, Jules Research | ✅ Deployed |
 | 2026-03-07 | Integration | Jules AI Agent: AGENTS.md, CLI Script, Prompt Library (12 Templates), 7 Tasks delegiert | ✅ Live |
-| 2026-03-07 | Review      | Jules PR-Review: 3 gemerged (JSDoc+Validation+ErrorHandling), 3 closed, Code-Hardening cherry-picked, Prompt Library → 4 Drahtwerk-Personas | ✅ Done |
+| 2026-03-07 | Review | Jules PR-Review: 3 gemerged (JSDoc+Validation+ErrorHandling), 3 closed, Code-Hardening cherry-picked, Prompt Library → 4 Drahtwerk-Personas | ✅ Done |
 | 2026-03-07 | QA + Bugfix | Live Smoke Test: AI-Gen ✅, Save-to-Library-Bug gefixt (Validation + Silent Fail), Image-JOIN in Library, GEMINI_API_KEY persistent via REST API | ✅ Deployed |
-| 2026-03-07 | Phase 2     | E-001 Orchestrate (Dreier-Regel) + E-002 Stats (4:1 Ratio Tracker): Backend + Frontend + Tests | ✅ Build OK |
-| 2026-03-07 | Feature     | i18n: DE/EN Sprachumschaltung (7 Views, Globe-Toggle, localStorage), Stats-Bug gefixt (instance_id→instance), Library Emoji→Lucide Icons | ✅ Deployed |
-| 2026-03-07 | Delegation  | Jules E-003 Knowledge CRUD: 2× gescheitert (Sandbox-Reset, Code verloren). Session 1: `3594320281645123255`, Session 2: `15320552779448508024` — AWAITING_USER_FEEDBACK | ❌ Fehlgeschlagen |
-| 2026-03-07 | Execution   | E-003 manuell umgesetzt: Knowledge CRUD (KV Overlay + 7 API Routes + TopicEditor + QuoteEditor + knowledge-viewer rewrite + i18n 16 Keys) | ✅ Deployed |
-| 2026-03-07 | Feature     | Library Archive: Soft-Delete, Restore, Purge + Hono Route-Ordering-Bugfix | ✅ Deployed |
-| 2026-03-08 | QA/Audit    | Multi-Model Code Audit: Opus (Architektur), Sonnet (Hygiene), Gemini (Security), Codex (Tests) + Jules delegiert | ✅ 4/5 done, Jules IN_PROGRESS |
-| 2026-03-08 | Hardening   | Audit Batch 1+2: Global Error Handler, API Key→Header, CORS, R2 Validation, Sanitization, Pagination, Error Masking | ✅ 7/13 Findings gefixt, deployed |
-| 2026-03-08 | Tooling     | Jules Workflow V2→V3: API-CLI (`scripts/jules.sh`), Prompt V3 (Core Contract + Persona Lens), 7 Scheduled Tasks, 60+ alte Sessions bereinigt | ✅ Committed + deployed |
-| 2026-03-08 | Review      | Jules Audit Batch 3: 9 PRs reviewed — 7 merged (#10-#14, #16, #17), 2 closed (#9 dup onError, #15 dup useShallow). Perf, Security, A11y, Tests. | ✅ 0 open PRs |
-| 2026-03-08 | Bugfix      | Archive 500 on Production: D1 CHECK constraint missing 'archived' status. Migration applied, Archive/Restore/Purge verifiziert. | ✅ Fixed + Verified |
-| 2026-03-08 | Planning    | Phase 3 Roadmap: 3-Wave-Strategie (Calendar→Interview→Review→Analytics→Templates). Z-002 priorisiert. | ✅ Plan erstellt + genehmigt |
-| 2026-03-08 | Execution   | Z-002 Content-Kalender: 3 API-Routes, CalendarView Component (380 Zeilen), D1 Migration (scheduled_at + status CHECK), Drag & Drop, Conflict Detection | ✅ Live + Verifiziert |
-| 2026-03-08 | Polish      | Calendar Drag-to-Unschedule: Drop-Zone auf Ungeplante-Beiträge-Sektion mit visuellem Feedback | ✅ Deployed |
-| 2026-03-08 | Execution   | Z-003 Interview-Pipeline: D1 Migration, Gemini Audio Service, 3 API Routes, InterviewView UI (594 Zeilen), Sidebar + i18n (25 Keys) | ✅ Live |
-| 2026-03-08 | Hotfix      | iPhone audio/x-m4a MIME-Type Fix + Import-Feedback Polish (affected topics + KB-Link) | ✅ Deployed |
-| 2026-03-08 | Feature     | Z-005 Analytics Dashboard: 4 D1-Queries (Timeline/Content-Types/Cadence/Scheduling), 4 Chart-Komponenten, 6 SummaryCards, 11 i18n Keys | ✅ Live |
-| 2026-03-08 | Bugfix      | Sidebar fixed positioning: .sidebar-glow position:relative entfernt, sticky→fixed, overflow-hidden→overflow-x-clip | ✅ Deployed |
-| 2026-03-08 | Hardening   | Audit Critical Fixes: 7 Silent-Fail-Catches → Error-Feedback, Dev-Mock-Leak → DEV-only, getElementById → useRef, response.ok Checks, 3 i18n-Strings | ✅ Deployed |
+| 2026-03-07 | Phase 2 | E-001 Orchestrate (Dreier-Regel) + E-002 Stats (4:1 Ratio Tracker): Backend + Frontend + Tests | ✅ Build OK |
+| 2026-03-07 | Feature | i18n: DE/EN Sprachumschaltung (7 Views, Globe-Toggle, localStorage), Stats-Bug gefixt (instance_id→instance), Library Emoji→Lucide Icons | ✅ Deployed |
+| 2026-03-07 | Delegation | Jules E-003 Knowledge CRUD: 2× gescheitert (Sandbox-Reset, Code verloren). Session 1: `3594320281645123255`, Session 2: `15320552779448508024` — AWAITING_USER_FEEDBACK | ❌ Fehlgeschlagen |
+| 2026-03-07 | Execution | E-003 manuell umgesetzt: Knowledge CRUD (KV Overlay + 7 API Routes + TopicEditor + QuoteEditor + knowledge-viewer rewrite + i18n 16 Keys) | ✅ Deployed |
+| 2026-03-07 | Feature | Library Archive: Soft-Delete, Restore, Purge + Hono Route-Ordering-Bugfix | ✅ Deployed |
+| 2026-03-08 | QA/Audit | Multi-Model Code Audit: Opus (Architektur), Sonnet (Hygiene), Gemini (Security), Codex (Tests) + Jules delegiert | ✅ 4/5 done, Jules IN_PROGRESS |
+| 2026-03-08 | Hardening | Audit Batch 1+2: Global Error Handler, API Key→Header, CORS, R2 Validation, Sanitization, Pagination, Error Masking | ✅ 7/13 Findings gefixt, deployed |
+| 2026-03-08 | Tooling | Jules Workflow V2→V3: API-CLI (`scripts/jules.sh`), Prompt V3 (Core Contract + Persona Lens), 7 Scheduled Tasks, 60+ alte Sessions bereinigt | ✅ Committed + deployed |
+| 2026-03-08 | Review | Jules Audit Batch 3: 9 PRs reviewed — 7 merged (#10-#14, #16, #17), 2 closed (#9 dup onError, #15 dup useShallow). Perf, Security, A11y, Tests. | ✅ 0 open PRs |
+| 2026-03-08 | Bugfix | Archive 500 on Production: D1 CHECK constraint missing 'archived' status. Migration applied, Archive/Restore/Purge verifiziert. | ✅ Fixed + Verified |
+| 2026-03-08 | Planning | Phase 3 Roadmap: 3-Wave-Strategie (Calendar→Interview→Review→Analytics→Templates). Z-002 priorisiert. | ✅ Plan erstellt + genehmigt |
+| 2026-03-08 | Execution | Z-002 Content-Kalender: 3 API-Routes, CalendarView Component (380 Zeilen), D1 Migration (scheduled_at + status CHECK), Drag & Drop, Conflict Detection | ✅ Live + Verifiziert |
+| 2026-03-08 | Polish | Calendar Drag-to-Unschedule: Drop-Zone auf Ungeplante-Beiträge-Sektion mit visuellem Feedback | ✅ Deployed |
+| 2026-03-08 | Execution | Z-003 Interview-Pipeline: D1 Migration, Gemini Audio Service, 3 API Routes, InterviewView UI (594 Zeilen), Sidebar + i18n (25 Keys) | ✅ Live |
+| 2026-03-08 | Hotfix | iPhone audio/x-m4a MIME-Type Fix + Import-Feedback Polish (affected topics + KB-Link) | ✅ Deployed |
+| 2026-03-08 | Feature | Z-005 Analytics Dashboard: 4 D1-Queries (Timeline/Content-Types/Cadence/Scheduling), 4 Chart-Komponenten, 6 SummaryCards, 11 i18n Keys | ✅ Live |
+| 2026-03-08 | Bugfix | Sidebar fixed positioning: .sidebar-glow position:relative entfernt, sticky→fixed, overflow-hidden→overflow-x-clip | ✅ Deployed |
+| 2026-03-08 | Hardening | Audit Critical Fixes: 7 Silent-Fail-Catches → Error-Feedback, Dev-Mock-Leak → DEV-only, getElementById → useRef, response.ok Checks, 3 i18n-Strings | ✅ Deployed |
 | 2026-03-08 | Refactoring | Audit Fixes Batch 2: Shared Constants (`src/shared/constants.ts`, 11 Exports, 8 Dateien), KV try/catch, Error Boundary, 9 i18n-Keys, 6 Inline-Strings eliminiert | ✅ Deployed |
 | 2026-03-08 | Refactoring | Component Splitting: 5 übergroße Komponenten (stats 579→236, knowledge 498→95, interview 624→303, calendar 536→216, library 374→197) in 22 fokussierte Sub-Dateien zerlegt. `/split` Workflow erstellt. | ✅ Build OK |
-| 2026-03-09 | Feature     | CHANGELOG.md (4 retroaktive Releases) + Automatische Versionierung (commit-and-tag-version) + Unsichtbarer Changelog-Trigger + Version → 1.0.0-beta.0 | ✅ Deployed |
-| 2026-03-09 | Review      | Jules PR Status-Check: 5 neue PRs (#12-#17) alle gemerged (useShallow, Tests, JSON-Handler, A11y, Type-Fix). 0 offene PRs. | ✅ Sauber |
-| 2026-03-10 | Hardening   | Architecture Hardening Session A: FM1 Promise.allSettled (Partial-Success Orchestration), FM2 R2+Image Cleanup bei Purge, FM4 Schema-Health-Check in /api/health | ✅ Deployed |
-| 2026-03-10 | Hardening   | Architecture Hardening Session B: FM3 KV-Schema-Konsolidierung — Shared `kb-service.ts`, Interview-Import nutzt kanonische `kb_topics`/`kb_quotes` Keys, Batched Writes | ✅ Deployed |
-| 2026-03-10 | Hardening   | Architecture Hardening Session C: FM1 Exponential Backoff, FM5 Auth-Middleware-Stub (CF Access), x-gemini-key Override entfernt | ✅ Deployed |
-| 2026-03-10 | Experiment  | Gemini Model-Upgrade getestet (2.5-flash + 3.1-flash-image-preview) → Reverted. Prompts nicht angepasst, Qualität/Speed schlechter. Bewusster Upgrade-Pfad für spätere Phase. | ↩️ Reverted |
+| 2026-03-09 | Feature | CHANGELOG.md (4 retroaktive Releases) + Automatische Versionierung (commit-and-tag-version) + Unsichtbarer Changelog-Trigger + Version → 1.0.0-beta.0 | ✅ Deployed |
+| 2026-03-09 | Review | Jules PR Status-Check: 5 neue PRs (#12-#17) alle gemerged (useShallow, Tests, JSON-Handler, A11y, Type-Fix). 0 offene PRs. | ✅ Sauber |
+| 2026-03-10 | Hardening | Architecture Hardening Session A: FM1 Promise.allSettled (Partial-Success Orchestration), FM2 R2+Image Cleanup bei Purge, FM4 Schema-Health-Check in /api/health | ✅ Deployed |
+| 2026-03-10 | Hardening | Architecture Hardening Session B: FM3 KV-Schema-Konsolidierung — Shared `kb-service.ts`, Interview-Import nutzt kanonische `kb_topics`/`kb_quotes` Keys, Batched Writes | ✅ Deployed |
+| 2026-03-10 | Hardening | Architecture Hardening Session C: FM1 Exponential Backoff, FM5 Auth-Middleware-Stub (CF Access), x-gemini-key Override entfernt | ✅ Deployed |
+| 2026-03-10 | Experiment | Gemini Model-Upgrade getestet (2.5-flash + 3.1-flash-image-preview) → Reverted. Prompts nicht angepasst, Qualität/Speed schlechter. Bewusster Upgrade-Pfad für spätere Phase. | ↩️ Reverted |
+| 2026-03-10 | Debugging | Qualitaets-Debugging: sanitizeText HTML-Entity-Bug gefixt (Jules PR #10), 429->AppError, Gemini Model-Upgrade LIVE (2.5-flash + 3.1-flash-image-preview), neuer API-Key, D1+R2 bereinigt, Logo-Overlay deferred auf Template-Builder (F11) | ✅ Deployed |
 
 ### ⚠️ Bekannte Probleme
 - **3 Audit-Findings bewusst deferred:** Rate Limiting (#5), DSGVO Gemini EU (#6), KV Jurisdiction (#7), POST Idempotenz (#12), REST-Konsistenz (#13).
-- **Portable Audit System** — Tracker #28: Core Contract als projektübergreifendes Template (eigene Session).
-- **Gemini 2.0 Flash EOL:** Shutdown am 1. Juni 2026 — vor Marco-Übergabe auf 2.5-flash upgraden + Prompts re-tunen.
+- **Portable Audit System** -- Tracker #28: Core Contract als projektubergreifendes Template (eigene Session).
+- **Logo-Overlay:** Product Spec F4 verlangt Logo-Platzierung in generierten Bildern. Gemini kann kein exaktes Logo reproduzieren. Loesung: Template-Builder (E-005/F11) mit Post-Processing, Position: unten rechts (vorlaeufig).

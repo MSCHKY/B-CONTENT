@@ -1,6 +1,6 @@
 # 📋 B/CONTENT — Backlog
 
-> **Zuletzt aktualisiert:** 2026-03-08 17:44
+> **Zuletzt aktualisiert:** 2026-03-10 10:20
 > **Referenz:** `PRODUCT_SPEC.md` für vollständige Feature-Beschreibungen
 
 ---
@@ -48,7 +48,7 @@ Entspricht Features F7-F11 aus PRODUCT_SPEC.md:
 | E-002 | P1   | 4:1 Ratio Tracker                                | F8      | ✅ Done   |
 | E-003 | P2   | Wissensbasis-Editor (CRUD)                       | F9      | ✅ Done (KV Overlay + manuell) |
 | E-004 | P2   | Post-History / Archiv                            | F10     | ✅ Done (MVP) |
-| E-005 | P3   | Template-Builder (visuell)                       | F11     | 🔲 Offen  |
+| E-005 | P3   | Template-Builder (visuell) + Logo-Overlay (unten rechts) | F11     | 🔲 Offen  |
 | E-006 | P1   | Jules AI Agent Integration (AGENTS.md + API + CLI + Prompts) | —       | ✅ Done   |
 
 ---
