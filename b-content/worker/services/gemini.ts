@@ -134,8 +134,11 @@ export async function generateText(
 
     let lastError: GeminiError | null = null;
 
-    // Attempt with 1 retry
+    // Attempt with 1 retry + exponential backoff
     for (let attempt = 0; attempt < 2; attempt++) {
+        if (attempt > 0) {
+            await new Promise(r => setTimeout(r, attempt * 1000));
+        }
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 30000);
 
@@ -278,8 +281,11 @@ export async function generateImage(
 
     let lastError: GeminiError | null = null;
 
-    // Attempt with 1 retry (image gen can be slow — no extra retries)
+    // Attempt with 1 retry + exponential backoff
     for (let attempt = 0; attempt < 2; attempt++) {
+        if (attempt > 0) {
+            await new Promise(r => setTimeout(r, attempt * 1500));
+        }
         try {
             const response = await fetch(url, {
                 method: "POST",

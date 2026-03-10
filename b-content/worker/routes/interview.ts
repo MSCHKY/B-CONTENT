@@ -31,7 +31,7 @@ export const interviewRoutes = new Hono<{ Bindings: Env }>();
 // Upload audio file → Gemini transcription + extraction → D1 persist
 // ============================================================
 interviewRoutes.post("/process", async (c) => {
-    const apiKey = c.req.header("x-gemini-key") || c.env.GEMINI_API_KEY;
+    const apiKey = c.env.GEMINI_API_KEY;
     if (!apiKey) {
         throw new AppError("Gemini API key not configured", "API_KEY_MISSING", 500);
     }
