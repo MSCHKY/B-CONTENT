@@ -7,6 +7,7 @@ import systemPrompts from "../../src/data/prompts/system-prompts.json";
 import topicFields from "../../src/data/topics/topic-fields.json";
 import quotesData from "../../src/data/quotes/quotes.json";
 import instancesData from "../../src/data/instances/instances.json";
+import { PROMPT_FORMAT } from "./prompt-config";
 
 // --- Types ---
 
@@ -185,78 +186,85 @@ function getContentTypeInfo(
 export function buildTextPrompt(params: BuildPromptParams): BuiltPrompt {
     const { instance, contentType, topicField, userInput, language } = params;
 
-    // 1. Assemble system prompt
-    const systemParts: string[] = [];
-
-    // Base rules
-    systemParts.push(systemPrompts.base);
-
-    // Instance persona
+    // Gather prompt components
+    const baseRules = systemPrompts.base;
     const instancePrompt =
-        systemPrompts.instances[
-        instance as keyof typeof systemPrompts.instances
-        ];
-    if (instancePrompt) {
-        systemParts.push("\n---\n");
-        systemParts.push(instancePrompt);
-    }
-
-    // Content type format
+        systemPrompts.instances[instance as keyof typeof systemPrompts.instances] ?? "";
     const ctPrompt =
-        systemPrompts.contentTypes[
-        contentType as keyof typeof systemPrompts.contentTypes
-        ];
-    if (ctPrompt) {
-        systemParts.push("\n---\n");
-        systemParts.push(ctPrompt);
-    }
-
-    // Instance-specific content type details (char range, etc.)
+        systemPrompts.contentTypes[contentType as keyof typeof systemPrompts.contentTypes] ?? "";
     const ctInfo = getContentTypeInfo(instance, contentType);
-    if (ctInfo) {
-        systemParts.push("\n");
-        systemParts.push(ctInfo);
-    }
-
-    // Language instruction
     const langInstruction =
         language === "de"
-            ? "\nLANGUAGE: Write the post in GERMAN (Deutsch)."
-            : "\nLANGUAGE: Write the post in ENGLISH.";
-    systemParts.push(langInstruction);
+            ? "Write the post in GERMAN (Deutsch)."
+            : "Write the post in ENGLISH.";
 
-    // Explicit character range constraint for the model
-    const ctData = getContentTypeInfo(instance, contentType);
-    const rangeMatch = ctData.match(/Character range: (\d+)–(\d+)/);
-    if (rangeMatch) {
-        systemParts.push(`\nHARD CONSTRAINT — CHARACTER COUNT: Your output MUST be between ${rangeMatch[1]} and ${rangeMatch[2]} characters (including spaces and hashtags). Count carefully. If your draft is too short, add more substance. If too long, tighten the language. Do NOT exceed the upper limit.`);
+    // Extract charRange for constraint
+    const rangeMatch = ctInfo.match(/Character range: (\d+)–(\d+)/);
+    const charConstraint = rangeMatch
+        ? `Your output MUST be between ${rangeMatch[1]} and ${rangeMatch[2]} characters (including spaces and hashtags). Count carefully.`
+        : "";
+
+    // Build system prompt based on PROMPT_FORMAT
+    let system: string;
+
+    if (PROMPT_FORMAT === "v2") {
+        // XML-structured format (Context7 best practice for Gemini 2.5+)
+        const parts = [
+            `<role>\n${instancePrompt || baseRules}\n</role>`,
+            instancePrompt ? `<rules>\n${baseRules}\n</rules>` : "",
+            `<content_format>\n${ctPrompt}\n${ctInfo ? `\n${ctInfo}` : ""}\n</content_format>`,
+            `<constraints>`,
+            `- Language: ${langInstruction}`,
+            charConstraint ? `- Character count: ${charConstraint}` : "",
+            `</constraints>`,
+            `<output_format>`,
+            `Return ONLY the post text including hashtags.`,
+            `No meta-commentary, no explanations, no markdown formatting.`,
+            `</output_format>`,
+            `<self_critique>`,
+            `Before returning your final response, verify:`,
+            `1. Character count falls within the required range.`,
+            `2. Tone matches the requested persona — authentic, not generic.`,
+            `3. No corporate buzzwords or forbidden phrases.`,
+            `</self_critique>`,
+        ].filter(Boolean);
+        system = parts.join("\n");
+    } else {
+        // v1: Original plain text format
+        const systemParts: string[] = [baseRules];
+        if (instancePrompt) {
+            systemParts.push("\n---\n", instancePrompt);
+        }
+        if (ctPrompt) {
+            systemParts.push("\n---\n", ctPrompt);
+        }
+        if (ctInfo) {
+            systemParts.push("\n", ctInfo);
+        }
+        systemParts.push(`\nLANGUAGE: ${langInstruction}`);
+        if (charConstraint) {
+            systemParts.push(`\nHARD CONSTRAINT — CHARACTER COUNT: ${charConstraint} If your draft is too short, add more substance. If too long, tighten the language.`);
+        }
+        systemParts.push(
+            `\nBefore returning your final response, verify:\n1. Character count falls within the required range.\n2. Tone matches the requested persona — authentic, not generic.\n3. No corporate buzzwords or forbidden phrases.`
+        );
+        system = systemParts.join("\n");
     }
-
-    // Self-critique for thinking models (gemini-2.5-flash)
-    systemParts.push(`\nBefore returning your final response, verify:
-1. Character count falls within the required range.
-2. Tone matches the requested persona — authentic, not generic.
-3. No corporate buzzwords or forbidden phrases.`);
-
-    const system = systemParts.join("\n");
 
     // 2. Assemble user prompt with KB context
     const userParts: string[] = [];
 
-    // Topic context from knowledge base
     const topicContext = getTopicContext(topicField);
     if (topicContext) {
         userParts.push(topicContext);
     }
 
-    // Relevant quotes
     const quotes = getRelevantQuotes(instance, topicField);
     if (quotes) {
         userParts.push("\n");
         userParts.push(quotes);
     }
 
-    // User input
     userParts.push("\n---\n");
     userParts.push(`USER INPUT / CONTEXT:\n${userInput}`);
     userParts.push(

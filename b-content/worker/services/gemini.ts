@@ -3,6 +3,8 @@
 // Lightweight wrapper for Google Gemini text + image generation
 // ============================================================
 
+import { TEXT_GENERATION_CONFIG, IMAGE_GENERATION_CONFIG } from "./prompt-config";
+
 /**
  * Typed application error for API route error handling.
  * Carries a machine-readable code and HTTP status.
@@ -107,10 +109,7 @@ export async function generateText(
             },
         ],
         generationConfig: {
-            temperature: 0.8,
-            topP: 0.95,
-            topK: 40,
-            maxOutputTokens: 2048,
+            ...TEXT_GENERATION_CONFIG,
         },
         safetySettings: [
             {
@@ -255,9 +254,7 @@ export async function generateImage(
         ],
         generationConfig: {
             responseModalities: ["IMAGE"],
-            temperature: 0.8,
-            topP: 0.95,
-            topK: 40,
+            ...IMAGE_GENERATION_CONFIG,
         },
         safetySettings: [
             {
