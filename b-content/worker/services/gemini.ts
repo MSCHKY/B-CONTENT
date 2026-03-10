@@ -354,7 +354,11 @@ export async function generateImage(
         }
     }
 
-    throw new Error(lastError?.error ?? "Gemini Image API request failed");
+    throw new AppError(
+        lastError?.error ?? "Gemini Image API request failed",
+        lastError?.status === 429 ? "RATE_LIMITED" : "IMAGE_GENERATION_FAILED",
+        lastError?.status ?? 500,
+    );
 }
 
 // ============================================================
