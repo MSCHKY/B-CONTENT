@@ -189,7 +189,7 @@ generateRoutes.post("/image", async (c) => {
 
     try {
         // 1. Build brand-conformant prompt from vDNA fragments + instance + topic
-        const prompt = buildImagePrompt({
+        const { prompt, aspectRatio, imageSize } = buildImagePrompt({
             instance: body.instance,
             format: body.format || "single-square",
             topicField: body.topicField,
@@ -198,7 +198,11 @@ generateRoutes.post("/image", async (c) => {
         });
 
         // 2. Generate image via Gemini (Imagen 3 / Nano Banana 2)
-        const imageResult = await generateImage(c.env.GEMINI_API_KEY, prompt);
+        const imageResult = await generateImage(
+            c.env.GEMINI_API_KEY,
+            prompt,
+            { aspectRatio, imageSize },
+        );
 
         // 3. Decode base64 → binary for R2 upload
         const binaryData = Uint8Array.from(atob(imageResult.data), (ch) =>

@@ -7,7 +7,7 @@ import systemPrompts from "../../src/data/prompts/system-prompts.json";
 import topicFields from "../../src/data/topics/topic-fields.json";
 import quotesData from "../../src/data/quotes/quotes.json";
 import instancesData from "../../src/data/instances/instances.json";
-import { PROMPT_FORMAT } from "./prompt-config";
+import { PROMPT_FORMAT, FORMAT_TO_IMAGE_CONFIG } from "./prompt-config";
 
 // --- Types ---
 
@@ -425,18 +425,18 @@ interface BuildImagePromptParams {
  * 6. User creative input
  *
  * @param {BuildImagePromptParams} params - The parameters for building the image prompt.
- * @returns {string} The constructed prompt string for image generation.
+ * @returns {{ prompt: string; aspectRatio: string; imageSize: string }} The constructed prompt and image config.
  * @example
- * const prompt = buildImagePrompt({
+ * const result = buildImagePrompt({
  *   instance: "alex",
  *   format: "single-square",
  *   topicField: "sustainability",
  *   userInput: "A wind turbine in a green field.",
  *   style: "photo"
  * });
- * console.log(prompt);
+ * console.log(result.prompt, result.aspectRatio);
  */
-export function buildImagePrompt(params: BuildImagePromptParams): string {
+export function buildImagePrompt(params: BuildImagePromptParams): { prompt: string; aspectRatio: string; imageSize: string } {
     const {
         instance,
         format,
@@ -450,13 +450,16 @@ export function buildImagePrompt(params: BuildImagePromptParams): string {
     // 1. Core brand identity
     parts.push(VDNA_PROMPT_FRAGMENTS.brand_style);
 
-    // 2. LinkedIn format + dimensions
+    // 2. LinkedIn format (label only — dimensions handled by API imageConfig)
     const formatSpec = LINKEDIN_FORMATS[format];
     if (formatSpec) {
         parts.push(
-            `Image format: ${formatSpec.label} (${formatSpec.width}×${formatSpec.height}px).`,
+            `Image format: ${formatSpec.label}.`,
         );
     }
+
+    // Resolve API-level image config
+    const imgCfg = FORMAT_TO_IMAGE_CONFIG[format] ?? FORMAT_TO_IMAGE_CONFIG["single-square"];
 
     // 3. Visual style fragment
     parts.push(VDNA_PROMPT_FRAGMENTS.linkedin_post);
@@ -509,6 +512,10 @@ export function buildImagePrompt(params: BuildImagePromptParams): string {
         "High resolution, professional quality, suitable for LinkedIn publishing.",
     );
 
-    return parts.join("\n\n");
+    return {
+        prompt: parts.join("\n\n"),
+        aspectRatio: imgCfg?.aspectRatio ?? "1:1",
+        imageSize: imgCfg?.imageSize ?? "1K",
+    };
 }
 

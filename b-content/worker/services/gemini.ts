@@ -242,6 +242,7 @@ export async function generateText(
 export async function generateImage(
     apiKey: string,
     prompt: string,
+    imageConfig?: { aspectRatio?: string; imageSize?: string },
 ): Promise<GeminiImageResponse> {
     const url = `${GEMINI_API_URL}/models/${IMAGE_MODEL}:generateContent`;
 
@@ -255,6 +256,7 @@ export async function generateImage(
         generationConfig: {
             responseModalities: ["IMAGE"],
             ...IMAGE_GENERATION_CONFIG,
+            ...(imageConfig ? { imageConfig } : {}),
         },
         safetySettings: [
             {
