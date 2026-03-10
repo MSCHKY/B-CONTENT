@@ -282,7 +282,14 @@ export function ResultEditor() {
                     {imageError && (
                         <div className="rounded-lg bg-red-500/10 border border-red-500/30 p-3 text-sm text-red-400 animate-fade-in-up flex items-center justify-between">
                             <span>⚠️ {imageError}</span>
-                            <button onClick={() => setImageError(null)} className="text-red-400 hover:text-red-300 ml-2">✕</button>
+                            <button
+                                type="button"
+                                aria-label="Fehlermeldung schließen"
+                                onClick={() => setImageError(null)}
+                                className="text-red-400 hover:text-red-300 ml-2 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400"
+                            >
+                                ✕
+                            </button>
                         </div>
                     )}
                 </div>
@@ -292,7 +299,14 @@ export function ResultEditor() {
             {saveError && (
                 <div className="mt-4 p-3 rounded-lg bg-error/10 border border-error/30 text-error text-sm flex items-center justify-between">
                     <span>⚠️ {saveError}</span>
-                    <Button variant="ghost" size="sm" onClick={() => setSaveError(null)}>
+                    <Button
+                        type="button"
+                        aria-label="Fehlermeldung schließen"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => setSaveError(null)}
+                        className="rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-error"
+                    >
                         ✕
                     </Button>
                 </div>
