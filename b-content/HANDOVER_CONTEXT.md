@@ -1,6 +1,6 @@
 # 🏗️ B/CONTENT — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-10 01:37
+> **Zuletzt aktualisiert:** 2026-03-10 01:44
 > **Modul:** B/CONTENT (Content-Gehirn)
 > **Status:** Phase 3 IN PROGRESS — Z-002 ✅, Z-003 ✅, Z-005 Analytics ✅ LIVE
 > **Branch:** `main` (Workers Builds Git-Integration aktiv)
@@ -227,8 +227,8 @@
 | 2026-03-09 | Review      | Jules PR Status-Check: 5 neue PRs (#12-#17) alle gemerged (useShallow, Tests, JSON-Handler, A11y, Type-Fix). 0 offene PRs. | ✅ Sauber |
 | 2026-03-10 | Hardening   | Architecture Hardening Session A: FM1 Promise.allSettled (Partial-Success Orchestration), FM2 R2+Image Cleanup bei Purge, FM4 Schema-Health-Check in /api/health | ✅ Deployed |
 | 2026-03-10 | Hardening   | Architecture Hardening Session B: FM3 KV-Schema-Konsolidierung — Shared `kb-service.ts`, Interview-Import nutzt kanonische `kb_topics`/`kb_quotes` Keys, Batched Writes | ✅ Deployed |
+| 2026-03-10 | Hardening   | Architecture Hardening Session C: FM1 Exponential Backoff, FM5 Auth-Middleware-Stub (CF Access), x-gemini-key Override entfernt | ✅ Deployed |
 
 ### ⚠️ Bekannte Probleme
 - **3 Audit-Findings bewusst deferred:** Rate Limiting (#5), DSGVO Gemini EU (#6), KV Jurisdiction (#7), POST Idempotenz (#12), REST-Konsistenz (#13).
-- **FM1/FM5 extended:** Circuit Breaker, Auth-Middleware-Stub → Session C (deferred).
 - **Portable Audit System** — Tracker #28: Core Contract als projektübergreifendes Template (eigene Session).
