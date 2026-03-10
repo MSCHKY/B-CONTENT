@@ -36,6 +36,7 @@ export function Orchestrate() {
     const [posts, setPosts] = useState<OrchestratedPost[]>([]);
     const [isGenerating, setIsGenerating] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [generationErrors, setGenerationErrors] = useState<Array<{ instance: string; error: string }>>([]);
     const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
     const [savingAll, setSavingAll] = useState(false);
     const [saveResult, setSaveResult] = useState<string | null>(null);
@@ -46,6 +47,7 @@ export function Orchestrate() {
 
         setIsGenerating(true);
         setError(null);
+        setGenerationErrors([]);
         setPosts([]);
         setSaveResult(null);
 
@@ -58,13 +60,18 @@ export function Orchestrate() {
 
             const data = (await response.json()) as {
                 posts?: OrchestratedPost[];
+                errors?: Array<{ instance: string; error: string }>;
                 error?: string;
             };
 
-            if (data.error) {
+            if (!response.ok && data.error) {
                 setError(data.error);
             } else if (data.posts) {
                 setPosts(data.posts);
+                // Track partial failures
+                if (data.errors && data.errors.length > 0) {
+                    setGenerationErrors(data.errors);
+                }
             }
         } catch {
             setError(t.common.error);
@@ -193,6 +200,25 @@ export function Orchestrate() {
                 <div className="rounded-lg bg-red-500/10 border border-red-500/30 p-4 mb-6 text-sm text-red-400 animate-fade-in-up flex items-center gap-2">
                     <AlertTriangle size={16} />
                     {error}
+                </div>
+            )}
+
+            {/* Partial failure warning */}
+            {generationErrors.length > 0 && posts.length > 0 && (
+                <div className="rounded-lg bg-amber-500/10 border border-amber-500/30 p-4 mb-6 text-sm text-amber-400 animate-fade-in-up">
+                    <div className="flex items-center gap-2 mb-1">
+                        <AlertTriangle size={16} />
+                        <span className="font-medium">
+                            {posts.length}/3 posts generated — {generationErrors.length} failed
+                        </span>
+                    </div>
+                    <ul className="ml-6 mt-1 space-y-0.5 text-xs text-amber-400/70">
+                        {generationErrors.map((e) => (
+                            <li key={e.instance}>
+                                {INSTANCE_LABELS[e.instance]}: {e.error}
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             )}
 

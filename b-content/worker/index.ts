@@ -44,10 +44,39 @@ app.onError((err, c) => {
     return c.json({ error: "Internal server error" }, 500);
 });
 
-// Health check
-app.get("/api/health", (c) =>
-    c.json({ status: "ok", environment: c.env.ENVIRONMENT })
-);
+// Health check — includes schema verification for migration drift detection (FM4)
+app.get("/api/health", async (c) => {
+    try {
+        // Check critical schema elements
+        const postsSchema = await c.env.DB.prepare(
+            "SELECT sql FROM sqlite_master WHERE type='table' AND name='posts'"
+        ).first<{ sql: string }>();
+
+        const interviewsTable = await c.env.DB.prepare(
+            "SELECT name FROM sqlite_master WHERE type='table' AND name='interviews'"
+        ).first<{ name: string }>();
+
+        const hasScheduledAt = postsSchema?.sql?.includes("scheduled_at") ?? false;
+        const hasInterviews = !!interviewsTable;
+
+        return c.json({
+            status: "ok",
+            environment: c.env.ENVIRONMENT,
+            schema: {
+                scheduledAt: hasScheduledAt,
+                interviews: hasInterviews,
+                ok: hasScheduledAt && hasInterviews,
+            },
+        });
+    } catch {
+        // If we can't even query schema, something is very wrong
+        return c.json({
+            status: "degraded",
+            environment: c.env.ENVIRONMENT,
+            schema: { ok: false, error: "Schema check failed" },
+        });
+    }
+});
 
 // Mount routes
 app.route("/api/generate", generateRoutes);

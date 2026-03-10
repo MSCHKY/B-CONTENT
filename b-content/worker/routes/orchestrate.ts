@@ -62,14 +62,14 @@ orchestrateRoutes.post("/", async (c) => {
             mock: true,
         }));
 
-        return c.json({ posts: mockPosts, timing: TIMING_SUGGESTIONS });
+        return c.json({ posts: mockPosts, errors: [], timing: TIMING_SUGGESTIONS });
     }
 
     try {
         const instances: InstanceId[] = ["alex", "ablas", "bwg"];
 
-        // Fire all 3 generation calls in parallel
-        const results = await Promise.all(
+        // Fire all 3 generation calls in parallel — use allSettled for partial-success
+        const settled = await Promise.allSettled(
             instances.map(async (instanceId) => {
                 const contentType = ORCHESTRATION_CONTENT_TYPES[instanceId];
 
@@ -101,20 +101,39 @@ orchestrateRoutes.post("/", async (c) => {
             }),
         );
 
-        // Add timing suggestions
-        const posts = results.map((post, i) => ({
-            ...post,
-            suggestedDay: TIMING_SUGGESTIONS[i],
-        }));
+        // Separate fulfilled from rejected results
+        const posts: Array<Record<string, unknown>> = [];
+        const errors: Array<{ instance: string; error: string }> = [];
 
-        return c.json({ posts, timing: TIMING_SUGGESTIONS });
-    } catch (err) {
-        if (err instanceof AppError) {
-            return c.json(
-                { error: err.message, code: err.code },
-                err.status as 400 | 429 | 500 | 502 | 504,
-            );
+        settled.forEach((result, i) => {
+            if (result.status === "fulfilled") {
+                posts.push({
+                    ...result.value,
+                    suggestedDay: TIMING_SUGGESTIONS[i],
+                });
+            } else {
+                const reason = result.reason;
+                const message = reason instanceof AppError
+                    ? `${reason.code}: ${reason.message}`
+                    : reason instanceof Error
+                        ? reason.message
+                        : String(reason);
+                errors.push({ instance: instances[i]!, error: message });
+                console.error(`[POST /api/orchestrate] ${instances[i]} failed:`, message);
+            }
+        });
+
+        // If ALL failed, return 502
+        if (posts.length === 0) {
+            return c.json({
+                error: "All generation calls failed",
+                errors,
+            }, 502);
         }
+
+        return c.json({ posts, errors, timing: TIMING_SUGGESTIONS });
+    } catch (err) {
+        // Unexpected errors (not per-instance failures)
         const message = err instanceof Error ? err.message : String(err);
         console.error("[POST /api/orchestrate]", message);
         return c.json({ error: "Orchestration failed" }, 500);

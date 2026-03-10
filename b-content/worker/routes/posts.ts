@@ -315,6 +315,38 @@ postRoutes.delete("/:id/purge", async (c) => {
     const id = c.req.param("id");
 
     try {
+        // Look up associated image before purging the post
+        const post = await c.env.DB.prepare(
+            "SELECT image_id FROM posts WHERE id = ?"
+        ).bind(id).first<{ image_id: string | null }>();
+
+        if (post?.image_id) {
+            // Get image URL to extract R2 key
+            const img = await c.env.DB.prepare(
+                "SELECT url FROM generated_images WHERE id = ?"
+            ).bind(post.image_id).first<{ url: string }>();
+
+            // R2 key is the URL path after /api/images/
+            if (img?.url) {
+                const r2Key = img.url.replace("/api/images/", "");
+                try {
+                    await c.env.IMAGES.delete(r2Key);
+                } catch (e) {
+                    console.error("[R2 cleanup] Failed to delete object:", r2Key, e instanceof Error ? e.message : e);
+                }
+            }
+
+            // Delete image metadata from D1
+            try {
+                await c.env.DB.prepare(
+                    "DELETE FROM generated_images WHERE id = ?"
+                ).bind(post.image_id).run();
+            } catch (e) {
+                console.error("[D1 cleanup] Failed to delete image metadata:", e instanceof Error ? e.message : e);
+            }
+        }
+
+        // Delete the post itself
         await c.env.DB.prepare("DELETE FROM posts WHERE id = ?")
             .bind(id)
             .run();

@@ -92,12 +92,15 @@ test.describe("B/CONTENT Smoke Tests", () => {
         await expect(page.getByText("Energie")).toBeVisible();
     });
 
-    test("api health check responds", async ({ request }) => {
+    test("api health check responds with schema status", async ({ request }) => {
         const response = await request.get("/api/health");
         expect(response.ok()).toBeTruthy();
 
         const body = await response.json();
         expect(body.status).toBe("ok");
+        // FM4: Schema health check should report migration state
+        expect(body.schema).toBeDefined();
+        expect(body.schema.ok).toBeDefined();
     });
 
     // --- Phase 2 Tests ---
@@ -139,7 +142,7 @@ test.describe("B/CONTENT Smoke Tests", () => {
         await expect(page.getByText("Scheduling Health")).toBeVisible();
     });
 
-    test("api orchestrate returns posts (mock mode)", async ({ request }) => {
+    test("api orchestrate returns posts with errors array (mock mode)", async ({ request }) => {
         const response = await request.post("/api/orchestrate", {
             data: {
                 topicField: "energie",
@@ -152,6 +155,9 @@ test.describe("B/CONTENT Smoke Tests", () => {
         const body = await response.json();
         expect(body.posts).toBeDefined();
         expect(body.posts).toHaveLength(3);
+        // FM1: New partial-success format includes errors array
+        expect(body.errors).toBeDefined();
+        expect(Array.isArray(body.errors)).toBe(true);
 
         // Verify all 3 instances are represented
         const instances = body.posts.map(
