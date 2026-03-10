@@ -5,6 +5,26 @@ All notable changes to B/CONTENT will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Security
+
+* **FM5 Auth middleware:** CF Access header check on all mutating routes (POST/PUT/PATCH/DELETE), dev-mode passthrough, audit logging
+* **FM5 Key override removed:** `x-gemini-key` header no longer accepted in interview route — prevents cost abuse
+
+### Fixed
+
+* **FM1 Partial-success orchestration:** `Promise.allSettled` in content orchestration — individual failures no longer kill entire campaign
+* **FM1 Exponential backoff:** Gemini retries now wait 1s (text) / 1.5s (image) before retry instead of immediate hammering
+* **FM2 Purge cleanup:** R2 objects + image metadata rows cleaned up when posts are purged
+* **FM3 KV-schema consolidation:** interview import now writes to canonical `kb_topics`/`kb_quotes` keys — imported data immediately visible in Knowledge UI
+* **FM4 Schema health check:** `/api/health` validates D1 schema (scheduled_at column, interviews table) for migration drift detection
+
+### Changed
+
+* **Shared KB service:** `worker/services/kb-service.ts` extracted from knowledge.ts — single source of truth for KV overlay helpers
+* **Batched KV writes:** interview import loads KB data once, mutates in memory, writes once (was N reads + N writes)
+
 ## [1.0.0-beta.0](https://github.com/MSCHKY/B-CONTENT/compare/v0.3.0...v1.0.0-beta.0) (2026-03-08)
 
 ### Features
