@@ -1,0 +1,4 @@
+## 2026-03-11 - XSS Vulnerability in Input Sanitization
+**Vulnerability:** The `sanitizeText` function in `worker/services/validation.ts` used a blacklist approach to strip out dangerous HTML tags (e.g. `<script>`, `<iframe>`) using regex, leaving the application open to XSS via tags that bypassed the blacklist (e.g., `<img src=x onerror=alert(1)>`).
+**Learning:** Blacklist sanitization is inherently flawed and easily bypassed. The approach was used because the application relies on React for escaping output. However, saving unsanitized data to the database opens the possibility for XSS if the data is rendered differently later or by a separate frontend.
+**Prevention:** Avoid blacklist-based sanitization for user inputs. Instead, remove HTML tag delimiters (e.g., `<` and `>`) or use established sanitization libraries.
