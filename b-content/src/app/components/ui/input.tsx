@@ -3,6 +3,7 @@ import {
     type TextareaHTMLAttributes,
     forwardRef,
 } from "react";
+import { X } from "lucide-react";
 
 // --- Text Input ---
 
@@ -137,11 +138,11 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
                         <button
                             type="button"
                             onClick={onClear}
-                            className="absolute top-3 right-3 w-6 h-6 flex items-center justify-center rounded-full text-text-muted hover:text-text-primary hover:bg-black/5 transition-colors cursor-pointer"
-                            aria-label="Clear"
-                            title="Clear"
+                            className="absolute top-3 right-3 w-6 h-6 flex items-center justify-center rounded-full text-text-muted hover:text-text-primary hover:bg-black/5 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-green/50"
+                            aria-label="Text löschen"
+                            title="Text löschen"
                         >
-                            ✕
+                            <X size={16} />
                         </button>
                     )}
                 </div>
