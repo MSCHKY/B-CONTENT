@@ -1,5 +1,6 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
+import { secureHeaders } from "hono/secure-headers";
 import { AppError } from "./services/gemini";
 import { requireAuth } from "./middleware/auth";
 import { generateRoutes } from "./routes/generate";
@@ -19,6 +20,9 @@ export interface Env {
 }
 
 const app = new Hono<{ Bindings: Env }>();
+
+// Global security headers
+app.use("*", secureHeaders());
 
 // Auth middleware — protects mutating routes (POST/PUT/PATCH/DELETE) in production
 app.use("/api/*", requireAuth);
