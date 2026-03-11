@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Select } from "@/components/ui/select";
-import { ChevronLeft, ChevronRight, AlertTriangle } from "lucide-react";
+import { ChevronLeft, ChevronRight, AlertTriangle, X } from "lucide-react";
 import { useTranslation } from "@/i18n";
 import type { CalendarPost, Conflict } from "./types";
 import { MonthGrid } from "./month-grid";
@@ -147,8 +147,15 @@ export function CalendarView() {
 
             {error && (
                 <div className="rounded-lg bg-red-500/10 border border-red-500/30 p-4 mb-6 text-sm text-red-400 animate-fade-in-up flex items-center justify-between">
-                    <span>{error}</span>
-                    <button onClick={() => setError(null)} className="text-red-400 hover:text-red-300 ml-2">✕</button>
+                    <span className="flex items-center gap-2"><AlertTriangle size={16} /> {error}</span>
+                    <button
+                        type="button"
+                        onClick={() => setError(null)}
+                        aria-label="Fehlermeldung schließen"
+                        className="text-red-400 hover:text-red-300 ml-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 rounded-sm"
+                    >
+                        <X size={16} />
+                    </button>
                 </div>
             )}
 

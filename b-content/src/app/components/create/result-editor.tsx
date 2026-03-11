@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAppStore, useCreateStore } from "@/stores";
 import { useShallow } from "zustand/react/shallow";
 import { Button } from "@/components/ui/button";
+import { AlertTriangle, X } from "lucide-react";
 import { Textarea } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
@@ -289,8 +290,15 @@ export function ResultEditor() {
 
                     {imageError && (
                         <div className="rounded-lg bg-red-500/10 border border-red-500/30 p-3 text-sm text-red-400 animate-fade-in-up flex items-center justify-between">
-                            <span>⚠️ {imageError}</span>
-                            <button onClick={() => setImageError(null)} className="text-red-400 hover:text-red-300 ml-2">✕</button>
+                            <span className="flex items-center gap-2"><AlertTriangle size={16} /> {imageError}</span>
+                            <button
+                                type="button"
+                                onClick={() => setImageError(null)}
+                                aria-label="Fehlermeldung schließen"
+                                className="text-red-400 hover:text-red-300 ml-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 rounded-sm"
+                            >
+                                <X size={16} />
+                            </button>
                         </div>
                     )}
                 </div>
@@ -299,9 +307,14 @@ export function ResultEditor() {
             {/* Save Error Display */}
             {saveError && (
                 <div className="mt-4 p-3 rounded-lg bg-error/10 border border-error/30 text-error text-sm flex items-center justify-between">
-                    <span>⚠️ {saveError}</span>
-                    <Button variant="ghost" size="sm" onClick={() => setSaveError(null)}>
-                        ✕
+                    <span className="flex items-center gap-2"><AlertTriangle size={16} /> {saveError}</span>
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => setSaveError(null)}
+                        aria-label="Fehlermeldung schließen"
+                    >
+                        <X size={16} />
                     </Button>
                 </div>
             )}
