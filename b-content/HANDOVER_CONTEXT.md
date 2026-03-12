@@ -5,7 +5,8 @@
 > **Status:** Phase 3 IN PROGRESS — Z-002 ✅, Z-003 ✅, Z-005 Analytics ✅ LIVE
 > **Branch:** `main` (Workers Builds Git-Integration aktiv)
 > **Live URL:** https://b-content.maschkeai.workers.dev
-> **Deploy:** Push auf `main` = automatisch live (Workers Builds, Root Dir: `b-content`)
+> **Preview URL:** https://preview-b-content.maschkeai.workers.dev
+> **Deploy:** Push auf `main` = automatisch live | Push auf `preview` = Preview
 
 ---
 

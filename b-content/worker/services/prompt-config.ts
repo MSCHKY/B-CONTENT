@@ -18,6 +18,12 @@ export const TEXT_GENERATION_CONFIG = {
     topP: 0.95,
     topK: 40,
     maxOutputTokens: 4096,
+    // Gemini 2.5 Flash uses Thinking Mode by default — thinking tokens
+    // consume the maxOutputTokens budget, causing truncation in creative
+    // writing tasks. Disable thinking for LinkedIn post generation.
+    thinkingConfig: {
+        thinkingBudget: 0,
+    },
 } as const;
 
 /**

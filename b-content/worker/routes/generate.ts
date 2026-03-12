@@ -76,6 +76,11 @@ generateRoutes.post("/text", async (c) => {
         // Generate via Gemini
         const result = await generateText(c.env.GEMINI_API_KEY, prompt);
 
+        // Log finish reason for debugging truncation issues
+        if (result.finishReason !== "STOP") {
+            console.warn(`[POST /api/generate/text] finishReason=${result.finishReason}, chars=${result.text.length}, tokens=${result.tokenCount ?? "?"}`);
+        }
+
         // Extract hashtags from generated text
         const hashtags = result.text.match(/#\w+/g) ?? [];
 
@@ -84,6 +89,7 @@ generateRoutes.post("/text", async (c) => {
             hashtags,
             charCount: result.text.length,
             tokenCount: result.tokenCount,
+            finishReason: result.finishReason,
             mock: false,
         });
     } catch (err) {
