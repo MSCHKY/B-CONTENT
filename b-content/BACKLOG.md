@@ -68,6 +68,14 @@ Entspricht Features F12-F17 aus PRODUCT_SPEC.md:
 
 ---
 
+## 💡 Kundenvorschläge (Pitch-ready Upgrades)
+
+| ID    | Prio | Vorschlag                                        | Beschreibung | Status    |
+|-------|------|--------------------------------------------------|--------------|-----------|
+| K-001 | P3   | **Image Studio** — Eigener Bild-Baustein         | Dediziertes Modul für Bildgenerierung mit lokaler Flux-Engine (keine API-Kosten, volle Kontrolle). Inpainting: Bereich im Bild auswählen → gezielt neu generieren lassen (z.B. Hintergrund ersetzen, Logo-Bereich). Wiederverwendbar als B/IMAGE-Modul für andere Kunden. | 🔲 Konzept |
+
+---
+
 ## ✅ Erledigt
 
 | ID    | Aufgabe                                          | Erledigt   |
