@@ -620,3 +620,163 @@ export async function transcribeAndExtract(
         );
     }
 }
+
+// ============================================================
+// Text-Based Knowledge Extraction
+// Same extraction logic as audio, but skips transcription.
+// Input text IS the transcript.
+// ============================================================
+
+/** System prompt for text-only extraction (no transcription needed) */
+const TEXT_EXTRACT_PROMPT = `You are a content analyst for the BenderWire Group, a wire manufacturing company.
+You receive a text document (transcript, notes, or existing content). Your task:
+
+1. EXTRACTION: Identify valuable content from the text:
+   - **fact**: Verifiable statements, numbers, data points, technical specifications.
+   - **quote**: Direct quotes suitable for LinkedIn posts — memorable, punchy, authentic.
+   - **anecdote**: Stories, examples, experiences that create emotional connection.
+   - **proof_point**: Concrete evidence (numbers, case studies, customer references).
+
+2. For each item, assign one or more topic fields:
+   energie, circular, medtech, bau, alltag, luxus, sicherheit, wasser,
+   vertikale-integration, geopolitik, image-reframe, ingredient-branding, qualitaet
+
+3. Assign a confidence score (0.0–1.0) indicating how useful the item is for content creation.
+
+4. If you can identify the speaker/author, set author to "alex" (Jürgen Alex), "ablas" (Sebastian Ablas), or "fichtel". Otherwise set to null.
+
+Respond EXCLUSIVELY in this JSON format:
+{
+  "items": [
+    {
+      "type": "fact",
+      "content": "The extracted text",
+      "author": "alex",
+      "topicFields": ["energie", "circular"],
+      "confidence": 0.95
+    }
+  ]
+}`;
+
+/**
+ * Extract knowledge items from plain text using Gemini.
+ *
+ * Unlike transcribeAndExtract, this function does NOT transcribe audio.
+ * The input text is used directly as the source material for extraction.
+ *
+ * @param apiKey - The Gemini API key.
+ * @param text - The text to extract knowledge from.
+ * @param context - Optional context hint.
+ * @returns TranscriptionResult with the original text as transcript and extracted items.
+ */
+export async function extractFromText(
+    apiKey: string,
+    text: string,
+    context?: string,
+): Promise<TranscriptionResult> {
+    if (!apiKey) {
+        throw new AppError("API key missing", "API_KEY_MISSING", 400);
+    }
+
+    if (!text || text.trim().length < 10) {
+        throw new AppError("Text too short for extraction (min 10 characters)", "TEXT_TOO_SHORT", 400);
+    }
+
+    const url = `${GEMINI_API_URL}/models/${TEXT_MODEL}:generateContent`;
+
+    let userPrompt = TEXT_EXTRACT_PROMPT;
+    if (context) {
+        userPrompt += `\n\nAdditional context: ${context}`;
+    }
+    userPrompt += `\n\n--- TEXT TO ANALYZE ---\n${text}`;
+
+    const body = {
+        contents: [
+            {
+                role: "user",
+                parts: [{ text: userPrompt }],
+            },
+        ],
+        generationConfig: {
+            temperature: 0.2,
+            topP: 0.95,
+            topK: 40,
+            maxOutputTokens: 8192,
+            responseMimeType: "application/json",
+        },
+        safetySettings: [
+            { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_ONLY_HIGH" },
+            { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_ONLY_HIGH" },
+            { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_ONLY_HIGH" },
+            { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_ONLY_HIGH" },
+        ],
+    };
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 60_000); // 1 min timeout
+
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "x-goog-api-key": apiKey,
+            },
+            body: JSON.stringify(body),
+            signal: controller.signal,
+        });
+        clearTimeout(timeoutId);
+
+        if (!response.ok) {
+            if (response.status === 429) {
+                throw new AppError("Rate limit exceeded", "RATE_LIMIT_EXCEEDED", 429);
+            }
+            const errorText = await response.text();
+            throw new AppError(
+                `Gemini API error: ${response.status} — ${errorText.slice(0, 200)}`,
+                "API_FAILURE",
+                response.status >= 500 ? 502 : response.status,
+            );
+        }
+
+        const data = (await response.json()) as {
+            candidates?: {
+                content?: { parts?: { text?: string }[] };
+            }[];
+        };
+
+        const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (!rawText) {
+            throw new AppError("Gemini returned empty response", "EMPTY_RESPONSE", 502);
+        }
+
+        let parsed: { items?: RawExtractedItem[] };
+        try {
+            parsed = JSON.parse(rawText);
+        } catch {
+            const jsonMatch = rawText.match(/```(?:json)?\s*([\s\S]*?)```/);
+            if (jsonMatch?.[1]) {
+                parsed = JSON.parse(jsonMatch[1]);
+            } else {
+                throw new AppError("Failed to parse response as JSON", "PARSE_ERROR", 502);
+            }
+        }
+
+        return {
+            transcript: text, // The input text IS the transcript
+            items: Array.isArray(parsed.items) ? parsed.items : [],
+        };
+    } catch (err) {
+        clearTimeout(timeoutId);
+        if (err instanceof AppError) throw err;
+        if (err instanceof Error && err.name === "AbortError") {
+            throw new AppError("Text extraction timed out", "TIMEOUT", 504);
+        }
+        throw new AppError(
+            `Extraction failed: ${err instanceof Error ? err.message : String(err)}`,
+            "EXTRACTION_FAILED",
+            500,
+        );
+    }
+}
+

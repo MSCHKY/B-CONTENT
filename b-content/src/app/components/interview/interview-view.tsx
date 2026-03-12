@@ -91,6 +91,42 @@ export function InterviewView() {
         }
     }, [contextInput, titleInput, t]);
 
+    // --- Text handling ---
+    const processText = useCallback(async (text: string) => {
+        setViewState("processing");
+        setErrorMessage("");
+
+        try {
+            const response = await fetch("/api/interview/process-text", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    text,
+                    title: titleInput || undefined,
+                    context: contextInput || undefined,
+                }),
+            });
+
+            if (!response.ok) {
+                const err = await response.json().catch(() => ({ error: "Unknown error" }));
+                throw new Error((err as { error: string }).error || `HTTP ${response.status}`);
+            }
+
+            const data = await response.json() as { interview: Interview };
+            setInterview(data.interview);
+            setItems(
+                data.interview.extractedItems.map((item) => ({
+                    ...item,
+                    selected: true,
+                })),
+            );
+            setViewState("review");
+        } catch (err) {
+            setErrorMessage(err instanceof Error ? err.message : String(err));
+            setViewState("error");
+        }
+    }, [contextInput, titleInput]);
+
     // --- Item toggle ---
     const toggleItem = useCallback((id: string) => {
         setItems((prev) =>
@@ -196,6 +232,7 @@ export function InterviewView() {
                     contextInput={contextInput}
                     setContextInput={setContextInput}
                     onFileSelected={processFile}
+                    onTextSubmit={processText}
                 />
             )}
 

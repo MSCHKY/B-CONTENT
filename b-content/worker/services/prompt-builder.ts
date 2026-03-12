@@ -210,28 +210,42 @@ export function buildTextPrompt(params: BuildPromptParams): BuiltPrompt {
     if (PROMPT_FORMAT === "v2") {
         // XML-structured format (Context7 best practice for Gemini 2.5+)
         const parts = [
+            `<language>`,
+            `CRITICAL — OUTPUT LANGUAGE: ${langInstruction}`,
+            `The ENTIRE post — every word, every sentence, every hashtag — MUST be in ${language === "de" ? "German" : "English"}.`,
+            `Do NOT mix languages. Even if source material, quotes, or topic keywords are in another language, translate them.`,
+            `This is NON-NEGOTIABLE.`,
+            `</language>`,
             `<role>\n${instancePrompt || baseRules}\n</role>`,
             instancePrompt ? `<rules>\n${baseRules}\n</rules>` : "",
             `<content_format>\n${ctPrompt}\n${ctInfo ? `\n${ctInfo}` : ""}\n</content_format>`,
             `<constraints>`,
-            `- Language: ${langInstruction}`,
             charConstraint ? `- Character count: ${charConstraint}` : "",
+            `- You MUST complete the entire post. NEVER stop mid-sentence. NEVER truncate.`,
+            `- If your draft exceeds the character limit, shorten and tighten — but always deliver a complete, finished post.`,
             `</constraints>`,
             `<output_format>`,
             `Return ONLY the post text including hashtags.`,
             `No meta-commentary, no explanations, no markdown formatting.`,
+            `The post must be a complete, finished piece of content.`,
             `</output_format>`,
             `<self_critique>`,
             `Before returning your final response, verify:`,
-            `1. Character count falls within the required range.`,
-            `2. Tone matches the requested persona — authentic, not generic.`,
-            `3. No corporate buzzwords or forbidden phrases.`,
+            `1. The post is COMPLETE — it has a proper ending, not a cutoff.`,
+            `2. Character count falls within the required range.`,
+            `3. The ENTIRE post is in ${language === "de" ? "German" : "English"} — no mixed languages.`,
+            `4. Tone matches the requested persona — authentic, not generic.`,
+            `5. No corporate buzzwords or forbidden phrases.`,
             `</self_critique>`,
         ].filter(Boolean);
         system = parts.join("\n");
     } else {
         // v1: Original plain text format
-        const systemParts: string[] = [baseRules];
+        const systemParts: string[] = [
+            `CRITICAL LANGUAGE RULE: ${langInstruction} The ENTIRE post — every word, every sentence, every hashtag — MUST be in ${language === "de" ? "German" : "English"}. Do NOT mix languages. Even if source material is in another language, translate it. This is NON-NEGOTIABLE.`,
+            "\n---\n",
+            baseRules,
+        ];
         if (instancePrompt) {
             systemParts.push("\n---\n", instancePrompt);
         }
@@ -241,12 +255,14 @@ export function buildTextPrompt(params: BuildPromptParams): BuiltPrompt {
         if (ctInfo) {
             systemParts.push("\n", ctInfo);
         }
-        systemParts.push(`\nLANGUAGE: ${langInstruction}`);
         if (charConstraint) {
             systemParts.push(`\nHARD CONSTRAINT — CHARACTER COUNT: ${charConstraint} If your draft is too short, add more substance. If too long, tighten the language.`);
         }
         systemParts.push(
-            `\nBefore returning your final response, verify:\n1. Character count falls within the required range.\n2. Tone matches the requested persona — authentic, not generic.\n3. No corporate buzzwords or forbidden phrases.`
+            `\nHARD CONSTRAINT — COMPLETENESS: You MUST complete the entire post. NEVER stop mid-sentence. NEVER truncate. If your draft exceeds the character limit, shorten and tighten — but always deliver a complete, finished post.`
+        );
+        systemParts.push(
+            `\nBefore returning your final response, verify:\n1. The post is COMPLETE — it has a proper ending, not a cutoff.\n2. Character count falls within the required range.\n3. The ENTIRE post is in ${language === "de" ? "German" : "English"} — no mixed languages.\n4. Tone matches the requested persona — authentic, not generic.\n5. No corporate buzzwords or forbidden phrases.`
         );
         system = systemParts.join("\n");
     }

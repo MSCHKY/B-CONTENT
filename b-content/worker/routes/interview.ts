@@ -5,7 +5,7 @@
 
 import { Hono } from "hono";
 import type { Env } from "../index";
-import { AppError, transcribeAndExtract } from "../services/gemini";
+import { AppError, transcribeAndExtract, extractFromText } from "../services/gemini";
 import { getTopics, saveTopics, getQuotes, saveQuotes } from "../services/kb-service";
 
 // Max upload size: 20MB (Gemini inline data limit after base64 encoding)
@@ -80,6 +80,75 @@ interviewRoutes.post("/process", async (c) => {
 
     // Call Gemini: Transcribe + Extract in one API call
     const result = await transcribeAndExtract(apiKey, base64, mimeType, context || undefined);
+
+    // Enrich extracted items with IDs and default selection
+    const enrichedItems = result.items.map((item) => ({
+        ...item,
+        id: crypto.randomUUID(),
+        selected: true,
+    }));
+
+    // Persist to D1
+    await c.env.DB.prepare(
+        `INSERT INTO interviews (id, title, transcript, extracted_items, status, created_at, updated_at)
+         VALUES (?, ?, ?, ?, 'processed', datetime('now'), datetime('now'))`,
+    )
+        .bind(id, interviewTitle, result.transcript, JSON.stringify(enrichedItems))
+        .run();
+
+    return c.json({
+        interview: {
+            id,
+            title: interviewTitle,
+            transcript: result.transcript,
+            extractedItems: enrichedItems,
+            importedCount: 0,
+            status: "processed" as const,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+        },
+    });
+});
+
+// ============================================================
+// POST /api/interview/process-text
+// Upload text (MD/transcript) → Gemini extraction → D1 persist
+// No audio transcription needed — text IS the transcript.
+// ============================================================
+interviewRoutes.post("/process-text", async (c) => {
+    const apiKey = c.env.GEMINI_API_KEY;
+    if (!apiKey) {
+        throw new AppError("Gemini API key not configured", "API_KEY_MISSING", 500);
+    }
+
+    const body = await c.req.json<{
+        text: string;
+        title?: string;
+        context?: string;
+    }>();
+
+    if (!body.text || body.text.trim().length < 10) {
+        throw new AppError(
+            "Text is required (min 10 characters)",
+            "MISSING_TEXT",
+            400,
+        );
+    }
+
+    // Max text size: ~100KB (generous for transcripts/articles)
+    if (body.text.length > 100_000) {
+        throw new AppError(
+            "Text too large. Maximum 100,000 characters.",
+            "TEXT_TOO_LARGE",
+            413,
+        );
+    }
+
+    const id = crypto.randomUUID();
+    const interviewTitle = body.title || `Text Import ${new Date().toISOString().split("T")[0]}`;
+
+    // Extract knowledge items from text (no transcription step)
+    const result = await extractFromText(apiKey, body.text, body.context || undefined);
 
     // Enrich extracted items with IDs and default selection
     const enrichedItems = result.items.map((item) => ({

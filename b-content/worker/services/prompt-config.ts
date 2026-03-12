@@ -17,7 +17,7 @@ export const TEXT_GENERATION_CONFIG = {
     temperature: 1.0,
     topP: 0.95,
     topK: 40,
-    maxOutputTokens: 2048,
+    maxOutputTokens: 4096,
 } as const;
 
 /**

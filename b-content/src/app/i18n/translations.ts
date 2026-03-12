@@ -226,6 +226,13 @@ export interface Translations {
         formatHint: string;
         openKnowledgeBase: string;
         quotesLabel: string;
+        audioTab: string;
+        textTab: string;
+        textPlaceholder: string;
+        textFileUpload: string;
+        textFormatHint: string;
+        textChars: string;
+        textExtract: string;
     };
 
     // --- Changelog ---
@@ -455,6 +462,13 @@ export const de: Translations = {
         formatHint: "MP3, M4A, WAV, WebM, OGG, FLAC — max 20 MB",
         openKnowledgeBase: "→ Wissensbasis öffnen",
         quotesLabel: "Zitate",
+        audioTab: "Audio",
+        textTab: "Text",
+        textPlaceholder: "Transkript, Notizen oder bestehenden Content hier einfügen…",
+        textFileUpload: "Datei laden",
+        textFormatHint: ".md, .txt",
+        textChars: "Zeichen",
+        textExtract: "Fakten extrahieren",
     },
 
     changelog: {
@@ -682,6 +696,13 @@ export const en: Translations = {
         formatHint: "MP3, M4A, WAV, WebM, OGG, FLAC — max 20 MB",
         openKnowledgeBase: "→ Open Knowledge Base",
         quotesLabel: "Quotes",
+        audioTab: "Audio",
+        textTab: "Text",
+        textPlaceholder: "Paste transcript, notes or existing content here…",
+        textFileUpload: "Upload file",
+        textFormatHint: ".md, .txt",
+        textChars: "characters",
+        textExtract: "Extract facts",
     },
 
     changelog: {
