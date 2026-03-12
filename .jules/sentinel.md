@@ -1,0 +1,4 @@
+## 2025-03-12 - Missing Global Security Headers in Hono Application
+**Vulnerability:** The application was missing global HTTP security headers (like HSTS, X-Content-Type-Options, etc.), exposing it to basic web vulnerabilities such as MIME-sniffing or clickjacking, despite having a middleware readily available.
+**Learning:** In Hono applications running on Cloudflare Workers, global middleware should be carefully prioritized in the entry point (`worker/index.ts`). Even when CORS is configured, other standard web security boundaries must be explicitly set.
+**Prevention:** Always verify that `hono/secure-headers` (or equivalent) is one of the first middlewares registered in the application lifecycle (`app.use("*", secureHeaders())`) before defining individual routes or authentication logic.
