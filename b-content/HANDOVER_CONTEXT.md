@@ -1,6 +1,6 @@
 # 🏗️ B/CONTENT — Handover Context
 
-> **Zuletzt aktualisiert:** 2026-03-10 10:20
+> **Zuletzt aktualisiert:** 2026-03-12 10:28
 > **Modul:** B/CONTENT (Content-Gehirn)
 > **Status:** Phase 3 IN PROGRESS — Z-002 ✅, Z-003 ✅, Z-005 Analytics ✅ LIVE
 > **Branch:** `main` (Workers Builds Git-Integration aktiv)
@@ -231,6 +231,10 @@
 | 2026-03-10 | Hardening | Architecture Hardening Session C: FM1 Exponential Backoff, FM5 Auth-Middleware-Stub (CF Access), x-gemini-key Override entfernt | ✅ Deployed |
 | 2026-03-10 | Experiment | Gemini Model-Upgrade getestet (2.5-flash + 3.1-flash-image-preview) → Reverted. Prompts nicht angepasst, Qualität/Speed schlechter. Bewusster Upgrade-Pfad für spätere Phase. | ↩️ Reverted |
 | 2026-03-10 | Debugging | Qualitaets-Debugging: sanitizeText HTML-Entity-Bug gefixt (Jules PR #10), 429->AppError, Gemini Model-Upgrade LIVE (2.5-flash + 3.1-flash-image-preview), neuer API-Key, D1+R2 bereinigt, Logo-Overlay deferred auf Template-Builder (F11) | ✅ Deployed |
+| 2026-03-12 | Bugfix | Marco-Feedback: Post-Truncation gefixt (Root Cause: Gemini 2.5 Flash Thinking Mode verbraucht Output-Token-Budget → `thinkingBudget: 0`), Sprachmischung verstärkt (Top-Level Prompt-Block) | ✅ Deployed |
+| 2026-03-12 | Feature | Text-Upload im Interview-Flow: Audio/Text Tab-Toggle, Textarea + MD/TXT-Upload, neuer `/api/interview/process-text` Endpoint, `extractFromText()` in gemini.ts | ✅ Deployed |
+| 2026-03-12 | Testing | Alle 12 pre-existenten Test-Failures gefixt: DE/EN i18n, Strict-Mode Selektoren, API-Validierungsreihenfolge, Soft-Delete Status. 36/36 grün. | ✅ Deployed |
+| 2026-03-12 | Ops | `/reset` Workflow für Kundenübergabe erstellt (D1, R2, KV Cleanup). Preview-URL dokumentiert. | ✅ Dokumentiert |
 
 ### ⚠️ Bekannte Probleme
 - **3 Audit-Findings bewusst deferred:** Rate Limiting (#5), DSGVO Gemini EU (#6), KV Jurisdiction (#7), POST Idempotenz (#12), REST-Konsistenz (#13).
