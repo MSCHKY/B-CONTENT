@@ -1,5 +1,4 @@
 import { expect, test } from "@playwright/test";
-import { execSync } from "node:child_process";
 
 interface SavePostResponse {
     id: string;
@@ -26,14 +25,11 @@ interface ErrorResponse {
 }
 
 const buildValidNewsText = (marker: string): string => {
-    const seed = `${marker} Industrial wire update for enterprise communication quality assurance. `;
-    return seed.repeat(8).slice(0, 320);
+    const seed = `${marker} Industrial wire update for enterprise communication quality assurance and content creation. `;
+    return seed.repeat(6).slice(0, 400);
 };
 
 test.describe("API Library Archive Lifecycle", () => {
-    test.beforeAll(() => {
-        execSync("npm run db:migrate", { stdio: "ignore" });
-    });
 
     test("save -> archive -> list-filtered -> restore -> purge", async ({ request }) => {
         const marker = `archive-lifecycle-${Date.now()}`;

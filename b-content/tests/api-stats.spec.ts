@@ -1,5 +1,4 @@
 import { expect, test } from "@playwright/test";
-import { execSync } from "node:child_process";
 
 interface SavePostResponse {
     id: string;
@@ -37,14 +36,11 @@ interface StatsResponse {
 }
 
 const buildText = (length: number, marker: string): string => {
-    const chunk = `${marker} industrial communications quality `;
+    const chunk = `${marker} industrial communications quality assurance content `;
     return chunk.repeat(Math.ceil(length / chunk.length)).slice(0, length);
 };
 
 test.describe("API Stats Endpoint", () => {
-    test.beforeAll(() => {
-        execSync("npm run db:migrate", { stdio: "ignore" });
-    });
 
     test("returns expected aggregation shape and includes newly created topic counts", async ({ request }) => {
         const createdPostIds: string[] = [];
