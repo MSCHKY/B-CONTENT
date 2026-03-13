@@ -22,7 +22,7 @@ export interface Env {
 const app = new Hono<{ Bindings: Env }>();
 
 // 🛡️ Sentinel: Enforce global security headers (HSTS, X-Content-Type-Options, etc.)
-app.use("*", secureHeaders());
+app.use("/api/*", secureHeaders());
 
 // Auth middleware — protects mutating routes (POST/PUT/PATCH/DELETE) in production
 app.use("/api/*", requireAuth);
