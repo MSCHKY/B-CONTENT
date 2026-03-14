@@ -1,0 +1,9 @@
+--- src/app/components/calendar/month-grid.tsx
++++ src/app/components/calendar/month-grid.tsx
+@@ -79,2 +79,7 @@
+         }
++        return set;
++    }, [conflicts]);
++
++    const getPostsForDate = (dateStr: string) => postsByDate.get(dateStr) || [];
++    const hasConflict = (dateStr: string) => conflictDates.has(dateStr);

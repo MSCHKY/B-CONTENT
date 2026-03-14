@@ -3,6 +3,7 @@ import { useTranslation } from "@/i18n";
 import { INSTANCE_LABELS } from "@shared/constants";
 import type { CalendarPost, Conflict } from "./types";
 import { INSTANCE_COLORS, formatDate } from "./types";
+import { useMemo } from "react";
 
 interface MonthGridProps {
     currentMonth: string;
@@ -58,11 +59,28 @@ export function MonthGrid({
         return days;
     })();
 
-    const getPostsForDate = (dateStr: string) =>
-        scheduled.filter((p) => p.scheduled_at === dateStr);
+    const postsByDate = useMemo(() => {
+        const map = new Map<string, CalendarPost[]>();
+        for (const post of scheduled) {
+            if (!post.scheduled_at) continue;
+            const existing = map.get(post.scheduled_at) || [];
+            existing.push(post);
+            map.set(post.scheduled_at, existing);
+        }
+        return map;
+    }, [scheduled]);
 
-    const hasConflict = (dateStr: string) =>
-        conflicts.some((c) => c.dateA === dateStr || c.dateB === dateStr);
+    const conflictDates = useMemo(() => {
+        const set = new Set<string>();
+        for (const c of conflicts) {
+            set.add(c.dateA);
+            set.add(c.dateB);
+        }
+        return set;
+    }, [conflicts]);
+
+    const getPostsForDate = (dateStr: string) => postsByDate.get(dateStr) || [];
+    const hasConflict = (dateStr: string) => conflictDates.has(dateStr);
 
     const today = formatDate(new Date());
 
