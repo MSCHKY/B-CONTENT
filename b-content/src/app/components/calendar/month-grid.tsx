@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { AlertTriangle, GripVertical } from "lucide-react";
 import { useTranslation } from "@/i18n";
 import { INSTANCE_LABELS } from "@shared/constants";
@@ -58,11 +59,37 @@ export function MonthGrid({
         return days;
     })();
 
+    // ⚡ Bolt: Pre-calculate posts per date to avoid O(N*D) filtering in render loop
+    const postsByDate = useMemo(() => {
+        const map: Record<string, CalendarPost[]> = {};
+        for (const post of scheduled) {
+            if (!post.scheduled_at) continue;
+            if (!map[post.scheduled_at]) {
+                map[post.scheduled_at] = [];
+            }
+            map[post.scheduled_at]!.push(post);
+        }
+        return map;
+    }, [scheduled]);
+
+    // ⚡ Bolt: Pre-calculate conflict dates for O(1) lookup instead of O(N*D)
+    const conflictDates = useMemo(() => {
+        const set = new Set<string>();
+        for (const conflict of conflicts) {
+            set.add(conflict.dateA);
+            set.add(conflict.dateB);
+        }
+        return set;
+    }, [conflicts]);
+
+    // ⚡ Bolt: Use a stable reference for empty array to prevent child re-renders
+    const EMPTY_POSTS: CalendarPost[] = useMemo(() => [], []);
+
     const getPostsForDate = (dateStr: string) =>
-        scheduled.filter((p) => p.scheduled_at === dateStr);
+        postsByDate[dateStr] || EMPTY_POSTS;
 
     const hasConflict = (dateStr: string) =>
-        conflicts.some((c) => c.dateA === dateStr || c.dateB === dateStr);
+        conflictDates.has(dateStr);
 
     const today = formatDate(new Date());
 
