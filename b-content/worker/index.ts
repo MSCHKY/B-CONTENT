@@ -1,5 +1,6 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
+import { secureHeaders } from "hono/secure-headers";
 import { AppError } from "./services/gemini";
 import { requireAuth } from "./middleware/auth";
 import { generateRoutes } from "./routes/generate";
@@ -31,6 +32,9 @@ app.use("/api/*", cors({
     ],
     allowMethods: ["GET", "HEAD", "POST", "PUT", "PATCH", "DELETE"],
 }));
+
+// Middleware — enforce security headers
+app.use("/api/*", secureHeaders());
 
 // Global error handler — masks internal details from client responses
 app.onError((err, c) => {
