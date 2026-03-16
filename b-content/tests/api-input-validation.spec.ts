@@ -71,4 +71,36 @@ test.describe("API Input Validation", () => {
         expect(body.error).toContain("Text length");
         expect(body.field).toBe("text");
     });
+
+    test("rejects missing required fields for image generation", async ({ request }) => {
+        const response = await request.post("/api/generate/image", {
+            data: {
+                instance: "alex",
+                format: "single-square",
+                topicField: "energie",
+                // missing userInput
+            },
+        });
+
+        expect(response.status()).toBe(400);
+        const body = (await response.json()) as ErrorResponse;
+        expect(body.error).toContain("userInput");
+        expect(body.field).toBe("userInput");
+    });
+
+    test("rejects empty strings after sanitization for image generation", async ({ request }) => {
+        const response = await request.post("/api/generate/image", {
+            data: {
+                instance: "alex",
+                format: "single-square",
+                topicField: "energie",
+                userInput: "   <script>alert(1)</script>   ", // sanitized to empty
+            },
+        });
+
+        expect(response.status()).toBe(400);
+        const body = (await response.json()) as ErrorResponse;
+        expect(body.error).toContain("userInput");
+        expect(body.field).toBe("userInput");
+    });
 });
