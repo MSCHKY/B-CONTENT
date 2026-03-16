@@ -25,9 +25,9 @@ export async function requireAuth(c: Context<{ Bindings: Env }>, next: Next) {
         return next();
     }
 
-    // In dev/preview, skip auth check
+    // In dev, skip auth check
     const env = c.env.ENVIRONMENT || "development";
-    if (env !== "production") {
+    if (env === "development") {
         return next();
     }
 
