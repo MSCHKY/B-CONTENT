@@ -1,5 +1,6 @@
 import { AlertTriangle, GripVertical } from "lucide-react";
 import { useTranslation } from "@/i18n";
+import { useMemo } from "react";
 import { INSTANCE_LABELS } from "@shared/constants";
 import type { CalendarPost, Conflict } from "./types";
 import { INSTANCE_COLORS, formatDate } from "./types";
@@ -58,11 +59,36 @@ export function MonthGrid({
         return days;
     })();
 
+    // ⚡ Bolt: Pre-calculate posts by date for O(1) lookup in render loop
+    const postsByDate = useMemo(() => {
+        const map = new Map<string, CalendarPost[]>();
+        for (const post of scheduled) {
+            if (post.scheduled_at) {
+                if (!map.has(post.scheduled_at)) map.set(post.scheduled_at, []);
+                map.get(post.scheduled_at)!.push(post);
+            }
+        }
+        return map;
+    }, [scheduled]);
+
+    // ⚡ Bolt: Pre-calculate conflict dates for O(1) lookup
+    const conflictDates = useMemo(() => {
+        const set = new Set<string>();
+        for (const c of conflicts) {
+            set.add(c.dateA);
+            set.add(c.dateB);
+        }
+        return set;
+    }, [conflicts]);
+
+    // ⚡ Bolt: Memoize fallback empty array to prevent breaking shallow comparisons
+    const EMPTY_ARR = useMemo(() => [], []);
+
     const getPostsForDate = (dateStr: string) =>
-        scheduled.filter((p) => p.scheduled_at === dateStr);
+        postsByDate.get(dateStr) || EMPTY_ARR;
 
     const hasConflict = (dateStr: string) =>
-        conflicts.some((c) => c.dateA === dateStr || c.dateB === dateStr);
+        conflictDates.has(dateStr);
 
     const today = formatDate(new Date());
 
