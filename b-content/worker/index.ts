@@ -1,5 +1,6 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
+import { secureHeaders } from "hono/secure-headers";
 import { AppError } from "./services/gemini";
 import { requireAuth } from "./middleware/auth";
 import { generateRoutes } from "./routes/generate";
@@ -19,6 +20,10 @@ export interface Env {
 }
 
 const app = new Hono<{ Bindings: Env }>();
+
+// Security headers middleware — must be scoped specifically to API routes (e.g., app.use('/api/*', secureHeaders()))
+// Applying it globally (*) breaks Cloudflare Workers/Vite static asset serving during CI builds.
+app.use("/api/*", secureHeaders());
 
 // Auth middleware — protects mutating routes (POST/PUT/PATCH/DELETE) in production
 app.use("/api/*", requireAuth);
