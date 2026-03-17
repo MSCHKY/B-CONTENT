@@ -1,0 +1,1 @@
+## 2026-03-17 - Accessible Icon-Only Buttons\n**Learning:** Icon-only error dismissal buttons need localized aria-labels, type='button', and focus-visible utilities to be accessible.\n**Action:** Add aria-label='Fehlermeldung schließen', type='button', and focus-visible classes to all icon-only interactive elements.

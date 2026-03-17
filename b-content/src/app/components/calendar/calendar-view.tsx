@@ -148,7 +148,14 @@ export function CalendarView() {
             {error && (
                 <div className="rounded-lg bg-red-500/10 border border-red-500/30 p-4 mb-6 text-sm text-red-400 animate-fade-in-up flex items-center justify-between">
                     <span>{error}</span>
-                    <button onClick={() => setError(null)} className="text-red-400 hover:text-red-300 ml-2">✕</button>
+                    <button
+                        type="button"
+                        onClick={() => setError(null)}
+                        className="text-red-400 hover:text-red-300 ml-2 focus-visible:ring-2 focus-visible:ring-red-400 rounded-sm"
+                        aria-label={t.common.closeError}
+                    >
+                        ✕
+                    </button>
                 </div>
             )}
 
