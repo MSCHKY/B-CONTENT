@@ -1,0 +1,3 @@
+## 2024-05-18 - Added ARIA labels and focus rings to icon-only dismiss/clear buttons
+**Learning:** Icon-only buttons with simple text content like `✕` used for closing errors or clearing inputs are missing `aria-label`s and visible focus rings (`focus-visible:ring-2`), making them hard to use for keyboard navigators or screen readers. Also, missing `type="button"` can cause unintended form submissions.
+**Action:** When adding icon-only buttons (like `✕` or Lucide icons) for actions like "clear" or "dismiss error", always ensure they have `type="button"`, an `aria-label` (localized, e.g., `t.common.dismissError`), and explicit `focus-visible` utility classes for keyboard accessibility.

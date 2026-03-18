@@ -137,7 +137,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
                         <button
                             type="button"
                             onClick={onClear}
-                            className="absolute top-3 right-3 w-6 h-6 flex items-center justify-center rounded-full text-text-muted hover:text-text-primary hover:bg-black/5 transition-colors cursor-pointer"
+                            className="absolute top-3 right-3 w-6 h-6 flex items-center justify-center rounded-full text-text-muted hover:text-text-primary hover:bg-black/5 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-text-primary"
                             aria-label="Clear"
                             title="Clear"
                         >
