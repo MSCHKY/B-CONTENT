@@ -3,6 +3,7 @@ import type { AppView } from "@/types";
 import { Sparkles, Brain, Library, Layers, BarChart3, Globe, CalendarDays, Mic } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useTranslation } from "@/i18n";
+import { useShallow } from "zustand/react/shallow";
 
 interface NavItem {
     id: AppView;
@@ -21,7 +22,13 @@ const NAV_ITEMS: NavItem[] = [
 ];
 
 export function Sidebar() {
-    const { view, setView } = useAppStore();
+    // ⚡ Bolt: Use useShallow to prevent Sidebar from re-rendering when other app states change
+    const { view, setView } = useAppStore(
+        useShallow((state) => ({
+            view: state.view,
+            setView: state.setView,
+        }))
+    );
     const { t, locale, toggleLocale } = useTranslation();
 
     return (
