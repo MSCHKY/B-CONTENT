@@ -1,0 +1,14 @@
+
+> b-content@1.0.0-beta.0 dev
+> vite dev --host 0.0.0.0 --port 3000
+
+(node:5314) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+  VITE v6.4.1  ready in 2659 ms
+
+  ➜  Local:   http://localhost:3000/
+  ➜  Network: http://192.168.0.2:3000/
+  ➜  Debug:   http://localhost:3000/__debug
+8:02:13 AM [vite] (client) page reload tests/test_error_button.spec.ts
+8:03:33 AM [vite] (client) page reload tests/test_error_button.spec.ts
