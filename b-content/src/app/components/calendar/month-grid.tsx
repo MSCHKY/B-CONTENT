@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { AlertTriangle, GripVertical } from "lucide-react";
 import { useTranslation } from "@/i18n";
 import { INSTANCE_LABELS } from "@shared/constants";
@@ -23,12 +24,12 @@ export function MonthGrid({
 }: MonthGridProps) {
     const { locale } = useTranslation();
 
-    const WEEKDAY_LABELS = locale === "de"
+    const WEEKDAY_LABELS = useMemo(() => locale === "de"
         ? ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
-        : ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+        : ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], [locale]);
 
     // Build calendar grid
-    const calendarDays = (() => {
+    const calendarDays = useMemo(() => {
         const [y, m] = currentMonth.split("-").map(Number);
         const firstDay = new Date(y!, m! - 1, 1);
         const lastDay = new Date(y!, m!, 0);
@@ -56,13 +57,32 @@ export function MonthGrid({
         }
 
         return days;
-    })();
+    }, [currentMonth]);
 
-    const getPostsForDate = (dateStr: string) =>
-        scheduled.filter((p) => p.scheduled_at === dateStr);
+    const EMPTY_ARR = useMemo(() => [], []);
 
-    const hasConflict = (dateStr: string) =>
-        conflicts.some((c) => c.dateA === dateStr || c.dateB === dateStr);
+    const postsByDate = useMemo(() => {
+        const map = new Map<string, CalendarPost[]>();
+        for (const post of scheduled) {
+            if (!post.scheduled_at) continue;
+            const existing = map.get(post.scheduled_at);
+            if (existing) {
+                existing.push(post);
+            } else {
+                map.set(post.scheduled_at, [post]);
+            }
+        }
+        return map;
+    }, [scheduled]);
+
+    const conflictDates = useMemo(() => {
+        const set = new Set<string>();
+        for (const c of conflicts) {
+            set.add(c.dateA);
+            set.add(c.dateB);
+        }
+        return set;
+    }, [conflicts]);
 
     const today = formatDate(new Date());
 
@@ -94,9 +114,9 @@ export function MonthGrid({
             {/* Day cells */}
             <div className="grid grid-cols-7">
                 {calendarDays.map((day) => {
-                    const dayPosts = getPostsForDate(day.date);
+                    const dayPosts = postsByDate.get(day.date) || EMPTY_ARR;
                     const isToday = day.date === today;
-                    const isConflict = hasConflict(day.date);
+                    const isConflict = conflictDates.has(day.date);
 
                     return (
                         <div
