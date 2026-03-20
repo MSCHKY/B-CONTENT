@@ -246,6 +246,7 @@ export interface Translations {
         error: string;
         actionFailed: string;
         noData: string;
+        dismissError: string;
     };
 }
 
@@ -480,6 +481,7 @@ export const de: Translations = {
         error: "Ein Fehler ist aufgetreten.",
         actionFailed: "Aktion fehlgeschlagen.",
         noData: "Keine Daten verfügbar.",
+        dismissError: "Fehlermeldung schließen",
     },
 };
 
@@ -714,6 +716,7 @@ export const en: Translations = {
         error: "An error occurred.",
         actionFailed: "Action failed.",
         noData: "No data available.",
+        dismissError: "Dismiss error",
     },
 };
 
