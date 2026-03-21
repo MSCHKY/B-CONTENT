@@ -73,7 +73,8 @@ export function Orchestrate() {
                     setGenerationErrors(data.errors);
                 }
             }
-        } catch {
+        } catch (err) {
+            console.error("[Orchestrate:handleGenerate]", err);
             setError(t.common.error);
         } finally {
             setIsGenerating(false);
@@ -124,7 +125,8 @@ export function Orchestrate() {
             setSaveResult(
                 `${saved}/${posts.length} posts saved to Library`,
             );
-        } catch {
+        } catch (err) {
+            console.error("[Orchestrate:handleSaveAll]", err);
             setSaveResult("Failed to save posts");
         } finally {
             setSavingAll(false);
