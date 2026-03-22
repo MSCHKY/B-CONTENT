@@ -245,6 +245,7 @@ export interface Translations {
         loading: string;
         error: string;
         actionFailed: string;
+        close: string;
         noData: string;
     };
 }
@@ -479,6 +480,7 @@ export const de: Translations = {
         loading: "Wird geladen…",
         error: "Ein Fehler ist aufgetreten.",
         actionFailed: "Aktion fehlgeschlagen.",
+        close: "Schließen",
         noData: "Keine Daten verfügbar.",
     },
 };
@@ -713,6 +715,7 @@ export const en: Translations = {
         loading: "Loading…",
         error: "An error occurred.",
         actionFailed: "Action failed.",
+        close: "Close",
         noData: "No data available.",
     },
 };

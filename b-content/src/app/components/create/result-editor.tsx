@@ -290,7 +290,7 @@ export function ResultEditor() {
                     {imageError && (
                         <div className="rounded-lg bg-red-500/10 border border-red-500/30 p-3 text-sm text-red-400 animate-fade-in-up flex items-center justify-between">
                             <span>⚠️ {imageError}</span>
-                            <button onClick={() => setImageError(null)} className="text-red-400 hover:text-red-300 ml-2">✕</button>
+                            <button type="button" aria-label={t.common.close} onClick={() => setImageError(null)} className="text-red-400 hover:text-red-300 ml-2 focus-visible:ring-2 rounded cursor-pointer">✕</button>
                         </div>
                     )}
                 </div>
