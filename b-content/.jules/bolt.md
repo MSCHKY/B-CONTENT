@@ -1,0 +1,3 @@
+## 2024-03-23 - Concurrent D1 Queries using Promise.all
+**Learning:** In the Hono/Cloudflare Workers environment for B/CONTENT, endpoints like `/api/stats` were making 7+ independent sequential D1 database queries using `await` sequentially. While D1 is fast, the network overhead of multiple sequential requests adds up significantly for dashboard-style endpoints. Grouping all independent queries into a `Promise.all()` block ensures concurrent execution, bringing total query time closer to the max of individual query times rather than the sum.
+**Action:** When creating new dashboard or aggregate API routes in Hono/Workers, identify all independent D1 queries and group them inside `Promise.all()` right away instead of awaiting them one-by-one.
