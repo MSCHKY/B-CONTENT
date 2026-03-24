@@ -238,18 +238,20 @@ postRoutes.patch("/:id", async (c) => {
     const params: (string | number)[] = [];
 
     if (body.text !== undefined) {
+        const sanitizedText = sanitizeText(body.text);
         updates.push("text = ?");
-        params.push(body.text);
+        params.push(sanitizedText);
         updates.push("char_count = ?");
-        params.push(body.text.length);
+        params.push(sanitizedText.length);
     }
     if (body.status !== undefined) {
         updates.push("status = ?");
         params.push(body.status);
     }
     if (body.hashtags !== undefined) {
+        const sanitizedHashtags = body.hashtags.map(h => sanitizeText(h));
         updates.push("hashtags = ?");
-        params.push(JSON.stringify(body.hashtags));
+        params.push(JSON.stringify(sanitizedHashtags));
     }
     if (body.imageId !== undefined) {
         updates.push("image_id = ?");

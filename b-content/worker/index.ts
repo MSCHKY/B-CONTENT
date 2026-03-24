@@ -44,7 +44,8 @@ app.onError((err, c) => {
     }
 
     // Log full error internally, return safe message to client
-    console.error(`[Unhandled Error] ${err.message}`, err.stack);
+    // Security: Avoid logging stack traces to prevent information exposure
+    console.error(`[Unhandled Error] ${err.message}`);
     return c.json({ error: "Internal server error" }, 500);
 });
 
