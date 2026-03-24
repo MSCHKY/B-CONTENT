@@ -62,19 +62,80 @@ statsRoutes.get("/", async (c) => {
     try {
         const db = c.env.DB;
 
-        // 1. Per-instance post counts and personal ratio
-        const instanceResult = await db
-            .prepare(
+        const now = new Date();
+        const monthStart = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-01`;
+
+        const twelveWeeksAgo = new Date(now);
+        twelveWeeksAgo.setDate(twelveWeeksAgo.getDate() - 84);
+        const timelineCutoff = twelveWeeksAgo.toISOString().slice(0, 10);
+
+        // Run independent queries concurrently
+        const [
+            instanceResult,
+            topicResult,
+            summaryResult,
+            monthResult,
+            timelineResult,
+            ctResult,
+            schedResult
+        ] = await Promise.all([
+            // 1. Per-instance post counts and personal ratio
+            db.prepare(
                 `SELECT 
                     instance,
                     COUNT(*) as total,
                     SUM(CASE WHEN is_personal = 1 THEN 1 ELSE 0 END) as personal,
                     SUM(CASE WHEN is_personal = 0 THEN 1 ELSE 0 END) as fach
                  FROM posts
-                 GROUP BY instance`,
-            )
-            .all();
+                 GROUP BY instance`
+            ).all(),
 
+            // 2. Topic field distribution
+            db.prepare(`SELECT topic_fields FROM posts`).all(),
+
+            // 3. Summary stats
+            db.prepare(
+                `SELECT
+                    COUNT(*) as total,
+                    MIN(created_at) as oldest,
+                    MAX(created_at) as newest
+                 FROM posts`
+            ).first<{ total: number; oldest: string | null; newest: string | null }>(),
+
+            // This month count
+            db.prepare(`SELECT COUNT(*) as count FROM posts WHERE created_at >= ?`)
+                .bind(monthStart)
+                .first<{ count: number }>(),
+
+            // 4. Activity Timeline
+            db.prepare(
+                `SELECT
+                    strftime('%Y-W%W', created_at) as week,
+                    instance,
+                    COUNT(*) as count
+                 FROM posts
+                 WHERE created_at >= ?
+                 GROUP BY week, instance
+                 ORDER BY week ASC`
+            ).bind(timelineCutoff).all(),
+
+            // 5. Content-Type Breakdown
+            db.prepare(
+                `SELECT instance, content_type, COUNT(*) as count
+                 FROM posts
+                 GROUP BY instance, content_type
+                 ORDER BY instance, count DESC`
+            ).all(),
+
+            // 7. Scheduling Health (Graceful fallback)
+            db.prepare(
+                `SELECT
+                    SUM(CASE WHEN scheduled_at IS NOT NULL THEN 1 ELSE 0 END) as scheduled,
+                    SUM(CASE WHEN scheduled_at IS NULL THEN 1 ELSE 0 END) as unscheduled
+                 FROM posts
+                 WHERE status != 'archived'`
+            ).first<{ scheduled: number; unscheduled: number }>().catch(() => null)
+        ]);
         const ratios: InstanceRatio[] = (
             instanceResult.results as Array<{
                 instance: string;
@@ -86,16 +147,12 @@ statsRoutes.get("/", async (c) => {
             const fachSinceLastPersonal = row.fach % 5; // Simplified: modulo to track within 4:1 cycle
             return {
                 instance: row.instance,
-                label:
-                    INSTANCE_LABELS[row.instance] ?? row.instance,
+                label: INSTANCE_LABELS[row.instance] ?? row.instance,
                 totalPosts: row.total,
                 fachPosts: row.fach,
                 personalPosts: row.personal,
                 ratio: `${row.fach}:${row.personal}`,
-                isHealthy:
-                    row.personal === 0
-                        ? row.fach <= 4
-                        : row.fach / Math.max(row.personal, 1) <= 5,
+                isHealthy: row.personal === 0 ? row.fach <= 4 : row.fach / Math.max(row.personal, 1) <= 5,
                 nextShouldBePersonal: fachSinceLastPersonal >= 4,
             };
         });
@@ -116,23 +173,13 @@ statsRoutes.get("/", async (c) => {
             }
         }
 
-        // Sort: alex, ablas, bwg
         ratios.sort((a, b) => {
             const order = ["alex", "ablas", "bwg"];
             return order.indexOf(a.instance) - order.indexOf(b.instance);
         });
 
-        // 2. Topic field distribution
-        const topicResult = await db
-            .prepare(
-                `SELECT topic_fields FROM posts`,
-            )
-            .all();
-
         const topicCounts: Record<string, number> = {};
-        for (const row of topicResult.results as Array<{
-            topic_fields: string;
-        }>) {
+        for (const row of topicResult.results as Array<{ topic_fields: string; }>) {
             try {
                 const fields: string[] = JSON.parse(row.topic_fields);
                 for (const field of fields) {
@@ -147,40 +194,10 @@ statsRoutes.get("/", async (c) => {
             .map(([topicField, count]) => ({ topicField, count }))
             .sort((a, b) => b.count - a.count);
 
-        // 3. Summary stats
-        const summaryResult = await db
-            .prepare(
-                `SELECT 
-                    COUNT(*) as total,
-                    MIN(created_at) as oldest,
-                    MAX(created_at) as newest
-                 FROM posts`,
-            )
-            .first<{ total: number; oldest: string | null; newest: string | null }>();
-
-        // This month count
-        const now = new Date();
-        const monthStart = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-01`;
-        const monthResult = await db
-            .prepare(
-                `SELECT COUNT(*) as count FROM posts WHERE created_at >= ?`,
-            )
-            .bind(monthStart)
-            .first<{ count: number }>();
-
-        // Build warnings
         const warnings: string[] = [];
         for (const ratio of ratios) {
-            if (ratio.nextShouldBePersonal) {
-                warnings.push(
-                    `${ratio.label}: Next post should be personal (4:1 ratio)`,
-                );
-            }
-            if (!ratio.isHealthy) {
-                warnings.push(
-                    `${ratio.label}: Fach:Personal ratio out of balance (${ratio.ratio})`,
-                );
-            }
+            if (ratio.nextShouldBePersonal) warnings.push(`${ratio.label}: Next post should be personal (4:1 ratio)`);
+            if (!ratio.isHealthy) warnings.push(`${ratio.label}: Fach:Personal ratio out of balance (${ratio.ratio})`);
         }
 
         const summary: StatsSummary = {
@@ -191,31 +208,10 @@ statsRoutes.get("/", async (c) => {
             warnings,
         };
 
-        // 4. Activity Timeline — posts per week for last 12 weeks (stacked by instance)
-        const twelveWeeksAgo = new Date(now);
-        twelveWeeksAgo.setDate(twelveWeeksAgo.getDate() - 84);
-        const timelineCutoff = twelveWeeksAgo.toISOString().slice(0, 10);
-
-        const timelineResult = await db
-            .prepare(
-                `SELECT 
-                    strftime('%Y-W%W', created_at) as week,
-                    instance,
-                    COUNT(*) as count
-                 FROM posts
-                 WHERE created_at >= ?
-                 GROUP BY week, instance
-                 ORDER BY week ASC`,
-            )
-            .bind(timelineCutoff)
-            .all();
-
-        // Build full 12-week timeline with 0-fills
         const timelineMap = new Map<string, TimelineWeek>();
         for (let i = 11; i >= 0; i--) {
             const d = new Date(now);
             d.setDate(d.getDate() - i * 7);
-            // Get ISO week manually
             const jan1 = new Date(d.getFullYear(), 0, 1);
             const weekNum = Math.ceil(((d.getTime() - jan1.getTime()) / 86400000 + jan1.getDay() + 1) / 7);
             const weekKey = `${d.getFullYear()}-W${String(weekNum).padStart(2, "0")}`;
@@ -233,16 +229,6 @@ statsRoutes.get("/", async (c) => {
 
         const timeline: TimelineWeek[] = Array.from(timelineMap.values());
 
-        // 5. Content-Type Breakdown — per instance
-        const ctResult = await db
-            .prepare(
-                `SELECT instance, content_type, COUNT(*) as count
-                 FROM posts
-                 GROUP BY instance, content_type
-                 ORDER BY instance, count DESC`,
-            )
-            .all();
-
         const contentTypeBreakdown: ContentTypeCount[] = (
             ctResult.results as Array<{ instance: string; content_type: string; count: number }>
         ).map((row) => ({
@@ -251,7 +237,6 @@ statsRoutes.get("/", async (c) => {
             count: row.count,
         }));
 
-        // 6. Weekly Cadence — average posts/week + this week + trend
         const weekCounts = timeline.map((w) => w.count);
         const nonZeroWeeks = weekCounts.filter((c) => c > 0);
         const avgPerWeek = nonZeroWeeks.length > 0
@@ -266,31 +251,14 @@ statsRoutes.get("/", async (c) => {
 
         const cadence: Cadence = { avgPerWeek, thisWeek: thisWeekCount, trend };
 
-        // 7. Scheduling Health — scheduled vs unscheduled (non-archived posts)
-        // Wrapped in try-catch: scheduled_at column may not exist in unmigrated local DBs
-        let scheduling: SchedulingHealth = { scheduled: 0, unscheduled: 0, coverage: 0 };
-        try {
-            const schedResult = await db
-                .prepare(
-                    `SELECT
-                        SUM(CASE WHEN scheduled_at IS NOT NULL THEN 1 ELSE 0 END) as scheduled,
-                        SUM(CASE WHEN scheduled_at IS NULL THEN 1 ELSE 0 END) as unscheduled
-                     FROM posts
-                     WHERE status != 'archived'`,
-                )
-                .first<{ scheduled: number; unscheduled: number }>();
-
-            const scheduledCount = schedResult?.scheduled ?? 0;
-            const unscheduledCount = schedResult?.unscheduled ?? 0;
-            const totalActive = scheduledCount + unscheduledCount;
-            scheduling = {
-                scheduled: scheduledCount,
-                unscheduled: unscheduledCount,
-                coverage: totalActive > 0 ? Math.round((scheduledCount / totalActive) * 100) : 0,
-            };
-        } catch {
-            // scheduled_at column may not exist — graceful fallback
-        }
+        const scheduledCount = schedResult?.scheduled ?? 0;
+        const unscheduledCount = schedResult?.unscheduled ?? 0;
+        const totalActive = scheduledCount + unscheduledCount;
+        const scheduling: SchedulingHealth = {
+            scheduled: scheduledCount,
+            unscheduled: unscheduledCount,
+            coverage: totalActive > 0 ? Math.round((scheduledCount / totalActive) * 100) : 0,
+        };
 
         return c.json({
             ratios,
