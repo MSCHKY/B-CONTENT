@@ -101,8 +101,10 @@ postRoutes.get("/", async (c) => {
     const instance = c.req.query("instance");
     const contentType = c.req.query("contentType");
     const status = c.req.query("status");
-    const limit = parseInt(c.req.query("limit") ?? "50", 10);
-    const offset = parseInt(c.req.query("offset") ?? "0", 10);
+    const rawLimit = parseInt(c.req.query("limit") ?? "50", 10);
+    const limit = isNaN(rawLimit) || rawLimit < 1 ? 50 : Math.min(rawLimit, 100);
+    const rawOffset = parseInt(c.req.query("offset") ?? "0", 10);
+    const offset = isNaN(rawOffset) || rawOffset < 0 ? 0 : rawOffset;
 
     let query = `SELECT p.*, gi.id as img_id, gi.format as img_format, gi.width as img_width, gi.height as img_height, gi.url as img_url
         FROM posts p
