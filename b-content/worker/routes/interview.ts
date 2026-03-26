@@ -209,6 +209,10 @@ interviewRoutes.post("/import", async (c) => {
     let topicsModified = false;
     let quotesModified = false;
 
+    // Pre-index for O(1) lookups
+    const topicsMap = new Map(topics.map((t) => [t.id, t]));
+    const quoteGroupsMap = new Map(quoteGroups.map((g) => [g.author, g]));
+
     for (const item of body.items) {
         if (!item.content || !item.type) continue;
 
@@ -219,7 +223,7 @@ interviewRoutes.post("/import", async (c) => {
                 : `[${item.type === "proof_point" ? "Proof Point" : "Anecdote"}] ${item.content}`;
 
             for (const topicId of item.topicFields) {
-                const topic = topics.find(t => t.id === topicId);
+                const topic = topicsMap.get(topicId);
                 if (topic) {
                     topic.facts.push(factContent);
                     topicsModified = true;
@@ -230,10 +234,11 @@ interviewRoutes.post("/import", async (c) => {
         } else if (item.type === "quote") {
             // Import as quote into canonical kb_quotes key
             const authorKey = item.author || "alex";
-            let group = quoteGroups.find(g => g.author === authorKey);
+            let group = quoteGroupsMap.get(authorKey);
             if (!group) {
                 group = { author: authorKey, name: authorKey, quotes: [] };
                 quoteGroups.push(group);
+                quoteGroupsMap.set(authorKey, group);
             }
             group.quotes.push({
                 id: item.id,
