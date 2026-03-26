@@ -18,5 +18,9 @@ Outdated dependencies, security advisories, TypeScript hygiene, build/bundle hea
 3. Type errors → Medium
 4. any-type growth → Low
 
+### Already Addressed (skip these)
+- ✅ Hono upgraded to ^4.12.9 (CVE GHSA-v8w9-8mx6-g223 fixed)
+- ✅ card.tsx has no type errors
+
 ### PR Title Format
 `🔍 WÄCHTER: [description]`

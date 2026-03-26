@@ -12,6 +12,12 @@ Micro-UX issues, accessibility gaps, visual consistency, loading states, respons
 4. `grep -rn "transition\|animate\|motion" b-content/src --include="*.css" --include="*.tsx"` — animation usage
 5. Review `b-content/src/app/components/` for missing focus-visible, keyboard nav, or screen-reader labels
 
+### Already Polished (skip these)
+- ✅ TopicEditor: aria-label + title on all icon-only buttons
+- ✅ Knowledge Viewer: ARIA labels on interactive elements
+- ✅ Error dismissal buttons: accessibility labels
+- ✅ Cards: keyboard accessibility (tabIndex, Enter/Space handlers)
+
 ### Priority
 1. Missing keyboard navigation on interactive elements → High
 2. Missing loading/error states → High

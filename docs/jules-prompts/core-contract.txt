@@ -38,10 +38,31 @@ ELSE:
 - Run test gate
 - If either fails → revert change, switch to REPORT mode
 
-## Idempotency
-- Before reporting/fixing: check recent PRs (`gh pr list --author "jules-google[bot]" --limit 10`)
-- Skip any finding already addressed in an open or recently merged PR
-- If nothing new found: output "✅ All clear — no action needed" and stop
+## Idempotency (CRITICAL — read carefully)
+
+### Step 1: Check ALL open PRs
+```bash
+gh pr list --author "jules-google[bot]" --state open --limit 50
+```
+- If an open PR already addresses your finding → **SKIP**. Do NOT create a duplicate.
+
+### Step 2: Check recently merged PRs (last 20)
+```bash
+gh pr list --author "jules-google[bot]" --state merged --limit 20
+```
+- If a merged PR already fixed this → **SKIP**.
+
+### Step 3: Verify the issue still exists in main
+Before fixing, **read the actual code on main** to confirm the problem is real:
+```bash
+git show main:<file-path> | head -50
+```
+- If the code on main already handles the issue → **SKIP**.
+- Do NOT rely solely on scan output — always verify against the current source.
+
+### Step 4: Decision
+- If nothing new found after all three checks: output "✅ All clear — no action needed" and **stop immediately**.
+- Do NOT create a PR that duplicates existing work.
 
 ## Failure Handling
 - If a scan command fails: log the error, continue to next command
@@ -70,18 +91,33 @@ ELSE:
 [Recommendation for next run or human follow-up]
 ```
 
+## PR Naming Convention (MANDATORY)
+
+Use EXACTLY the prefix assigned to your persona. Do NOT invent new names.
+
+| Persona   | PR Title Prefix          |
+|-----------|--------------------------|
+| stahl     | `🔩 STAHL: [description]`   |
+| glut      | `🔥 GLUT: [description]`    |
+| zink      | `🛡️ ZINK: [description]`    |
+| schliff   | `✨ SCHLIFF: [description]`  |
+| waechter  | `🔍 WÄCHTER: [description]` |
+
+Forbidden names: Bolt, Sentinel, Palette, or any other alias. Use ONLY the table above.
+
 ## Command Whitelist (run in order)
 1. `cat b-content/AGENTS.md` — load project rules
-2. Persona-specific scan commands (defined in persona lens below)
-3. `gh pr list --author "jules-google[bot]" --limit 10` — idempotency check
-4. [If fixing] Apply change
-5. `cd b-content && npx vite build` — build gate
-6. `cd b-content && npx playwright test` — test gate
-7. Output report in schema format above
+2. `gh pr list --author "jules-google[bot]" --state open --limit 50` — idempotency check (BEFORE scanning)
+3. Persona-specific scan commands (defined in persona lens below)
+4. Verify finding against main: `git show main:<path>` — confirm issue still exists
+5. [If fixing] Apply change
+6. `cd b-content && npx vite build` — build gate
+7. `cd b-content && npx playwright test` — test gate
+8. Output report in schema format above
 
 ## Boundaries
-✅ Always: follow AGENTS.md rules, run gates, use output schema
-🚫 Never: modify package.json dependencies without instruction, create files outside b-content/, change more than 5 files, skip the build gate
+✅ Always: follow AGENTS.md rules, run gates, use output schema, use correct PR title prefix
+🚫 Never: modify package.json dependencies without instruction, create files outside b-content/, change more than 5 files, skip the build gate, modify package-lock.json unless the task explicitly requires dependency changes
 
 ---
 

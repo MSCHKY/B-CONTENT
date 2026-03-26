@@ -20,6 +20,9 @@ Input validation gaps, XSS vectors, API key exposure, CORS issues, error informa
 - ✅ CORS restricted to production origin
 - ✅ R2 key validation (alphanumeric + slashes only)
 - ✅ Global error handler masking internal errors
+- ✅ Secure headers middleware (secureHeaders from hono/secure-headers) on /api/*
+- ✅ Pagination limits on /api/posts (Math.min(limit, 100), NaN/negative guards)
+- ✅ Interview route input sanitization
 
 ### Priority
 1. npm audit Critical/High findings → Critical

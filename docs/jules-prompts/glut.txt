@@ -12,6 +12,12 @@ Bundle size, unnecessary re-renders, N+1 patterns, missing memoization, lazy loa
 4. `grep -rn "fetch\|sql\|db\." b-content/worker/routes --include="*.ts"` — DB call patterns
 5. `grep -rn "React.memo\|useMemo\|useCallback" b-content/src --include="*.tsx" | wc -l` — memoization usage
 
+### Already Optimized (skip these)
+- ✅ MonthGrid: useMemo Map/Set lookups for posts-by-date and conflict detection
+- ✅ Interview import: Map-based O(1) lookups for topics and quoteGroups
+- ✅ Sidebar: useShallow from Zustand to prevent re-renders
+- ✅ Stats queries: concurrent D1 queries via Promise.allSettled
+
 ### Priority
 1. N+1 query patterns (loop + DB call) → Critical
 2. Bundle chunks > 200KB → High
