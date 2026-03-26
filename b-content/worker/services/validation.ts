@@ -34,12 +34,16 @@ const instanceCharRanges: Record<InstanceId, Record<string, { min: number, max: 
 
 export const sanitizeText = (text: any): string => {
     if (typeof text !== "string") return "";
-    // Replace dangerous HTML characters to prevent XSS.
-    // React handles XSS via JSX escaping, but we sanitize inputs
-    // before they hit the database or external APIs.
+    // Strip dangerous HTML tags but preserve normal punctuation.
+    // React handles XSS via JSX escaping — we only need to prevent
+    // actual script injection, not encode quotes/apostrophes.
     return text
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
+        .replace(/<script[^>]*>.*?<\/script>/gi, "")
+        .replace(/<iframe[^>]*>.*?<\/iframe>/gi, "")
+        .replace(/<object[^>]*>.*?<\/object>/gi, "")
+        .replace(/<embed[^>]*>/gi, "")
+        .replace(/on\w+\s*=\s*["'][^"']*["']/gi, "")
+        .replace(/javascript\s*:/gi, "")
         .trim();
 };
 
