@@ -65,6 +65,7 @@ export function TopicEditor({ topicId, facts: initialFacts, keywords: initialKey
                                 onClick={() => removeFact(i)}
                                 className="opacity-0 group-hover:opacity-100 text-red-400 hover:text-red-300 transition-opacity cursor-pointer shrink-0"
                                 title={t.knowledge.editor.delete}
+                                aria-label={t.knowledge.editor.delete}
                             >
                                 <Trash2 size={14} />
                             </button>
@@ -84,6 +85,8 @@ export function TopicEditor({ topicId, facts: initialFacts, keywords: initialKey
                         onClick={addFact}
                         disabled={!newFact.trim()}
                         className="px-2 py-1.5 rounded-lg bg-deep-green/20 text-deep-green hover:bg-deep-green/30 transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                        aria-label={t.knowledge.editor.addFact}
+                        title={t.knowledge.editor.addFact}
                     >
                         <Plus size={14} />
                     </button>
@@ -105,6 +108,8 @@ export function TopicEditor({ topicId, facts: initialFacts, keywords: initialKey
                             <button
                                 onClick={() => removeKeyword(i)}
                                 className="hover:text-red-400 transition-colors cursor-pointer"
+                                aria-label={t.knowledge.editor.delete}
+                                title={t.knowledge.editor.delete}
                             >
                                 <X size={10} />
                             </button>
@@ -124,6 +129,8 @@ export function TopicEditor({ topicId, facts: initialFacts, keywords: initialKey
                         onClick={addKeyword}
                         disabled={!newKeyword.trim()}
                         className="px-2 py-1.5 rounded-lg bg-crisp-cyan/20 text-crisp-cyan hover:bg-crisp-cyan/30 transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                        aria-label={t.knowledge.editor.addKeyword}
+                        title={t.knowledge.editor.addKeyword}
                     >
                         <Plus size={14} />
                     </button>
