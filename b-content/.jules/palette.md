@@ -1,0 +1,3 @@
+## 2024-03-27 - Added Accessible Error Dismissal Buttons
+**Learning:** Found an accessibility issue pattern across multiple components where error message dismissal buttons (`✕` icons) lacked proper `aria-label`, `title`, and `type="button"` attributes. They also lacked explicit focus states (`focus-visible:ring-2`), making them hard to use for keyboard navigators and invisible to screen readers.
+**Action:** When implementing icon-only interactive elements (like error dismissal buttons), always include an English `aria-label` and `title` (e.g., "Close error message") matching the application's UI language, `type="button"` to prevent unintended form submissions, and explicit `focus-visible` utility classes for keyboard accessibility.
