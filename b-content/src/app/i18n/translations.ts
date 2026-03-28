@@ -244,6 +244,7 @@ export interface Translations {
     common: {
         loading: string;
         error: string;
+        dismissError: string;
         actionFailed: string;
         noData: string;
     };
@@ -478,6 +479,7 @@ export const de: Translations = {
     common: {
         loading: "Wird geladen…",
         error: "Ein Fehler ist aufgetreten.",
+        dismissError: "Fehlermeldung schließen",
         actionFailed: "Aktion fehlgeschlagen.",
         noData: "Keine Daten verfügbar.",
     },
@@ -712,6 +714,7 @@ export const en: Translations = {
     common: {
         loading: "Loading…",
         error: "An error occurred.",
+        dismissError: "Dismiss error message",
         actionFailed: "Action failed.",
         noData: "No data available.",
     },
