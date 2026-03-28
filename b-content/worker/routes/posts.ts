@@ -240,6 +240,7 @@ postRoutes.patch("/:id", async (c) => {
     const params: (string | number)[] = [];
 
     if (body.text !== undefined) {
+        body.text = sanitizeText(body.text);
         updates.push("text = ?");
         params.push(body.text);
         updates.push("char_count = ?");
@@ -250,6 +251,7 @@ postRoutes.patch("/:id", async (c) => {
         params.push(body.status);
     }
     if (body.hashtags !== undefined) {
+        body.hashtags = body.hashtags.map(h => sanitizeText(h));
         updates.push("hashtags = ?");
         params.push(JSON.stringify(body.hashtags));
     }
