@@ -104,23 +104,30 @@ export function Orchestrate() {
         let saved = 0;
 
         try {
-            for (const post of posts) {
-                const response = await fetch("/api/posts", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        instance: post.instance,
-                        contentType: post.contentType,
-                        topicFields: [topicField],
-                        text: post.text,
-                        language,
-                        hashtags: post.hashtags,
-                        charCount: post.charCount,
-                        isPersonal: false,
-                    }),
-                });
+            // Bolt: Replace sequential fetch calls with concurrent Promise.all to improve performance
+            const results = await Promise.all(
+                posts.map((post) =>
+                    fetch("/api/posts", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            instance: post.instance,
+                            contentType: post.contentType,
+                            topicFields: [topicField],
+                            text: post.text,
+                            language,
+                            hashtags: post.hashtags,
+                            charCount: post.charCount,
+                            isPersonal: false,
+                        }),
+                    })
+                )
+            );
+
+            for (const response of results) {
                 if (response.ok) saved++;
             }
+
             setSaveResult(
                 `${saved}/${posts.length} posts saved to Library`,
             );
