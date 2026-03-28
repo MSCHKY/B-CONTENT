@@ -40,7 +40,8 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
         const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
             if (isInteractive && (e.key === "Enter" || e.key === " ")) {
                 e.preventDefault();
-                onClick(e as any);
+                // 🔍 WÄCHTER: Cast via unknown to satisfy strict type requirements without altering runtime behavior for simulated clicks
+                onClick(e as unknown as React.MouseEvent<HTMLDivElement>);
             }
             onKeyDown?.(e);
         };
