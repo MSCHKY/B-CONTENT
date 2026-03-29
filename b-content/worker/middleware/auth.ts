@@ -25,9 +25,9 @@ export async function requireAuth(c: Context<{ Bindings: Env }>, next: Next) {
         return next();
     }
 
-    // In dev/preview, skip auth check
+    // In development, skip auth check
     const env = c.env.ENVIRONMENT || "development";
-    if (env !== "production") {
+    if (env === "development") {
         return next();
     }
 
@@ -43,7 +43,8 @@ export async function requireAuth(c: Context<{ Bindings: Env }>, next: Next) {
     }
 
     // Log authenticated access for audit trail
-    console.log(`[Auth] ${method} ${c.req.path} by ${userEmail}`);
+    const redactedEmail = userEmail.replace(/^(.)(.*)(@.*)$/, (_, f, _m, d) => f + "***" + d);
+    console.log(`[Auth] ${method} ${c.req.path} by ${redactedEmail}`);
 
     return next();
 }
